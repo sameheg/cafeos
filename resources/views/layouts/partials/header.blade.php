@@ -50,6 +50,10 @@
 
 
             <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-end tw-gap-3">
+                <select id="theme-select" class="tw-text-sm tw-rounded-lg tw-py-1.5 tw-px-2">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
                 @if (Module::has('Essentials'))
                     @includeIf('essentials::layouts.partials.header_part')
                 @endif
@@ -248,7 +252,33 @@
                         </li>
                     </ul>
                 </details>
-            </div>
-        </div>
-    </div>
 </div>
+</div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const baseThemePath = "{{ asset('css/themes') }}";
+    const select = document.getElementById('theme-select');
+    if (!select) return;
+    const storedTheme = localStorage.getItem('theme') || "{{ auth()->check() ? (auth()->user()->settings['theme'] ?? 'light') : 'light' }}";
+    select.value = storedTheme;
+    select.addEventListener('change', function () {
+        const theme = this.value;
+        const link = document.getElementById('theme-style');
+        if (link) {
+            link.setAttribute('href', baseThemePath + '/' + theme + '.css');
+        }
+        localStorage.setItem('theme', theme);
+        fetch("{{ route('theme.update') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')
+            },
+            body: JSON.stringify({theme: theme})
+        });
+    });
+});
+</script>

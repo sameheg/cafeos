@@ -63,6 +63,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariationTemplateController;
 use App\Http\Controllers\WarrantyController;
+use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\Auth\TwoFactorController;
 use Illuminate\Support\Facades\Route;
 
@@ -106,6 +107,7 @@ Route::middleware('setTenant')->group(function () {
 
 //Routes for authenticated users only
 Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin'])->group(function () {
+    Route::post('theme', [ThemeController::class, 'update'])->name('theme.update');
     Route::get('pos/payment/{id}', [SellPosController::class, 'edit'])->name('edit-pos-payment');
     Route::get('service-staff-availability', [SellPosController::class, 'showServiceStaffAvailibility']);
     Route::get('pause-resume-service-staff-timer/{user_id}', [SellPosController::class, 'pauseResumeServiceStaffTimer']);

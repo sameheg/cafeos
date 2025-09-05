@@ -37,6 +37,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $casts = [
+        'settings' => 'array',
+    ];
+
     // change api guard to web
     protected $guard_name = 'web';
 
