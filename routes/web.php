@@ -310,6 +310,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/reports/get-profit/{by?}', [ReportController::class, 'getProfit']);
     Route::get('/reports/items-report', [ReportController::class, 'itemsReport']);
     Route::get('/reports/get-stock-value', [ReportController::class, 'getStockValue']);
+    Route::get('/reports/export-transactions', [ReportController::class, 'exportTransactions']);
 
     Route::get('business-location/activate-deactivate/{location_id}', [BusinessLocationController::class, 'activateDeactivateLocation']);
 

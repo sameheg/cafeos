@@ -21,11 +21,14 @@ use App\TransactionSellLine;
 use App\TransactionSellLinesPurchaseLines;
 use App\Unit;
 use App\User;
+use App\Exports\TransactionsExport;
+use App\Services\Accounting\QuickBooksService;
 use App\Utils\BusinessUtil;
 use App\Utils\ModuleUtil;
 use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
 use App\Variation;
+use Maatwebsite\Excel\Facades\Excel;
 use Datatables;
 use DB;
 use Illuminate\Http\Request;
@@ -76,6 +79,20 @@ class ReportController extends Controller
             'opening_stock_by_sp' => $opening_stock_by_sp,
             'closing_stock_by_sp' => $closing_stock_by_sp,
         ];
+    }
+
+    /**
+     * Export transactions in QuickBooks format.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportTransactions(QuickBooksService $quickBooksService)
+    {
+        if (! auth()->user()->can('reports.export_transactions')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return Excel::download(new TransactionsExport($quickBooksService), 'transactions.xlsx');
     }
 
     /**
