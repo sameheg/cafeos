@@ -6,6 +6,7 @@ namespace App\Backup\Cleanup;
 use Spatie\Backup\Tasks\Cleanup\CleanupStrategy;
 use Spatie\Backup\BackupDestination\BackupCollection;
 use Spatie\Backup\BackupDestination\BackupDestination;
+use App\Models\BackupSetting;
 
 class KeepLatestBackups extends CleanupStrategy
 {
@@ -14,8 +15,9 @@ class KeepLatestBackups extends CleanupStrategy
         // Sort the backups by date in descending order
         $backups = $backups->sortByDesc('date');
 
-        // Keep only the latest 5 backups
-        $backupsToKeep = $backups->slice(0, 5);
+        // Keep only the configured number of backups
+        $retain = optional(BackupSetting::first())->retain_copies ?? 5;
+        $backupsToKeep = $backups->slice(0, $retain);
 
         // Delete old backups except those to keep
         foreach ($backups as $backup) {
