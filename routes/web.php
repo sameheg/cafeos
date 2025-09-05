@@ -108,6 +108,9 @@ Route::middleware('setTenant')->group(function () {
             ->name('invoice_payment');
         Route::post('/confirm-payment/{id}', [SellPosController::class, 'confirmPayment'])
             ->name('confirm_payment');
+
+        Route::view('/customer-portal', 'customer-portal.index')
+            ->name('customer.portal');
     });
 });
 

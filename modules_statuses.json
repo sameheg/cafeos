@@ -22,4 +22,6 @@
     "ZatcaIntegrationKsa": true,
     "Integrations": true,
     "ModuleName": true
+    "ModuleName": true,
+    "HR": true
 }
