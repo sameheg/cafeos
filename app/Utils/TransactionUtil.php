@@ -3255,9 +3255,10 @@ class TransactionUtil extends Util
      * @param  string  $mapping_type = purchase (purchase or stock_adjustment)
      * @param  bool  $check_expiry = true
      * @param  int  $purchase_line_id (default: null)
+     * @param  bool  $process_recipe = true
      * @return object
      */
-    public function mapPurchaseSell($business, $transaction_lines, $mapping_type = 'purchase', $check_expiry = true, $purchase_line_id = null)
+    public function mapPurchaseSell($business, $transaction_lines, $mapping_type = 'purchase', $check_expiry = true, $purchase_line_id = null, $process_recipe = true)
     {
         if (empty($transaction_lines)) {
             return false;
@@ -3458,6 +3459,10 @@ class TransactionUtil extends Util
             if (! empty($purchase_sell_map)) {
                 TransactionSellLinesPurchaseLines::insert($purchase_sell_map);
             }
+
+            if ($process_recipe) {
+                $this->processRecipeIngredients($business, $line, $mapping_type, $check_expiry);
+            }
         }
     }
 
@@ -3593,6 +3598,61 @@ class TransactionUtil extends Util
                 $this->mapPurchaseSell($business, $new_sell_lines);
             }
         }
+    }
+
+    private function processRecipeIngredients($business, $sell_line, $mapping_type, $check_expiry)
+    {
+        $recipe = DB::table('mfg_recipes')->where('variation_id', $sell_line->variation_id)->first();
+        if (empty($recipe)) {
+            return;
+        }
+
+        $ingredients = DB::table('mfg_recipe_ingredients')->where('mfg_recipe_id', $recipe->id)->get();
+        foreach ($ingredients as $ingredient) {
+            $variation = Variation::find($ingredient->variation_id);
+            if (empty($variation)) {
+                continue;
+            }
+
+            $qty_required = $ingredient->quantity * $sell_line->quantity;
+            $this->adjustQuantity($business['location_id'], $variation->product_id, $variation->id, -1 * $qty_required);
+
+            $ingredient_line = (object) [
+                'id' => $sell_line->id,
+                'product_id' => $variation->product_id,
+                'variation_id' => $variation->id,
+                'quantity' => $qty_required,
+            ];
+
+            $this->mapPurchaseSell($business, [$ingredient_line], $mapping_type, $check_expiry, null, false);
+        }
+    }
+
+    public function checkRecipeIngredientStock($products, $location_id)
+    {
+        foreach ($products as $product) {
+            $multiplier = ! empty($product['base_unit_multiplier']) ? $product['base_unit_multiplier'] : 1;
+            $qty = $this->num_uf($product['quantity']) * $multiplier;
+
+            $recipe = DB::table('mfg_recipes')->where('variation_id', $product['variation_id'])->first();
+            if (empty($recipe)) {
+                continue;
+            }
+
+            $ingredients = DB::table('mfg_recipe_ingredients')->where('mfg_recipe_id', $recipe->id)->get();
+            foreach ($ingredients as $ingredient) {
+                $required = $ingredient->quantity * $qty;
+                $available = VariationLocationDetails::where('variation_id', $ingredient->variation_id)
+                    ->where('location_id', $location_id)
+                    ->sum('qty_available');
+
+                if ($available < $required) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**

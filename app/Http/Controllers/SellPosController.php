@@ -385,6 +385,18 @@ class SellPosController extends Controller
 
                 $user_id = $request->session()->get('user.id');
 
+                $ingredients_available = $this->transactionUtil->checkRecipeIngredientStock($input['products'], $input['location_id']);
+                if (!$ingredients_available) {
+                    $output = ['success' => 0,
+                        'msg' => __('lang_v1.item_out_of_stock'),
+                    ];
+                    if (!$is_direct_sale) {
+                        return $output;
+                    } else {
+                        return redirect()->action([\App\Http\Controllers\SellController::class, 'index'])->with('status', $output);
+                    }
+                }
+
                 $discount = ['discount_type' => $input['discount_type'],
                     'discount_amount' => $input['discount_amount'],
                 ];
