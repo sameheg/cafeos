@@ -23,3 +23,7 @@ docker-compose up --build
 ```
 
 The application will be available at [http://localhost:8000](http://localhost:8000).
+
+## Debugging
+
+Debugging is disabled by default. To enable detailed error output, set `APP_DEBUG=true` in your `.env` file or appropriate environment variable and reload the application.

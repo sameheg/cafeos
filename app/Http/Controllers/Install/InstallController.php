@@ -49,7 +49,7 @@ class InstallController extends Controller
      */
     private function installSettings()
     {
-        config(['app.debug' => true]);
+        config(['app.debug' => env('APP_DEBUG', false)]);
         Artisan::call('config:clear');
         Artisan::call('cache:clear');
     }
@@ -178,7 +178,7 @@ class InstallController extends Controller
                 'MAIL_FROM_ADDRESS', 'MAIL_FROM_NAME', 'MAIL_HOST', 'MAIL_PORT', 'MAIL_ENCRYPTION',
                 'MAIL_USERNAME', 'MAIL_PASSWORD', ]);
 
-            $input['APP_DEBUG'] = 'false';
+            $input['APP_DEBUG'] = env('APP_DEBUG', false) ? 'true' : 'false';
             $input['APP_URL'] = url('/');
             $input['APP_ENV'] = 'live';
 
