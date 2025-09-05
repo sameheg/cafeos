@@ -459,6 +459,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::prefix('modules')->group(function () {
         Route::resource('tables', Restaurant\TableController::class);
         Route::resource('modifiers', Restaurant\ModifierSetsController::class);
+        Route::resource('waiter-shifts', Restaurant\WaiterShiftController::class);
+        Route::resource('table-assignments', Restaurant\TableAssignmentController::class);
 
         //Map modifier to products
         Route::get('/product-modifiers/{id}/edit', [Restaurant\ProductModifierSetController::class, 'edit']);
