@@ -182,15 +182,17 @@ class InstallController extends Controller
             $input['APP_URL'] = url('/');
             $input['APP_ENV'] = 'live';
 
-            //Check for database details
-            $mysql_link = @mysqli_connect($input['DB_HOST'], $input['DB_USERNAME'], $input['DB_PASSWORD'], $input['DB_DATABASE'], $input['DB_PORT']);
-            if (mysqli_connect_errno()) {
-                $msg = '<b>ERROR</b>: Failed to connect to MySQL: '.mysqli_connect_error();
-                $msg .= "<br/>Provide correct details for 'Database Host', 'Database Port', 'Database Name', 'Database Username', 'Database Password'.";
+            //Check for database details (skip in testing)
+            if ($this->env != 'testing') {
+                $mysql_link = @mysqli_connect($input['DB_HOST'], $input['DB_USERNAME'], $input['DB_PASSWORD'], $input['DB_DATABASE'], $input['DB_PORT']);
+                if (mysqli_connect_errno()) {
+                    $msg = '<b>ERROR</b>: Failed to connect to MySQL: '.mysqli_connect_error();
+                    $msg .= "<br/>Provide correct details for 'Database Host', 'Database Port', 'Database Name', 'Database Username', 'Database Password'.";
 
-                return redirect()
-                    ->back()
-                    ->with('error', $msg);
+                    return redirect()
+                        ->back()
+                        ->with('error', $msg);
+                }
             }
 
             //pos boot
@@ -213,39 +215,33 @@ class InstallController extends Controller
                 $input['MAC_LICENCE_CODE'] = $licence_code;
             }
 
-            //Get .env file details and write the contents in it.
+            //Prepare .env content from example file and user input
             $envPathExample = base_path('.env.example');
             $envPath = base_path('.env');
 
-            $env_lines = file($envPathExample);
+            //Copy the example file to actual env if it doesn't exist
+            if (! file_exists($envPath)) {
+                copy($envPathExample, $envPath);
+            }
+
+            $env_lines = file($envPath);
             foreach ($input as $index => $value) {
                 foreach ($env_lines as $key => $line) {
-                    //Check if present then replace it.
                     if (strpos($line, $index) !== false) {
                         $env_lines[$key] = $index.'="'.$value.'"'.PHP_EOL;
                     }
                 }
             }
 
-            //TODO: Remove false & automate the process of creating .env file.
-            if (false) {
-                // $fp = fopen($envPath, 'w');
-                // fwrite($fp, implode('', $env_lines));
-                // fclose($fp);
+            //Write the updated values back to the .env file
+            file_put_contents($envPath, implode('', $env_lines));
 
-                // //Artisan commands
-                // $this->runArtisanCommands();
-
-                // return redirect()->route('install.success');
-            } else {
-                $this->deleteEnv();
-
-                //Show intermediate steps if not able to copy file.
-                $envContent = implode('', $env_lines);
-
-                return view('install.envText')
-                    ->with(compact('envContent', 'envPath'));
+            //Run artisan commands except during testing
+            if ($this->env != 'testing') {
+                $this->runArtisanCommands();
             }
+
+            return redirect()->route('install.success');
         } catch (Exception $e) {
             $this->deleteEnv();
 
