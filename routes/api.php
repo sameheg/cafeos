@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MenuSuggestionController;
 use Modules\Reporting\Services\ForecastService;
 use App\Contact;
 use App\Transaction;
+use Modules\Inventory\Http\Controllers\InventoryApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,7 @@ Route::middleware('customer.auth')->group(function () {
         return ['orders' => $orders];
     });
 });
+
+
+Route::post('inventory/movements', [InventoryApiController::class, 'recordMovement']);
+Route::get('inventory/levels', [InventoryApiController::class, 'levels']);
