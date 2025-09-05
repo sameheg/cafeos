@@ -272,7 +272,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::resource('pos', SellPosController::class);
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
-        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store','edit','update','destroy']);
     });
 
     Route::resource('roles', RoleController::class);
