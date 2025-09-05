@@ -9,6 +9,13 @@ class KdsService
     /** @var callable[] */
     private array $listeners = [];
 
+    /** @var array<int,float> */
+    private array $startTimes = [];
+
+    public function __construct(private KdsMetrics $metrics)
+    {
+    }
+
     /**
      * Register a display callback that will receive tickets.
      */
@@ -24,7 +31,26 @@ class KdsService
      */
     public function receiveTicket(array $ticket): void
     {
+        $id = (int) ($ticket['id'] ?? 0);
+        $this->startTimes[$id] = microtime(true);
+        $this->metrics->queueAdded();
+
         $this->broadcast($ticket);
+    }
+
+    /**
+     * Mark a ticket as completed and record metrics.
+     */
+    public function completeTicket(int $ticketId): void
+    {
+        if (!isset($this->startTimes[$ticketId])) {
+            return;
+        }
+
+        $started = $this->startTimes[$ticketId];
+        unset($this->startTimes[$ticketId]);
+        $this->metrics->queueRemoved();
+        $this->metrics->recordPreparation(microtime(true) - $started);
     }
 
     /**

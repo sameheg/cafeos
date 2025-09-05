@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/../src/KdsMetrics.php';
 require_once __DIR__ . '/../src/KdsService.php';
 require_once __DIR__ . '/../src/TicketEndpoint.php';
 
@@ -10,7 +11,7 @@ final class TicketFlowTest extends TestCase
 {
     public function testTicketBroadcastToDisplay(): void
     {
-        $service = new KdsService();
+        $service = new KdsService(new KdsMetrics());
         $endpoint = new TicketEndpoint($service);
         $received = null;
         $service->registerDisplay(function (array $ticket) use (&$received): void {

@@ -25,4 +25,17 @@ class TicketEndpoint
             'ticket' => $ticket,
         ];
     }
+
+    /**
+     * Mark a ticket as completed.
+     */
+    public function complete(int $ticketId): array
+    {
+        $this->service->completeTicket($ticketId);
+
+        return [
+            'status' => 'completed',
+            'id' => $ticketId,
+        ];
+    }
 }
