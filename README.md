@@ -31,3 +31,11 @@ Debugging is disabled by default. To enable detailed error output, set `APP_DEBU
 ## Two-Factor Authentication
 
 To protect accounts, users may enable two-factor authentication. While logged in visit `/two-factor` to generate a secret key and recovery codes. After enabling, the login process will ask for a time based one-time password from your authenticator app. Two-factor authentication can be disabled at any time from the same page.
+
+## Forecast Service
+
+The reporting module includes a simple forecast calculator that divides total available stock by total sales.
+
+- **Sales** are read from the existing `transactions` table using the `Transaction` model and include rows of type `sell`.
+- **Inventory** levels are obtained from the `variation_location_details` table via the `VariationLocationDetails` model.
+- Ensure these tables are migrated before invoking `Modules\Reporting\Services\ForecastService`.
