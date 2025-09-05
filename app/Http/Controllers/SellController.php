@@ -863,7 +863,23 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+
+        if (!empty($input['products'])) {
+            $ingredients_available = $this->transactionUtil->checkRecipeIngredientStock(
+                $input['products'],
+                $request->get('location_id')
+            );
+
+            if (!$ingredients_available) {
+                return [
+                    'success' => 0,
+                    'msg' => __('lang_v1.item_out_of_stock'),
+                ];
+            }
+        }
+
+        // Existing store logic continues here
     }
 
     /**
