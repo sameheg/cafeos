@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
@@ -13,7 +13,14 @@ class RecipeSyncTest extends TestCase
 {
     protected function setUp(): void
     {
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+
         parent::setUp();
+
+        $this->withoutMiddleware();
+
+        Route::post('/api/catalog/recipes/sync', [\App\Http\Controllers\API\RecipeApiController::class, 'sync']);
 
         config(['database.default' => 'sqlite']);
         config(['database.connections.sqlite' => [
@@ -30,6 +37,14 @@ class RecipeSyncTest extends TestCase
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('products', function (Blueprint $table) {
+            $table->increments('id');
+        });
+
+        Schema::create('variations', function (Blueprint $table) {
+            $table->increments('id');
         });
 
         Schema::create('mfg_recipes', function (Blueprint $table) {
@@ -61,8 +76,6 @@ class RecipeSyncTest extends TestCase
     {
         $this->seed(RecipeTestSeeder::class);
 
-        $user = User::factory()->create();
-
         $payload = [
             'product_id' => 1,
             'variation_id' => 1,
@@ -72,11 +85,7 @@ class RecipeSyncTest extends TestCase
             ],
         ];
 
-        $response = $this->actingAs($user)->postJson('/catalog/recipes/sync', $payload);
-
-        if ($response->status() === 404) {
-            $this->markTestIncomplete('Recipe sync endpoint not implemented.');
-        }
+        $response = $this->postJson('/api/catalog/recipes/sync', $payload);
 
         $response->assertStatus(200);
 
@@ -91,12 +100,44 @@ class RecipeSyncTest extends TestCase
             'quantity' => 2,
         ]);
     }
+
+    /** @test */
+    public function it_rejects_invalid_ingredient_variation()
+    {
+        $this->seed(RecipeTestSeeder::class);
+
+        $payload = [
+            'product_id' => 1,
+            'variation_id' => 1,
+            'ingredients' => [
+                ['variation_id' => 999, 'quantity' => 2],
+            ],
+        ];
+
+        $response = $this->postJson('/api/catalog/recipes/sync', $payload);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('ingredients.0.variation_id');
+        $this->assertSame(
+            'Ingredient variation 999 does not exist.',
+            $response->json('errors')['ingredients.0.variation_id'][0]
+        );
+    }
 }
 
 class RecipeTestSeeder extends Seeder
 {
     public function run()
     {
+        DB::table('products')->insert([
+            'id' => 1,
+        ]);
+
+        DB::table('variations')->insert([
+            ['id' => 1],
+            ['id' => 2],
+        ]);
+
         DB::table('mfg_recipes')->insert([
             'id' => 1,
             'product_id' => 1,

@@ -12,13 +12,19 @@ class RecipeApiController extends Controller
 {
     public function sync(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'product_id' => 'required|integer|exists:products,id',
-            'variation_id' => 'required|integer',
-            'ingredients' => 'required|array|min:1',
-            'ingredients.*.variation_id' => 'required|integer',
-            'ingredients.*.quantity' => 'required|numeric',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'product_id' => 'required|integer|exists:products,id',
+                'variation_id' => 'required|integer',
+                'ingredients' => 'required|array|min:1',
+                'ingredients.*.variation_id' => 'required|integer|exists:variations,id',
+                'ingredients.*.quantity' => 'required|numeric',
+            ],
+            [
+                'ingredients.*.variation_id.exists' => 'Ingredient variation :input does not exist.',
+            ]
+        );
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
