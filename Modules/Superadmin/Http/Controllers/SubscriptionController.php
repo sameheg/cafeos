@@ -21,9 +21,7 @@ class SubscriptionController extends Controller
         $subscription = Subscription::create([
             'tenant_id' => $tenant->id,
             'plan_id' => $plan->id,
-            'starts_at' => now(),
-            'ends_at' => now()->addMonth(),
-            'status' => 'active',
+            'status' => 'pending',
         ]);
 
         $invoice = Invoice::create([
@@ -31,14 +29,29 @@ class SubscriptionController extends Controller
             'subscription_id' => $subscription->id,
             'amount' => $plan->price,
             'gateway' => 'pesapal',
-            'status' => 'paid',
+            'status' => 'pending',
         ]);
 
-        // Initiate payment using PesaPal (simplified)
+        // Initiate payment using PesaPal and confirm transaction status
         try {
             Pesapal::makePayment($invoice->id, $plan->price);
+
+            $status = Pesapal::getMerchantStatus($invoice->id);
+
+            if (in_array(strtoupper($status), ['COMPLETED', 'PAID', 'CONFIRMED'])) {
+                $invoice->update([
+                    'status' => 'paid',
+                    'paid_at' => now(),
+                ]);
+
+                $subscription->update([
+                    'status' => 'active',
+                    'starts_at' => now(),
+                    'ends_at' => now()->addMonth(),
+                ]);
+            }
         } catch (\Throwable $e) {
-            // In test environment, payment is mocked
+            // In test environment, payment is mocked or verification failed.
         }
 
         return redirect()->route('superadmin.pricing');
