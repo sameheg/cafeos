@@ -140,6 +140,7 @@
         @endif
         <div>
 
+            <div id="network-indicator" class="network-indicator"></div>
             <div class="overlay tw-hidden"></div>
         </div>
 </body>
@@ -175,6 +176,20 @@
 
     #scrollable-container{
         position:relative;
+    }
+
+    .network-indicator {
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        background: #38a169;
+        color: #fff;
+        border-radius: 0.25rem;
+        z-index: 9999;
+    }
+    .network-indicator.offline {
+        background: #e53e3e;
     }
     
 
