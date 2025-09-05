@@ -74,7 +74,7 @@ class DemandForecastServiceTest extends TestCase
     public function test_generate_returns_forecast()
     {
         $service = new DemandForecastService();
-        $forecast = $service->generate();
+        $forecast = $service->generate(businessId: 1);
 
         $this->assertEquals(10, $forecast[1]);
     }
@@ -82,10 +82,11 @@ class DemandForecastServiceTest extends TestCase
     public function test_update_forecasted_demands_table()
     {
         $service = new DemandForecastService();
-        $service->updateForecastedDemands();
+        $service->updateForecastedDemands(1);
 
         $record = DB::table('forecasted_demands')->where('product_id', 1)->first();
         $this->assertNotNull($record);
+        $this->assertEquals(1, $record->business_id);
         $this->assertEquals(10, (float) $record->forecast_quantity);
     }
 }
