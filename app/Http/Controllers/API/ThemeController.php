@@ -28,6 +28,8 @@ class ThemeController extends Controller
             'name' => 'nullable|string',
             'primary_color' => 'nullable|string',
             'secondary_color' => 'nullable|string',
+            'logo' => 'nullable|string',
+            'font' => 'nullable|string',
             'layout' => 'nullable|string',
         ]);
         $theme = $this->themes->createTheme($data);
@@ -45,6 +47,8 @@ class ThemeController extends Controller
             'name' => 'nullable|string',
             'primary_color' => 'nullable|string',
             'secondary_color' => 'nullable|string',
+            'logo' => 'nullable|string',
+            'font' => 'nullable|string',
             'layout' => 'nullable|string',
         ]);
         $theme = $this->themes->updateTheme($theme, $data);
