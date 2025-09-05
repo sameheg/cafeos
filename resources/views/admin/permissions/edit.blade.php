@@ -12,4 +12,3 @@
         <button type="submit">Update</button>
     </form>
 @endsection
-
