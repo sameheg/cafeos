@@ -52,10 +52,12 @@ class Controller extends BaseController
      */
     public function respondWentWrong($exception = null)
     {
-        //If debug is enabled then send exception message
-        $message = (config('app.debug') && is_object($exception)) ? 'File:'.$exception->getFile().'Line:'.$exception->getLine().'Message:'.$exception->getMessage() : __('messages.something_went_wrong');
+        $message = __('messages.something_went_wrong');
 
-        //TODO: show exception error message when error is enabled.
+        if (config('app.debug') && is_object($exception)) {
+            $message = $exception->getMessage();
+        }
+
         return $this->setStatusCode(200)
             ->respondWithError($message);
     }
