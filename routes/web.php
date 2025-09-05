@@ -47,6 +47,7 @@ use App\Http\Controllers\Restaurant;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
+use App\Http\Controllers\Admin\AdminSearchController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -136,6 +137,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::post('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 
     Route::resource('brands', BrandController::class);
+
+    Route::get('/admin-search', [AdminSearchController::class, 'index'])->name('admin.search');
 
     Route::resource('payment-account', 'PaymentAccountController');
 
