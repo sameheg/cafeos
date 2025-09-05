@@ -44,6 +44,8 @@ use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Restaurant;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
+use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -241,6 +243,10 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::get('/pos/variation/{variation_id}/{location_id}', [\App\Http\Controllers\ProductController::class, 'getVarationDetail']);
     // end pos display screen route
     Route::resource('pos', SellPosController::class);
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+    });
 
     Route::resource('roles', RoleController::class);
 
