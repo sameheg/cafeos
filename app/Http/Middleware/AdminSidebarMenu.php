@@ -18,6 +18,13 @@ class AdminSidebarMenu
         Menu::create('admin-sidebar-menu', function ($menu) {
             $items = AdminMenu::orderBy('order')->get();
             foreach ($items as $item) {
+                if (!$item->permission || auth()->user()->can($item->permission)) {
+                    $menu->url(
+                        $item->url,
+                        __($item->label),
+                        ['icon' => $item->icon, 'active' => request()->is(ltrim($item->url, '/').'*')]
+                    )->order($item->order);
+                }
                 if (empty($item->permission) || auth()->user()->can($item->permission)) {
                     $menu->url(
                         $item->url,
@@ -48,3 +55,4 @@ class AdminSidebarMenu
         return $next($request);
     }
 }
+

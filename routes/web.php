@@ -50,6 +50,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
 use App\Http\Controllers\Admin\AdminSearchController;
+use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\ModulesController as AdminModulesController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\LogViewerController;
@@ -284,6 +285,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('roles', AdminRoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+        Route::resource('menus', AdminMenuController::class);
+
         Route::post('modules/{module}/toggle', [AdminModulesController::class, 'toggle'])->name('modules.toggle');
 
         Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
