@@ -50,6 +50,7 @@
 
 
             <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-end tw-gap-3">
+                    @include('layouts.partials.language_btn')
                 @if (Module::has('Essentials'))
                     @includeIf('essentials::layouts.partials.header_part')
                 @endif
@@ -252,3 +253,15 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+$(document).on('click', '.change_lang', function (e) {
+    e.preventDefault();
+    var locale = $(this).attr('value');
+    $.post('{{ route('locale.switch') }}', {locale: locale, _token: $('meta[name="csrf-token"]').attr('content')}, function () {
+        $('.side-bar').load(window.location.href + ' .side-bar > *');
+        $('#scrollable-container').load(window.location.href + ' #scrollable-container > *');
+    });
+});
+</script>
+@endpush
