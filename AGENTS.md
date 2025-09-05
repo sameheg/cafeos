@@ -160,7 +160,7 @@ run:
 **Role:** Kitchen tickets & prep times.
 
 * **Channels:** WebSocket for live events, REST for queries.
-* **Events:** `kds.ticket.created`, `kds.ticket.done`
+* **Events:** `kds.ticket.created`, `kds.ticket.ready`, `kds.ticket.done`
 * **Metrics:** `kds.avg_prep_time`, `kds.queue_length`
 * **SLA:** Ticket update ≤1s after order creation.
 
