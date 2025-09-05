@@ -365,6 +365,8 @@ return [
     'payment_account_deleted_success' => 'تم حذف الحساب بنجاح',
     'payment_account_updated_success' => 'تم تحديث الحساب بنجاح',
     'payment_gateway' => 'بوابة الدفع عبر الإنترنت',
+    'select_payment_gateway' => 'اختر بوابة الدفع',
+    'pay_now' => 'ادفع الآن',
     'payment_account_success' => 'تم اضافة الحساب بنجاح',
     'payment_account' => 'حساب',
     'tooltip_sell_product_column' => 'انقر <i>اسم المنتج</i> لتحرير السعر والخصم والضرائب. <br/>انقر <i>أيقونة التعليق</i> لإدخال الرقم التسلسلي / IMEI أو ملاحظة إضافية.<br/><br/>انقر <i>رمز التعديل</i>(إذا تم تمكين) الاضافات',
