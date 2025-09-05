@@ -1,12 +1,12 @@
 <template>
   <div class="table-view">
     <div class="navigation">
-      <button class="nav-btn" @click="prev">&lt;</button>
-      <button class="nav-btn" @click="next">&gt;</button>
+      <button class="nav-btn" @click="prev" aria-label="Previous tables">&lt;</button>
+      <button class="nav-btn" @click="next" aria-label="Next tables">&gt;</button>
     </div>
     <ul class="tables" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
       <li v-for="table in tables" :key="table.id">
-        <button class="table-btn" @click="$emit('select', table)">
+        <button class="table-btn" @click="$emit('select', table)" :aria-label="`Table ${table.name}`">
           {{ table.name }}
         </button>
       </li>

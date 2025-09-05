@@ -53,7 +53,7 @@
         </div>
 </div>
 
-<div class="row">
+<div class="row waiter-ui">
     <div class="col-md-12">
         <quick-order-entry></quick-order-entry>
         <tip-input></tip-input>
