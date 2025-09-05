@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use App\Restaurant\TableOrder;
+use App\Services\WaiterNotificationService;
+
 /**
  * Service to manage kitchen tickets and broadcast changes to displays.
  */
@@ -25,7 +28,8 @@ class KdsService
      */
     public function __construct(
         private KdsMetrics $metrics,
-        private array $itemStations = []
+        private array $itemStations = [],
+        private ?WaiterNotificationService $waiterNotifications = null
     ) {
     }
 
@@ -82,7 +86,11 @@ class KdsService
 
         $model = $this->tickets[$id];
         if (isset($ticket['status'])) {
+            $previous = $model->getStatus();
             $model->updateStatus($ticket['status']);
+            if ($ticket['status'] === Ticket::STATUS_READY && $previous !== Ticket::STATUS_READY) {
+                $this->notifyWaiter($model->id);
+            }
         }
 
         $payloadTicket = $model->toArray();
@@ -114,7 +122,11 @@ class KdsService
         }
 
         $ticket = $this->tickets[$id];
+        $previous = $ticket->getStatus();
         $ticket->updateStatus(Ticket::STATUS_READY);
+        if ($previous !== Ticket::STATUS_READY) {
+            $this->notifyWaiter($ticket->id);
+        }
         unset($this->tickets[$id]);
 
         $station = $this->ticketStations[$id] ?? null;
@@ -149,6 +161,17 @@ class KdsService
             static fn (Ticket $t): array => $t->toArray(),
             array_values($this->tickets)
         );
+    }
+
+    private function notifyWaiter(int $ticketId): void
+    {
+        if ($this->waiterNotifications === null) {
+            return;
+        }
+        $order = TableOrder::find($ticketId);
+        if ($order !== null) {
+            $this->waiterNotifications->notifyTicketReady($order);
+        }
     }
 
     /**

@@ -31,9 +31,17 @@ $(document).ready(function() {
     if ($('#refresh_orders').length > 0) {
         var refresh_interval = parseInt($('#__orders_refresh_interval').val()) * 1000;
 
-        setInterval(function(){ 
+        setInterval(function(){
             refresh_orders();
         }, refresh_interval);
+    }
+
+    if (typeof Echo !== 'undefined') {
+        Echo.channel('waiter-notifications')
+            .listen('.kds.ticket.ready', function(e){
+                toastr.success('Order ready for table ' + e.table_id);
+                refresh_orders();
+            });
     }
 });
 
