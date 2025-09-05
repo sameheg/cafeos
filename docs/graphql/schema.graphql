@@ -1,0 +1,4 @@
+type Query {
+  # Fetch a product by its ID.
+  product(id: Int!): Product
+}
