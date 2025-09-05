@@ -10,6 +10,11 @@ require('./dashboard');
 
 import Vue from 'vue'
 import { syncQueuedSales } from './pos/offlineStorage';
+import { enforceTouchTargets } from './pos/touchTargets';
+
+Vue.component('table-view', require('./pos/TableView.vue').default);
+Vue.component('quick-order-entry', require('./pos/QuickOrder.vue').default);
+Vue.component('tip-input', require('./pos/TipInput.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -38,6 +43,8 @@ Vue.component('theme-preview', require('./components/ThemePreview.vue').default)
 const app = new Vue({
     el: '#app'
 });
+
+enforceTouchTargets();
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
