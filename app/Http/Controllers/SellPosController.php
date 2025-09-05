@@ -64,6 +64,8 @@ use Stripe\Stripe;
 use Yajra\DataTables\Facades\DataTables;
 use App\Events\SellCreatedOrModified;
 use App\Events\SellUpdated;
+use App\Events\OrderUpdated;
+use App\Events\StockLevelChanged;
 
 class SellPosController extends Controller
 {
@@ -1467,6 +1469,12 @@ class SellPosController extends Controller
                 }
 
                 event(new SellUpdated($transaction, auth()->user(), $changed_fields));
+                event(new OrderUpdated($transaction));
+                if (!empty($input['products'])) {
+                    foreach ($input['products'] as $product) {
+                        event(new StockLevelChanged($product['product_id'], $transaction->location_id, $product['quantity']));
+                    }
+                }
 
                 SellCreatedOrModified::dispatch($transaction);
 

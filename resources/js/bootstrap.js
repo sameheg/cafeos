@@ -108,8 +108,8 @@ if (typeof APP != 'undefined' && APP.PUSHER_ENABLED) {
     }
 
     window.Echo.private('App.User.' + APP.USER_ID)
-    	.notification((notification) => {
-    	//if permission is granted then notify user
+        .notification((notification) => {
+        //if permission is granted then notify user
         if (Notification.permission === 'granted') {
 
         	//specify any additional options like: icon,image
@@ -133,4 +133,14 @@ if (typeof APP != 'undefined' && APP.PUSHER_ENABLED) {
             }
         }
     });
+
+    window.Echo.channel('orders')
+        .listen('OrderUpdated', (e) => {
+            console.log('Order updated', e);
+        });
+
+    window.Echo.channel('stock')
+        .listen('StockLevelChanged', (e) => {
+            console.log('Stock level changed', e);
+        });
 }
