@@ -409,4 +409,12 @@ runbook: docs/runbooks/inventory.md
 
 ---
 
+## 24) POS ↔ KDS Event Flow
+
+* **Events:** `pos.order.created`, `pos.order.completed`
+* **Producer:** POS Agent dispatches these events from `OrderService` when orders are created or completed.
+* **Consumer:** KDS Agent's `OrderEventConsumer` transforms events into kitchen tickets and broadcasts them via `KdsService`.
+
+---
+
 **Note:** This document is living. Any new Agent or architecture change must be reflected here immediately with updated APIs, events, metrics, and runbooks.
