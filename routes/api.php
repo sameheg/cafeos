@@ -64,3 +64,14 @@ Route::middleware('api.token')->group(function () {
     Route::post('inventory/movements', [InventoryApiController::class, 'recordMovement']);
     Route::get('inventory/levels', [InventoryApiController::class, 'levels']);
 });
+
+Route::get('/kds/tickets', function () {
+    return ['tickets' => [
+        ['id' => 1, 'items' => ['Coffee', 'Bagel']],
+        ['id' => 2, 'items' => ['Tea']]
+    ]];
+});
+
+Route::post('/kds/tickets/{ticket}/status', function ($ticket) {
+    return ['status' => 'ok'];
+});
