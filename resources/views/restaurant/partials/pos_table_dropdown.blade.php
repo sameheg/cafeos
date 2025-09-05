@@ -35,6 +35,6 @@
 </div>
 @endif
 
-<div class="col-sm-12">
+<div class="col-sm-12 waiter-ui">
     <table-view :tables='@json($tables)'></table-view>
 </div>
