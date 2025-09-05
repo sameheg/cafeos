@@ -459,6 +459,10 @@ class ProductController extends Controller
 
             $product_details['enable_stock'] = (! empty($request->input('enable_stock')) && $request->input('enable_stock') == 1) ? 1 : 0;
             $product_details['not_for_selling'] = (! empty($request->input('not_for_selling')) && $request->input('not_for_selling') == 1) ? 1 : 0;
+            $product_details['total_qty_available'] = 0;
+            if ($product_details['enable_stock'] == 1) {
+                $product_details['total_qty_available'] = $this->calculateTotalQtyAvailable($request->input('product_variation'));
+            }
 
             if (! empty($request->input('sub_category_id'))) {
                 $product_details['sub_category_id'] = $request->input('sub_category_id');
@@ -733,8 +737,12 @@ class ProductController extends Controller
 
             if (! empty($request->input('enable_stock')) && $request->input('enable_stock') == 1) {
                 $product->enable_stock = 1;
+                $total_qty = $this->calculateTotalQtyAvailable($request->input('product_variation'));
+                $total_qty += $this->calculateTotalQtyAvailable($request->get('product_variation_edit'));
+                $product->total_qty_available = $total_qty;
             } else {
                 $product->enable_stock = 0;
+                $product->total_qty_available = 0;
             }
 
             $product->not_for_selling = (! empty($request->input('not_for_selling')) && $request->input('not_for_selling') == 1) ? 1 : 0;
@@ -1520,8 +1528,7 @@ class ProductController extends Controller
             $product_details['created_by'] = $request->session()->get('user.id');
             if (! empty($request->input('enable_stock')) && $request->input('enable_stock') == 1) {
                 $product_details['enable_stock'] = 1;
-                //TODO: Save total qty
-                //$product_details['total_qty_available'] = 0;
+                $product_details['total_qty_available'] = $this->calculateTotalQtyAvailable($request->input('product_variation'));
             }
             if (! empty($request->input('not_for_selling')) && $request->input('not_for_selling') == 1) {
                 $product_details['not_for_selling'] = 1;
@@ -2409,6 +2416,30 @@ class ProductController extends Controller
         }
 
         return $output;
+    }
+
+    /**
+     * Calculate total quantity available from the provided variations.
+     *
+     * @param  array|null  $variations
+     * @return float
+     */
+    private function calculateTotalQtyAvailable($variations)
+    {
+        $total = 0;
+        if (! empty($variations) && is_array($variations)) {
+            foreach ($variations as $product_variation) {
+                if (! empty($product_variation['variations']) && is_array($product_variation['variations'])) {
+                    foreach ($product_variation['variations'] as $variation) {
+                        if (isset($variation['qty_available'])) {
+                            $total += $this->productUtil->num_uf($variation['qty_available']);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $total;
     }
 
     /**
