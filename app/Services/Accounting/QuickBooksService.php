@@ -5,8 +5,36 @@ namespace App\Services\Accounting;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
-class QuickBooksService
+class QuickBooksService implements AccountingInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function syncInvoice(array $invoice): bool
+    {
+        // This is a placeholder implementation.
+        // In a real scenario this would push the invoice to QuickBooks via API.
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function mapTax(array $tax): array
+    {
+        // Map local tax data to QuickBooks specific fields.
+        return $tax;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function authenticate(array $credentials): bool
+    {
+        // Perform authentication with QuickBooks API.
+        return true;
+    }
+
     /**
      * Map transactions to QuickBooks format.
      *

@@ -30,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
 
         \App\Events\SellUpdated::class => [
             \App\Listeners\LogSellUpdate::class,
+            \App\Listeners\SavePosEditLog::class,
         ],
     ];
 

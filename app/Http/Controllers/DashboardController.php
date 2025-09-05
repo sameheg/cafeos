@@ -16,21 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totalSales = Cache::remember('dashboard.total_sales', 3600, function () {
-            return Transaction::where('type', 'sell')->sum('final_total');
-        });
-
-        $totalPurchases = Cache::remember('dashboard.total_purchases', 3600, function () {
-            return Transaction::where('type', 'purchase')->sum('final_total');
-        });
-
-        $customerCount = Cache::remember('dashboard.customer_count', 3600, function () {
-            return Contact::whereIn('type', ['customer', 'both'])->count();
-        });
-
-        $productCount = Cache::remember('dashboard.product_count', 3600, function () {
-            return Product::count();
-        });
+        $metrics = $this->getMetrics();
 
         $chart = Cache::remember('dashboard.sales_chart', 3600, function () {
             $labels = [];
@@ -48,12 +34,46 @@ class DashboardController extends Controller
             return $chart;
         });
 
-        return view('dashboard', [
+        return view('dashboard', array_merge($metrics, [
+            'chart' => $chart,
+        ]));
+    }
+
+    /**
+     * Return cached dashboard metrics as JSON.
+     */
+    public function metrics()
+    {
+        return response()->json($this->getMetrics());
+    }
+
+    /**
+     * Gather dashboard metrics with caching.
+     */
+    protected function getMetrics()
+    {
+        $totalSales = Cache::remember('dashboard.total_sales', 3600, function () {
+            return Transaction::where('type', 'sell')->sum('final_total');
+        });
+
+        $totalPurchases = Cache::remember('dashboard.total_purchases', 3600, function () {
+            return Transaction::where('type', 'purchase')->sum('final_total');
+        });
+
+        $customerCount = Cache::remember('dashboard.customer_count', 3600, function () {
+            return Contact::whereIn('type', ['customer', 'both'])->count();
+        });
+
+        $productCount = Cache::remember('dashboard.product_count', 3600, function () {
+            return Product::count();
+        });
+
+        return [
             'totalSales' => $totalSales,
             'totalPurchases' => $totalPurchases,
             'customerCount' => $customerCount,
             'productCount' => $productCount,
-            'chart' => $chart,
-        ]);
+        ];
     }
 }
+

@@ -1,0 +1,16 @@
+{
+    "name": "cafeos/reporting",
+    "description": "Reporting module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Reporting\\": ""
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Reporting\\Providers\\ReportingServiceProvider"
+            ]
+        }
+    }
+}

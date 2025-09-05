@@ -38,6 +38,12 @@
             </div>
 
 
+            <div class="tw-relative tw-flex-1 md:tw-max-w-xs">
+                <input type="text" id="admin-search-input" placeholder="Search..." class="tw-w-full tw-px-2 tw-py-1 tw-rounded" autocomplete="off">
+                <ul id="admin-search-results" class="tw-absolute tw-z-50 tw-w-full tw-bg-white tw-border tw-rounded tw-mt-1 tw-hidden"></ul>
+            </div>
+
+
             {{-- Showing active package for SaaS Superadmin --}}
             @if(Module::has('Superadmin'))
                 @includeIf('superadmin::layouts.partials.active_subscription')
@@ -51,6 +57,10 @@
 
             <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-end tw-gap-3">
                     @include('layouts.partials.language_btn')
+                <select id="theme-select" class="tw-text-sm tw-rounded-lg tw-py-1.5 tw-px-2">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
                 @if (Module::has('Essentials'))
                     @includeIf('essentials::layouts.partials.header_part')
                 @endif
@@ -249,9 +259,6 @@
                         </li>
                     </ul>
                 </details>
-            </div>
-        </div>
-    </div>
 </div>
 @push('scripts')
 <script>
@@ -265,3 +272,32 @@ $(document).on('click', '.change_lang', function (e) {
 });
 </script>
 @endpush
+</div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const baseThemePath = "{{ asset('css/themes') }}";
+    const select = document.getElementById('theme-select');
+    if (!select) return;
+    const storedTheme = localStorage.getItem('theme') || "{{ auth()->check() ? (auth()->user()->settings['theme'] ?? 'light') : 'light' }}";
+    select.value = storedTheme;
+    select.addEventListener('change', function () {
+        const theme = this.value;
+        const link = document.getElementById('theme-style');
+        if (link) {
+            link.setAttribute('href', baseThemePath + '/' + theme + '.css');
+        }
+        localStorage.setItem('theme', theme);
+        fetch("{{ route('theme.update') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')
+            },
+            body: JSON.stringify({theme: theme})
+        });
+    });
+});
+</script>

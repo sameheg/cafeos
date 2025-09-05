@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\DeliveryProviderCredential;
 use App\Services\Delivery\DeliveryProvider;
 use App\Services\Delivery\TalabatAdapter;
 use App\Services\Delivery\UberEatsAdapter;
@@ -14,6 +15,8 @@ use Illuminate\Queue\SerializesModels;
 class SyncDeliveryOrders implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public string $connection = 'redis';
+    public int $tries = 3;
 
     protected string $providerName;
 
@@ -24,12 +27,17 @@ class SyncDeliveryOrders implements ShouldQueue
 
     public function handle(): void
     {
-        $provider = $this->resolveProvider($this->providerName);
-        foreach ($provider->fetchOrders() as $order) {
-            if (isset($order['id'], $order['status'])) {
-                $provider->updateOrderStatus($order['id'], $order['status']);
-            }
+        $credentials = DeliveryProviderCredential::for($this->providerName);
+        if ($credentials) {
+            config([
+                "delivery.providers.{$this->providerName}.client_id" => $credentials->token,
+                "delivery.providers.{$this->providerName}.client_secret" => $credentials->secret,
+            ]);
         }
+
+        $provider = $this->resolveProvider($this->providerName);
+
+        // TODO: implement synchronization using $provider->createOrder() and $provider->updateOrder().
     }
 
     protected function resolveProvider(string $name): DeliveryProvider

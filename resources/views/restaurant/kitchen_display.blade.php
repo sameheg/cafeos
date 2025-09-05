@@ -8,9 +8,9 @@
             <div class="col-md-3 col-xs-6 order_div" data-order-id="{{ $order->id }}">
                 <div class="small-box bg-gray">
                     <div class="inner text-center">
-                        <h4>#{{ $order->invoice_no }}</h4>
+                        <h4>#{{ $order->transaction->invoice_no ?? '' }}</h4>
                         <div class="order_timer" data-start="{{ $order->created_at }}"></div>
-                        <div class="status">@lang('restaurant.order_statuses.received')</div>
+                        <div class="status">{{ $order->status }}</div>
                     </div>
                 </div>
             </div>
@@ -40,8 +40,8 @@
     }
     initTimers();
     if (typeof Echo !== 'undefined') {
-        Echo.channel('orders')
-            .listen('OrderStatusUpdated', function(e){
+        Echo.channel('kitchen-orders')
+            .listen('KitchenOrderStatusUpdated', function(e){
                 var card = document.querySelector('[data-order-id="'+e.orderId+'"]');
                 if(card){
                     var statusEl = card.querySelector('.status');
@@ -50,7 +50,7 @@
             });
     } else {
         setInterval(function(){
-            axios.get('/orders/status')
+            axios.get('/modules/orders/status')
                 .then(function(resp){
                     resp.data.forEach(function(item){
                         var card = document.querySelector('[data-order-id="'+item.id+'"]');

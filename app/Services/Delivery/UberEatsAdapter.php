@@ -17,16 +17,21 @@ class UberEatsAdapter implements DeliveryProvider
         ]);
     }
 
-    public function fetchOrders(): array
+    public function createOrder(array $data): string
     {
-        $response = $this->client->get('/orders');
-        return json_decode((string) $response->getBody(), true);
+        $response = $this->client->post('/orders', [
+            'json' => $data,
+        ]);
+
+        $body = json_decode((string) $response->getBody(), true);
+
+        return $body['id'] ?? '';
     }
 
-    public function updateOrderStatus(string $orderId, string $status): bool
+    public function updateOrder(string $orderId, array $data): bool
     {
-        $response = $this->client->post("/orders/{$orderId}/status", [
-            'json' => ['status' => $status],
+        $response = $this->client->put("/orders/{$orderId}", [
+            'json' => $data,
         ]);
 
         return $response->getStatusCode() === 200;

@@ -18,6 +18,7 @@ use App\Unit;
 use App\Variation;
 use App\VariationGroupPrice;
 use App\VariationLocationDetails;
+use App\ForecastedDemand;
 use App\VariationTemplate;
 use App\VariationValueTemplate;
 use Illuminate\Support\Facades\DB;
@@ -1461,6 +1462,31 @@ class ProductUtil extends Util
         }
 
         return $current_stock;
+    }
+
+    /**
+     * Suggest purchase quantities when forecasted demand exceeds available stock.
+     *
+     * @return array
+     */
+    public function suggestPurchaseOrders()
+    {
+        $suggestions = [];
+
+        $forecasts = ForecastedDemand::all();
+        foreach ($forecasts as $forecast) {
+            $current_stock = VariationLocationDetails::where('product_id', $forecast->product_id)
+                                ->sum('qty_available');
+
+            if ($forecast->forecast_quantity > $current_stock) {
+                $suggestions[] = [
+                    'product_id' => $forecast->product_id,
+                    'suggested_quantity' => $forecast->forecast_quantity - $current_stock,
+                ];
+            }
+        }
+
+        return $suggestions;
     }
 
     /**

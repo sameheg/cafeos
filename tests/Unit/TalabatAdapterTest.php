@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class TalabatAdapterTest extends TestCase
 {
-    public function test_fetch_orders_returns_array()
+    public function test_create_order_returns_id()
     {
         config(['delivery.providers.talabat' => [
             'client_id' => 'id',
@@ -20,19 +20,17 @@ class TalabatAdapterTest extends TestCase
         ]]);
 
         $mock = new MockHandler([
-            new Response(200, [], json_encode([
-                ['id' => '1', 'status' => 'pending'],
-            ])),
+            new Response(201, [], json_encode(['id' => '1'])),
         ]);
         $client = new Client(['handler' => HandlerStack::create($mock)]);
 
         $adapter = new TalabatAdapter($client);
-        $orders = $adapter->fetchOrders();
+        $id = $adapter->createOrder(['item' => 'coffee']);
 
-        $this->assertEquals('1', $orders[0]['id']);
+        $this->assertEquals('1', $id);
     }
 
-    public function test_update_order_status_returns_true_on_success()
+    public function test_update_order_returns_true_on_success()
     {
         config(['delivery.providers.talabat' => [
             'client_id' => 'id',
@@ -46,7 +44,7 @@ class TalabatAdapterTest extends TestCase
         $client = new Client(['handler' => HandlerStack::create($mock)]);
 
         $adapter = new TalabatAdapter($client);
-        $result = $adapter->updateOrderStatus('1', 'delivered');
+        $result = $adapter->updateOrder('1', ['status' => 'delivered']);
 
         $this->assertTrue($result);
     }
