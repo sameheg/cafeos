@@ -14,8 +14,9 @@ class TwoFactorController extends Controller
         if (empty($user->two_factor_secret)) {
             $user->two_factor_secret = $this->generateSecret();
             $user->two_factor_recovery_codes = json_encode($this->generateRecoveryCodes());
-            $user->save();
         }
+        $user->two_factor_enabled = true;
+        $user->save();
 
         $codes = json_decode($user->two_factor_recovery_codes, true) ?? [];
 
@@ -30,6 +31,7 @@ class TwoFactorController extends Controller
         $user = $request->user();
         $user->two_factor_secret = null;
         $user->two_factor_recovery_codes = null;
+        $user->two_factor_enabled = false;
         $user->save();
 
         return back()->with('status', __('Two-factor authentication disabled.'));
