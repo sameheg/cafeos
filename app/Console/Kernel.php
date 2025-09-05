@@ -35,6 +35,9 @@ class Kernel extends ConsoleKernel
 
             $schedule->command('pos:autoSendPaymentReminder')->dailyAt('8:00');
 
+            //Check for products with low stock
+            $schedule->command('pos:checkLowStock')->daily();
+
         }
 
         if ($env === 'demo') {
