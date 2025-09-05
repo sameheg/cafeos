@@ -10,6 +10,11 @@ class KdsService
     private array $listeners = [];
 
     /**
+     * @var array<int|string, array<string, mixed>> Active tickets indexed by id.
+     */
+    private array $tickets = [];
+
+    /**
      * Register a display callback that will receive tickets.
      */
     public function registerDisplay(callable $listener): void
@@ -18,24 +23,40 @@ class KdsService
     }
 
     /**
-     * Accept a kitchen ticket and broadcast it.
+     * Accept a kitchen ticket, store it as active and broadcast to listeners.
      *
      * @param array<string,mixed> $ticket
      */
     public function receiveTicket(array $ticket): void
     {
-        $this->broadcast($ticket);
+        $id = $ticket['id'] ?? uniqid('ticket_', true);
+        $this->tickets[$id] = $ticket;
+
+        $this->broadcast([
+            'type' => 'ticket.created',
+            'ticket' => $ticket,
+        ]);
     }
 
     /**
-     * Broadcast ticket data to all registered displays.
+     * Return all currently active tickets.
      *
-     * @param array<string,mixed> $ticket
+     * @return array<int,array<string,mixed>>
      */
-    private function broadcast(array $ticket): void
+    public function getActiveTickets(): array
+    {
+        return array_values($this->tickets);
+    }
+
+    /**
+     * Broadcast a message to all registered displays.
+     *
+     * @param array<string,mixed> $message
+     */
+    private function broadcast(array $message): void
     {
         foreach ($this->listeners as $listener) {
-            $listener($ticket);
+            $listener($message);
         }
     }
 }
