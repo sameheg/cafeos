@@ -34,6 +34,7 @@ use App\Http\Controllers\LedgerDiscountController;
 use App\Http\Controllers\LoyaltyController;
 use App\Http\Controllers\LocationSettingsController;
 use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\ModulesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotificationTemplateController;
 use App\Http\Controllers\OpeningStockController;
@@ -540,6 +541,9 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::resource('manage-modules', Install\ModulesController::class)
         ->only(['index', 'update']);
     Route::get('regenerate', [Install\ModulesController::class, 'regenerate']);
+
+    Route::get('modules-statuses', [ModulesController::class, 'index'])->name('modules.index');
+    Route::post('modules-statuses/{module}', [ModulesController::class, 'toggle'])->name('modules.toggle');
 
     Route::resource('warranties', WarrantyController::class);
 

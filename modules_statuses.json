@@ -23,7 +23,7 @@
     "ModuleName": true,
     "Reporting": true,
     "Integrations": true,
-    "HR": true,
+    "HR": true
     "Inventory": true,
     "POS": true,
     "Compliance": true,
