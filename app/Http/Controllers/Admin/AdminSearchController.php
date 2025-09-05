@@ -21,6 +21,10 @@ class AdminSearchController extends Controller
         $query = $request->get('query');
 
         $results = [
+            'users' => [],
+            'products' => [],
+            'transactions' => [],
+
             'users' => collect(),
             'products' => collect(),
             'invoices' => collect(),
@@ -32,6 +36,14 @@ class AdminSearchController extends Controller
                 ->orWhere('username', 'like', "%{$query}%")
                 ->limit(5)
                 ->get()
+                ->map(fn ($user) => [
+                    'id' => $user->id,
+                    'type' => 'user',
+                    'name' => trim($user->surname . ' ' . $user->first_name),
+                    'url' => url("/users/{$user->id}"),
+                ])
+                ->toArray();
+
                 ->map(function ($user) {
                     return [
                         'id' => $user->id,
@@ -46,6 +58,25 @@ class AdminSearchController extends Controller
                 ->orWhere('sku', 'like', "%{$query}%")
                 ->limit(5)
                 ->get()
+                ->map(fn ($product) => [
+                    'id' => $product->id,
+                    'type' => 'product',
+                    'name' => $product->name,
+                    'url' => url("/products/{$product->id}/edit"),
+                ])
+                ->toArray();
+
+            $results['transactions'] = Transaction::where('type', 'sell')
+                ->where('invoice_no', 'like', "%{$query}%")
+                ->limit(5)
+                ->get()
+                ->map(fn ($transaction) => [
+                    'id' => $transaction->id,
+                    'type' => 'transaction',
+                    'name' => $transaction->invoice_no,
+                    'url' => url("/sells/{$transaction->id}"),
+                ])
+                ->toArray();
                 ->map(function ($product) {
                     return [
                         'id' => $product->id,
