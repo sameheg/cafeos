@@ -15,5 +15,7 @@
 @endsection
 
 @section('javascript')
+<script src="{{ asset('js/app.js?v=' . $asset_v) }}"></script>
 {!! $chart->script() !!}
 @endsection
+
