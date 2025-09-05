@@ -325,6 +325,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/reports/items-report', [ReportController::class, 'itemsReport']);
     Route::get('/reports/get-stock-value', [ReportController::class, 'getStockValue']);
     Route::get('/reports/export-transactions', [ReportController::class, 'exportTransactions']);
+    Route::get('/reports/kpi/sales-per-waiter', [ReportController::class, 'salesPerWaiter']);
+    Route::get('/reports/kpi/table-turnover', [ReportController::class, 'tableTurnover']);
 
     Route::get('business-location/activate-deactivate/{location_id}', [BusinessLocationController::class, 'activateDeactivateLocation']);
 
