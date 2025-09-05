@@ -1,11 +1,12 @@
-<div class="{{$class ?? ''}} tw-mb-4 tw-transition-all lg:tw-col-span-2 tw-duration-200 tw-bg-white tw-shadow-sm tw-rounded-xl tw-ring-1 hover:tw-shadow-md  tw-ring-gray-200"
-    @if (!empty($id)) id="{{ $id }}" @endif>
+<div class="{{$class ?? ''}} tw-mb-4 tw-transition-all lg:tw-col-span-2 tw-duration-200 tw-bg-white tw-shadow-sm tw-rounded-xl tw-ring-1 hover:tw-shadow-md tw-ring-gray-200"
+    @if (!empty($id)) id="{{ $id }}" @endif
+    role="region" @if(!empty($title)) aria-labelledby="widget-title-{{ \Illuminate\Support\Str::slug($title) }}" @endif>
     <div class="tw-p-2 sm:tw-p-3">
         @if (empty($header))
             @if (!empty($title) || !empty($tool))
                 <div class="box-header">
                     {!! $icon ?? '' !!}
-                    <h3 class="box-title">{{ $title ?? '' }}</h3>
+                    <h3 class="box-title tw-text-gray-900" id="widget-title-{{ \Illuminate\Support\Str::slug($title ?? '') }}">{{ $title ?? '' }}</h3>
                     {!! $tool ?? '' !!}
 
                     @if (isset($help_text))

@@ -10,6 +10,9 @@
     <p class="tw-text-lg tw-font-medium tw-text-center tw-text-white tw-mt-2 tw-shadow-md tw-bg-blue-600 tw-rounded-md tw-px-3 tw-py-1">
         {{ env('APP_TITLE', '') }}
     </p>
+    <button class="tw-mt-4 tw-dw-btn tw-dw-btn-primary" aria-label="@lang('business.get_started')">
+        @lang('business.get_started')
+    </button>
 </div>
 
 @endsection

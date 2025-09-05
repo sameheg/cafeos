@@ -125,6 +125,7 @@ class BusinessController extends Controller
 
         $business_id = request()->session()->get('user.business_id');
         $business = Business::where('id', $business_id)->first();
+        $store_settings = \App\StoreSetting::firstOrNew(['business_id' => $business_id]);
 
         $currencies = $this->businessUtil->allCurrencies();
         $tax_details = TaxRate::forBusinessDropdown($business_id);
@@ -174,7 +175,7 @@ class BusinessController extends Controller
 
         $payment_types = $this->moduleUtil->payment_types(null, false, $business_id);
 
-        return view('business.settings', compact('business', 'currencies', 'tax_rates', 'timezone_list', 'months', 'accounting_methods', 'commission_agent_dropdown', 'units_dropdown', 'date_formats', 'shortcuts', 'pos_settings', 'modules', 'theme_colors', 'email_settings', 'sms_settings', 'mail_drivers', 'allow_superadmin_email_settings', 'custom_labels', 'common_settings', 'weighing_scale_setting', 'payment_types'));
+        return view('business.settings', compact('business', 'currencies', 'tax_rates', 'timezone_list', 'months', 'accounting_methods', 'commission_agent_dropdown', 'units_dropdown', 'date_formats', 'shortcuts', 'pos_settings', 'modules', 'theme_colors', 'email_settings', 'sms_settings', 'mail_drivers', 'allow_superadmin_email_settings', 'custom_labels', 'common_settings', 'weighing_scale_setting', 'payment_types', 'store_settings'));
     }
 
     /**
@@ -264,6 +265,7 @@ class BusinessController extends Controller
 
             $business_id = request()->session()->get('user.business_id');
             $business = Business::where('id', $business_id)->first();
+            $store_settings = $request->input('store_settings', []);
 
             //Update business settings
             if (! empty($business_details['logo'])) {
@@ -309,6 +311,13 @@ class BusinessController extends Controller
             $business_details['enabled_modules'] = ! empty($enabled_modules) ? $enabled_modules : null;
             $business->fill($business_details);
             $business->save();
+
+            if (isset($store_settings['theme'])) {
+                \App\StoreSetting::updateOrCreate(
+                    ['business_id' => $business_id],
+                    ['theme' => $store_settings['theme']]
+                );
+            }
 
             //update session data
             $request->session()->put('business', $business);

@@ -36,11 +36,12 @@
 
     @yield('css')
 
+    @php($businessTheme = auth()->check() ? optional(\App\StoreSetting::where('business_id', auth()->user()->business_id)->first())->theme : 'light')
     <link id="theme-style" rel="stylesheet" href="{{ asset('css/themes/light.css') }}">
     <script>
         (function() {
             const baseThemePath = "{{ asset('css/themes') }}";
-            const defaultTheme = "{{ auth()->check() ? (auth()->user()->settings['theme'] ?? 'light') : 'light' }}";
+            const defaultTheme = "{{ $businessTheme }}";
             const theme = localStorage.getItem('theme') || defaultTheme;
             document.getElementById('theme-style').setAttribute('href', baseThemePath + '/' + theme + '.css');
             localStorage.setItem('theme', theme);
