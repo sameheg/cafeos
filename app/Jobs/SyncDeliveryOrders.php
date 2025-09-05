@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\DeliveryOrder;
+use App\DeliveryProviderCredential;
 use App\Services\Delivery\DeliveryProvider;
 use App\Services\Delivery\TalabatAdapter;
 use App\Services\Delivery\UberEatsAdapter;
@@ -24,9 +26,21 @@ class SyncDeliveryOrders implements ShouldQueue
 
     public function handle(): void
     {
+        $credentials = DeliveryProviderCredential::where('provider', $this->providerName)->first();
+        if ($credentials) {
+            config([
+                "delivery.providers.{$this->providerName}.client_id" => $credentials->token,
+                "delivery.providers.{$this->providerName}.client_secret" => $credentials->secret,
+            ]);
+        }
+
         $provider = $this->resolveProvider($this->providerName);
         foreach ($provider->fetchOrders() as $order) {
             if (isset($order['id'], $order['status'])) {
+                DeliveryOrder::firstOrCreate(
+                    ['external_id' => $order['id'], 'provider' => $this->providerName],
+                    ['status' => $order['status']]
+                );
                 $provider->updateOrderStatus($order['id'], $order['status']);
             }
         }
