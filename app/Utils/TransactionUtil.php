@@ -3488,17 +3488,32 @@ class TransactionUtil extends Util
             //TODO: Optimize the query to take our of loop.
             $sell_purchase_ids = [];
             if (! empty($sell_purchases)) {
-                //Decrease the quantity sold of products
+                $purchase_line_quantity = [];
                 foreach ($sell_purchases as $row) {
-                    PurchaseLine::where('id', $row['purchase_line_id'])
-                        ->decrement('quantity_sold', $row['quantity']);
+                    $purchase_line_quantity[$row['purchase_line_id']] = ($purchase_line_quantity[$row['purchase_line_id']] ?? 0) + $row['quantity'];
 
                     $sell_purchase_ids[] = $row['id'];
                 }
 
-                //Delete the lines.
-                TransactionSellLinesPurchaseLines::whereIn('id', $sell_purchase_ids)
-                    ->delete();
+                DB::transaction(function () use ($purchase_line_quantity, $sell_purchase_ids) {
+                    if (! empty($purchase_line_quantity)) {
+                        $cases = [];
+                        $ids = [];
+                        foreach ($purchase_line_quantity as $id => $qty) {
+                            $cases[] = "WHEN {$id} THEN {$qty}";
+                            $ids[] = $id;
+                        }
+                        $ids_string = implode(',', $ids);
+                        $cases_string = implode(' ', $cases);
+                        $query = "UPDATE purchase_lines SET quantity_sold = quantity_sold - CASE id {$cases_string} END WHERE id IN ({$ids_string})";
+                        DB::statement($query);
+                    }
+
+                    if (! empty($sell_purchase_ids)) {
+                        TransactionSellLinesPurchaseLines::whereIn('id', $sell_purchase_ids)
+                            ->delete();
+                    }
+                });
             }
         } elseif ($status_before == 'draft' && $transaction->status == 'final') {
             $this->mapPurchaseSell($business, $transaction->sell_lines, 'purchase');
