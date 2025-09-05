@@ -47,6 +47,7 @@
             {{-- Showing active package for SaaS Superadmin --}}
             @if(Module::has('Superadmin'))
                 @includeIf('superadmin::layouts.partials.active_subscription')
+                @includeIf('superadmin::layouts.partials.plan_dropdown')
             @endif
 
             {{-- When using superadmin, this button is used to switch users --}}
