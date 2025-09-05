@@ -16,6 +16,7 @@ use App\VariationLocationDetails;
 use Config;
 use DB;
 use GuzzleHttp\Client;
+use Twilio\Rest\Client as TwilioClient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -554,6 +555,33 @@ class Util
         }
 
         return $response;
+    }
+
+    /**
+     * Sends WhatsApp notification via Twilio.
+     *
+     * @param  array  $data
+     * @param  \Twilio\Rest\Client|null  $client
+     * @return void
+     */
+    public function sendWhatsapp($data, ?TwilioClient $client = null)
+    {
+        $config = config('services.twilio_whatsapp');
+
+        if (empty($config['sid']) || empty($config['token']) || empty($config['from'])) {
+            return false;
+        }
+
+        $client = $client ?: new TwilioClient($config['sid'], $config['token']);
+
+        $numbers = explode(',', trim($data['mobile_number']));
+
+        foreach ($numbers as $number) {
+            $client->messages->create('whatsapp:' . $number, [
+                'from' => 'whatsapp:' . $config['from'],
+                'body' => $data['whatsapp_text'],
+            ]);
+        }
     }
 
     /**

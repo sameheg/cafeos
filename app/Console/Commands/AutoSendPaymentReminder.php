@@ -131,7 +131,16 @@ class AutoSendPaymentReminder extends Command
                             }
                         }
 
-                        //TODO:: whatsapp notification to be implemented
+                        //send whatsapp notification
+                        if (! empty($data['auto_send_wa_notif']) && ! empty($sell->contact->mobile)) {
+                            try {
+                                $this->notificationUtil->sendWhatsapp($data);
+
+                                $this->notificationUtil->activityLog($sell, 'payment_reminder', null, ['whatsapp' => $sell->contact->mobile, 'is_automatic' => true], false);
+                            } catch (\Exception $e) {
+                                \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
+                            }
+                        }
                     }
                 }
             }
