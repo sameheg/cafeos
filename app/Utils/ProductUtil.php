@@ -1824,7 +1824,7 @@ class ProductUtil extends Util
             $query->where('p.repair_model_id', request()->get('repair_model_id'));
         }
 
-        //TODO::Check if result is correct after changing LEFT JOIN to INNER JOIN
+        // Use LEFT JOIN in stock subqueries so products without related rows are not dropped
         $pl_query_string = $this->get_pl_quantity_sum_string('pl');
 
         if ($for == 'view_product' && ! empty(request()->input('product_id'))) {
@@ -1835,21 +1835,18 @@ class ProductUtil extends Util
             // DB::raw("(SELECT SUM(quantity) FROM transaction_sell_lines LEFT JOIN transactions ON transaction_sell_lines.transaction_id=transactions.id WHERE transactions.status='final' $location_filter AND
             //     transaction_sell_lines.product_id=products.id) as total_sold"),
 
-            DB::raw("(SELECT SUM(TSL.quantity - TSL.quantity_returned) FROM transactions 
-                  JOIN transaction_sell_lines AS TSL ON transactions.id=TSL.transaction_id
-                  WHERE transactions.status='final' AND transactions.type='sell' AND transactions.location_id=vld.location_id
-                  AND TSL.variation_id=variations.id) as total_sold"),
-            DB::raw("(SELECT SUM(IF(transactions.type='sell_transfer', TSL.quantity, 0) ) FROM transactions 
-                  JOIN transaction_sell_lines AS TSL ON transactions.id=TSL.transaction_id
-                  WHERE transactions.status='final' AND transactions.type='sell_transfer' AND transactions.location_id=vld.location_id AND (TSL.variation_id=variations.id)) as total_transfered"),
-            DB::raw("(SELECT SUM(IF(transactions.type='stock_adjustment', SAL.quantity, 0) ) FROM transactions 
-                  JOIN stock_adjustment_lines AS SAL ON transactions.id=SAL.transaction_id
-                  WHERE transactions.type='stock_adjustment' AND transactions.location_id=vld.location_id 
-                    AND (SAL.variation_id=variations.id)) as total_adjusted"),
-            DB::raw("(SELECT SUM( COALESCE(pl.quantity - ($pl_query_string), 0) * purchase_price_inc_tax) FROM transactions 
-                  JOIN purchase_lines AS pl ON transactions.id=pl.transaction_id
-                  WHERE (transactions.status='received' OR transactions.type='purchase_return')  AND transactions.location_id=vld.location_id 
-                  AND (pl.variation_id=variations.id)) as stock_price"),
+            DB::raw("(SELECT SUM(COALESCE(TSL.quantity - TSL.quantity_returned, 0)) FROM transactions
+                  LEFT JOIN transaction_sell_lines AS TSL ON transactions.id=TSL.transaction_id AND TSL.variation_id=variations.id
+                  WHERE transactions.status='final' AND transactions.type='sell' AND transactions.location_id=vld.location_id) as total_sold"),
+            DB::raw("(SELECT SUM(COALESCE(TSL.quantity, 0)) FROM transactions
+                  LEFT JOIN transaction_sell_lines AS TSL ON transactions.id=TSL.transaction_id AND TSL.variation_id=variations.id
+                  WHERE transactions.status='final' AND transactions.type='sell_transfer' AND transactions.location_id=vld.location_id) as total_transfered"),
+            DB::raw("(SELECT SUM(COALESCE(SAL.quantity, 0)) FROM transactions
+                  LEFT JOIN stock_adjustment_lines AS SAL ON transactions.id=SAL.transaction_id AND SAL.variation_id=variations.id
+                  WHERE transactions.type='stock_adjustment' AND transactions.location_id=vld.location_id) as total_adjusted"),
+            DB::raw("(SELECT SUM( COALESCE(pl.quantity - ($pl_query_string), 0) * purchase_price_inc_tax) FROM transactions
+                  LEFT JOIN purchase_lines AS pl ON transactions.id=pl.transaction_id AND pl.variation_id=variations.id
+                  WHERE (transactions.status='received' OR transactions.type='purchase_return')  AND transactions.location_id=vld.location_id) as stock_price"),
             DB::raw('SUM(vld.qty_available) as stock'),
             'variations.sub_sku as sku',
             'p.name as product',
