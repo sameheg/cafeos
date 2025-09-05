@@ -24,6 +24,19 @@ class KdsService
      */
     public function receiveTicket(array $ticket): void
     {
+        // Store metrics if model is available in this runtime
+        if (
+            class_exists(\App\Models\KdsMetric::class) &&
+            method_exists(\App\Models\KdsMetric::class, 'getConnectionResolver') &&
+            \App\Models\KdsMetric::getConnectionResolver()
+        ) {
+            \App\Models\KdsMetric::create([
+                'ticket_id' => $ticket['id'] ?? null,
+                'prep_time_seconds' => $ticket['prep_time'] ?? null,
+                'queue_time_seconds' => $ticket['queue_time'] ?? null,
+            ]);
+        }
+
         $this->broadcast($ticket);
     }
 
