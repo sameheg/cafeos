@@ -13,6 +13,7 @@ use App\ExpenseCategory;
 use App\Product;
 use App\PurchaseLine;
 use App\Restaurant\ResTable;
+use App\NotificationLog;
 use App\SellingPriceGroup;
 use App\TaxRate;
 use App\Transaction;
@@ -3821,6 +3822,38 @@ class ReportController extends Controller
         $users = User::allUsersDropdown($business_id, false);
 
         return view('report.activity_log')->with(compact('users', 'transaction_types'));
+    }
+
+    public function notificationLog(Request $request)
+    {
+        $business_id = $request->session()->get('user.business_id');
+
+        if ($request->ajax()) {
+            $logs = NotificationLog::leftJoin('contacts', 'contacts.id', '=', 'notification_logs.contact_id')
+                                    ->where('contacts.business_id', $business_id)
+                                    ->select('notification_logs.*', 'contacts.name as contact_name');
+
+            if (! empty($request->start_date) && ! empty($request->end_date)) {
+                $logs->whereDate('notification_logs.sent_at', '>=', $request->start_date)
+                     ->whereDate('notification_logs.sent_at', '<=', $request->end_date);
+            }
+
+            if (! empty($request->channel)) {
+                $logs->where('notification_logs.channel', $request->channel);
+            }
+
+            return Datatables::of($logs)
+                ->editColumn('sent_at', '{{@format_datetime($sent_at)}}')
+                ->make(true);
+        }
+
+        $channels = [
+            'email' => 'Email',
+            'sms' => 'SMS',
+            'whatsapp' => 'Whatsapp',
+        ];
+
+        return view('report.notification_log', compact('channels'));
     }
 
     public function gstSalesReport(Request $request)
