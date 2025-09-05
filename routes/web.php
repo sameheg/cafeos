@@ -583,4 +583,6 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/show-notification/{id}', [HomeController::class, 'showNotification']);
     Route::post('/sell/check-invoice-number', [SellController::class, 'checkInvoiceNumber']);
 });
-Route::get('/queue/failed', [QueueDashboardController::class, 'index'])->name('queue.failed');
+Route::get('/queue', [QueueDashboardController::class, 'index'])->name('queue.index');
+Route::post('/queue/retry/{id}', [QueueDashboardController::class, 'retry'])->name('queue.retry');
+Route::delete('/queue/{id}', [QueueDashboardController::class, 'destroy'])->name('queue.destroy');
