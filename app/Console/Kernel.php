@@ -21,6 +21,12 @@ class Kernel extends ConsoleKernel
         $schedule->job(new SyncDeliveryOrders('ubereats'))->everyThirtyMinutes();
         $schedule->job(new GenerateReport('daily'))->dailyAt('02:00');
 
+        //Check for products with low stock
+        $schedule->command('pos:checkLowStock')->daily();
+
+        //Update forecasted demand for products
+        $schedule->command('pos:forecastDemand')->daily();
+
         $env = config('app.env');
         $email = config('mail.username');
 
@@ -36,12 +42,6 @@ class Kernel extends ConsoleKernel
             $schedule->command('pos:updateRewardPoints')->dailyAt('23:45');
 
             $schedule->command('pos:autoSendPaymentReminder')->dailyAt('8:00');
-
-            //Check for products with low stock
-            $schedule->command('pos:checkLowStock')->daily();
-
-            //Update forecasted demand for products
-            $schedule->command('pos:forecastDemand')->daily();
 
         }
 
