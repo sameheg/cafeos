@@ -12,6 +12,12 @@ class KdsService
     private array $listeners = [];
 
     /**
+     * @var array<int|string, array<string, mixed>> Active tickets indexed by id.
+     */
+    private array $tickets = [];
+
+    /**
+     * Register a display callback that will receive tickets.
      * @param array<string, string> $itemStations Mapping of item names to their stations
      */
     public function __construct(private array $itemStations = [])
@@ -19,6 +25,7 @@ class KdsService
     }
 
     /**
+     * Accept a kitchen ticket, store it as active and broadcast to listeners.
      * Register a display callback that will receive tickets for an optional station.
      */
     public function registerDisplay(callable $listener, ?string $station = null): void
@@ -33,6 +40,29 @@ class KdsService
      */
     public function receiveTicket(array $ticket): void
     {
+        $id = $ticket['id'] ?? uniqid('ticket_', true);
+        $this->tickets[$id] = $ticket;
+
+        $this->broadcast([
+            'type' => 'ticket.created',
+            'ticket' => $ticket,
+        ]);
+    }
+
+    /**
+     * Return all currently active tickets.
+     *
+     * @return array<int,array<string,mixed>>
+     */
+    public function getActiveTickets(): array
+    {
+        return array_values($this->tickets);
+    }
+
+    /**
+     * Broadcast a message to all registered displays.
+     *
+     * @param array<string,mixed> $message
         if (!isset($ticket['station'])) {
             foreach ($ticket['items'] ?? [] as $item) {
                 if (isset($this->itemStations[$item['name']])) {
@@ -50,9 +80,10 @@ class KdsService
      *
      * @param array<string, mixed> $ticket
      */
-    private function broadcast(array $ticket): void
+    private function broadcast(array $message): void
     {
         foreach ($this->listeners as $listener) {
+            $listener($message);
             if ($listener['station'] === null || ($ticket['station'] ?? null) === $listener['station']) {
                 ($listener['callback'])($ticket);
             }
