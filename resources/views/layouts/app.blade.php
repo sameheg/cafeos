@@ -55,6 +55,7 @@
         <style>
             :root {
                 --theme-primary: {{ $activeTheme->primary_color }};
+                --theme-secondary: {{ $activeTheme->secondary_color }};
             }
         </style>
     @endif

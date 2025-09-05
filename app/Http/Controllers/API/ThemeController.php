@@ -32,7 +32,7 @@ class ThemeController extends Controller
             'font' => 'nullable|string',
             'layout' => 'nullable|string',
         ]);
-        $theme = $this->themes->createTheme($data);
+        $theme = $this->themes->saveUserTheme($data['user_id'], $data);
         return response()->json($theme, 201);
     }
 

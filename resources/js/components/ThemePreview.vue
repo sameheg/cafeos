@@ -8,6 +8,7 @@
 export default {
   props: {
     primary: { type: String, default: '#ffffff' },
+    secondary: { type: String, default: '#000000' },
     layout: { type: String, default: 'light' }
   },
   computed: {
@@ -16,7 +17,7 @@ export default {
         backgroundColor: this.primary,
         color: this.layout === 'dark' ? '#fff' : '#000',
         padding: '1rem',
-        border: '1px solid #ccc'
+        border: `2px solid ${this.secondary}`
       };
     }
   }
