@@ -1,12 +1,12 @@
-import { saveSale, getQueuedSales, syncQueuedSales } from './offlineStorage';
-import { FDBFactory } from 'fake-indexeddb';
+const { saveSale, getQueuedSales, syncQueuedSales } = require('./offlineStorage');
+const FDBFactory = require('fake-indexeddb/lib/FDBFactory');
 
 describe('offline integration', () => {
   let registerMock;
 
   beforeEach(() => {
     global.indexedDB = new FDBFactory();
-    window.SyncManager = function SyncManager() {};
+    global.window = { SyncManager: function SyncManager() {} };
     registerMock = jest.fn();
     global.navigator = {
       serviceWorker: {

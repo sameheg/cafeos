@@ -12,7 +12,7 @@ function openDb() {
   });
 }
 
-export async function saveSale(data) {
+ async function saveSale(data) {
   const db = await openDb();
   const tx = db.transaction(STORE_NAME, 'readwrite');
   tx.objectStore(STORE_NAME).add({ url: '/pos/sale', method: 'POST', body: data });
@@ -22,7 +22,7 @@ export async function saveSale(data) {
   }
 }
 
-export async function getQueuedSales() {
+ async function getQueuedSales() {
   const db = await openDb();
   const tx = db.transaction(STORE_NAME, 'readonly');
   const store = tx.objectStore(STORE_NAME);
@@ -33,7 +33,7 @@ export async function getQueuedSales() {
   });
 }
 
-export async function syncQueuedSales() {
+ async function syncQueuedSales() {
   const db = await openDb();
   const tx = db.transaction(STORE_NAME, 'readwrite');
   const store = tx.objectStore(STORE_NAME);
@@ -53,5 +53,7 @@ export async function syncQueuedSales() {
     } catch (e) {
       // still offline
     }
+    }
   }
-}
+
+module.exports = { saveSale, getQueuedSales, syncQueuedSales };
