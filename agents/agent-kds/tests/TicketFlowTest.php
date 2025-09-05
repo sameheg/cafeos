@@ -26,6 +26,8 @@ final class TicketFlowTest extends TestCase
 
         $response = $endpoint->handle($ticket);
 
+        $this->assertArrayHasKey('received_at', $received);
+        unset($received['received_at']);
         $this->assertSame($ticket, $received, 'Display should receive the ticket');
         $this->assertSame(['status' => 'accepted', 'ticket' => $ticket], $response);
     }
