@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\System;
 use App\Utils\ModuleUtil;
+use App\Services\Accounting\AccountingInterface;
+use App\Services\Accounting\QuickBooksService;
 use App\Transaction;
 use App\TransactionSellLine;
 use App\Observers\TransactionObserver;
@@ -251,7 +253,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AccountingInterface::class, function ($app) {
+            $provider = config('accounting.provider');
+            $map = config('accounting.providers', []);
+            $concrete = $map[$provider] ?? QuickBooksService::class;
+
+            return $app->make($concrete);
+        });
     }
 
     /**
