@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\OrderApiController;
 use App\Http\Controllers\API\RecipeApiController;
 use App\Http\Controllers\Api\MenuSuggestionController;
+use App\Http\Controllers\API\KdsMetricsController;
 use Modules\Reporting\Services\ForecastService;
 use App\Contact;
 use App\Transaction;
@@ -43,6 +44,8 @@ Route::get('/analytics/realtime', function (ForecastService $service) {
         'Content-Type' => 'text/event-stream',
     ]);
 });
+
+Route::get('/kds/metrics', [KdsMetricsController::class, 'index']);
 
 Route::middleware('customer.auth')->group(function () {
     Route::get('/customer/points', function (Request $request) {

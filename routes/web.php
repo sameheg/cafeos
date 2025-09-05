@@ -647,3 +647,5 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
 Route::get('/queue', [QueueDashboardController::class, 'index'])->name('queue.index');
 Route::post('/queue/retry/{id}', [QueueDashboardController::class, 'retry'])->name('queue.retry');
 Route::delete('/queue/{id}', [QueueDashboardController::class, 'destroy'])->name('queue.destroy');
+
+Route::view('/kds/metrics/dashboard', 'kds.metrics');
