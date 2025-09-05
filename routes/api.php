@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\OrderApiController;
+use App\Http\Controllers\Api\MenuSuggestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,5 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('products', ProductApiController::class);
     Route::apiResource('orders', OrderApiController::class);
+    Route::get('menu-suggestions', [MenuSuggestionController::class, 'index']);
 });
