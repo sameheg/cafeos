@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Restaurant;
 
 use App\Restaurant\TableOrder;
+use App\Services\WaiterNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
@@ -45,6 +46,20 @@ class QROrderController extends Controller
             'order_id' => $order->id,
             'status' => $order->status,
             'items' => $request->input('items', []),
+        ]);
+    }
+
+    public function ready(TableOrder $order, WaiterNotificationService $notifications)
+    {
+        $order->status = 'ready';
+        $order->save();
+
+        $notifications->notifyTicketReady($order);
+
+        return response()->json([
+            'success' => true,
+            'order_id' => $order->id,
+            'status' => $order->status,
         ]);
     }
 
