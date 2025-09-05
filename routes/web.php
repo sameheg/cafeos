@@ -34,6 +34,7 @@ use App\Http\Controllers\LedgerDiscountController;
 use App\Http\Controllers\LoyaltyController;
 use App\Http\Controllers\LocationSettingsController;
 use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\ModulesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotificationTemplateController;
 use App\Http\Controllers\OpeningStockController;
@@ -51,6 +52,9 @@ use App\Http\Controllers\Admin\PermissionController as AdminPermissionController
 use App\Http\Controllers\Admin\AdminSearchController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\InvoiceTemplateController as AdminInvoiceTemplateController;
+use App\Http\Controllers\Admin\ModulesController as AdminModulesController;
+use App\Http\Controllers\Admin\MenuController as AdminMenuController;
+use App\Http\Controllers\Admin\LogViewerController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -73,6 +77,7 @@ use App\Http\Controllers\Auth\TwoFactorController;
 use App\Http\Controllers\LocaleController;
 use Modules\Inventory\Http\Controllers\InventoryAlertController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SystemIntegrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +126,10 @@ Route::middleware('setTenant')->group(function () {
 
 //Routes for authenticated users only
 Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin'])->group(function () {
+    Route::get('themes', [ThemeController::class, 'index'])->name('themes.index');
+    Route::post('themes', [ThemeController::class, 'store'])->name('themes.store');
+    Route::delete('themes/{theme}', [ThemeController::class, 'destroy'])->name('themes.destroy');
+    Route::post('themes/{theme}/assign', [ThemeController::class, 'assign'])->name('themes.assign');
     Route::post('theme', [ThemeController::class, 'update'])->name('theme.update');
     Route::get('pos/payment/{id}', [SellPosController::class, 'edit'])->name('edit-pos-payment');
     Route::get('service-staff-availability', [SellPosController::class, 'showServiceStaffAvailibility']);
@@ -151,6 +160,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::post('/test-sms', [BusinessController::class, 'testSmsConfiguration']);
     Route::get('/business/settings', [BusinessController::class, 'getBusinessSettings'])->name('business.getBusinessSettings');
     Route::post('/business/update', [BusinessController::class, 'postBusinessSettings'])->name('business.postBusinessSettings');
+    Route::get('/system/integrations', [SystemIntegrationController::class, 'index'])->name('system.integrations');
+    Route::post('/system/integrations', [SystemIntegrationController::class, 'update'])->name('system.integrations.update');
     Route::get('/user/profile', [UserController::class, 'getProfile'])->name('user.getProfile');
     Route::post('/user/update', [UserController::class, 'updateProfile'])->name('user.updateProfile');
     Route::post('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
@@ -273,12 +284,26 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     // end pos display screen route
     Route::resource('pos', SellPosController::class);
     Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('roles', AdminRoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+        Route::resource('menus', AdminMenuController::class);
+
+        Route::post('modules/{module}/toggle', [AdminModulesController::class, 'toggle'])->name('modules.toggle');
+
+        Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store','edit','update','destroy']);
     Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
     Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store','edit','update','destroy']);
     Route::resource('roles', AdminRoleController::class)->only(['index','create','store','edit','update','destroy']);
     Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
     Route::resource('menus', AdminMenuController::class);
     Route::resource('invoice-templates', AdminInvoiceTemplateController::class);
+    Route::get('logs', [LogViewerController::class, 'index'])
+        ->name('logs.index')
+        ->middleware('can:viewLogs');
+    Route::get('logs/{file}', [LogViewerController::class, 'show'])
+        ->name('logs.show')
+        ->middleware('can:viewLogs');
     });
 
     Route::resource('roles', RoleController::class);
@@ -427,6 +452,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     //Backup
     Route::get('backup/download/{file_name}', [BackUpController::class, 'download']);
     Route::get('backup/{id}/delete', [BackUpController::class, 'delete'])->name('delete_backup');
+    Route::get('backup/restore/{file_name}', [BackUpController::class, 'restore'])->name('restore_backup');
     Route::resource('backup', BackUpController::class)->only('index', 'create', 'store');
 
     Route::get('selling-price-group/activate-deactivate/{id}', [SellingPriceGroupController::class, 'activateDeactivate']);
@@ -436,6 +462,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
 
     Route::resource('selling-price-group', SellingPriceGroupController::class);
 
+    Route::post('notification-templates/preview', [NotificationTemplateController::class, 'preview'])->name('notification-templates.preview');
+    Route::post('notification-templates/send-test', [NotificationTemplateController::class, 'sendTest'])->name('notification-templates.sendTest');
     Route::resource('notification-templates', NotificationTemplateController::class)->only(['index', 'store']);
     Route::get('notification/get-template/{transaction_id}/{template_for}', [NotificationController::class, 'getTemplate']);
     Route::post('notification/send', [NotificationController::class, 'send']);
@@ -518,6 +546,9 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
         ->only(['index', 'update']);
     Route::get('regenerate', [Install\ModulesController::class, 'regenerate']);
 
+    Route::get('modules-statuses', [ModulesController::class, 'index'])->name('modules.index');
+    Route::post('modules-statuses/{module}', [ModulesController::class, 'toggle'])->name('modules.toggle');
+
     Route::resource('warranties', WarrantyController::class);
 
     Route::resource('dashboard-configurator', DashboardConfiguratorController::class)
@@ -540,6 +571,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('edit-sales-orders/{id}/status', [SalesOrderController::class, 'getEditSalesOrderStatus']);
     Route::put('update-sales-orders/{id}/status', [SalesOrderController::class, 'postEditSalesOrderStatus']);
     Route::get('reports/activity-log', [ReportController::class, 'activityLog']);
+    Route::get('reports/activity-log/settings', [ReportController::class, 'getActivityLogSettings']);
+    Route::post('reports/activity-log/settings', [ReportController::class, 'postActivityLogSettings']);
     Route::get('reports/notification-log', [ReportController::class, 'notificationLog']);
     Route::get('user-location/{latlng}', [HomeController::class, 'getUserLocation']);
 });
@@ -589,4 +622,6 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/show-notification/{id}', [HomeController::class, 'showNotification']);
     Route::post('/sell/check-invoice-number', [SellController::class, 'checkInvoiceNumber']);
 });
-Route::get('/queue/failed', [QueueDashboardController::class, 'index'])->name('queue.failed');
+Route::get('/queue', [QueueDashboardController::class, 'index'])->name('queue.index');
+Route::post('/queue/retry/{id}', [QueueDashboardController::class, 'retry'])->name('queue.retry');
+Route::delete('/queue/{id}', [QueueDashboardController::class, 'destroy'])->name('queue.destroy');

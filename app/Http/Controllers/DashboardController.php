@@ -45,9 +45,9 @@ class DashboardController extends Controller
 
         $widgets = auth()->user()?->dashboard_widgets ?? $defaultWidgets;
 
-        return view('dashboard', [
         return view('dashboard', array_merge($metrics, [
             'chart' => $chart,
+            'widgets' => $widgets,
         ]));
     }
 
@@ -85,9 +85,7 @@ class DashboardController extends Controller
             'totalPurchases' => $totalPurchases,
             'customerCount' => $customerCount,
             'productCount' => $productCount,
-            'chart' => $chart,
-            'widgets' => $widgets,
-        ]);
+        ];
     }
 
     public function saveWidgetsOrder(Request $request)
@@ -101,7 +99,6 @@ class DashboardController extends Controller
         $user->save();
 
         return response()->json(['status' => 'success']);
-        ];
     }
 }
 

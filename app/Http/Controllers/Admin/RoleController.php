@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -34,6 +35,8 @@ class RoleController extends Controller
         $role = Role::create([
             'name' => $data['name'],
             'guard_name' => 'web',
+            'business_id' => session('business.id'),
+
             'business_id' => $business_id,
         ]);
 
@@ -66,6 +69,40 @@ class RoleController extends Controller
 
         return redirect()->route('admin.roles.index');
     }
+
+    public function edit($id)
+    {
+        $businessId = session('business.id');
+        $role = Role::where('business_id', $businessId)->findOrFail($id);
+        $permissions = Permission::all();
+        $rolePermissions = $role->permissions->pluck('id')->toArray();
+
+        return view('admin.roles.edit', compact('role', 'permissions', 'rolePermissions'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $businessId = session('business.id');
+        $role = Role::where('business_id', $businessId)->findOrFail($id);
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255', Rule::unique('roles', 'name')->ignore($role->id)],
+            'permissions' => 'array',
+        ]);
+
+        $role->update([
+            'name' => $data['name'],
+        ]);
+
+        $role->syncPermissions($data['permissions'] ?? []);
+
+        return redirect()->route('admin.roles.index');
+    }
+
+    public function destroy($id)
+    {
+        $businessId = session('business.id');
+        $role = Role::where('business_id', $businessId)->findOrFail($id);
 
     public function destroy($id)
     {
