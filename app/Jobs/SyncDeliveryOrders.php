@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Jobs;
+
+use App\DeliveryProviderCredential;
+use App\Services\Delivery\DeliveryProvider;
+use App\Services\Delivery\TalabatAdapter;
+use App\Services\Delivery\UberEatsAdapter;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class SyncDeliveryOrders implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public string $connection = 'redis';
+    public int $tries = 3;
+
+    protected string $providerName;
+
+    public function __construct(string $providerName)
+    {
+        $this->providerName = $providerName;
+    }
+
+    public function handle(): void
+    {
+        $credentials = DeliveryProviderCredential::for($this->providerName);
+        if ($credentials) {
+            config([
+                "delivery.providers.{$this->providerName}.client_id" => $credentials->token,
+                "delivery.providers.{$this->providerName}.client_secret" => $credentials->secret,
+            ]);
+        }
+
+        $provider = $this->resolveProvider($this->providerName);
+
+        // TODO: implement synchronization using $provider->createOrder() and $provider->updateOrder().
+    }
+
+    protected function resolveProvider(string $name): DeliveryProvider
+    {
+        return match ($name) {
+            'talabat' => app(TalabatAdapter::class),
+            'ubereats' => app(UberEatsAdapter::class),
+            default => throw new \InvalidArgumentException("Unknown provider {$name}"),
+        };
+    }
+}

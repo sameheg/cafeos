@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Restaurant;
 
 use App\Restaurant\ResTable;
+use App\Restaurant\TableAssignment;
 use App\Transaction;
 use App\User;
 use App\Utils\Util;
@@ -52,9 +53,15 @@ class DataController extends Controller
                 }
                 if ($this->commonUtil->isModuleEnabled('tables')) {
                     $tables_enabled = true;
-                    $tables = ResTable::where('business_id', $business_id)
-                            ->where('location_id', $location_id)
-                            ->pluck('name', 'id');
+                    $tables_query = ResTable::where('business_id', $business_id)
+                            ->where('location_id', $location_id);
+                    if ($this->commonUtil->isModuleEnabled('service_staff')) {
+                        $assigned_table_ids = TableAssignment::where('waiter_id', $request->session()->get('user.id'))
+                            ->whereNull('released_at')
+                            ->pluck('res_table_id');
+                        $tables_query->whereIn('id', $assigned_table_ids);
+                    }
+                    $tables = $tables_query->pluck('name', 'id');
                 }
             } else {
                 $tables = [];

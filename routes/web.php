@@ -15,12 +15,14 @@ use App\Http\Controllers\CombinedPurchaseReturnController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerGroupController;
 use App\Http\Controllers\DashboardConfiguratorController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\DocumentAndNoteController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GroupTaxController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QueueDashboardController;
 use App\Http\Controllers\ImportOpeningStockController;
 use App\Http\Controllers\ImportProductsController;
 use App\Http\Controllers\ImportSalesController;
@@ -29,6 +31,7 @@ use App\Http\Controllers\InvoiceLayoutController;
 use App\Http\Controllers\InvoiceSchemeController;
 use App\Http\Controllers\LabelsController;
 use App\Http\Controllers\LedgerDiscountController;
+use App\Http\Controllers\LoyaltyController;
 use App\Http\Controllers\LocationSettingsController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\NotificationController;
@@ -43,12 +46,16 @@ use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Restaurant;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
+use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
+use App\Http\Controllers\Admin\AdminSearchController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\SellingPriceGroupController;
 use App\Http\Controllers\SellPosController;
 use App\Http\Controllers\SellReturnController;
+use App\Http\Controllers\Staff\ScheduleController;
 use App\Http\Controllers\StockAdjustmentController;
 use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\TaxonomyController;
@@ -59,6 +66,9 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariationTemplateController;
 use App\Http\Controllers\WarrantyController;
+use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,31 +84,41 @@ use Illuminate\Support\Facades\Route;
 
 include_once 'install_r.php';
 
-Route::middleware(['setData'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
+Route::middleware('setTenant')->group(function () {
+    Route::middleware('setData')->group(function () {
+        Route::get('/', function () {
+            return view('welcome');
+        });
+
+        Auth::routes();
+        Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
+
+        Route::get('/business/register', [BusinessController::class, 'getRegister'])->name('business.getRegister');
+        Route::post('/business/register', [BusinessController::class, 'postRegister'])->name('business.postRegister');
+        Route::post('/business/register/check-username', [BusinessController::class, 'postCheckUsername'])->name('business.postCheckUsername');
+        Route::post('/business/register/check-email', [BusinessController::class, 'postCheckEmail'])->name('business.postCheckEmail');
+
+        Route::get('/kiosk', [\App\Http\Controllers\Kiosk\OrderController::class, 'index']);
+        Route::post('/kiosk/order', [\App\Http\Controllers\Kiosk\OrderController::class, 'store']);
+
+        Route::get('/invoice/{token}', [SellPosController::class, 'showInvoice'])
+            ->name('show_invoice');
+        Route::get('/quote/{token}', [SellPosController::class, 'showInvoice'])
+            ->name('show_quote');
+
+        Route::get('/pay/{token}', [SellPosController::class, 'invoicePayment'])
+            ->name('invoice_payment');
+        Route::post('/confirm-payment/{id}', [SellPosController::class, 'confirmPayment'])
+            ->name('confirm_payment');
+
+        Route::view('/customer-portal', 'customer-portal.index')
+            ->name('customer.portal');
     });
-
-    Auth::routes();
-
-    Route::get('/business/register', [BusinessController::class, 'getRegister'])->name('business.getRegister');
-    Route::post('/business/register', [BusinessController::class, 'postRegister'])->name('business.postRegister');
-    Route::post('/business/register/check-username', [BusinessController::class, 'postCheckUsername'])->name('business.postCheckUsername');
-    Route::post('/business/register/check-email', [BusinessController::class, 'postCheckEmail'])->name('business.postCheckEmail');
-
-    Route::get('/invoice/{token}', [SellPosController::class, 'showInvoice'])
-        ->name('show_invoice');
-    Route::get('/quote/{token}', [SellPosController::class, 'showInvoice'])
-        ->name('show_quote');
-
-    Route::get('/pay/{token}', [SellPosController::class, 'invoicePayment'])
-        ->name('invoice_payment');
-    Route::post('/confirm-payment/{id}', [SellPosController::class, 'confirmPayment'])
-        ->name('confirm_payment');
 });
 
 //Routes for authenticated users only
-Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin'])->group(function () {
+Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin'])->group(function () {
+    Route::post('theme', [ThemeController::class, 'update'])->name('theme.update');
     Route::get('pos/payment/{id}', [SellPosController::class, 'edit'])->name('edit-pos-payment');
     Route::get('service-staff-availability', [SellPosController::class, 'showServiceStaffAvailibility']);
     Route::get('pause-resume-service-staff-timer/{user_id}', [SellPosController::class, 'pauseResumeServiceStaffTimer']);
@@ -111,6 +131,11 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
 
     Route::get('/sign-in-as-user/{id}', [ManageUserController::class, 'signInAsUser'])->name('sign-in-as-user');
 
+      Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+      Route::post('/dashboard/widgets-order', [DashboardController::class, 'saveWidgetsOrder'])->name('dashboard.widgets.order');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/metrics', [DashboardController::class, 'metrics']);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/get-totals', [HomeController::class, 'getTotals']);
     Route::get('/home/product-stock-alert', [HomeController::class, 'getProductStockAlert']);
@@ -128,6 +153,8 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::post('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 
     Route::resource('brands', BrandController::class);
+
+    Route::get('/admin-search', [AdminSearchController::class, 'index'])->name('admin.search');
 
     Route::resource('payment-account', 'PaymentAccountController');
 
@@ -240,6 +267,10 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::get('/pos/variation/{variation_id}/{location_id}', [\App\Http\Controllers\ProductController::class, 'getVarationDetail']);
     // end pos display screen route
     Route::resource('pos', SellPosController::class);
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+    });
 
     Route::resource('roles', RoleController::class);
 
@@ -301,6 +332,9 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::get('/reports/get-profit/{by?}', [ReportController::class, 'getProfit']);
     Route::get('/reports/items-report', [ReportController::class, 'itemsReport']);
     Route::get('/reports/get-stock-value', [ReportController::class, 'getStockValue']);
+    Route::get('/reports/export-transactions', [ReportController::class, 'exportTransactions']);
+    Route::get('/reports/kpi/sales-per-waiter', [ReportController::class, 'salesPerWaiter']);
+    Route::get('/reports/kpi/table-turnover', [ReportController::class, 'tableTurnover']);
 
     Route::get('business-location/activate-deactivate/{location_id}', [BusinessLocationController::class, 'activateDeactivateLocation']);
 
@@ -435,6 +469,8 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::prefix('modules')->group(function () {
         Route::resource('tables', Restaurant\TableController::class);
         Route::resource('modifiers', Restaurant\ModifierSetsController::class);
+        Route::resource('waiter-shifts', Restaurant\WaiterShiftController::class);
+        Route::resource('table-assignments', Restaurant\TableAssignmentController::class);
 
         //Map modifier to products
         Route::get('/product-modifiers/{id}/edit', [Restaurant\ProductModifierSetController::class, 'edit']);
@@ -447,13 +483,16 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
         Route::get('/kitchen/mark-as-cooked/{id}', [Restaurant\KitchenController::class, 'markAsCooked']);
         Route::post('/refresh-orders-list', [Restaurant\KitchenController::class, 'refreshOrdersList']);
         Route::post('/refresh-line-orders-list', [Restaurant\KitchenController::class, 'refreshLineOrdersList']);
+        Route::post('/kitchen-orders/{id}/status', [Restaurant\KitchenController::class, 'updateStatus']);
 
         Route::get('/orders', [Restaurant\OrderController::class, 'index']);
         Route::get('/orders/mark-as-served/{id}', [Restaurant\OrderController::class, 'markAsServed']);
+        Route::get('/orders/status', [Restaurant\OrderController::class, 'status']);
         Route::get('/data/get-pos-details', [Restaurant\DataController::class, 'getPosDetails']);
         Route::get('/data/check-staff-pin', [Restaurant\DataController::class, 'checkStaffPin']);
         Route::get('/orders/mark-line-order-as-served/{id}', [Restaurant\OrderController::class, 'markLineOrderAsServed']);
         Route::get('/print-line-order', [Restaurant\OrderController::class, 'printLineOrder']);
+        Route::get('/kitchen-display', [Restaurant\KitchenController::class, 'display']);
     });
 
     Route::get('bookings/get-todays-bookings', [Restaurant\BookingController::class, 'getTodaysBookings']);
@@ -492,6 +531,7 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::get('edit-sales-orders/{id}/status', [SalesOrderController::class, 'getEditSalesOrderStatus']);
     Route::put('update-sales-orders/{id}/status', [SalesOrderController::class, 'postEditSalesOrderStatus']);
     Route::get('reports/activity-log', [ReportController::class, 'activityLog']);
+    Route::get('reports/notification-log', [ReportController::class, 'notificationLog']);
     Route::get('user-location/{latlng}', [HomeController::class, 'getUserLocation']);
 });
 
@@ -507,10 +547,22 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
 
 //common route
 Route::middleware(['auth'])->group(function () {
+    Route::get('/two-factor', [TwoFactorController::class, 'index'])->name('two-factor.index');
+    Route::post('/two-factor/disable', [TwoFactorController::class, 'disable'])->name('two-factor.disable');
+    Route::get('/two-factor-challenge', [TwoFactorController::class, 'showChallenge'])->name('two-factor.challenge');
+    Route::post('/two-factor-challenge', [TwoFactorController::class, 'verify'])->name('two-factor.verify');
+    Route::get('/loyalty', [LoyaltyController::class, 'show'])->name('loyalty.show');
+    Route::post('/loyalty/redeem', [LoyaltyController::class, 'redeem'])->name('loyalty.redeem');
     Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone'])->group(function () {
+Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone'])->prefix('staff')->name('staff.')->group(function () {
+    Route::get('schedule', [ScheduleController::class, 'index'])->name('schedule');
+    Route::post('schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::put('schedule/{shift}', [ScheduleController::class, 'update'])->name('schedule.update');
+});
+
+Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone'])->group(function () {
     Route::get('/load-more-notifications', [HomeController::class, 'loadMoreNotifications']);
     Route::get('/get-total-unread', [HomeController::class, 'getTotalUnreadNotifications']);
     Route::get('/purchases/print/{id}', [PurchaseController::class, 'printInvoice']);
@@ -524,6 +576,8 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone'])
     Route::get('/download-packing-list/{id}/pdf', [SellPosController::class, 'downloadPackingListPdf'])
         ->name('packing.downloadPdf');
     Route::get('/sells/invoice-url/{id}', [SellPosController::class, 'showInvoiceUrl']);
+    Route::get('/sells/{id}/edit-history', [SellPosController::class, 'editHistory'])->name('sell.edit_history');
     Route::get('/show-notification/{id}', [HomeController::class, 'showNotification']);
     Route::post('/sell/check-invoice-number', [SellController::class, 'checkInvoiceNumber']);
 });
+Route::get('/queue/failed', [QueueDashboardController::class, 'index'])->name('queue.failed');

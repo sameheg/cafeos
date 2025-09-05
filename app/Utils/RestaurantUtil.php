@@ -6,6 +6,7 @@ use App\Restaurant\Booking;
 use App\Transaction;
 use App\TransactionSellLine;
 use App\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
@@ -21,69 +22,85 @@ class RestaurantUtil extends Util
      */
     public function getAllOrders($business_id, $filter = [])
     {
-        $query = Transaction::leftJoin('contacts', 'transactions.contact_id', '=', 'contacts.id')
-                ->leftjoin(
-                    'business_locations AS bl',
-                    'transactions.location_id',
-                    '=',
-                    'bl.id'
-                )
-                ->leftjoin(
-                    'res_tables AS rt',
-                    'transactions.res_table_id',
-                    '=',
-                    'rt.id'
-                )
-                ->where('transactions.business_id', $business_id)
-                ->where('transactions.type', 'sell')
-                ->where('transactions.status', 'final');
-        // ->where('transactions.res_order_status', '!=' ,'served');
+        $cacheKey = config('cache.restaurant_all_orders_key')."_{$business_id}_".md5(json_encode($filter));
+        $ttl = config('cache.restaurant_all_orders_ttl');
 
-        if (empty($filter['order_status'])) {
-            $query->where(function ($q) {
-                $q->where('res_order_status', '!=', 'served')
-                ->orWhereNull('res_order_status');
-            });
-        }
+        $callback = function () use ($business_id, $filter) {
+            $query = Transaction::leftJoin('contacts', 'transactions.contact_id', '=', 'contacts.id')
+                    ->leftjoin(
+                        'business_locations AS bl',
+                        'transactions.location_id',
+                        '=',
+                        'bl.id'
+                    )
+                    ->leftjoin(
+                        'res_tables AS rt',
+                        'transactions.res_table_id',
+                        '=',
+                        'rt.id'
+                    )
+                    ->where('transactions.business_id', $business_id)
+                    ->where('transactions.type', 'sell')
+                    ->where('transactions.status', 'final');
 
-        //For new orders order_status is 'received'
-        if (! empty($filter['order_status']) && $filter['order_status'] == 'received') {
-            $query->whereNull('res_order_status');
-        }
-
-        if (! empty($filter['line_order_status'])) {
-            if ($filter['line_order_status'] == 'received') {
-                $query->whereHas('sell_lines', function ($q) {
-                    $q->whereNull('res_line_order_status')
-                      ->orWhere('res_line_order_status', 'received');
-                }, '>=', 1);
+            if (empty($filter['order_status'])) {
+                $query->where(function ($q) {
+                    $q->where('res_order_status', '!=', 'served')
+                    ->orWhereNull('res_order_status');
+                });
             }
 
-            if ($filter['line_order_status'] == 'cooked') {
-                $query->whereHas('sell_lines', function ($q) {
-                    $q->where('res_line_order_status', '!=', 'cooked');
-                }, '=', 0);
+            if (! empty($filter['order_status']) && $filter['order_status'] == 'received') {
+                $query->whereNull('res_order_status');
             }
 
-            if ($filter['line_order_status'] == 'served') {
-                $query->whereHas('sell_lines', function ($q) {
-                    $q->where('res_line_order_status', '!=', 'served');
-                }, '=', 0);
+            if (! empty($filter['line_order_status'])) {
+                if ($filter['line_order_status'] == 'received') {
+                    $query->whereHas('sell_lines', function ($q) {
+                        $q->whereNull('res_line_order_status')
+                          ->orWhere('res_line_order_status', 'received');
+                    }, '>=', 1);
+                }
+
+                if ($filter['line_order_status'] == 'cooked') {
+                    $query->whereHas('sell_lines', function ($q) {
+                        $q->where('res_line_order_status', '!=', 'cooked');
+                    }, '=', 0);
+                }
+
+                if ($filter['line_order_status'] == 'served') {
+                    $query->whereHas('sell_lines', function ($q) {
+                        $q->where('res_line_order_status', '!=', 'served');
+                    }, '=', 0);
+                }
             }
-        }
 
-        if (! empty($filter['waiter_id'])) {
-            $query->where('transactions.res_waiter_id', $filter['waiter_id']);
-        }
+            if (! empty($filter['waiter_id'])) {
+                $query->where('transactions.res_waiter_id', $filter['waiter_id']);
+            }
 
-        //  for kitchen order
-        if (! empty($filter['is_kitchen_order']) && $filter['is_kitchen_order'] == 1) {
-            $query->where('is_kitchen_order', 1);
-        }
+            if (! empty($filter['is_kitchen_order']) && $filter['is_kitchen_order'] == 1) {
+                $query->where('is_kitchen_order', 1);
+            }
 
-        $permitted_locations = auth()->user()->permitted_locations();
-        if ($permitted_locations != 'all') {
-            $query->whereIn('transactions.location_id', $permitted_locations);
+            $permitted_locations = auth()->user()->permitted_locations();
+            if ($permitted_locations != 'all') {
+                $query->whereIn('transactions.location_id', $permitted_locations);
+            }
+
+            return $query->select(
+                'transactions.*',
+                'contacts.name as customer_name',
+                'bl.name as business_location',
+                'rt.name as table_name'
+            )->with(['sell_lines'])
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        };
+
+        if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore) {
+            return Cache::tags(['restaurant_orders', 'business:'.$business_id])
+                    ->remember($cacheKey, $ttl, $callback);
         }
 
         $orders = $query->select(
@@ -91,11 +108,15 @@ class RestaurantUtil extends Util
             'contacts.name as customer_name',
             'bl.name as business_location',
             'rt.name as table_name'
-        )->with(['sell_lines'])
+        )->with(['sell_lines', 'status_logs' => function ($q) {
+            $q->orderBy('created_at', 'asc')->with('changed_by_user');
+        }])
                 ->orderBy('created_at', 'desc')
                 ->get();
 
         return $orders;
+
+        return Cache::remember($cacheKey, $ttl, $callback);
     }
 
     public function service_staff_dropdown($business_id)
@@ -138,72 +159,115 @@ class RestaurantUtil extends Util
      */
     public function getLineOrders($business_id, $filter = [])
     {
-        $query = TransactionSellLine::with(['modifiers', 'modifiers.product', 'modifiers.variations'])
-                ->leftJoin('transactions as t', 't.id', '=', 'transaction_sell_lines.transaction_id')
-                ->leftJoin('contacts as c', 't.contact_id', '=', 'c.id')
-                ->leftJoin('variations as v', 'transaction_sell_lines.variation_id', '=', 'v.id')
-                ->leftJoin('products as p', 'v.product_id', '=', 'p.id')
-                ->leftJoin('units as u', 'p.unit_id', '=', 'u.id')
-                ->leftJoin('product_variations as pv', 'v.product_variation_id', '=', 'pv.id')
-                ->leftJoin('users as line_service_staff', 'transaction_sell_lines.res_service_staff_id', '=', 'line_service_staff.id')
-                ->leftjoin(
-                    'business_locations AS bl',
-                    't.location_id',
-                    '=',
-                    'bl.id'
-                )
-                ->leftjoin(
-                    'res_tables AS rt',
-                    't.res_table_id',
-                    '=',
-                    'rt.id'
-                )
-                ->where('t.business_id', $business_id)
-                ->where('t.type', 'sell')
-                ->where('t.status', 'final');
+        $cacheKey = config('cache.restaurant_line_orders_key')."_{$business_id}_".md5(json_encode($filter));
+        $ttl = config('cache.restaurant_line_orders_ttl');
 
-        if (empty($filter['order_status'])) {
-            $query->where(function ($q) {
-                $q->where('res_line_order_status', '!=', 'served')
-                ->orWhereNull('res_line_order_status');
-            });
+        $callback = function () use ($business_id, $filter) {
+            $query = TransactionSellLine::with(['modifiers', 'modifiers.product', 'modifiers.variations'])
+                    ->leftJoin('transactions as t', 't.id', '=', 'transaction_sell_lines.transaction_id')
+                    ->leftJoin('contacts as c', 't.contact_id', '=', 'c.id')
+                    ->leftJoin('variations as v', 'transaction_sell_lines.variation_id', '=', 'v.id')
+                    ->leftJoin('products as p', 'v.product_id', '=', 'p.id')
+                    ->leftJoin('units as u', 'p.unit_id', '=', 'u.id')
+                    ->leftJoin('product_variations as pv', 'v.product_variation_id', '=', 'pv.id')
+                    ->leftJoin('users as line_service_staff', 'transaction_sell_lines.res_service_staff_id', '=', 'line_service_staff.id')
+                    ->leftjoin(
+                        'business_locations AS bl',
+                        't.location_id',
+                        '=',
+                        'bl.id'
+                    )
+                    ->leftjoin(
+                        'res_tables AS rt',
+                        't.res_table_id',
+                        '=',
+                        'rt.id'
+                    )
+                    ->where('t.business_id', $business_id)
+                    ->where('t.type', 'sell')
+                    ->where('t.status', 'final');
+
+            if (empty($filter['order_status'])) {
+                $query->where(function ($q) {
+                    $q->where('res_line_order_status', '!=', 'served')
+                    ->orWhereNull('res_line_order_status');
+                });
+            }
+
+            if (! empty($filter['waiter_id'])) {
+                $query->where('transaction_sell_lines.res_service_staff_id', $filter['waiter_id']);
+            }
+
+            if (! empty($filter['line_id'])) {
+                $query->where('transaction_sell_lines.id', $filter['line_id']);
+            }
+
+            $permitted_locations = auth()->user()->permitted_locations();
+            if ($permitted_locations != 'all') {
+                $query->whereIn('t.location_id', $permitted_locations);
+            }
+
+            return $query->select(
+                'p.name as product_name',
+                'p.type as product_type',
+                'v.name as variation_name',
+                'pv.name as product_variation_name',
+                't.id as transaction_id',
+                'c.name as customer_name',
+                'bl.name as business_location',
+                'rt.name as table_name',
+                't.created_at',
+                't.invoice_no',
+                'transaction_sell_lines.quantity',
+                'transaction_sell_lines.sell_line_note',
+                'transaction_sell_lines.res_line_order_status',
+                'u.short_name as unit',
+                'transaction_sell_lines.id',
+                DB::raw("CONCAT(COALESCE(line_service_staff.surname, ''),' ',COALESCE(line_service_staff.first_name, ''),' ',COALESCE(line_service_staff.last_name,'')) as service_staff_name")
+            )
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        };
+
+        if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore) {
+            return Cache::tags(['restaurant_line_orders', 'business:'.$business_id])
+                    ->remember($cacheKey, $ttl, $callback);
         }
 
-        if (! empty($filter['waiter_id'])) {
-            $query->where('transaction_sell_lines.res_service_staff_id', $filter['waiter_id']);
+        return Cache::remember($cacheKey, $ttl, $callback);
+    }
+
+    /**
+     * Aggregates waiter performance based on served orders.
+     *
+     * @param  int  $business_id
+     * @param  string|null  $start
+     * @param  string|null  $end
+     * @return \Illuminate\Support\Collection
+     */
+    public function getWaiterPerformance($business_id, $start = null, $end = null)
+    {
+        $query = DB::table('order_status_logs as osl')
+            ->join('transactions as t', 'osl.transaction_id', '=', 't.id')
+            ->leftJoin('users as u', 't.res_waiter_id', '=', 'u.id')
+            ->where('t.business_id', $business_id)
+            ->where('osl.status_to', 'served');
+
+        if (! empty($start)) {
+            $query->whereDate('osl.created_at', '>=', $start);
+        }
+        if (! empty($end)) {
+            $query->whereDate('osl.created_at', '<=', $end);
         }
 
-        if (! empty($filter['line_id'])) {
-            $query->where('transaction_sell_lines.id', $filter['line_id']);
-        }
-
-        $permitted_locations = auth()->user()->permitted_locations();
-        if ($permitted_locations != 'all') {
-            $query->whereIn('t.location_id', $permitted_locations);
-        }
-
-        $orders = $query->select(
-            'p.name as product_name',
-            'p.type as product_type',
-            'v.name as variation_name',
-            'pv.name as product_variation_name',
-            't.id as transaction_id',
-            'c.name as customer_name',
-            'bl.name as business_location',
-            'rt.name as table_name',
-            't.created_at',
-            't.invoice_no',
-            'transaction_sell_lines.quantity',
-            'transaction_sell_lines.sell_line_note',
-            'transaction_sell_lines.res_line_order_status',
-            'u.short_name as unit',
-            'transaction_sell_lines.id',
-            DB::raw("CONCAT(COALESCE(line_service_staff.surname, ''),' ',COALESCE(line_service_staff.first_name, ''),' ',COALESCE(line_service_staff.last_name,'')) as service_staff_name")
+        return $query->select(
+            't.res_waiter_id',
+            DB::raw("CONCAT(COALESCE(u.surname, ''),' ',COALESCE(u.first_name, ''),' ',COALESCE(u.last_name, '')) as waiter_name"),
+            DB::raw('COUNT(osl.id) as orders_served'),
+            DB::raw('AVG(TIMESTAMPDIFF(MINUTE, t.created_at, osl.created_at)) as avg_serve_time_minutes')
         )
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-        return $orders;
+        ->groupBy('t.res_waiter_id', 'u.surname', 'u.first_name', 'u.last_name')
+        ->get();
     }
 
     /**

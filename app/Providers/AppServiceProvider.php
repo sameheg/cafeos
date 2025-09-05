@@ -4,6 +4,12 @@ namespace App\Providers;
 
 use App\System;
 use App\Utils\ModuleUtil;
+use App\Services\Accounting\AccountingInterface;
+use App\Services\Accounting\QuickBooksService;
+use App\Transaction;
+use App\TransactionSellLine;
+use App\Observers\TransactionObserver;
+use App\Observers\TransactionSellLineObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -221,11 +227,11 @@ class AppServiceProvider extends ServiceProvider
 
         //Blade directive to format currency.
         Blade::directive('format_currency', function ($number) {
-            return '<?php 
+            return '<?php
             $formated_number = "";
             if (session("business.currency_symbol_placement") == "before") {
                 $formated_number .= session("currency")["symbol"] . " ";
-            } 
+            }
             $formated_number .= number_format((float) '.$number.', session("business.currency_precision", 2) , session("currency")["decimal_separator"], session("currency")["thousand_separator"]);
 
             if (session("business.currency_symbol_placement") == "after") {
@@ -233,6 +239,9 @@ class AppServiceProvider extends ServiceProvider
             }
             echo $formated_number; ?>';
         });
+
+        Transaction::observe(TransactionObserver::class);
+        TransactionSellLine::observe(TransactionSellLineObserver::class);
 
         $this->registerCommands();
     }
@@ -244,7 +253,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AccountingInterface::class, function ($app) {
+            $provider = config('accounting.provider');
+            $map = config('accounting.providers', []);
+            $concrete = $map[$provider] ?? QuickBooksService::class;
+
+            return $app->make($concrete);
+        });
     }
 
     /**

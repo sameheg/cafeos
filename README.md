@@ -13,3 +13,21 @@ If you discover a security vulnerability within ultimate POS, please send an e-m
 ## License
 
 The Ultimate POS software is licensed under the [Codecanyon license](https://codecanyon.net/licenses/standard).
+
+## Docker Development
+
+Build and start the application using Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+The application will be available at [http://localhost:8000](http://localhost:8000).
+
+## Debugging
+
+Debugging is disabled by default. To enable detailed error output, set `APP_DEBUG=true` in your `.env` file or appropriate environment variable and reload the application.
+
+## Two-Factor Authentication
+
+To protect accounts, users may enable two-factor authentication. While logged in visit `/two-factor` to generate a secret key and recovery codes. After enabling, the login process will ask for a time based one-time password from your authenticator app. Two-factor authentication can be disabled at any time from the same page.

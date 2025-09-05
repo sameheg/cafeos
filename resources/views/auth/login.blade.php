@@ -219,7 +219,7 @@
     </div>
 
 @stop
-@section('javascript')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $('#show_hide_icon').off('click');
@@ -248,4 +248,4 @@
         });
         })
     </script>
-@endsection
+@endpush

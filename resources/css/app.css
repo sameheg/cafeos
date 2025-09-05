@@ -3,6 +3,19 @@
 @tailwind utilities;
 
 @layer base {
+  :focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+
+  .high-contrast {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .high-contrast a {
+    color: #0ff;
+  }
 }
 @layer components {
 }

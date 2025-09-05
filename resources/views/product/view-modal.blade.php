@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-xl" role="document">
+<div class="modal-dialog modal-xl" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modalTitle">
 	<div class="modal-content">
 		<div class="modal-header">
 		    <button type="button" class="close no-print" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -178,7 +178,7 @@
 	          onclick="$(this).closest('div.modal').printThis();">
 	        <i class="fa fa-print"></i> @lang( 'messages.print' )
 	      </button>
-	      	<button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white no-print" data-dismiss="modal">@lang( 'messages.close' )</button>
+            <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white no-print" data-dismiss="modal" aria-label="@lang('messages.close')">@lang( 'messages.close' )</button>
 	    </div>
 	</div>
 </div>

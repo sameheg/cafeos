@@ -1478,6 +1478,13 @@ class ContactController extends Controller
     {
         //TODO: current stock not calculating stock transferred from other location
         $pl_query_string = $this->commonUtil->get_pl_quantity_sum_string();
+        $transfer_in_query = "(SELECT COALESCE(SUM(TPL.quantity),0) FROM transactions AS ST
+            JOIN transaction_sell_lines AS TSL ON ST.id=TSL.transaction_id
+            JOIN transaction_sell_lines_purchase_lines AS TSLPL ON TSLPL.sell_line_id=TSL.id
+            JOIN transactions AS PT ON PT.transfer_parent_id=ST.id
+            JOIN purchase_lines AS TPL ON TPL.transaction_id=PT.id AND TPL.variation_id=purchase_lines.variation_id
+            WHERE ST.status='final' AND ST.type='sell_transfer' AND TSLPL.purchase_line_id=purchase_lines.id)";
+
         $query = PurchaseLine::join('transactions as t', 't.id', '=', 'purchase_lines.transaction_id')
                         ->join('products as p', 'p.id', '=', 'purchase_lines.product_id')
                         ->join('variations as v', 'v.id', '=', 'purchase_lines.variation_id')
@@ -1492,20 +1499,20 @@ class ContactController extends Controller
                             'p.type as product_type',
                             'u.short_name as product_unit',
                             'v.sub_sku',
-                            DB::raw('SUM(quantity) as purchase_quantity'),
+                            DB::raw("SUM(quantity + $transfer_in_query) as purchase_quantity"),
                             DB::raw('SUM(quantity_returned) as total_quantity_returned'),
-                            DB::raw("SUM((SELECT SUM(TSL.quantity - TSL.quantity_returned) FROM transaction_sell_lines_purchase_lines as TSLPL 
+                            DB::raw("SUM((SELECT SUM(TSL.quantity - TSL.quantity_returned) FROM transaction_sell_lines_purchase_lines as TSLPL
                               JOIN transaction_sell_lines AS TSL ON TSLPL.sell_line_id=TSL.id
                               JOIN transactions AS sell ON sell.id=TSL.transaction_id
                               WHERE sell.status='final' AND sell.type='sell'
                               AND TSLPL.purchase_line_id=purchase_lines.id)) as total_quantity_sold"),
-                            DB::raw("SUM((SELECT SUM(TSL.quantity - TSL.quantity_returned) FROM transaction_sell_lines_purchase_lines as TSLPL 
+                            DB::raw("SUM((SELECT SUM(TSL.quantity - TSL.quantity_returned) FROM transaction_sell_lines_purchase_lines as TSLPL
                               JOIN transaction_sell_lines AS TSL ON TSLPL.sell_line_id=TSL.id
                               JOIN transactions AS sell ON sell.id=TSL.transaction_id
                               WHERE sell.status='final' AND sell.type='sell_transfer'
                               AND TSLPL.purchase_line_id=purchase_lines.id)) as total_quantity_transfered"),
-                            DB::raw("SUM( COALESCE(quantity - ($pl_query_string), 0) * purchase_price_inc_tax) as stock_price"),
-                            DB::raw("SUM( COALESCE(quantity - ($pl_query_string), 0)) as current_stock")
+                            DB::raw("SUM( COALESCE(quantity + $transfer_in_query - ($pl_query_string), 0) * purchase_price_inc_tax) as stock_price"),
+                            DB::raw("SUM( COALESCE(quantity + $transfer_in_query - ($pl_query_string), 0)) as current_stock")
                         )->groupBy('purchase_lines.variation_id');
 
         if (! empty(request()->location_id)) {
