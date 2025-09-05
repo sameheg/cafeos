@@ -26,6 +26,9 @@
         name="viewport">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="vapid-public-key" content="{{ config('webpush.vapid.public_key') }}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
     
     <title>@yield('title') - {{ Session::get('business.name') }}</title>
 
@@ -162,7 +165,28 @@
 
             <div id="network-indicator" class="network-indicator"></div>
             <div class="overlay tw-hidden"></div>
+            <button id="a2hs-button"
+                class="tw-fixed tw-bottom-4 tw-right-4 tw-hidden tw-bg-blue-600 tw-text-white tw-px-4 tw-py-2 tw-rounded">
+                Add to Home Screen
+            </button>
         </div>
+        <script>
+            let deferredPrompt;
+            const a2hsBtn = document.getElementById('a2hs-button');
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                a2hsBtn.classList.remove('tw-hidden');
+            });
+            a2hsBtn.addEventListener('click', async () => {
+                a2hsBtn.classList.add('tw-hidden');
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    await deferredPrompt.userChoice;
+                    deferredPrompt = null;
+                }
+            });
+        </script>
 </body>
 <style>
     @media print {
