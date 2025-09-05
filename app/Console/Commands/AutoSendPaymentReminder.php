@@ -4,9 +4,11 @@ namespace App\Console\Commands;
 
 use App\Business;
 use App\Notifications\CustomerNotification;
+use App\NotificationLog;
 use App\NotificationTemplate;
 use App\Transaction;
 use App\Utils\NotificationUtil;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Notification;
 
@@ -115,7 +117,23 @@ class AutoSendPaymentReminder extends Command
                                     ->notify(new CustomerNotification($data));
 
                                 $this->notificationUtil->activityLog($sell, 'payment_reminder', null, ['email' => $sell->contact->email, 'is_automatic' => true], false);
+
+                                NotificationLog::create([
+                                    'contact_id' => $sell->contact->id,
+                                    'channel' => 'email',
+                                    'message' => $data['email_body'],
+                                    'status' => 'sent',
+                                    'sent_at' => Carbon::now(),
+                                ]);
                             } catch (\Exception $e) {
+                                NotificationLog::create([
+                                    'contact_id' => $sell->contact->id,
+                                    'channel' => 'email',
+                                    'message' => $data['email_body'],
+                                    'status' => 'failed',
+                                    'sent_at' => Carbon::now(),
+                                ]);
+
                                 \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
                             }
                         }
@@ -126,7 +144,23 @@ class AutoSendPaymentReminder extends Command
                                 $this->notificationUtil->sendSms($data);
 
                                 $this->notificationUtil->activityLog($sell, 'payment_reminder', null, ['mobile' => $sell->contact->mobile, 'is_automatic' => true], false);
+
+                                NotificationLog::create([
+                                    'contact_id' => $sell->contact->id,
+                                    'channel' => 'sms',
+                                    'message' => $data['sms_body'],
+                                    'status' => 'sent',
+                                    'sent_at' => Carbon::now(),
+                                ]);
                             } catch (\Exception $e) {
+                                NotificationLog::create([
+                                    'contact_id' => $sell->contact->id,
+                                    'channel' => 'sms',
+                                    'message' => $data['sms_body'],
+                                    'status' => 'failed',
+                                    'sent_at' => Carbon::now(),
+                                ]);
+
                                 \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
                             }
                         }
@@ -137,7 +171,23 @@ class AutoSendPaymentReminder extends Command
                                 $this->notificationUtil->sendWhatsapp($data);
 
                                 $this->notificationUtil->activityLog($sell, 'payment_reminder', null, ['whatsapp' => $sell->contact->mobile, 'is_automatic' => true], false);
+
+                                NotificationLog::create([
+                                    'contact_id' => $sell->contact->id,
+                                    'channel' => 'whatsapp',
+                                    'message' => $data['whatsapp_text'],
+                                    'status' => 'sent',
+                                    'sent_at' => Carbon::now(),
+                                ]);
                             } catch (\Exception $e) {
+                                NotificationLog::create([
+                                    'contact_id' => $sell->contact->id,
+                                    'channel' => 'whatsapp',
+                                    'message' => $data['whatsapp_text'],
+                                    'status' => 'failed',
+                                    'sent_at' => Carbon::now(),
+                                ]);
+
                                 \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
                             }
                         }
