@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
 use App\Http\Controllers\Admin\AdminSearchController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
+use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -272,11 +273,16 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     // end pos display screen route
     Route::resource('pos', SellPosController::class);
     Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
-    Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store','edit','update','destroy']);
-    Route::resource('roles', AdminRoleController::class)->only(['index','create','store','edit','update','destroy']);
-    Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
-    Route::resource('menus', AdminMenuController::class);
+        Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store','edit','update','destroy']);
+        Route::resource('roles', AdminRoleController::class)->only(['index','create','store','edit','update','destroy']);
+        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+        Route::resource('menus', AdminMenuController::class);
+        Route::get('schedule', [AdminScheduleController::class, 'index'])->name('schedule.index');
+        Route::get('schedule/{task}/edit', [AdminScheduleController::class, 'edit'])->name('schedule.edit');
+        Route::put('schedule/{task}', [AdminScheduleController::class, 'update'])->name('schedule.update');
+        Route::post('schedule/{task}/toggle', [AdminScheduleController::class, 'toggle'])->name('schedule.toggle');
+        Route::post('schedule/{task}/run', [AdminScheduleController::class, 'run'])->name('schedule.run');
     });
 
     Route::resource('roles', RoleController::class);
