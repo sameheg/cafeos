@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
 use App\Http\Controllers\Admin\AdminSearchController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
+use App\Http\Controllers\Admin\SecurityController as AdminSecurityController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -153,6 +154,11 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/user/profile', [UserController::class, 'getProfile'])->name('user.getProfile');
     Route::post('/user/update', [UserController::class, 'updateProfile'])->name('user.updateProfile');
     Route::post('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+
+    Route::get('/admin/security/2fa', [AdminSecurityController::class, 'index'])->name('admin.security.2fa');
+    Route::post('/admin/security/2fa/enable', [AdminSecurityController::class, 'enableTwoFactor'])->name('admin.security.2fa.enable');
+    Route::post('/admin/security/2fa/disable', [AdminSecurityController::class, 'disableTwoFactor'])->name('admin.security.2fa.disable');
+    Route::post('/admin/security/2fa/roles', [AdminSecurityController::class, 'updateRoleRequirement'])->name('admin.security.2fa.roles');
 
     Route::resource('brands', BrandController::class);
 

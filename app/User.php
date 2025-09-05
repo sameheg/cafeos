@@ -34,13 +34,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'two_factor_secret', 'two_factor_recovery_codes',
     ];
 
     protected $casts = [
         'dashboard_widgets' => 'array',
 
         'settings' => 'array',
+        'two_factor_enabled' => 'boolean',
     ];
 
     // change api guard to web

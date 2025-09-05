@@ -123,7 +123,13 @@ class LoginController extends Controller
                 );
         }
 
-        if (!empty($user->two_factor_secret) && ! $request->session()->get('two_factor_passed')) {
+        $requiresTwoFactor = $user->roles->contains('two_factor_required', true);
+
+        if ($requiresTwoFactor && ! $user->two_factor_enabled) {
+            return redirect()->route('admin.security.2fa');
+        }
+
+        if ($user->two_factor_enabled && ! $request->session()->get('two_factor_passed')) {
             return redirect()->route('two-factor.challenge');
         }
     }
