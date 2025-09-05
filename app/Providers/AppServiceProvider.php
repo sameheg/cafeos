@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\System;
 use App\Utils\ModuleUtil;
+use App\Services\Accounting\AccountingInterface;
+use App\Services\Accounting\QuickBooksService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -244,7 +246,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AccountingInterface::class, function ($app) {
+            $provider = config('accounting.provider');
+            $map = config('accounting.providers', []);
+            $concrete = $map[$provider] ?? QuickBooksService::class;
+
+            return $app->make($concrete);
+        });
     }
 
     /**
