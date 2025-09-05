@@ -38,6 +38,9 @@ class Kernel extends ConsoleKernel
             //Check for products with low stock
             $schedule->command('pos:checkLowStock')->daily();
 
+            //Update forecasted demand for products
+            $schedule->command('pos:forecastDemand')->daily();
+
         }
 
         if ($env === 'demo') {
