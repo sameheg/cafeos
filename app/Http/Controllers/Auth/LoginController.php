@@ -122,6 +122,10 @@ class LoginController extends Controller
                     ['success' => 0, 'msg' => __('lang_v1.business_dont_have_crm_subscription')]
                 );
         }
+
+        if (!empty($user->two_factor_secret) && ! $request->session()->get('two_factor_passed')) {
+            return redirect()->route('two-factor.challenge');
+        }
     }
 
     protected function redirectTo()

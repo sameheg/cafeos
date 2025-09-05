@@ -63,6 +63,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariationTemplateController;
 use App\Http\Controllers\WarrantyController;
+use App\Http\Controllers\Auth\TwoFactorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -519,6 +520,10 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
 
 //common route
 Route::middleware(['auth'])->group(function () {
+    Route::get('/two-factor', [TwoFactorController::class, 'index'])->name('two-factor.index');
+    Route::post('/two-factor/disable', [TwoFactorController::class, 'disable'])->name('two-factor.disable');
+    Route::get('/two-factor-challenge', [TwoFactorController::class, 'showChallenge'])->name('two-factor.challenge');
+    Route::post('/two-factor-challenge', [TwoFactorController::class, 'verify'])->name('two-factor.verify');
     Route::get('/loyalty', [LoyaltyController::class, 'show'])->name('loyalty.show');
     Route::post('/loyalty/redeem', [LoyaltyController::class, 'redeem'])->name('loyalty.redeem');
     Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
