@@ -20,12 +20,13 @@ class TicketEndpoint
     {
         if (! $this->auth->validate($token, [Roles::CHEF, Roles::KITCHEN_MANAGER])) {
             throw new RuntimeException('Unauthorized');
-        $stored = $this->service->receiveTicket($ticket);
-        if (!array_key_exists('station', $ticket)) {
+        }
+
+        if (! array_key_exists('station', $ticket)) {
             $ticket['station'] = null;
         }
 
-        $this->service->receiveTicket($ticket);
+        $stored = $this->service->receiveTicket($ticket);
 
         return [
             'status' => 'accepted',
