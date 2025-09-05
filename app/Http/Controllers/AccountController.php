@@ -427,11 +427,15 @@ class AccountController extends Controller
                                 return '';
                             })
                             ->addColumn('balance', function ($row) use ($bal_before_start_date, $start_date) {
-                                //TODO:: Need to fix same balance showing for transactions having same operation date
-                                $current_bal = AccountTransaction::where('account_id',
-                                                    $row->account_id)
+                                $current_bal = AccountTransaction::where('account_id', $row->account_id)
                                                 ->where('operation_date', '>=', $start_date)
-                                                ->where('operation_date', '<=', $row->operation_date)
+                                                ->where(function ($q) use ($row) {
+                                                    $q->where('operation_date', '<', $row->operation_date)
+                                                        ->orWhere(function ($q2) use ($row) {
+                                                            $q2->where('operation_date', $row->operation_date)
+                                                                ->where('id', '<=', $row->id);
+                                                        });
+                                                })
                                                 ->select(DB::raw("SUM(IF(type='credit', amount, -1 * amount)) as balance"))
                                                 ->first()->balance;
                                 $bal = $bal_before_start_date + $current_bal;
