@@ -4,7 +4,7 @@
     "AssetManagement": true,
     "Cms": true,
     "Connector": true,
-    "Crm": true,
+    "CRM": true,
     "Ecommerce": true,
     "FieldForce": true,
     "Manufacturing": true,
@@ -24,4 +24,8 @@
     "Reporting": true,
     "Integrations": true,
     "HR": true
+    "Inventory": true,
+    "POS": true,
+    "Compliance": true,
+    "Sync": true
 }

@@ -22,9 +22,9 @@ class ThemeService
         return $this->themeColors;
     }
 
-    public function listThemes()
+    public function listThemes(?int $userId = null)
     {
-        return Theme::all();
+        return $userId ? Theme::where('user_id', $userId)->get() : Theme::all();
     }
 
     public function getTheme(int $id): ?Theme
@@ -39,14 +39,24 @@ class ThemeService
 
     public function createTheme(array $data): Theme
     {
-        $payload = Arr::only($data, ['user_id', 'name', 'primary_color', 'secondary_color', 'layout']);
+        $payload = Arr::only($data, ['user_id', 'name', 'primary_color', 'secondary_color', 'logo', 'font', 'layout']);
         return Theme::create($payload);
     }
 
     public function updateTheme(Theme $theme, array $data): Theme
     {
-        $payload = Arr::only($data, ['name', 'primary_color', 'secondary_color', 'layout']);
+        $payload = Arr::only($data, ['name', 'primary_color', 'secondary_color', 'logo', 'font', 'layout']);
         $theme->update($payload);
+        return $theme;
+    }
+
+    public function assignThemeToUser(int $themeId, int $userId): ?Theme
+    {
+        $theme = Theme::find($themeId);
+        if ($theme) {
+            $theme->user_id = $userId;
+            $theme->save();
+        }
         return $theme;
     }
 
