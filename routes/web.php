@@ -118,7 +118,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
 
     Route::get('/sign-in-as-user/{id}', [ManageUserController::class, 'signInAsUser'])->name('sign-in-as-user');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+      Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+      Route::post('/dashboard/widgets-order', [DashboardController::class, 'saveWidgetsOrder'])->name('dashboard.widgets.order');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/get-totals', [HomeController::class, 'getTotals']);
     Route::get('/home/product-stock-alert', [HomeController::class, 'getProductStockAlert']);
