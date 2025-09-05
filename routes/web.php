@@ -451,10 +451,12 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
 
         Route::get('/orders', [Restaurant\OrderController::class, 'index']);
         Route::get('/orders/mark-as-served/{id}', [Restaurant\OrderController::class, 'markAsServed']);
+        Route::get('/orders/status', [Restaurant\OrderController::class, 'status']);
         Route::get('/data/get-pos-details', [Restaurant\DataController::class, 'getPosDetails']);
         Route::get('/data/check-staff-pin', [Restaurant\DataController::class, 'checkStaffPin']);
         Route::get('/orders/mark-line-order-as-served/{id}', [Restaurant\OrderController::class, 'markLineOrderAsServed']);
         Route::get('/print-line-order', [Restaurant\OrderController::class, 'printLineOrder']);
+        Route::get('/kitchen-display', [Restaurant\KitchenController::class, 'display']);
     });
 
     Route::get('bookings/get-todays-bookings', [Restaurant\BookingController::class, 'getTodaysBookings']);

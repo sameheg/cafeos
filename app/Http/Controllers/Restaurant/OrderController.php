@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Restaurant;
 
 use App\TransactionSellLine;
+use App\Events\OrderStatusUpdated;
 use App\User;
 use App\Utils\RestaurantUtil;
 use App\Utils\Util;
@@ -91,6 +92,8 @@ class OrderController extends Controller
 
             $query->update(['res_line_order_status' => 'served']);
 
+            event(new OrderStatusUpdated($id, 'served'));
+
             $output = ['success' => 1,
                 'msg' => trans('restaurant.order_successfully_marked_served'),
             ];
@@ -126,6 +129,9 @@ class OrderController extends Controller
             if (! empty($sell_line)) {
                 $sell_line->res_line_order_status = 'served';
                 $sell_line->save();
+
+                event(new OrderStatusUpdated($sell_line->transaction_id, 'served', $sell_line->id));
+
                 $output = ['success' => 1,
                     'msg' => trans('restaurant.order_successfully_marked_served'),
                 ];
@@ -171,5 +177,24 @@ class OrderController extends Controller
         }
 
         return $output;
+    }
+
+    /**
+     * Returns order statuses for polling clients
+     *
+     * @return Response
+     */
+    public function status()
+    {
+        $business_id = request()->session()->get('user.business_id');
+        $orders = $this->restUtil->getAllOrders($business_id, ['is_kitchen_order' => 1]);
+        $data = [];
+        foreach ($orders as $order) {
+            $data[] = [
+                'id' => $order->id,
+                'status' => $order->res_order_status,
+            ];
+        }
+        return response()->json($data);
     }
 }
