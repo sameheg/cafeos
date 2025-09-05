@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./dashboard');
 
 import Vue from 'vue'
 import { syncQueuedSales } from './pos/offlineStorage';
