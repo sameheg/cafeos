@@ -19,6 +19,11 @@ class TicketEndpoint
     public function handle(array $ticket): array
     {
         $stored = $this->service->receiveTicket($ticket);
+        if (!array_key_exists('station', $ticket)) {
+            $ticket['station'] = null;
+        }
+
+        $this->service->receiveTicket($ticket);
 
         return [
             'status' => 'accepted',
@@ -38,6 +43,19 @@ class TicketEndpoint
         return [
             'status' => 'updated',
             'ticket' => $ticket,
+        ];
+    }
+
+    /**
+     * Mark a ticket as completed.
+     */
+    public function complete(int $ticketId): array
+    {
+        $this->service->completeTicket($ticketId);
+
+        return [
+            'status' => 'completed',
+            'id' => $ticketId,
         ];
     }
 }

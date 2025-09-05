@@ -160,7 +160,7 @@ run:
 **Role:** Kitchen tickets & prep times.
 
 * **Channels:** WebSocket for live events, REST for queries.
-* **Events:** `kds.ticket.created`, `kds.ticket.done`
+* **Events:** `kds.ticket.created`, `kds.ticket.ready`, `kds.ticket.done`
 * **Metrics:** `kds.avg_prep_time`, `kds.queue_length`
 * **SLA:** Ticket update ≤1s after order creation.
 
@@ -406,6 +406,14 @@ alerts:
     rule: inventory.stockout_events > 5 in 10m
 runbook: docs/runbooks/inventory.md
 ```
+
+---
+
+## 24) POS ↔ KDS Event Flow
+
+* **Events:** `pos.order.created`, `pos.order.completed`
+* **Producer:** POS Agent dispatches these events from `OrderService` when orders are created or completed.
+* **Consumer:** KDS Agent's `OrderEventConsumer` transforms events into kitchen tickets and broadcasts them via `KdsService`.
 
 ---
 

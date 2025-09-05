@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\OrderApiController;
 use App\Http\Controllers\API\RecipeApiController;
 use App\Http\Controllers\Api\MenuSuggestionController;
+use App\Http\Controllers\API\KdsMetricsController;
 use Modules\Reporting\Services\ForecastService;
 use App\Contact;
 use App\Transaction;
@@ -44,6 +45,8 @@ Route::get('/analytics/realtime', function (ForecastService $service) {
     ]);
 });
 
+Route::get('/kds/metrics', [KdsMetricsController::class, 'index']);
+
 Route::middleware('customer.auth')->group(function () {
     Route::get('/customer/points', function (Request $request) {
         $contact = Contact::find($request->attributes->get('customer_id'));
@@ -63,4 +66,15 @@ Route::middleware('customer.auth')->group(function () {
 Route::middleware('api.token')->group(function () {
     Route::post('inventory/movements', [InventoryApiController::class, 'recordMovement']);
     Route::get('inventory/levels', [InventoryApiController::class, 'levels']);
+});
+
+Route::get('/kds/tickets', function () {
+    return ['tickets' => [
+        ['id' => 1, 'items' => ['Coffee', 'Bagel']],
+        ['id' => 2, 'items' => ['Tea']]
+    ]];
+});
+
+Route::post('/kds/tickets/{ticket}/status', function ($ticket) {
+    return ['status' => 'ok'];
 });
