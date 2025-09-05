@@ -5,18 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\View;
-use MyFatoorah\Library\MyFatoorah;
-use MyFatoorah\Library\API\Payment\MyFatoorahPayment;
-use MyFatoorah\Library\API\Payment\MyFatoorahPaymentEmbedded;
-use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
+use App\Services\Payment\MyFatoorahAdapter;
 use Exception;
 
 class MyFatoorahController extends Controller {
 
-    /**
-     * @var array
-     */
-    public $mfConfig = [];
+    protected MyFatoorahAdapter $gateway;
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -24,11 +18,7 @@ class MyFatoorahController extends Controller {
      * Initiate MyFatoorah Configuration
      */
     public function __construct() {
-        $this->mfConfig = [
-            'apiKey'      => config('myfatoorah.api_key'),
-            'isTest'      => config('myfatoorah.test_mode'),
-            'countryCode' => config('myfatoorah.country_iso'),
-        ];
+        $this->gateway = new MyFatoorahAdapter();
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -58,8 +48,9 @@ class MyFatoorahController extends Controller {
 
             $curlData = $this->getPayLoadData($package_id, $amount , $currency, $coupon_code, $email, $name, $user_id, $business_id, $language);
 
-            $mfObj   = new MyFatoorahPayment($this->mfConfig);
-            $payment = $mfObj->getInvoiceURL($curlData, $paymentId, $package_id, $sessionId);
+            $curlData['paymentMethodId'] = $paymentId;
+            $curlData['SessionId'] = $sessionId;
+            $payment = $this->gateway->createInvoice($curlData);
 
             return redirect($payment['invoiceURL']);
         } catch (Exception $ex) {
@@ -111,8 +102,7 @@ class MyFatoorahController extends Controller {
 
             $paymentId = request('paymentId');
 
-            $mfObj = new MyFatoorahPaymentStatus($this->mfConfig);
-            $data  = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
+            $data  = $this->gateway->capture($paymentId);
 
             return $data;
             
@@ -124,48 +114,6 @@ class MyFatoorahController extends Controller {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Example on how to Display the enabled gateways at your MyFatoorah account to be displayed on the checkout page
-     * Provide the checkout method with the order id to display its total amount and currency
-     * 
-     * @return View
-     */
-    public function checkout() {
-        try {
-            //You can get the data using the order object in your system
-            $orderId = request('oid') ?: 147;
-            $order   = $this->getTestOrderData($orderId);
-
-            //You can replace this variable with customer Id in your system
-            $customerId = request('customerId');
-
-            //You can use the user defined field if you want to save card
-            $userDefinedField = config('myfatoorah.save_card') && $customerId ? "CK-$customerId" : '';
-
-            //Get the enabled gateways at your MyFatoorah acount to be displayed on checkout page
-            $mfObj          = new MyFatoorahPaymentEmbedded($this->mfConfig);
-            $paymentMethods = $mfObj->getCheckoutGateways($order['total'], $order['currency'], config('myfatoorah.register_apple_pay'));
-
-            if (empty($paymentMethods['all'])) {
-                throw new Exception('noPaymentGateways');
-            }
-
-            //Generate MyFatoorah session for embedded payment
-            $mfSession = $mfObj->getEmbeddedSession($userDefinedField);
-
-            //Get Environment url
-            $isTest = $this->mfConfig['isTest'];
-            $vcCode = $this->mfConfig['countryCode'];
-
-            $countries = MyFatoorah::getMFCountries();
-            $jsDomain  = ($isTest) ? $countries[$vcCode]['testPortal'] : $countries[$vcCode]['portal'];
-
-            return view('myfatoorah.checkout', compact('mfSession', 'paymentMethods', 'jsDomain', 'userDefinedField'));
-        } catch (Exception $ex) {
-            $exMessage = __('myfatoorah.' . $ex->getMessage());
-            return view('myfatoorah.error', compact('exMessage'));
-        }
-    }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -221,11 +169,9 @@ class MyFatoorahController extends Controller {
             $status = 'Paid';
             $error  = '';
         } else {
-            $mfObj = new MyFatoorahPaymentStatus($this->mfConfig);
-            $data  = $mfObj->getPaymentStatus($invoiceId, 'InvoiceId');
-
-            $status = $data->InvoiceStatus;
-            $error  = $data->InvoiceError;
+            $data  = $this->gateway->capture($invoiceId);
+            $status = $data->InvoiceStatus ?? '';
+            $error  = $data->InvoiceError ?? '';
         }
 
         $message = $this->getTestMessage($status, $error);

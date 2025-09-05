@@ -75,43 +75,18 @@
                     </table>
                     <div class="spacer"></div>
                     <div class="spacer"></div>
-                    <div class="width-50 text-center f-left">
-                        <form action="{{route('confirm_payment', ['id' => $transaction->id])}}" method="POST">
-                            <input type="hidden" name="gateway" value="razorpay">
-                                <!-- Note that the amount is in paise -->
-                            <script
-                                src="https://checkout.razorpay.com/v1/checkout.js"
-                                data-key="{{$pos_settings['razor_pay_key_id']}}"
-                                data-amount="{{$total_payable*100}}"
-                                data-buttontext="Pay with Razorpay"
-                                data-name="{{$transaction->business->name}}"
-                                data-theme.color="#3c8dbc"
-                            ></script>
-                            {{ csrf_field() }}
-                        </form>
-                    </div>
-                        @if(!empty($pos_settings['stripe_public_key']) && !empty($pos_settings['stripe_secret_key']))
-                            @php
-                                $code = strtolower($business_details->currency_code);
-                            @endphp
-
-                            <div class="width-50 text-center f-left">
-                                <form action="{{route('confirm_payment', ['id' => $transaction->id])}}" method="POST">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="gateway" value="stripe">
-                                    <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{$pos_settings['stripe_public_key']}}"
-                                            data-amount="@if(in_array($code, ['bif','clp','djf','gnf','jpy','kmf','krw','mga','pyg','rwf','ugx','vnd','vuv','xaf','xof','xpf'])) {{$total_payable}} @else {{$total_payable*100}} @endif"
-                                            data-name="{{$transaction->business->name}}"
-                                            data-description="Pay with stripe"
-                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                            data-locale="auto"
-                                            data-currency="{{$code}}">
-                                    </script>
-                                </form>
-                            </div>
-                        @endif
+                    <form action="{{ route('confirm_payment', ['id' => $transaction->id]) }}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="gateway">@lang('lang_v1.select_payment_gateway')</label>
+                            <select name="gateway" id="gateway" class="form-control">
+                                <option value="myfatoorah">MyFatoorah</option>
+                                <option value="stripe">Stripe</option>
+                                <option value="paypal">PayPal</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">@lang('lang_v1.pay_now')</button>
+                    </form>
                     @else
                         <table class="table no-border">
                             <tr>

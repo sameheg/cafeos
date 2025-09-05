@@ -2,6 +2,46 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
+use App\Transaction;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class TransactionTest extends TestCase
+{
+    public function test_transaction_relations()
+    {
+        $transaction = new Transaction();
+        $this->assertInstanceOf(HasMany::class, $transaction->purchase_lines());
+        $this->assertInstanceOf(HasMany::class, $transaction->sell_lines());
+        $this->assertInstanceOf(BelongsTo::class, $transaction->contact());
+        $this->assertInstanceOf(BelongsTo::class, $transaction->tax());
+    }
+
+    public function test_document_name_accessor()
+    {
+        $transaction = new Transaction();
+        $transaction->document = '123_invoice.pdf';
+        $this->assertEquals('invoice.pdf', $transaction->document_name);
+    }
+
+    public function test_shipping_address_helper()
+    {
+        $transaction = new Transaction();
+        $transaction->order_addresses = json_encode([
+            'shipping_address' => [
+                'shipping_name' => 'John Doe',
+                'company' => 'ACME',
+                'shipping_address_line_1' => '123 Street',
+                'shipping_city' => 'City',
+                'shipping_state' => 'State',
+                'shipping_country' => 'Country',
+                'shipping_zip_code' => '00000',
+            ]
+        ]);
+        $array = $transaction->shipping_address(true);
+        $this->assertEquals('John Doe', $array['name']);
+        $this->assertStringContainsString('John Doe', $transaction->shipping_address());
 use App\Transaction;
 use Tests\TestCase;
 

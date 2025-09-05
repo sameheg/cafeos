@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\DeliveryOrder;
 use App\DeliveryProviderCredential;
 use App\Services\Delivery\DeliveryProvider;
 use App\Services\Delivery\TalabatAdapter;
@@ -16,6 +15,8 @@ use Illuminate\Queue\SerializesModels;
 class SyncDeliveryOrders implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public string $connection = 'redis';
+    public int $tries = 3;
 
     protected string $providerName;
 
@@ -26,7 +27,7 @@ class SyncDeliveryOrders implements ShouldQueue
 
     public function handle(): void
     {
-        $credentials = DeliveryProviderCredential::where('provider', $this->providerName)->first();
+        $credentials = DeliveryProviderCredential::for($this->providerName);
         if ($credentials) {
             config([
                 "delivery.providers.{$this->providerName}.client_id" => $credentials->token,
@@ -35,15 +36,8 @@ class SyncDeliveryOrders implements ShouldQueue
         }
 
         $provider = $this->resolveProvider($this->providerName);
-        foreach ($provider->fetchOrders() as $order) {
-            if (isset($order['id'], $order['status'])) {
-                DeliveryOrder::firstOrCreate(
-                    ['external_id' => $order['id'], 'provider' => $this->providerName],
-                    ['status' => $order['status']]
-                );
-                $provider->updateOrderStatus($order['id'], $order['status']);
-            }
-        }
+
+        // TODO: implement synchronization using $provider->createOrder() and $provider->updateOrder().
     }
 
     protected function resolveProvider(string $name): DeliveryProvider
