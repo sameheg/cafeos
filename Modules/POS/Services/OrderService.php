@@ -4,6 +4,7 @@ namespace Modules\POS\Services;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Restaurant\TableOrder;
 use Modules\CRM\Services\CouponService;
 
 class OrderService
@@ -13,6 +14,11 @@ class OrderService
     public function __construct(CouponService $coupons)
     {
         $this->coupons = $coupons;
+    }
+
+    public function processTableOrder(TableOrder $order): void
+    {
+        // Integrate with POS payment flow
     }
 
     public function attachCoupon(int $orderId, string $code): bool
