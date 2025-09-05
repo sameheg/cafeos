@@ -6,6 +6,8 @@ use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\OrderApiController;
 use App\Http\Controllers\Api\MenuSuggestionController;
 use Modules\Reporting\Services\ForecastService;
+use App\Contact;
+use App\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,17 @@ Route::get('/analytics/realtime', function (ForecastService $service) {
     }, 200, [
         'Content-Type' => 'text/event-stream',
     ]);
+Route::middleware('customer.auth')->group(function () {
+    Route::get('/customer/points', function (Request $request) {
+        $contact = Contact::find($request->attributes->get('customer_id'));
+        return ['points' => $contact->total_rp ?? 0];
+    });
+
+    Route::get('/customer/orders', function (Request $request) {
+        $orders = Transaction::where('contact_id', $request->attributes->get('customer_id'))
+            ->select('id', 'invoice_no', 'final_total', 'created_at')
+            ->orderByDesc('created_at')
+            ->get();
+        return ['orders' => $orders];
+    });
 });
