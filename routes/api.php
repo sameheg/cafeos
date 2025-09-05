@@ -32,6 +32,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('menu-suggestions', [MenuSuggestionController::class, 'index']);
     Route::apiResource('themes', \App\Http\Controllers\API\ThemeController::class);
     Route::post('catalog/recipes/sync', [RecipeApiController::class, 'sync']);
+    Route::get('catalog/recipes', [RecipeApiController::class, 'index']);
+    Route::get('catalog/recipes/{product}', [RecipeApiController::class, 'show']);
 });
 
 Route::get('/analytics/realtime', function (ForecastService $service) {
