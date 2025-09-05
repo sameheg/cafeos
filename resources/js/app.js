@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 import Vue from 'vue'
+import { syncQueuedSales } from './pos/offlineStorage';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,3 +36,28 @@ Vue.component(
 const app = new Vue({
     el: '#app'
 });
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+    });
+}
+
+const indicator = document.getElementById('network-indicator');
+function updateStatus() {
+    if (!indicator) return;
+    if (navigator.onLine) {
+        indicator.textContent = 'Online';
+        indicator.classList.remove('offline');
+        indicator.classList.add('online');
+        syncQueuedSales();
+    } else {
+        indicator.textContent = 'Offline';
+        indicator.classList.remove('online');
+        indicator.classList.add('offline');
+    }
+}
+
+window.addEventListener('online', updateStatus);
+window.addEventListener('offline', updateStatus);
+updateStatus();
