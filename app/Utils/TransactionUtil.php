@@ -25,6 +25,7 @@ use App\TransactionSellLine;
 use App\TransactionSellLinesPurchaseLines;
 use App\Variation;
 use App\VariationLocationDetails;
+use App\MfgRecipe;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\CashRegister;
@@ -3602,13 +3603,14 @@ class TransactionUtil extends Util
 
     private function processRecipeIngredients($business, $sell_line, $mapping_type, $check_expiry)
     {
-        $recipe = DB::table('mfg_recipes')->where('variation_id', $sell_line->variation_id)->first();
+        $recipe = MfgRecipe::with('ingredients')
+            ->where('variation_id', $sell_line->variation_id)
+            ->first();
         if (empty($recipe)) {
             return;
         }
 
-        $ingredients = DB::table('mfg_recipe_ingredients')->where('mfg_recipe_id', $recipe->id)->get();
-        foreach ($ingredients as $ingredient) {
+        foreach ($recipe->ingredients as $ingredient) {
             $variation = Variation::find($ingredient->variation_id);
             if (empty($variation)) {
                 continue;
@@ -3634,13 +3636,14 @@ class TransactionUtil extends Util
             $multiplier = ! empty($product['base_unit_multiplier']) ? $product['base_unit_multiplier'] : 1;
             $qty = $this->num_uf($product['quantity']) * $multiplier;
 
-            $recipe = DB::table('mfg_recipes')->where('variation_id', $product['variation_id'])->first();
+            $recipe = MfgRecipe::with('ingredients')
+                ->where('variation_id', $product['variation_id'])
+                ->first();
             if (empty($recipe)) {
                 continue;
             }
 
-            $ingredients = DB::table('mfg_recipe_ingredients')->where('mfg_recipe_id', $recipe->id)->get();
-            foreach ($ingredients as $ingredient) {
+            foreach ($recipe->ingredients as $ingredient) {
                 $required = $ingredient->quantity * $qty;
                 $available = VariationLocationDetails::where('variation_id', $ingredient->variation_id)
                     ->where('location_id', $location_id)
