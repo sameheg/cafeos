@@ -91,7 +91,9 @@ class RestaurantUtil extends Util
             'contacts.name as customer_name',
             'bl.name as business_location',
             'rt.name as table_name'
-        )->with(['sell_lines'])
+        )->with(['sell_lines', 'status_logs' => function ($q) {
+            $q->orderBy('created_at', 'asc')->with('changed_by_user');
+        }])
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -204,6 +206,39 @@ class RestaurantUtil extends Util
                 ->get();
 
         return $orders;
+    }
+
+    /**
+     * Aggregates waiter performance based on served orders.
+     *
+     * @param  int  $business_id
+     * @param  string|null  $start
+     * @param  string|null  $end
+     * @return \Illuminate\Support\Collection
+     */
+    public function getWaiterPerformance($business_id, $start = null, $end = null)
+    {
+        $query = DB::table('order_status_logs as osl')
+            ->join('transactions as t', 'osl.transaction_id', '=', 't.id')
+            ->leftJoin('users as u', 't.res_waiter_id', '=', 'u.id')
+            ->where('t.business_id', $business_id)
+            ->where('osl.status_to', 'served');
+
+        if (! empty($start)) {
+            $query->whereDate('osl.created_at', '>=', $start);
+        }
+        if (! empty($end)) {
+            $query->whereDate('osl.created_at', '<=', $end);
+        }
+
+        return $query->select(
+            't.res_waiter_id',
+            DB::raw("CONCAT(COALESCE(u.surname, ''),' ',COALESCE(u.first_name, ''),' ',COALESCE(u.last_name, '')) as waiter_name"),
+            DB::raw('COUNT(osl.id) as orders_served'),
+            DB::raw('AVG(TIMESTAMPDIFF(MINUTE, t.created_at, osl.created_at)) as avg_serve_time_minutes')
+        )
+        ->groupBy('t.res_waiter_id', 'u.surname', 'u.first_name', 'u.last_name')
+        ->get();
     }
 
     /**
