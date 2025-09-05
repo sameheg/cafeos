@@ -2,17 +2,16 @@
 
 use App\DeliveryProviderCredential;
 use Illuminate\Support\Facades\Schema;
-use Exception;
 
 $talabat = null;
 $ubereats = null;
 
 try {
     if (Schema::hasTable('delivery_provider_credentials')) {
-        $talabat = DeliveryProviderCredential::where('provider', 'talabat')->first();
-        $ubereats = DeliveryProviderCredential::where('provider', 'ubereats')->first();
+        $talabat = DeliveryProviderCredential::for('talabat');
+        $ubereats = DeliveryProviderCredential::for('ubereats');
     }
-} catch (Exception $e) {
+} catch (\Exception $e) {
     // Ignore if table does not exist
 }
 
