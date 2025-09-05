@@ -6,6 +6,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Restaurant\TableOrder;
 use Modules\CRM\Services\CouponService;
+use Modules\POS\Events\OrderCreated;
+use Modules\POS\Events\OrderCompleted;
 
 class OrderService
 {
@@ -19,6 +21,16 @@ class OrderService
     public function processTableOrder(TableOrder $order): void
     {
         // Integrate with POS payment flow
+
+        event(new OrderCreated($order));
+    }
+
+    public function completeOrder(TableOrder $order): void
+    {
+        $order->status = 'completed';
+        $order->save();
+
+        event(new OrderCompleted($order));
     }
 
     public function attachCoupon(int $orderId, string $code): bool
