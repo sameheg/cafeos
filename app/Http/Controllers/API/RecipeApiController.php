@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class RecipeApiController extends Controller
 {
+    public function index(Request $request)
+    {
+        $perPage = $request->get('per_page', 15);
+        $recipes = MfgRecipe::with('ingredients')->paginate($perPage);
+
+        return response()->json($recipes);
+    }
+
     public function sync(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -54,6 +62,15 @@ class RecipeApiController extends Controller
         });
 
         return response()->json(['message' => 'Recipe synced successfully', 'id' => $recipe->id]);
+    }
+
+    public function show($product)
+    {
+        $recipe = MfgRecipe::with('ingredients')
+            ->where('product_id', $product)
+            ->firstOrFail();
+
+        return response()->json($recipe);
     }
 }
 
