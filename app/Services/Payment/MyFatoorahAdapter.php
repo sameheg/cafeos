@@ -4,6 +4,7 @@ namespace App\Services\Payment;
 
 use MyFatoorah\Library\API\Payment\MyFatoorahPayment;
 use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
+use App\Services\IntegrationSettingsService;
 
 class MyFatoorahAdapter implements PaymentService
 {
@@ -12,12 +13,13 @@ class MyFatoorahAdapter implements PaymentService
      */
     protected array $config;
 
-    public function __construct()
+    public function __construct(?IntegrationSettingsService $settings = null)
     {
+        $settings = $settings ?: app(IntegrationSettingsService::class);
         $this->config = [
-            'apiKey'      => config('myfatoorah.api_key'),
-            'isTest'      => config('myfatoorah.test_mode'),
-            'countryCode' => config('myfatoorah.country_iso'),
+            'apiKey'      => $settings->get('myfatoorah', 'api_key', config('myfatoorah.api_key')),
+            'isTest'      => (bool) $settings->get('myfatoorah', 'test_mode', config('myfatoorah.test_mode')),
+            'countryCode' => $settings->get('myfatoorah', 'country_iso', config('myfatoorah.country_iso')),
         ];
     }
 
