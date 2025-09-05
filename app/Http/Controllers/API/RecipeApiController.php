@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\RecipeChanged;
 use App\Http\Controllers\Controller;
 use App\MfgRecipe;
 use Illuminate\Http\Request;
@@ -52,6 +53,8 @@ class RecipeApiController extends Controller
 
             return $recipe;
         });
+
+        event(new RecipeChanged($recipe));
 
         return response()->json(['message' => 'Recipe synced successfully', 'id' => $recipe->id]);
     }
