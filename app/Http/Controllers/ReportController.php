@@ -1371,7 +1371,7 @@ class ReportController extends Controller
 
         $business_id = $request->session()->get('user.business_id');
 
-        //TODO:: Need to display reference number and edit expiry date button
+        //Display reference number and allow editing expiry date
 
         //Return the details in ajax call
         if ($request->ajax()) {
@@ -1465,7 +1465,10 @@ class ReportController extends Controller
             ->having('stock_left', '>', 0)
             ->groupBy('purchase_lines.variation_id')
             ->groupBy('purchase_lines.exp_date')
-            ->groupBy('purchase_lines.lot_number');
+            ->groupBy('purchase_lines.lot_number')
+            ->groupBy('t.ref_no')
+            ->groupBy('t.id')
+            ->groupBy('purchase_lines.id');
 
             return Datatables::of($report)
                 ->editColumn('product', function ($row) {
