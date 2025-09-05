@@ -105,8 +105,8 @@
 يحتوي الملف `modules_statuses.json` على حالة كل وحدة. القيمة `true` تعني أن الوحدة مفعّلة و`false` تعني أنها معطّلة. يمكن التعديل يدويًا أو عبر أوامر Artisan:
 
 ```bash
-php artisan module:enable ModuleName
-php artisan module:disable ModuleName
+php artisan module:enable YourModule
+php artisan module:disable YourModule
 ```
 
 ### قائمة الوحدات
@@ -131,9 +131,10 @@ php artisan module:disable ModuleName
 - `CustomDashboard`: لوحات التحكم المخصصة.
 - `Gym`: إدارة النوادي الرياضية.
 - `ZatcaIntegrationKsa`: تكامل هيئة الزكاة والضريبة (السعودية).
-- `ModuleName`: مثال على وحدة مخصّصة.
 
 لتعطيل وحدة، غيّر قيمتها إلى `false` في `modules_statuses.json` أو استخدم أمر التعطيل أعلاه.
+
+لإنشاء وحدة جديدة، انسخ القالب من `examples/ModuleTemplate` واتبع التعليمات في `docs/modules.md`.
 
 
 ## تشغيل عمال الطوابير
