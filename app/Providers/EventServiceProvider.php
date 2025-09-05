@@ -32,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\LogSellUpdate::class,
             \App\Listeners\SavePosEditLog::class,
         ],
+
+        \App\Events\TableOrderPlaced::class => [
+            \App\Listeners\SendTableOrderToPos::class,
+        ],
     ];
 
     /**
