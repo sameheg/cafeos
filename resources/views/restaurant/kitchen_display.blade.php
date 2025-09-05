@@ -2,20 +2,27 @@
 @section('title', __('restaurant.kitchen'))
 
 @section('content')
-<section class="content no-print">
-    <div class="row" id="orders_div">
+<section class="no-print p-4" id="kds">
+    <div class="flex justify-end mb-4 space-x-2">
+        <select id="orientationSelect" class="border rounded px-2 py-1">
+            <option value="landscape">Landscape</option>
+            <option value="portrait">Portrait</option>
+        </select>
+        <button id="fullscreenBtn" class="bg-blue-500 text-white px-2 py-1 rounded">
+            {{ __('lang_v1.full_screen') }}
+        </button>
+    </div>
+    <div id="orders_div" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         @forelse($orders as $order)
-            <div class="col-md-3 col-xs-6 order_div" data-order-id="{{ $order->id }}">
-                <div class="small-box bg-gray">
-                    <div class="inner text-center">
-                        <h4>#{{ $order->transaction->invoice_no ?? '' }}</h4>
-                        <div class="order_timer" data-start="{{ $order->created_at }}"></div>
-                        <div class="status">{{ $order->status }}</div>
-                    </div>
+            <div class="order_div" data-order-id="{{ $order->id }}">
+                <div class="bg-gray-200 p-4 rounded text-center">
+                    <h4 class="font-semibold">#{{ $order->transaction->invoice_no ?? '' }}</h4>
+                    <div class="order_timer" data-start="{{ $order->created_at }}"></div>
+                    <div class="status">{{ $order->status }}</div>
                 </div>
             </div>
         @empty
-            <div class="col-md-12">
+            <div class="col-span-full">
                 <h4 class="text-center">@lang('restaurant.no_orders_found')</h4>
             </div>
         @endforelse
@@ -39,6 +46,24 @@
         });
     }
     initTimers();
+
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', function () {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        });
+    }
+
+    const orientationSelect = document.getElementById('orientationSelect');
+    if (orientationSelect && screen.orientation && screen.orientation.lock) {
+        orientationSelect.addEventListener('change', function () {
+            screen.orientation.lock(this.value).catch(() => {});
+        });
+    }
     if (typeof Echo !== 'undefined') {
         Echo.channel('kitchen-orders')
             .listen('KitchenOrderStatusUpdated', function(e){
