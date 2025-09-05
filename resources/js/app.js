@@ -15,6 +15,8 @@ import { enforceTouchTargets } from './pos/touchTargets';
 Vue.component('table-view', require('./pos/TableView.vue').default);
 Vue.component('quick-order-entry', require('./pos/QuickOrder.vue').default);
 Vue.component('tip-input', require('./pos/TipInput.vue').default);
+Vue.component('manager-page', require('./admin/Manager.vue').default);
+Vue.component('employee-page', require('./admin/Employee.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -48,7 +50,11 @@ enforceTouchTargets();
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+            if (window.laravelWebPush) {
+                window.laravelWebPush.initPush(registration);
+            }
+        });
     });
 }
 

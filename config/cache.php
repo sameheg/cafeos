@@ -107,4 +107,10 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+    // Custom TTLs for frequently accessed queries
+    'restaurant_all_orders_key' => 'restaurant_all_orders',
+    'restaurant_all_orders_ttl' => env('CACHE_TTL_RESTAURANT_ALL_ORDERS', 60),
+    'restaurant_line_orders_key' => 'restaurant_line_orders',
+    'restaurant_line_orders_ttl' => env('CACHE_TTL_RESTAURANT_LINE_ORDERS', 60),
+
 ];

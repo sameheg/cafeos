@@ -1,0 +1,26 @@
+name: Agents CI
+
+on:
+  push:
+    paths:
+      - 'agents/**'
+      - '.github/workflows/agents.yml'
+  pull_request:
+    paths:
+      - 'agents/**'
+      - '.github/workflows/agents.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent: [orchestrator, catalog, inventory, pos, kds, crm, pricing, reporting, sync, compliance]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - run: composer install --no-interaction --no-progress
+      - run: docker build -t ${{ matrix.agent }} agents/agent-${{ matrix.agent }}
+      - run: php -d error_reporting='E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED' vendor/bin/phpunit agents/agent-${{ matrix.agent }}/tests

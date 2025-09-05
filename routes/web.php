@@ -22,6 +22,7 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GroupTaxController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QueueDashboardController;
 use App\Http\Controllers\ImportOpeningStockController;
 use App\Http\Controllers\ImportProductsController;
 use App\Http\Controllers\ImportSalesController;
@@ -107,6 +108,9 @@ Route::middleware('setTenant')->group(function () {
             ->name('invoice_payment');
         Route::post('/confirm-payment/{id}', [SellPosController::class, 'confirmPayment'])
             ->name('confirm_payment');
+
+        Route::view('/customer-portal', 'customer-portal.index')
+            ->name('customer.portal');
     });
 });
 
@@ -324,6 +328,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/reports/items-report', [ReportController::class, 'itemsReport']);
     Route::get('/reports/get-stock-value', [ReportController::class, 'getStockValue']);
     Route::get('/reports/export-transactions', [ReportController::class, 'exportTransactions']);
+    Route::get('/reports/kpi/sales-per-waiter', [ReportController::class, 'salesPerWaiter']);
+    Route::get('/reports/kpi/table-turnover', [ReportController::class, 'tableTurnover']);
 
     Route::get('business-location/activate-deactivate/{location_id}', [BusinessLocationController::class, 'activateDeactivateLocation']);
 
@@ -458,6 +464,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::prefix('modules')->group(function () {
         Route::resource('tables', Restaurant\TableController::class);
         Route::resource('modifiers', Restaurant\ModifierSetsController::class);
+        Route::resource('waiter-shifts', Restaurant\WaiterShiftController::class);
+        Route::resource('table-assignments', Restaurant\TableAssignmentController::class);
 
         //Map modifier to products
         Route::get('/product-modifiers/{id}/edit', [Restaurant\ProductModifierSetController::class, 'edit']);
@@ -567,3 +575,4 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/show-notification/{id}', [HomeController::class, 'showNotification']);
     Route::post('/sell/check-invoice-number', [SellController::class, 'checkInvoiceNumber']);
 });
+Route::get('/queue/failed', [QueueDashboardController::class, 'index'])->name('queue.failed');

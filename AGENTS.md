@@ -203,8 +203,10 @@ run:
 * **Store:** Materialized views + nightly jobs.
 * **API:**
 
-  * `GET /reports/kpi?range=7d`
-  * `POST /reports/export`
+    * `GET /reports/kpi?range=7d`
+    * `POST /reports/export`
+    * `GET /analytics/realtime` – SSE stream of live sales & forecasts
+* **Services:** `ForecastService` combines sales and inventory data
 * **Metrics:** `report.jobs_duration_ms`, `report.queue_backlog`
 * **SLA:** Daily report ≤5m.
 
