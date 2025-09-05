@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Restaurant;
 use App\TransactionSellLine;
 use App\Utils\RestaurantUtil;
 use App\Utils\Util;
+use App\Restaurant\KitchenOrder;
+use App\Events\KitchenOrderStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -56,8 +58,9 @@ class KitchenController extends Controller
      */
     public function display()
     {
-        $business_id = request()->session()->get('user.business_id');
-        $orders = $this->restUtil->getAllOrders($business_id, ['line_order_status' => 'received', 'is_kitchen_order' => 1]);
+        $orders = KitchenOrder::where('status', '!=', 'completed')
+                    ->with('transaction')
+                    ->get();
 
         return view('restaurant.kitchen_display', compact('orders'));
     }
@@ -95,6 +98,35 @@ class KitchenController extends Controller
         }
 
         return $output;
+    }
+
+    /**
+     * Update kitchen order status
+     *
+     * @return json $output
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $order = KitchenOrder::findOrFail($id);
+        $status = $request->input('status');
+
+        if ($status === 'in_progress' && empty($order->started_at)) {
+            $order->started_at = now();
+        }
+
+        if ($status === 'completed') {
+            if (empty($order->started_at)) {
+                $order->started_at = now();
+            }
+            $order->completed_at = now();
+        }
+
+        $order->status = $status;
+        $order->save();
+
+        event(new KitchenOrderStatusUpdated($order->id, $order->status));
+
+        return ['success' => 1];
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Events\OrderStatusUpdated;
 use App\User;
 use App\Utils\RestaurantUtil;
 use App\Utils\Util;
+use App\Restaurant\KitchenOrder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -186,15 +187,7 @@ class OrderController extends Controller
      */
     public function status()
     {
-        $business_id = request()->session()->get('user.business_id');
-        $orders = $this->restUtil->getAllOrders($business_id, ['is_kitchen_order' => 1]);
-        $data = [];
-        foreach ($orders as $order) {
-            $data[] = [
-                'id' => $order->id,
-                'status' => $order->res_order_status,
-            ];
-        }
-        return response()->json($data);
+        $orders = KitchenOrder::select('id', 'status')->get();
+        return response()->json($orders);
     }
 }
