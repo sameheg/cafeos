@@ -18,10 +18,25 @@ class TicketEndpoint
      */
     public function handle(array $ticket): array
     {
-        $this->service->receiveTicket($ticket);
+        $stored = $this->service->receiveTicket($ticket);
 
         return [
             'status' => 'accepted',
+            'ticket' => $stored,
+        ];
+    }
+
+    /**
+     * Update ticket status.
+     *
+     * @return array<string,mixed>
+     */
+    public function update(int $id, string $status): array
+    {
+        $ticket = $this->service->updateTicketStatus($id, $status);
+
+        return [
+            'status' => 'updated',
             'ticket' => $ticket,
         ];
     }
