@@ -330,7 +330,7 @@ class PurchaseController extends Controller
             $currency_details = $this->transactionUtil->purchaseCurrencyDetails($business_id);
 
             //unformat input values
-            $transaction_data['total_before_tax'] = $this->productUtil->num_uf($transaction_data['total_before_tax'], $currency_details) * $exchange_rate;
+            $transaction_data['total_before_tax'] = $this->productUtil->num_uf($transaction_data['total_before_tax'] ?? 0, $currency_details) * $exchange_rate;
 
             // If discount type is fixed them multiply by exchange rate, else don't
             if ($transaction_data['discount_type'] == 'fixed') {
@@ -677,7 +677,7 @@ class PurchaseController extends Controller
             $update_data['transaction_date'] = $this->productUtil->uf_date($update_data['transaction_date'], true);
 
             //unformat input values
-            $update_data['total_before_tax'] = $this->productUtil->num_uf($update_data['total_before_tax'], $currency_details) * $exchange_rate;
+            $update_data['total_before_tax'] = $this->productUtil->num_uf($update_data['total_before_tax'] ?? 0, $currency_details) * $exchange_rate;
 
             // If discount type is fixed them multiply by exchange rate, else don't
             if ($update_data['discount_type'] == 'fixed') {
