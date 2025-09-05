@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
 use App\Http\Controllers\Admin\AdminSearchController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
+use App\Http\Controllers\Admin\TranslationController as AdminTranslationController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -277,6 +278,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::resource('roles', AdminRoleController::class)->only(['index','create','store','edit','update','destroy']);
     Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
     Route::resource('menus', AdminMenuController::class);
+    Route::get('translations', [AdminTranslationController::class, 'index'])->name('translations.index');
+    Route::post('translations', [AdminTranslationController::class, 'update'])->name('translations.update');
     });
 
     Route::resource('roles', RoleController::class);
