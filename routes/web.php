@@ -49,6 +49,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
 use App\Http\Controllers\Admin\AdminSearchController;
+use App\Http\Controllers\Admin\ModulesController as AdminModulesController;
 use App\Http\Controllers\SalesCommissionAgentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SellController;
@@ -273,6 +274,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
         Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+        Route::post('modules/{module}/toggle', [AdminModulesController::class, 'toggle'])->name('modules.toggle');
     });
 
     Route::resource('roles', RoleController::class);
