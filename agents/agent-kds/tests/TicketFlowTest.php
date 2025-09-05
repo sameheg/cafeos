@@ -22,6 +22,8 @@ final class TicketFlowTest extends TestCase
         $endpoint = new TicketEndpoint($service, $auth);
         $token = $auth->generateToken(Roles::CHEF);
         $received = null;
+        $service->registerDisplay(function (array $payload) use (&$received): void {
+            $received = $payload;
 
         $server = new KdsServer($service);
 
@@ -111,6 +113,12 @@ final class TicketFlowTest extends TestCase
         $this->assertSame('preparing', $received[1]['status']);
         $this->assertArrayHasKey('preparing', $received[1]['timestamps']);
 
+        $expectedPayload = [
+            'event' => 'kds.ticket.created',
+            'ticket' => $ticket,
+        ];
+
+        $this->assertSame($expectedPayload, $received, 'Display should receive the ticket');
         $this->assertArrayHasKey('received_at', $received);
         unset($received['received_at']);
         $this->assertSame($ticket, $received, 'Display should receive the ticket');
