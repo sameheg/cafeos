@@ -20,5 +20,6 @@
     "CustomDashboard": true,
     "Gym": true,
     "ZatcaIntegrationKsa": true,
-    "ModuleName": true
+    "ModuleName": true,
+    "Reporting": true
 }
