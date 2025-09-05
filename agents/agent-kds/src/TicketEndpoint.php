@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 class TicketEndpoint
 {
-    public function __construct(private KdsService $service)
+    public function __construct(private KdsService $service, private AuthService $auth)
     {
     }
 
@@ -16,8 +16,10 @@ class TicketEndpoint
      * @param array<string,mixed> $ticket
      * @return array<string,mixed>
      */
-    public function handle(array $ticket): array
+    public function handle(array $ticket, string $token): array
     {
+        if (! $this->auth->validate($token, [Roles::CHEF, Roles::KITCHEN_MANAGER])) {
+            throw new RuntimeException('Unauthorized');
         $stored = $this->service->receiveTicket($ticket);
         if (!array_key_exists('station', $ticket)) {
             $ticket['station'] = null;
@@ -59,3 +61,4 @@ class TicketEndpoint
         ];
     }
 }
+

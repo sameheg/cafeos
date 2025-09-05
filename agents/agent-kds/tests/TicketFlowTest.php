@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../src/Ticket.php';
 require_once __DIR__ . '/../src/KdsMetrics.php';
 require_once __DIR__ . '/../src/KdsService.php';
+require_once __DIR__ . '/../src/TicketEndpoint.php';
+require_once __DIR__ . '/../src/AuthService.php';
+require_once __DIR__ . '/../src/Roles.php';
 require_once __DIR__ . '/../src/KdsServer.php';
 
 final class TicketFlowTest extends TestCase
@@ -15,6 +18,11 @@ final class TicketFlowTest extends TestCase
     {
         $service = new KdsService(new KdsMetrics());
         $service = new KdsService();
+        $auth = new AuthService('secret');
+        $endpoint = new TicketEndpoint($service, $auth);
+        $token = $auth->generateToken(Roles::CHEF);
+        $received = null;
+
         $server = new KdsServer($service);
 
         $messages = [];
@@ -93,6 +101,7 @@ final class TicketFlowTest extends TestCase
             ],
         ];
 
+        $response = $endpoint->handle($ticket, $token);
         $response = $endpoint->handle($ticket);
         $this->assertSame('accepted', $response['status']);
         $this->assertSame('pending', $received[0]['status']);
@@ -113,4 +122,15 @@ final class TicketFlowTest extends TestCase
 
         $this->assertSame('bar', $received['station']);
     }
+
+    public function testRejectsInvalidToken(): void
+    {
+        $service = new KdsService();
+        $auth = new AuthService('secret');
+        $endpoint = new TicketEndpoint($service, $auth);
+
+        $this->expectException(RuntimeException::class);
+        $endpoint->handle(['id' => 1], 'invalid.token');
+    }
 }
+
