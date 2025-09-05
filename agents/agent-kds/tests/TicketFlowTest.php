@@ -17,9 +17,15 @@ final class TicketFlowTest extends TestCase
         $server->connectWebSocket(function (string $msg) use (&$messages): void {
             $messages[] = json_decode($msg, true);
         });
+        $endpoint = new TicketEndpoint($service);
+        $received = null;
+        $service->registerDisplay(function (array $ticket) use (&$received): void {
+            $received = $ticket;
+        }, 'bar');
 
         $ticket = [
             'id' => 1,
+            'station' => 'bar',
             'items' => [
                 ['name' => 'Espresso', 'qty' => 1],
             ],
@@ -36,5 +42,53 @@ final class TicketFlowTest extends TestCase
         $this->assertSame($ticket, $messages[1]['ticket']);
 
         $this->assertSame([$ticket], $get['body']['tickets']);
+    }
+
+    public function testTicketFilteredByStation(): void
+    {
+        $service = new KdsService();
+        $endpoint = new TicketEndpoint($service);
+        $receivedBar = null;
+        $receivedGrill = null;
+        $service->registerDisplay(function (array $ticket) use (&$receivedBar): void {
+            $receivedBar = $ticket;
+        }, 'bar');
+        $service->registerDisplay(function (array $ticket) use (&$receivedGrill): void {
+            $receivedGrill = $ticket;
+        }, 'grill');
+
+        $ticket = [
+            'id' => 2,
+            'station' => 'bar',
+            'items' => [
+                ['name' => 'Espresso', 'qty' => 1],
+            ],
+        ];
+
+        $endpoint->handle($ticket);
+
+        $this->assertSame($ticket, $receivedBar);
+        $this->assertNull($receivedGrill);
+    }
+
+    public function testStationAssignedFromSettings(): void
+    {
+        $service = new KdsService(['Espresso' => 'bar']);
+        $endpoint = new TicketEndpoint($service);
+        $received = null;
+        $service->registerDisplay(function (array $ticket) use (&$received): void {
+            $received = $ticket;
+        }, 'bar');
+
+        $ticket = [
+            'id' => 3,
+            'items' => [
+                ['name' => 'Espresso', 'qty' => 1],
+            ],
+        ];
+
+        $endpoint->handle($ticket);
+
+        $this->assertSame('bar', $received['station']);
     }
 }
