@@ -6,9 +6,13 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SyncDeliveryOrders;
 use App\Jobs\GenerateReport;
+use Modules\Sync\Console\SyncQueueCommand;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        SyncQueueCommand::class,
+    ];
     /**
      * Define the application's command schedule.
      *

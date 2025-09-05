@@ -2,25 +2,21 @@
 
 namespace Modules\Sync\Services;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Modules\Sync\Entities\SyncQueueItem;
 
 class QueueSyncService
 {
-    protected string $cacheKey = 'offline_sync_queue';
-
     /**
      * Add a request to the offline sync queue.
      */
     public function enqueue(string $url, array $payload, string $method = 'POST'): void
     {
-        $queue = Cache::get($this->cacheKey, []);
-        $queue[] = [
+        SyncQueueItem::create([
             'url' => $url,
             'payload' => $payload,
             'method' => $method,
-        ];
-        Cache::put($this->cacheKey, $queue);
+        ]);
     }
 
     /**
@@ -28,19 +24,18 @@ class QueueSyncService
      */
     public function process(): void
     {
-        $queue = Cache::get($this->cacheKey, []);
-        $remaining = [];
+        $items = SyncQueueItem::all();
 
-        foreach ($queue as $item) {
+        foreach ($items as $item) {
             try {
-                Http::send($item['method'], $item['url'], ['json' => $item['payload']]);
+                Http::send($item->method, $item->url, ['json' => $item->payload]);
+                $item->delete();
             } catch (\Exception $e) {
-                $remaining[] = $item;
-                continue;
+                $item->error_message = $e->getMessage();
+                $item->failed_at = now();
+                $item->save();
             }
         }
-
-        Cache::put($this->cacheKey, $remaining);
     }
 
     /**
@@ -48,6 +43,6 @@ class QueueSyncService
      */
     public function getQueue(): array
     {
-        return Cache::get($this->cacheKey, []);
+        return SyncQueueItem::all()->toArray();
     }
 }
