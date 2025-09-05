@@ -8,6 +8,7 @@ use App\CashRegister;
 use App\Category;
 use App\Charts\CommonChart;
 use App\Contact;
+use App\Business;
 use App\CustomerGroup;
 use App\ExpenseCategory;
 use App\Product;
@@ -23,6 +24,7 @@ use App\TransactionSellLinesPurchaseLines;
 use App\Unit;
 use App\User;
 use App\Exports\TransactionsExport;
+use App\Exports\ActivityLogExport;
 use App\Services\Accounting\QuickBooksService;
 use App\Utils\BusinessUtil;
 use App\Utils\ModuleUtil;
@@ -3772,7 +3774,7 @@ class ReportController extends Controller
             'expense' => __('lang_v1.expense'),
         ];
 
-        if (request()->ajax()) {
+        if (request()->ajax() || request()->get('export')) {
             $activities = Activity::with(['subject'])
                                 ->leftjoin('users as u', 'u.id', '=', 'activity_log.causer_id')
                                 ->where('activity_log.business_id', $business_id)
@@ -3805,6 +3807,14 @@ class ReportController extends Controller
                         $q->where('type', $subject_type);
                     });
                 }
+            }
+
+            if (request()->get('export') && in_array(request()->get('export'), ['csv', 'xlsx'])) {
+                $format = request()->get('export');
+                $filename = 'activity_log.' . $format;
+                $data = $activities->get();
+
+                return Excel::download(new ActivityLogExport($data), $filename);
             }
 
             $sell_statuses = Transaction::sell_statuses();
@@ -3882,6 +3892,28 @@ class ReportController extends Controller
         $users = User::allUsersDropdown($business_id, false);
 
         return view('report.activity_log')->with(compact('users', 'transaction_types'));
+    }
+
+    public function getActivityLogSettings()
+    {
+        $business_id = request()->session()->get('user.business_id');
+        $business = Business::find($business_id);
+        $settings = $business->common_settings ?? [];
+        $retention = $settings['activity_log_retention_days'] ?? '';
+
+        return view('report.activity_log_settings', compact('retention'));
+    }
+
+    public function postActivityLogSettings(Request $request)
+    {
+        $business_id = $request->session()->get('user.business_id');
+        $business = Business::findOrFail($business_id);
+        $settings = $business->common_settings ?? [];
+        $settings['activity_log_retention_days'] = $request->input('activity_log_retention_days');
+        $business->common_settings = $settings;
+        $business->save();
+
+        return back()->with('status', __('messages.success'));
     }
 
     public function notificationLog(Request $request)

@@ -1,4 +1,38 @@
 @extends('layouts.app')
+@section('title', __('Edit Menu'))
+
+@section('content')
+<section class="content-header">
+    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('Edit Menu')</h1>
+</section>
+
+<section class="content">
+    <form action="{{ route('admin.menus.update', $menu) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="form-group">
+            <label for="label">@lang('Label')</label>
+            <input type="text" name="label" id="label" class="form-control" value="{{ $menu->label }}" required>
+        </div>
+        <div class="form-group">
+            <label for="url">@lang('URL')</label>
+            <input type="text" name="url" id="url" class="form-control" value="{{ $menu->url }}" required>
+        </div>
+        <div class="form-group">
+            <label for="icon">@lang('Icon')</label>
+            <input type="text" name="icon" id="icon" class="form-control" value="{{ $menu->icon }}">
+        </div>
+        <div class="form-group">
+            <label for="permission">@lang('Permission')</label>
+            <input type="text" name="permission" id="permission" class="form-control" value="{{ $menu->permission }}">
+        </div>
+        <div class="form-group">
+            <label for="order">@lang('Order')</label>
+            <input type="number" name="order" id="order" class="form-control" value="{{ $menu->order }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">@lang('messages.update')</button>
+    </form>
+</section>
 
 @section('content')
     <h1>Edit Menu</h1>
