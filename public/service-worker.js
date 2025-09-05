@@ -1,3 +1,5 @@
+importScripts('/vendor/laravel-webpush/laravel-webpush.js');
+
 const CACHE_NAME = 'cafeos-static-v1';
 const STATIC_ASSETS = [
   '/',
@@ -29,6 +31,24 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(req.clone()).catch(() => queueRequest(req))
     );
+  }
+});
+
+// Handle incoming push notifications
+self.addEventListener('push', event => {
+  if (event.data) {
+    const notification = event.data.json();
+    event.waitUntil(
+      self.registration.showNotification(notification.title, notification)
+    );
+  }
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const url = event.notification.data && event.notification.data.url;
+  if (url) {
+    event.waitUntil(clients.openWindow(url));
   }
 });
 
