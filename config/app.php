@@ -193,6 +193,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ModuleAssetServiceProvider::class,
         App\Providers\TranslationOverrideServiceProvider::class,
+        App\Providers\MetricsServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
         //Yajra\Datatables\DatatablesServiceProvider::class,
