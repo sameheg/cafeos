@@ -3,6 +3,7 @@
 namespace Modules\POS\Services;
 
 use Modules\Compliance\Services\EInvoiceService;
+use Milon\Barcode\DNS2D;
 
 class InvoiceService
 {
@@ -29,10 +30,20 @@ class InvoiceService
 
     protected function generateQrCode(array $invoice): string
     {
-        // Placeholder QR generation; replace with actual library
-        return base64_encode(json_encode([
+        $data = $this->qrPayload($invoice);
+
+        $dns = new DNS2D();
+        $dns->setStorPath(sys_get_temp_dir());
+        $base64 = $dns->getBarcodePNG($data, 'QRCODE');
+
+        return 'data:image/png;base64,' . $base64;
+    }
+
+    protected function qrPayload(array $invoice): string
+    {
+        return json_encode([
             'number' => $invoice['number'] ?? null,
             'total' => $invoice['total'] ?? null,
-        ]));
+        ]);
     }
 }
