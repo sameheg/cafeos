@@ -23,19 +23,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then((response) => response.json())
                 .then((data) => {
                     results.innerHTML = '';
-                    if (!data.length) {
+                    const hasResults = Object.values(data).some((items) => items.length);
+                    if (!hasResults) {
                         results.classList.add('tw-hidden');
                         return;
                     }
 
-                    data.forEach((item) => {
-                        const li = document.createElement('li');
-                        const a = document.createElement('a');
-                        a.textContent = item.name;
-                        a.href = item.url || '#';
-                        li.appendChild(a);
-                        results.appendChild(li);
+                    Object.entries(data).forEach(([type, items]) => {
+                        if (!items.length) {
+                            return;
+                        }
+
+                        const header = document.createElement('li');
+                        header.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+                        header.classList.add('tw-font-bold', 'tw-mt-2');
+                        results.appendChild(header);
+
+                        items.forEach((item) => {
+                            const li = document.createElement('li');
+                            const a = document.createElement('a');
+                            a.textContent = item.name;
+                            a.href = item.url || '#';
+                            li.appendChild(a);
+                            results.appendChild(li);
+                        });
                     });
+
                     results.classList.remove('tw-hidden');
                 });
         }, 300);
