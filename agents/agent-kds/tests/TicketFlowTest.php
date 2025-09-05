@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/../src/KdsMetrics.php';
 require_once __DIR__ . '/../src/KdsService.php';
 require_once __DIR__ . '/../src/KdsServer.php';
 
@@ -10,6 +11,7 @@ final class TicketFlowTest extends TestCase
 {
     public function testHttpAndWebSocketFlow(): void
     {
+        $service = new KdsService(new KdsMetrics());
         $service = new KdsService();
         $server = new KdsServer($service);
 
