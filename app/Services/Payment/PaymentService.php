@@ -8,24 +8,24 @@ interface PaymentService
      * Create an invoice or payment intent.
      *
      * @param array $data
-     * @return mixed
+     * @return array
      */
-    public function createInvoice(array $data);
+    public function createInvoice(array $data): array;
 
     /**
      * Capture a payment by its identifier.
      *
      * @param string $paymentId
-     * @return mixed
+     * @return array
      */
-    public function capture(string $paymentId);
+    public function capture(string $paymentId): array;
 
     /**
      * Refund a captured payment.
      *
      * @param string $paymentId
      * @param float $amount
-     * @return mixed
+     * @return array
      */
-    public function refund(string $paymentId, float $amount);
+    public function refund(string $paymentId, float $amount): array;
 }

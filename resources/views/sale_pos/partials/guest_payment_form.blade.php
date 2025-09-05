@@ -77,12 +77,19 @@
                     <div class="spacer"></div>
                     <form action="{{ route('confirm_payment', ['id' => $transaction->id]) }}" method="POST">
                         {{ csrf_field() }}
+                        @php
+                            $gateways = [
+                                'myfatoorah' => 'MyFatoorah',
+                                'stripe'     => 'Stripe',
+                                'paypal'     => 'PayPal',
+                            ];
+                        @endphp
                         <div class="form-group">
                             <label for="gateway">@lang('lang_v1.select_payment_gateway')</label>
                             <select name="gateway" id="gateway" class="form-control">
-                                <option value="myfatoorah">MyFatoorah</option>
-                                <option value="stripe">Stripe</option>
-                                <option value="paypal">PayPal</option>
+                                @foreach($gateways as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">@lang('lang_v1.pay_now')</button>

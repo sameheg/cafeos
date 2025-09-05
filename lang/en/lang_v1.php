@@ -372,6 +372,8 @@ return [
     'payment_account_deleted_success' => 'Payment account deleted successfully',
     'payment_account_updated_success' => 'Payment account updated successfully',
     'payment_gateway' => 'Online Payment Gateway',
+    'select_payment_gateway' => 'Select Payment Gateway',
+    'pay_now' => 'Pay Now',
     'payment_account_success' => 'Payment account added successfully',
     'payment_account' => 'Payment Account',
     'tooltip_sell_product_column' => 'Click <i>product name</i> to edit price, discount & tax. <br/>Click <i>Comment Icon</i> to enter serial number / IMEI or additional note.<br/><br/>Click <i>Modifier Icon</i>(if enabled) for modifiers',
