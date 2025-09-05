@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:api',
+            \App\Http\Middleware\ApiTokenMiddleware::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -73,5 +74,6 @@ class Kernel extends HttpKernel
         'setTenant' => \App\Http\Middleware\SetTenant::class,
         'customer.auth' => \App\Http\Middleware\CustomerAuth::class,
         'tenantResolver' => \App\Http\Middleware\TenantResolver::class,
+        'api.token' => \App\Http\Middleware\ApiTokenMiddleware::class,
     ];
 }

@@ -58,5 +58,7 @@ Route::middleware('customer.auth')->group(function () {
 });
 
 
-Route::post('inventory/movements', [InventoryApiController::class, 'recordMovement']);
-Route::get('inventory/levels', [InventoryApiController::class, 'levels']);
+Route::middleware('api.token')->group(function () {
+    Route::post('inventory/movements', [InventoryApiController::class, 'recordMovement']);
+    Route::get('inventory/levels', [InventoryApiController::class, 'levels']);
+});
