@@ -10,10 +10,15 @@ return new class extends Migration
     {
         Schema::create('inventory_alerts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('business_id')->index();
             $table->string('type');
             $table->string('message');
             $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('business_id')->references('id')->on('businesses');
+            $table->unique(['product_id', 'type', 'business_id']);
         });
     }
 
