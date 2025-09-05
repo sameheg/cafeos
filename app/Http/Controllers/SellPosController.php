@@ -54,6 +54,7 @@ use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
 use App\Variation;
 use App\Warranty;
+use App\PosEditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -63,6 +64,9 @@ use Stripe\Charge;
 use Stripe\Stripe;
 use Yajra\DataTables\Facades\DataTables;
 use App\Events\SellCreatedOrModified;
+use App\Events\SellUpdated;
+use App\Events\OrderUpdated;
+use App\Events\StockLevelChanged;
 
 class SellPosController extends Controller
 {
@@ -1443,8 +1447,10 @@ class SellPosController extends Controller
                 if (isset($input['repair_completed_on'])) {
                     $completed_on = !empty($input['repair_completed_on']) ? $this->transactionUtil->uf_date($input['repair_completed_on'], true) : null;
                     if ($transaction->repair_completed_on != $completed_on) {
-                        $log_properties['completed_on_from'] = $transaction->repair_completed_on;
-                        $log_properties['completed_on_to'] = $completed_on;
+                        $log_properties['repair_completed_on'] = [
+                            'old' => $transaction->repair_completed_on,
+                            'new' => $completed_on,
+                        ];
                     }
                 }
 
@@ -1452,7 +1458,24 @@ class SellPosController extends Controller
 
                 Media::uploadMedia($business_id, $transaction, $request, 'documents');
 
-                $this->transactionUtil->activityLog($transaction, 'edited', $transaction_before);
+                $changed_fields = [];
+                foreach ($transaction->getAttributes() as $field => $value) {
+                    $before_value = $transaction_before->$field ?? null;
+                    if ($before_value != $value) {
+                        $changed_fields[$field] = ['old' => $before_value, 'new' => $value];
+                    }
+                }
+                if (!empty($log_properties)) {
+                    $changed_fields = array_merge($changed_fields, $log_properties);
+                }
+
+                event(new SellUpdated($transaction, auth()->user(), $changed_fields));
+                event(new OrderUpdated($transaction));
+                if (!empty($input['products'])) {
+                    foreach ($input['products'] as $product) {
+                        event(new StockLevelChanged($product['product_id'], $transaction->location_id, $product['quantity']));
+                    }
+                }
 
                 SellCreatedOrModified::dispatch($transaction);
 
@@ -3261,5 +3284,19 @@ class SellPosController extends Controller
             return $output;
 
         }
+    }
+
+    public function editHistory($id)
+    {
+        if (!auth()->user()->can('sell.view')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $logs = PosEditLog::with('user')
+            ->where('transaction_id', $id)
+            ->orderBy('edited_at', 'desc')
+            ->get();
+
+        return view('sell.edit_history', compact('logs'));
     }
 }

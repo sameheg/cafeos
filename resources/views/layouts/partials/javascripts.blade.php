@@ -103,11 +103,13 @@
 
 <script src="{{ asset('js/functions.js?v=' . $asset_v) }}"></script>
 <script src="{{ asset('js/common.js?v=' . $asset_v) }}"></script>
+<script src="{{ asset('vendor/laravel-webpush/laravel-webpush.js') }}"></script>
 <script src="{{ asset('js/app.js?v=' . $asset_v) }}"></script>
+<script src="{{ asset('js/admin-search.js?v=' . $asset_v) }}"></script>
 <script src="{{ asset('js/help-tour.js?v=' . $asset_v) }}"></script>
 <script src="{{ asset('js/documents_and_note.js?v=' . $asset_v) }}"></script>
 
-<!-- TODO -->
+@stack('scripts')
 @if (file_exists(public_path('AdminLTE/plugins/select2/lang/' . session()->get('user.language', config('app.locale')) . '.js')))
     <script
         src="{{ asset('AdminLTE/plugins/select2/lang/' . session()->get('user.language', config('app.locale')) . '.js?v=' . $asset_v) }}">

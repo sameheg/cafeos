@@ -119,17 +119,17 @@
                                         <th id="psr_product_custom_field1">{{$product_custom_field1}}</th>
                                         <th id="psr_product_custom_field2">{{$product_custom_field2}}</th>
                                         <th>@lang('sale.customer_name')</th>
-                                        <th>@lang('lang_v1.contact_id')</th>
-                                        <th>@lang('lang_v1.contact_no')</th>
-                                        <th>@lang('sale.invoice_no')</th>
+                                        <th class="d-none d-sm-table-cell">@lang('lang_v1.contact_id')</th>
+                                        <th class="d-none d-sm-table-cell">@lang('lang_v1.contact_no')</th>
+                                        <th class="d-none d-sm-table-cell">@lang('sale.invoice_no')</th>
                                         <th>@lang('messages.date')</th>
                                         <th>@lang('sale.qty')</th>
                                         <th>@lang('sale.unit_price')</th>
-                                        <th>@lang('sale.discount')</th>
-                                        <th>@lang('sale.tax')</th>
+                                        <th class="d-none d-md-table-cell">@lang('sale.discount')</th>
+                                        <th class="d-none d-md-table-cell">@lang('sale.tax')</th>
                                         <th>@lang('sale.price_inc_tax')</th>
                                         <th>@lang('sale.total')</th>
-                                        <th>@lang('lang_v1.payment_method')</th>
+                                        <th class="d-none d-sm-table-cell">@lang('lang_v1.payment_method')</th>
                                     </tr>
                                 </thead>
                                 <tfoot>

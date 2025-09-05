@@ -1029,7 +1029,7 @@
     </style>
 @endsection
 
-@section('javascript')
+@push('scripts')
     <script src="{{ asset('js/home.js?v=' . $asset_v) }}"></script>
     <script src="{{ asset('js/payment.js?v=' . $asset_v) }}"></script>
     @includeIf('sales_order.common_js')
@@ -1433,4 +1433,4 @@
         });
     </script>
     
-@endsection
+@endpush

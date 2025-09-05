@@ -6,8 +6,17 @@
  */
 
 require('./bootstrap');
+require('./dashboard');
 
 import Vue from 'vue'
+import { syncQueuedSales } from './pos/offlineStorage';
+import { enforceTouchTargets } from './pos/touchTargets';
+
+Vue.component('table-view', require('./pos/TableView.vue').default);
+Vue.component('quick-order-entry', require('./pos/QuickOrder.vue').default);
+Vue.component('tip-input', require('./pos/TipInput.vue').default);
+Vue.component('manager-page', require('./admin/Manager.vue').default);
+Vue.component('employee-page', require('./admin/Employee.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,7 +40,39 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+Vue.component('theme-preview', require('./components/ThemePreview.vue').default);
 
 const app = new Vue({
     el: '#app'
 });
+
+enforceTouchTargets();
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+            if (window.laravelWebPush) {
+                window.laravelWebPush.initPush(registration);
+            }
+        });
+    });
+}
+
+const indicator = document.getElementById('network-indicator');
+function updateStatus() {
+    if (!indicator) return;
+    if (navigator.onLine) {
+        indicator.textContent = 'Online';
+        indicator.classList.remove('offline');
+        indicator.classList.add('online');
+        syncQueuedSales();
+    } else {
+        indicator.textContent = 'Offline';
+        indicator.classList.remove('online');
+        indicator.classList.add('offline');
+    }
+}
+
+window.addEventListener('online', updateStatus);
+window.addEventListener('offline', updateStatus);
+updateStatus();

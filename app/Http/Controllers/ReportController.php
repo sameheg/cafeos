@@ -13,6 +13,7 @@ use App\ExpenseCategory;
 use App\Product;
 use App\PurchaseLine;
 use App\Restaurant\ResTable;
+use App\NotificationLog;
 use App\SellingPriceGroup;
 use App\TaxRate;
 use App\Transaction;
@@ -21,14 +22,19 @@ use App\TransactionSellLine;
 use App\TransactionSellLinesPurchaseLines;
 use App\Unit;
 use App\User;
+use App\Exports\TransactionsExport;
+use App\Services\Accounting\QuickBooksService;
 use App\Utils\BusinessUtil;
 use App\Utils\ModuleUtil;
 use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
 use App\Variation;
+use App\Events\ReportMetricUpdated;
+use Maatwebsite\Excel\Facades\Excel;
 use Datatables;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Spatie\Activitylog\Models\Activity;
 
 class ReportController extends Controller
@@ -76,6 +82,20 @@ class ReportController extends Controller
             'opening_stock_by_sp' => $opening_stock_by_sp,
             'closing_stock_by_sp' => $closing_stock_by_sp,
         ];
+    }
+
+    /**
+     * Export transactions in QuickBooks format.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportTransactions(QuickBooksService $quickBooksService)
+    {
+        if (! auth()->user()->can('reports.export_transactions')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return Excel::download(new TransactionsExport($quickBooksService), 'transactions.xlsx');
     }
 
     /**
@@ -1371,7 +1391,7 @@ class ReportController extends Controller
 
         $business_id = $request->session()->get('user.business_id');
 
-        //TODO:: Need to display reference number and edit expiry date button
+        //Display reference number and allow editing expiry date
 
         //Return the details in ajax call
         if ($request->ajax()) {
@@ -1465,7 +1485,10 @@ class ReportController extends Controller
             ->having('stock_left', '>', 0)
             ->groupBy('purchase_lines.variation_id')
             ->groupBy('purchase_lines.exp_date')
-            ->groupBy('purchase_lines.lot_number');
+            ->groupBy('purchase_lines.lot_number')
+            ->groupBy('t.ref_no')
+            ->groupBy('t.id')
+            ->groupBy('purchase_lines.id');
 
             return Datatables::of($report)
                 ->editColumn('product', function ($row) {
@@ -3674,6 +3697,64 @@ class ReportController extends Controller
         ];
     }
 
+    public function salesPerWaiter(Request $request)
+    {
+        Gate::authorize('viewReportMetrics');
+
+        $business_id = $request->session()->get('user.business_id');
+        $query = Transaction::leftJoin('users as u', 'transactions.res_waiter_id', '=', 'u.id')
+            ->where('transactions.business_id', $business_id)
+            ->where('transactions.type', 'sell')
+            ->where('transactions.status', 'final')
+            ->whereNotNull('transactions.res_waiter_id')
+            ->groupBy('transactions.res_waiter_id')
+            ->select(
+                DB::raw('SUM(final_total) as total_sales'),
+                DB::raw("CONCAT(COALESCE(u.first_name,''),' ',COALESCE(u.last_name,'')) as waiter")
+            );
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween(DB::raw('date(transaction_date)'), [$request->start_date, $request->end_date]);
+        }
+        if ($request->filled('location_id')) {
+            $query->where('transactions.location_id', $request->location_id);
+        }
+
+        $data = $query->get();
+        event(new ReportMetricUpdated('sales_per_waiter', $data));
+
+        return $data;
+    }
+
+    public function tableTurnover(Request $request)
+    {
+        Gate::authorize('viewReportMetrics');
+
+        $business_id = $request->session()->get('user.business_id');
+        $query = Transaction::leftJoin('res_tables as rt', 'transactions.res_table_id', '=', 'rt.id')
+            ->where('transactions.business_id', $business_id)
+            ->where('transactions.type', 'sell')
+            ->where('transactions.status', 'final')
+            ->whereNotNull('transactions.res_table_id')
+            ->groupBy('transactions.res_table_id')
+            ->select(
+                DB::raw('COUNT(*) as orders'),
+                'rt.name as table'
+            );
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween(DB::raw('date(transaction_date)'), [$request->start_date, $request->end_date]);
+        }
+        if ($request->filled('location_id')) {
+            $query->where('transactions.location_id', $request->location_id);
+        }
+
+        $data = $query->get();
+        event(new ReportMetricUpdated('table_turnover', $data));
+
+        return $data;
+    }
+
     public function activityLog()
     {
         $business_id = request()->session()->get('user.business_id');
@@ -3801,6 +3882,38 @@ class ReportController extends Controller
         $users = User::allUsersDropdown($business_id, false);
 
         return view('report.activity_log')->with(compact('users', 'transaction_types'));
+    }
+
+    public function notificationLog(Request $request)
+    {
+        $business_id = $request->session()->get('user.business_id');
+
+        if ($request->ajax()) {
+            $logs = NotificationLog::leftJoin('contacts', 'contacts.id', '=', 'notification_logs.contact_id')
+                                    ->where('contacts.business_id', $business_id)
+                                    ->select('notification_logs.*', 'contacts.name as contact_name');
+
+            if (! empty($request->start_date) && ! empty($request->end_date)) {
+                $logs->whereDate('notification_logs.sent_at', '>=', $request->start_date)
+                     ->whereDate('notification_logs.sent_at', '<=', $request->end_date);
+            }
+
+            if (! empty($request->channel)) {
+                $logs->where('notification_logs.channel', $request->channel);
+            }
+
+            return Datatables::of($logs)
+                ->editColumn('sent_at', '{{@format_datetime($sent_at)}}')
+                ->make(true);
+        }
+
+        $channels = [
+            'email' => 'Email',
+            'sms' => 'SMS',
+            'whatsapp' => 'Whatsapp',
+        ];
+
+        return view('report.notification_log', compact('channels'));
     }
 
     public function gstSalesReport(Request $request)

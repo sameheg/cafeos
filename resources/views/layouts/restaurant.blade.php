@@ -20,9 +20,17 @@
         @include('layouts.partials.css')
 
         @yield('css')
+        @php($activeTheme = auth()->check() ? app(\App\Services\ThemeService::class)->getUserTheme(auth()->id()) : null)
+        @if($activeTheme)
+            <style>
+                :root {
+                    --theme-primary: {{ $activeTheme->primary_color }};
+                }
+            </style>
+        @endif
     </head>
 
-    <body class="hold-transition lockscreen">
+    <body class="hold-transition lockscreen" data-layout="{{ $activeTheme->layout ?? '' }}">
         <div class="wrapper">
             <script type="text/javascript">
                 if(localStorage.getItem("upos_sidebar_collapse") == 'true'){

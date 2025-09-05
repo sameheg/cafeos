@@ -70,7 +70,7 @@
 
 @endsection
 
-@section('javascript')
+@push('scripts')
     
     <script type="text/javascript">
         $(document).ready(function(){
@@ -141,4 +141,4 @@
             $('#calendar').fullCalendar( 'addEventSource', events_source);
         }
     </script>
-@endsection
+@endpush

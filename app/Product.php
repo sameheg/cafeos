@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasTenant;
 
 class Product extends Model
 {
+    use HasTenant;
+
     /**
      * The attributes that aren't mass assignable.
      *
