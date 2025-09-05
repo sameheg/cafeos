@@ -27,6 +27,7 @@ use App\Variation;
 use App\VariationLocationDetails;
 use App\MfgRecipe;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use App\CashRegister;
 
@@ -2408,22 +2409,34 @@ class TransactionUtil extends Util
 
     private function getInvoiceScheme($business_id, $location_id)
     {
-        $scheme_id = BusinessLocation::where('business_id', $business_id)
-                    ->where('id', $location_id)
-                    ->first()
-                    ->invoice_scheme_id;
-        if (! empty($scheme_id) && $scheme_id != 0) {
-            $scheme = InvoiceScheme::find($scheme_id);
+        $cacheKey = config('cache.invoice_scheme_key')."_{$business_id}_{$location_id}";
+        $ttl = config('cache.invoice_scheme_ttl');
+
+        $callback = function () use ($business_id, $location_id) {
+            $scheme_id = BusinessLocation::where('business_id', $business_id)
+                        ->where('id', $location_id)
+                        ->value('invoice_scheme_id');
+
+            if (! empty($scheme_id) && $scheme_id != 0) {
+                $scheme = InvoiceScheme::find($scheme_id);
+            }
+
+            //Check if scheme is not found then return default scheme
+            if (empty($scheme)) {
+                $scheme = InvoiceScheme::where('business_id', $business_id)
+                        ->where('is_default', 1)
+                        ->first();
+            }
+
+            return $scheme;
+        };
+
+        if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore) {
+            return Cache::tags(['invoice_schemes', 'business:'.$business_id])
+                    ->remember($cacheKey, $ttl, $callback);
         }
 
-        //Check if scheme is not found then return default scheme
-        if (empty($scheme)) {
-            $scheme = InvoiceScheme::where('business_id', $business_id)
-                    ->where('is_default', 1)
-                    ->first();
-        }
-
-        return $scheme;
+        return Cache::remember($cacheKey, $ttl, $callback);
     }
 
     /**

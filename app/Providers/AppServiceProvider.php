@@ -10,6 +10,10 @@ use App\Transaction;
 use App\TransactionSellLine;
 use App\Observers\TransactionObserver;
 use App\Observers\TransactionSellLineObserver;
+use App\InvoiceScheme;
+use App\BusinessLocation;
+use App\Observers\InvoiceSchemeObserver;
+use App\Observers\BusinessLocationObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -242,6 +246,8 @@ class AppServiceProvider extends ServiceProvider
 
         Transaction::observe(TransactionObserver::class);
         TransactionSellLine::observe(TransactionSellLineObserver::class);
+        InvoiceScheme::observe(InvoiceSchemeObserver::class);
+        BusinessLocation::observe(BusinessLocationObserver::class);
 
         $this->registerCommands();
     }
