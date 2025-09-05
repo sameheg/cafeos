@@ -27,3 +27,7 @@ The application will be available at [http://localhost:8000](http://localhost:80
 ## Debugging
 
 Debugging is disabled by default. To enable detailed error output, set `APP_DEBUG=true` in your `.env` file or appropriate environment variable and reload the application.
+
+## Two-Factor Authentication
+
+To protect accounts, users may enable two-factor authentication. While logged in visit `/two-factor` to generate a secret key and recovery codes. After enabling, the login process will ask for a time based one-time password from your authenticator app. Two-factor authentication can be disabled at any time from the same page.
