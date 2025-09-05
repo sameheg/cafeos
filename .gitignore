@@ -17,7 +17,9 @@ npm-debug.log
 /public/uploads/invoice_logos
 /public/uploads/UltimatePOS
 /public/uploads/temp
-/public/css/
+/public/css/*
+!/public/css/themes/
+!/public/css/themes/*.css
 /public/fonts/
 /public/images/
 /public/modules/

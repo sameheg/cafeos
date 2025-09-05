@@ -36,6 +36,17 @@
 
     @yield('css')
 
+    <link id="theme-style" rel="stylesheet" href="{{ asset('css/themes/light.css') }}">
+    <script>
+        (function() {
+            const baseThemePath = "{{ asset('css/themes') }}";
+            const defaultTheme = "{{ auth()->check() ? (auth()->user()->settings['theme'] ?? 'light') : 'light' }}";
+            const theme = localStorage.getItem('theme') || defaultTheme;
+            document.getElementById('theme-style').setAttribute('href', baseThemePath + '/' + theme + '.css');
+            localStorage.setItem('theme', theme);
+        })();
+    </script>
+
 </head>
 <body
     class="tw-font-sans tw-antialiased tw-text-gray-900 tw-bg-gray-100 @if ($pos_layout) hold-transition lockscreen @else hold-transition skin-@if (!empty(session('business.theme_color'))){{ session('business.theme_color') }}@else{{ 'blue-light' }} @endif sidebar-mini @endif" >
