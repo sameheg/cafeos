@@ -5,13 +5,17 @@ use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/KdsService.php';
 require_once __DIR__ . '/../src/TicketEndpoint.php';
+require_once __DIR__ . '/../src/AuthService.php';
+require_once __DIR__ . '/../src/Roles.php';
 
 final class TicketFlowTest extends TestCase
 {
     public function testTicketBroadcastToDisplay(): void
     {
         $service = new KdsService();
-        $endpoint = new TicketEndpoint($service);
+        $auth = new AuthService('secret');
+        $endpoint = new TicketEndpoint($service, $auth);
+        $token = $auth->generateToken(Roles::CHEF);
         $received = null;
         $service->registerDisplay(function (array $ticket) use (&$received): void {
             $received = $ticket;
@@ -24,9 +28,20 @@ final class TicketFlowTest extends TestCase
             ],
         ];
 
-        $response = $endpoint->handle($ticket);
+        $response = $endpoint->handle($ticket, $token);
 
         $this->assertSame($ticket, $received, 'Display should receive the ticket');
         $this->assertSame(['status' => 'accepted', 'ticket' => $ticket], $response);
     }
+
+    public function testRejectsInvalidToken(): void
+    {
+        $service = new KdsService();
+        $auth = new AuthService('secret');
+        $endpoint = new TicketEndpoint($service, $auth);
+
+        $this->expectException(RuntimeException::class);
+        $endpoint->handle(['id' => 1], 'invalid.token');
+    }
 }
+
