@@ -54,6 +54,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\SellingPriceGroupController;
 use App\Http\Controllers\SellPosController;
 use App\Http\Controllers\SellReturnController;
+use App\Http\Controllers\Staff\ScheduleController;
 use App\Http\Controllers\StockAdjustmentController;
 use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\TaxonomyController;
@@ -540,6 +541,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/loyalty', [LoyaltyController::class, 'show'])->name('loyalty.show');
     Route::post('/loyalty/redeem', [LoyaltyController::class, 'redeem'])->name('loyalty.redeem');
     Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+});
+
+Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone'])->prefix('staff')->name('staff.')->group(function () {
+    Route::get('schedule', [ScheduleController::class, 'index'])->name('schedule');
+    Route::post('schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::put('schedule/{shift}', [ScheduleController::class, 'update'])->name('schedule.update');
 });
 
 Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone'])->group(function () {
