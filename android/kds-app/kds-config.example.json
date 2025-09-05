@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://pos.example.com/",
+  "tokens": {
+    "chef": "chef-token-placeholder",
+    "kitchen_manager": "km-token-placeholder"
+  }
+}
