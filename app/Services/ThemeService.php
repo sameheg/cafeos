@@ -37,6 +37,13 @@ class ThemeService
         return Theme::where('user_id', $userId)->first();
     }
 
+    public function saveUserTheme(int $userId, array $data): Theme
+    {
+        $payload = Arr::only($data, ['name', 'primary_color', 'secondary_color', 'logo', 'font', 'layout']);
+        $payload['user_id'] = $userId;
+        return Theme::updateOrCreate(['user_id' => $userId], $payload);
+    }
+
     public function createTheme(array $data): Theme
     {
         $payload = Arr::only($data, ['user_id', 'name', 'primary_color', 'secondary_color', 'logo', 'font', 'layout']);
