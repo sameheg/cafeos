@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\StoreSetting;
 
 class ThemeController extends Controller
 {
@@ -14,10 +15,10 @@ class ThemeController extends Controller
 
         $user = $request->user();
         if ($user) {
-            $settings = $user->settings ?? [];
-            $settings['theme'] = $request->input('theme');
-            $user->settings = $settings;
-            $user->save();
+            StoreSetting::updateOrCreate(
+                ['business_id' => $user->business_id],
+                ['theme' => $request->input('theme')]
+            );
         }
 
         return response()->json(['status' => 'success']);
