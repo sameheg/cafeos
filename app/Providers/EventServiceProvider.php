@@ -35,6 +35,8 @@ class EventServiceProvider extends ServiceProvider
 
         \App\Events\RecipeChanged::class => [
             \App\Listeners\UpdateInventoryOnRecipeChanged::class,
+        ],
+
         \App\Events\TableOrderPlaced::class => [
             \App\Listeners\SendTableOrderToPos::class,
         ],
