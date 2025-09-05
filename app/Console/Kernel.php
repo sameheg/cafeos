@@ -24,9 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new SyncDeliveryOrders('talabat'))->everyThirtyMinutes();
-        $schedule->job(new SyncDeliveryOrders('ubereats'))->everyThirtyMinutes();
-        $schedule->job(new GenerateReport('daily'))->dailyAt('02:00');
+        $schedule->job(new SyncDeliveryOrders('talabat'), 'deliveries')->everyThirtyMinutes();
+        $schedule->job(new SyncDeliveryOrders('ubereats'), 'deliveries')->everyThirtyMinutes();
+        $schedule->job(new GenerateReport('daily'), 'reports')->dailyAt('02:00');
 
         //Check for products with low stock
         $schedule->command('pos:checkLowStock')->daily();

@@ -15,7 +15,11 @@ use Illuminate\Queue\SerializesModels;
 class SyncDeliveryOrders implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    /**
+     * Use the Redis queue connection and place jobs on the deliveries queue.
+     */
     public string $connection = 'redis';
+    public string $queue = 'deliveries';
     public int $tries = 3;
 
     protected string $providerName;

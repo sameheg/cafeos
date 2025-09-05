@@ -13,7 +13,12 @@ class GenerateReport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * Send the job to the reports queue on the Redis connection.
+     */
     public string $connection = 'redis';
+    public string $queue = 'reports';
+    public int $tries = 3;
 
     protected string $type;
 
