@@ -4,6 +4,8 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../../agent-kds/src/KdsService.php';
+require_once __DIR__ . '/../../agent-kds/src/KdsMetrics.php';
+require_once __DIR__ . '/../../agent-kds/src/Ticket.php';
 require_once __DIR__ . '/../../agent-kds/src/TicketEndpoint.php';
 
 class Metrics
@@ -26,6 +28,7 @@ class MetricsKdsService extends KdsService
 {
     public function __construct(private Metrics $metrics, private bool $shouldFail = false)
     {
+        parent::__construct(new KdsMetrics());
     }
 
     public function receiveTicket(array $ticket): void
