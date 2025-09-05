@@ -545,6 +545,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('edit-sales-orders/{id}/status', [SalesOrderController::class, 'getEditSalesOrderStatus']);
     Route::put('update-sales-orders/{id}/status', [SalesOrderController::class, 'postEditSalesOrderStatus']);
     Route::get('reports/activity-log', [ReportController::class, 'activityLog']);
+    Route::get('reports/activity-log/settings', [ReportController::class, 'getActivityLogSettings']);
+    Route::post('reports/activity-log/settings', [ReportController::class, 'postActivityLogSettings']);
     Route::get('reports/notification-log', [ReportController::class, 'notificationLog']);
     Route::get('user-location/{latlng}', [HomeController::class, 'getUserLocation']);
 });

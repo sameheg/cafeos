@@ -7,11 +7,13 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SyncDeliveryOrders;
 use App\Jobs\GenerateReport;
 use Modules\Sync\Console\SyncQueueCommand;
+use App\Console\Commands\CleanActivityLog;
 
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
         SyncQueueCommand::class,
+        CleanActivityLog::class,
     ];
     /**
      * Define the application's command schedule.
@@ -30,6 +32,9 @@ class Kernel extends ConsoleKernel
 
         //Update forecasted demand for products
         $schedule->command('pos:forecastDemand')->daily();
+
+        //Clean old activity logs
+        $schedule->command('activitylog:clean')->daily();
 
         $env = config('app.env');
         $email = config('mail.username');
