@@ -119,6 +119,10 @@ Route::middleware('setTenant')->group(function () {
 
 //Routes for authenticated users only
 Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin'])->group(function () {
+    Route::get('themes', [ThemeController::class, 'index'])->name('themes.index');
+    Route::post('themes', [ThemeController::class, 'store'])->name('themes.store');
+    Route::delete('themes/{theme}', [ThemeController::class, 'destroy'])->name('themes.destroy');
+    Route::post('themes/{theme}/assign', [ThemeController::class, 'assign'])->name('themes.assign');
     Route::post('theme', [ThemeController::class, 'update'])->name('theme.update');
     Route::get('pos/payment/{id}', [SellPosController::class, 'edit'])->name('edit-pos-payment');
     Route::get('service-staff-availability', [SellPosController::class, 'showServiceStaffAvailibility']);
