@@ -44,4 +44,12 @@ return [
         'retry_delay' => env('SHOPIFY_RETRY_DELAY', 100),
     ],
 
+    'woocommerce' => [
+        'base_url' => env('WOOCOMMERCE_BASE_URL'),
+        'consumer_key' => env('WOOCOMMERCE_CONSUMER_KEY'),
+        'consumer_secret' => env('WOOCOMMERCE_CONSUMER_SECRET'),
+        'retry_attempts' => env('WOOCOMMERCE_RETRY_ATTEMPTS', 3),
+        'retry_delay' => env('WOOCOMMERCE_RETRY_DELAY', 100),
+    ],
+
 ];
