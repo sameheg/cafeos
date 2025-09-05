@@ -138,10 +138,18 @@ php artisan module:disable ModuleName
 
 ## تشغيل عمال الطوابير
 
-لتنفيذ المهام في الخلفية (مثل مزامنة الطلبات أو توليد التقارير) يجب تشغيل عامل الطوابير:
+لتنفيذ المهام في الخلفية (مثل مزامنة الطلبات أو توليد التقارير) يجب تشغيل عامل الطوابير.
+أولاً، أنشئ جدول الأعطال ثم نفّذ الترقيات:
 
 ```bash
-php artisan queue:work redis --tries=3
+php artisan queue:failed-table
+php artisan migrate
+```
+
+بعد ذلك شغّل العمال المخصّصين لقوائم الانتظار:
+
+```bash
+php artisan queue:work redis --queue=deliveries,reports --tries=3
 ```
 
 يُنصح باستخدام أداة مثل **Supervisor** أو خدمة مشابهة لإعادة تشغيل العامل تلقائيًا ومراقبة الأعطال.
