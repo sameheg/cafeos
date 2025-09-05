@@ -16,4 +16,3 @@ class AdminMenu extends Model
         'order',
     ];
 }
-

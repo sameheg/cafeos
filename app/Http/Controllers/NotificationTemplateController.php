@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\NotificationTemplate;
 use App\Utils\ModuleUtil;
+use App\Utils\NotificationUtil;
 use Illuminate\Http\Request;
 
 class NotificationTemplateController extends Controller
@@ -12,6 +14,7 @@ class NotificationTemplateController extends Controller
      * All Utils instance.
      */
     protected $moduleUtil;
+    protected $notificationUtil;
 
     /**
      * Constructor
@@ -19,9 +22,10 @@ class NotificationTemplateController extends Controller
      * @param  ProductUtils  $product
      * @return void
      */
-    public function __construct(ModuleUtil $moduleUtil)
+    public function __construct(ModuleUtil $moduleUtil, NotificationUtil $notificationUtil)
     {
         $this->moduleUtil = $moduleUtil;
+        $this->notificationUtil = $notificationUtil;
     }
 
     /**
@@ -86,6 +90,70 @@ class NotificationTemplateController extends Controller
         }
 
         return $notifications;
+    }
+
+    /**
+     * Preview a notification template with replaced tags.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function preview(Request $request)
+    {
+        if (! auth()->user()->can('send_notification')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $business_id = $request->session()->get('user.business_id');
+        $template_for = $request->input('template_for');
+        $transaction_id = $request->input('transaction_id');
+        $contact_id = $request->input('contact_id');
+
+        $template = NotificationTemplate::getTemplate($business_id, $template_for);
+
+        $data = [
+            'subject' => $template['subject'],
+            'email_body' => $template['email_body'],
+            'sms_body' => $template['sms_body'],
+            'whatsapp_text' => $template['whatsapp_text'],
+        ];
+
+        $contact = null;
+        if (! empty($contact_id)) {
+            $contact = Contact::find($contact_id);
+        }
+
+        return $this->notificationUtil->replaceTags($business_id, $data, $transaction_id, $contact);
+    }
+
+    /**
+     * Send a test notification to the provided email or mobile number.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function sendTest(Request $request)
+    {
+        if (! auth()->user()->can('send_notification')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $business_id = $request->session()->get('user.business_id');
+        $template_for = $request->input('template_for');
+        $email = $request->input('email');
+        $mobile = $request->input('mobile');
+        $transaction_id = $request->input('transaction_id');
+
+        $contact = new Contact();
+        $contact->email = $email;
+        $contact->mobile = $mobile;
+
+        $whatsapp_link = $this->notificationUtil->sendTestNotification($business_id, $template_for, $transaction_id, $contact);
+
+        return [
+            'success' => true,
+            'whatsapp_link' => $whatsapp_link,
+        ];
     }
 
     /**

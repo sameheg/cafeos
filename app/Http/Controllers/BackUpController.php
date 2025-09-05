@@ -170,4 +170,33 @@ class BackUpController extends Controller
             abort(404, "The backup file doesn't exist.");
         }
     }
+
+    /**
+     * Restore a backup file.
+     */
+    public function restore($file_name)
+    {
+        if (! auth()->user()->can('backup')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+        $file = config('backup.backup.name').'/'.$file_name;
+
+        if (! $disk->exists($file)) {
+            abort(404, "The backup file doesn't exist.");
+        }
+
+        session()->flash('status', [
+            'success' => 1,
+            'msg' => 'Restoration process started. This will overwrite existing data.',
+        ]);
+
+        $script = base_path('restore.sh');
+        if (file_exists($script)) {
+            shell_exec('bash '.escapeshellarg($script).' '.escapeshellarg($disk->path($file)));
+        }
+
+        return back();
+    }
 }

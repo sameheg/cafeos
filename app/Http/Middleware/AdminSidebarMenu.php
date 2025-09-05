@@ -25,6 +25,27 @@ class AdminSidebarMenu
                         ['icon' => $item->icon, 'active' => request()->is(ltrim($item->url, '/').'*')]
                     )->order($item->order);
                 }
+                if (empty($item->permission) || auth()->user()->can($item->permission)) {
+                    $menu->url(
+                        $item->url,
+                        $item->label,
+                        [
+                            'icon' => $item->icon,
+                            'active' => request()->is(ltrim(parse_url($item->url, PHP_URL_PATH), '/')),
+                        ]
+                    )->order($item->order);
+                }
+            }
+
+            if (auth()->user()->can('viewLogs')) {
+                $menu->url(
+                    route('admin.logs.index'),
+                    __('Logs'),
+                    [
+                        'icon' => 'fa fa-file-alt',
+                        'active' => request()->is('admin/logs*'),
+                    ]
+                )->order(999);
             }
         });
 

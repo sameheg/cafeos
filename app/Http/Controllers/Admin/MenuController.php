@@ -27,6 +27,11 @@ class MenuController extends Controller
             'icon' => 'nullable|string|max:255',
             'permission' => 'nullable|string|max:255',
             'order' => 'required|integer',
+            'label' => 'required|string|max:191',
+            'url' => 'required|string|max:191',
+            'icon' => 'nullable|string',
+            'permission' => 'nullable|string|max:191',
+            'order' => 'nullable|integer',
         ]);
 
         AdminMenu::create($data);
@@ -47,6 +52,11 @@ class MenuController extends Controller
             'icon' => 'nullable|string|max:255',
             'permission' => 'nullable|string|max:255',
             'order' => 'required|integer',
+            'label' => 'required|string|max:191',
+            'url' => 'required|string|max:191',
+            'icon' => 'nullable|string',
+            'permission' => 'nullable|string|max:191',
+            'order' => 'nullable|integer',
         ]);
 
         $menu->update($data);
@@ -61,4 +71,3 @@ class MenuController extends Controller
         return redirect()->route('admin.menus.index');
     }
 }
-
