@@ -37,4 +37,11 @@ return [
         'from' => env('TWILIO_WHATSAPP_FROM'),
     ],
 
+    'shopify' => [
+        'base_url' => env('SHOPIFY_BASE_URL'),
+        'access_token' => env('SHOPIFY_ACCESS_TOKEN'),
+        'retry_attempts' => env('SHOPIFY_RETRY_ATTEMPTS', 3),
+        'retry_delay' => env('SHOPIFY_RETRY_DELAY', 100),
+    ],
+
 ];
