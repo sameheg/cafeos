@@ -3,19 +3,17 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div id='metrics'>
-    <div id='total-sales'>Total Sales: {{ $totalSales }}</div>
-    <div id='total-purchases'>Total Purchases: {{ $totalPurchases }}</div>
-    <div id='customer-count'>Customers: {{ $customerCount }}</div>
-    <div id='product-count'>Products: {{ $productCount }}</div>
-</div>
-<div id='chart-container'>
-    {!! $chart->container() !!}
+<div id="dashboard-widgets">
+    @foreach ($widgets as $widget)
+        @include('dashboard.widgets.' . str_replace('-', '_', $widget))
+    @endforeach
 </div>
 @endsection
 
 @section('javascript')
 <script src="{{ asset('js/app.js?v=' . $asset_v) }}"></script>
 {!! $chart->script() !!}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="{{ asset('js/dashboard.js?v=' . $asset_v) }}"></script>
 @endsection
 

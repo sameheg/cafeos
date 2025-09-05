@@ -8,6 +8,7 @@ use App\Product;
 use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -34,6 +35,17 @@ class DashboardController extends Controller
             return $chart;
         });
 
+        $defaultWidgets = [
+            'total-sales',
+            'total-purchases',
+            'customer-count',
+            'product-count',
+            'sales-chart',
+        ];
+
+        $widgets = auth()->user()?->dashboard_widgets ?? $defaultWidgets;
+
+        return view('dashboard', [
         return view('dashboard', array_merge($metrics, [
             'chart' => $chart,
         ]));
@@ -73,6 +85,22 @@ class DashboardController extends Controller
             'totalPurchases' => $totalPurchases,
             'customerCount' => $customerCount,
             'productCount' => $productCount,
+            'chart' => $chart,
+            'widgets' => $widgets,
+        ]);
+    }
+
+    public function saveWidgetsOrder(Request $request)
+    {
+        $request->validate([
+            'widgets' => 'required|array',
+        ]);
+
+        $user = $request->user();
+        $user->dashboard_widgets = $request->input('widgets');
+        $user->save();
+
+        return response()->json(['status' => 'success']);
         ];
     }
 }

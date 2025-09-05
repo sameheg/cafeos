@@ -38,6 +38,8 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
+        'dashboard_widgets' => 'array',
+
         'settings' => 'array',
     ];
 
