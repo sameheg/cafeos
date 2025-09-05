@@ -63,6 +63,7 @@ use Stripe\Charge;
 use Stripe\Stripe;
 use Yajra\DataTables\Facades\DataTables;
 use App\Events\SellCreatedOrModified;
+use App\Events\SellUpdated;
 
 class SellPosController extends Controller
 {
@@ -1443,8 +1444,10 @@ class SellPosController extends Controller
                 if (isset($input['repair_completed_on'])) {
                     $completed_on = !empty($input['repair_completed_on']) ? $this->transactionUtil->uf_date($input['repair_completed_on'], true) : null;
                     if ($transaction->repair_completed_on != $completed_on) {
-                        $log_properties['completed_on_from'] = $transaction->repair_completed_on;
-                        $log_properties['completed_on_to'] = $completed_on;
+                        $log_properties['repair_completed_on'] = [
+                            'old' => $transaction->repair_completed_on,
+                            'new' => $completed_on,
+                        ];
                     }
                 }
 
@@ -1452,7 +1455,18 @@ class SellPosController extends Controller
 
                 Media::uploadMedia($business_id, $transaction, $request, 'documents');
 
-                $this->transactionUtil->activityLog($transaction, 'edited', $transaction_before);
+                $changed_fields = [];
+                foreach ($transaction->getAttributes() as $field => $value) {
+                    $before_value = $transaction_before->$field ?? null;
+                    if ($before_value != $value) {
+                        $changed_fields[$field] = ['old' => $before_value, 'new' => $value];
+                    }
+                }
+                if (!empty($log_properties)) {
+                    $changed_fields = array_merge($changed_fields, $log_properties);
+                }
+
+                event(new SellUpdated($transaction, auth()->user(), $changed_fields));
 
                 SellCreatedOrModified::dispatch($transaction);
 
