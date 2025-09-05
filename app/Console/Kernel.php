@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SyncDeliveryOrders;
 use App\Jobs\GenerateReport;
 use Modules\Sync\Console\SyncQueueCommand;
+use App\ScheduledTask;
 use App\Console\Commands\CleanActivityLog;
 
 class Kernel extends ConsoleKernel
@@ -72,6 +73,10 @@ class Kernel extends ConsoleKernel
                     //->everyThirtyMinutes()
                     ->emailOutputTo($email);
         }
+
+        ScheduledTask::where('enabled', true)->each(function ($task) use ($schedule) {
+            $schedule->command($task->command)->cron($task->frequency);
+        });
     }
 
     /**
