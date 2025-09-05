@@ -45,7 +45,7 @@
     <div class="col-md-4">
     </div>
 @endsection
-@section('javascript')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $('.change_lang').click(function() {
@@ -53,4 +53,4 @@
             });
         })
     </script>
-@endsection
+@endpush

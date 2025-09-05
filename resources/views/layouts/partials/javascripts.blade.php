@@ -107,7 +107,7 @@
 <script src="{{ asset('js/help-tour.js?v=' . $asset_v) }}"></script>
 <script src="{{ asset('js/documents_and_note.js?v=' . $asset_v) }}"></script>
 
-<!-- TODO -->
+@stack('scripts')
 @if (file_exists(public_path('AdminLTE/plugins/select2/lang/' . session()->get('user.language', config('app.locale')) . '.js')))
     <script
         src="{{ asset('AdminLTE/plugins/select2/lang/' . session()->get('user.language', config('app.locale')) . '.js?v=' . $asset_v) }}">
