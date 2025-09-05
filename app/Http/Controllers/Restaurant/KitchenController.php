@@ -50,6 +50,19 @@ class KitchenController extends Controller
     }
 
     /**
+     * Display kitchen orders for screen with timers.
+     *
+     * @return Response
+     */
+    public function display()
+    {
+        $business_id = request()->session()->get('user.business_id');
+        $orders = $this->restUtil->getAllOrders($business_id, ['line_order_status' => 'received', 'is_kitchen_order' => 1]);
+
+        return view('restaurant.kitchen_display', compact('orders'));
+    }
+
+    /**
      * Marks an order as cooked
      *
      * @return json $output
