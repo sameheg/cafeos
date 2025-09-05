@@ -466,6 +466,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
         Route::get('/kitchen/mark-as-cooked/{id}', [Restaurant\KitchenController::class, 'markAsCooked']);
         Route::post('/refresh-orders-list', [Restaurant\KitchenController::class, 'refreshOrdersList']);
         Route::post('/refresh-line-orders-list', [Restaurant\KitchenController::class, 'refreshLineOrdersList']);
+        Route::post('/kitchen-orders/{id}/status', [Restaurant\KitchenController::class, 'updateStatus']);
 
         Route::get('/orders', [Restaurant\OrderController::class, 'index']);
         Route::get('/orders/mark-as-served/{id}', [Restaurant\OrderController::class, 'markAsServed']);
