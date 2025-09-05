@@ -430,6 +430,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
 
     Route::resource('selling-price-group', SellingPriceGroupController::class);
 
+    Route::post('notification-templates/preview', [NotificationTemplateController::class, 'preview'])->name('notification-templates.preview');
+    Route::post('notification-templates/send-test', [NotificationTemplateController::class, 'sendTest'])->name('notification-templates.sendTest');
     Route::resource('notification-templates', NotificationTemplateController::class)->only(['index', 'store']);
     Route::get('notification/get-template/{transaction_id}/{template_for}', [NotificationController::class, 'getTemplate']);
     Route::post('notification/send', [NotificationController::class, 'send']);
