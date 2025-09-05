@@ -14,6 +14,9 @@ class DashboardMetricsTest extends TestCase
         $chart->labels(['Day 1']);
         $chart->dataset('Sales', 'line', [1]);
 
+        $container = $chart->container();
+        $script = $chart->script();
+
         Cache::shouldReceive('remember')
             ->andReturn(10, 20, 5, 8, $chart);
 
@@ -24,5 +27,7 @@ class DashboardMetricsTest extends TestCase
         $response->assertSee('20');
         $response->assertSee('5');
         $response->assertSee('8');
+        $response->assertSee($container, false);
+        $response->assertSee($script, false);
     }
 }
