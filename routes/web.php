@@ -68,6 +68,7 @@ use App\Http\Controllers\VariationTemplateController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,6 +91,7 @@ Route::middleware('setTenant')->group(function () {
         });
 
         Auth::routes();
+        Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
 
         Route::get('/business/register', [BusinessController::class, 'getRegister'])->name('business.getRegister');
         Route::post('/business/register', [BusinessController::class, 'postRegister'])->name('business.postRegister');
