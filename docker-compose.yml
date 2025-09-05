@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      APP_ENV: local
+      APP_DEBUG: '1'
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: cafeos
+      DB_USERNAME: cafeos
+      DB_PASSWORD: secret
+
+  queue:
+    build: .
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      APP_ENV: local
+      APP_DEBUG: '1'
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: cafeos
+      DB_USERNAME: cafeos
+      DB_PASSWORD: secret
+    command: ["/usr/local/bin/queue-worker.sh"]
+
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: cafeos
+      MYSQL_USER: cafeos
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
