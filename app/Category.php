@@ -5,10 +5,12 @@ namespace App;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\HasTenant;
 
 class Category extends Model
 {
     use SoftDeletes;
+    use HasTenant;
     /**
      * The attributes that should be mutated to dates.
      *

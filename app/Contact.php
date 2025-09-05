@@ -6,11 +6,13 @@ use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\HasTenant;
 
 class Contact extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use HasTenant;
 
     /**
      * The attributes that aren't mass assignable.

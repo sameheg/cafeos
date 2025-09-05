@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Tenant;
 use App\User;
+use App\Http\Middleware\SetTenant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class TenantIsolationTest extends TestCase
@@ -33,12 +35,14 @@ class TenantIsolationTest extends TestCase
             'password' => bcrypt('secret'),
         ]);
 
-        app()->instance('tenant', $tenantOne);
-        $this->assertEquals(1, User::count());
-        $this->assertEquals('alice', User::first()->username);
+        Route::middleware(SetTenant::class)->get('/users', function () {
+            return User::pluck('username');
+        });
 
-        app()->instance('tenant', $tenantTwo);
-        $this->assertEquals(1, User::count());
-        $this->assertEquals('bob', User::first()->username);
+        $this->get('/users', ['X-Tenant' => 'alpha'])
+            ->assertExactJson(['alice']);
+
+        $this->get('/users', ['X-Tenant' => 'beta'])
+            ->assertExactJson(['bob']);
     }
 }
