@@ -11,6 +11,7 @@ class KdsService
      */
     private array $listeners = [];
 
+    /** @var array<int,Ticket> */
     /** @var array<int,float> */
     private array $startTimes = [];
 
@@ -32,6 +33,10 @@ class KdsService
     }
 
     /**
+     * Accept a new kitchen ticket and broadcast it.
+     *
+     * @param array<string,mixed> $ticket
+     * @return array<string,mixed>
      * Accept a kitchen ticket, store it as active and broadcast to listeners.
      * Register a display callback that will receive tickets for an optional station.
      */
@@ -45,8 +50,28 @@ class KdsService
      *
      * @param array<string, mixed> $ticket
      */
-    public function receiveTicket(array $ticket): void
+    public function receiveTicket(array $ticket): array
     {
+        $model = new Ticket($ticket['id'], $ticket['items']);
+        $this->tickets[$model->id] = $model;
+        $this->broadcast($model);
+
+        return $model->toArray();
+    }
+
+    /**
+     * Update the status for an existing ticket and broadcast the change.
+     *
+     * @return array<string,mixed>|null
+     */
+    public function updateTicketStatus(int $id, string $status): ?array
+    {
+        if (!isset($this->tickets[$id])) {
+            return null;
+        }
+
+        $ticket = $this->tickets[$id];
+        $ticket->updateStatus($status);
         // Store metrics if model is available in this runtime
         if (
             class_exists(\App\Models\KdsMetric::class) &&
@@ -94,6 +119,8 @@ class KdsService
         }
 
         $this->broadcast($ticket);
+
+        return $ticket->toArray();
     }
 
     /**
@@ -113,6 +140,12 @@ class KdsService
 
     /**
      * Broadcast ticket data to all registered displays.
+     */
+    private function broadcast(Ticket $ticket): void
+    {
+        foreach ($this->listeners as $listener) {
+            $listener($ticket->toArray());
+
      * Broadcast ticket data to all registered displays that match the station.
      *
      * @param array<string, mixed> $ticket
