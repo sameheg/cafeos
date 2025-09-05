@@ -4,7 +4,7 @@
     "AssetManagement": true,
     "Cms": true,
     "Connector": true,
-    "Crm": true,
+    "CRM": true,
     "Ecommerce": true,
     "FieldForce": true,
     "Manufacturing": true,
@@ -21,9 +21,11 @@
     "Gym": true,
     "ZatcaIntegrationKsa": true,
     "ModuleName": true,
-    "Reporting": true
+    "Reporting": true,
     "Integrations": true,
-    "ModuleName": true
-    "ModuleName": true,
-    "HR": true
+    "HR": true,
+    "Inventory": true,
+    "POS": true,
+    "Compliance": true,
+    "Sync": true
 }

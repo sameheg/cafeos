@@ -24,6 +24,10 @@ class AdminSearchController extends Controller
             'users' => [],
             'products' => [],
             'transactions' => [],
+
+            'users' => collect(),
+            'products' => collect(),
+            'invoices' => collect(),
         ];
 
         if (! empty($query)) {
@@ -39,6 +43,16 @@ class AdminSearchController extends Controller
                     'url' => url("/users/{$user->id}"),
                 ])
                 ->toArray();
+
+                ->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'name' => trim($user->surname . ' ' . $user->first_name),
+                        'url' => url('/user/profile'),
+                        'type' => 'user',
+                    ];
+                })
+                ->values();
 
             $results['products'] = Product::where('name', 'like', "%{$query}%")
                 ->orWhere('sku', 'like', "%{$query}%")
@@ -63,6 +77,29 @@ class AdminSearchController extends Controller
                     'url' => url("/sells/{$transaction->id}"),
                 ])
                 ->toArray();
+                ->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'url' => action([\App\Http\Controllers\ProductController::class, 'edit'], [$product->id]),
+                        'type' => 'product',
+                    ];
+                })
+                ->values();
+
+            $results['invoices'] = Transaction::where('type', 'sell')
+                ->where('invoice_no', 'like', "%{$query}%")
+                ->limit(5)
+                ->get()
+                ->map(function ($transaction) {
+                    return [
+                        'id' => $transaction->id,
+                        'name' => $transaction->invoice_no,
+                        'url' => action([\App\Http\Controllers\SellController::class, 'show'], [$transaction->id]),
+                        'type' => 'invoice',
+                    ];
+                })
+                ->values();
         }
 
         return response()->json($results);

@@ -5,7 +5,16 @@
     <a href="{{ route('admin.permissions.create') }}">Create Permission</a>
     <ul>
         @foreach($permissions as $permission)
-            <li>{{ $permission->name }}</li>
+            <li>
+                {{ $permission->name }}
+                <a href="{{ route('admin.permissions.edit', $permission) }}">Edit</a>
+                <form method="POST" action="{{ route('admin.permissions.destroy', $permission) }}" style="display:inline">
+                <form action="{{ route('admin.permissions.destroy', $permission) }}" method="POST" style="display:inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
         @endforeach
     </ul>
 @endsection

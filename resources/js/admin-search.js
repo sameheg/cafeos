@@ -37,6 +37,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         const header = document.createElement('li');
                         header.textContent = type.charAt(0).toUpperCase() + type.slice(1);
                         header.classList.add('tw-font-bold', 'tw-mt-2');
+                    const typeLabels = { user: 'Users', product: 'Products', invoice: 'Invoices' };
+                    let hasResults = false;
+
+                    Object.keys(data).forEach((group) => {
+                        const items = data[group];
+                        if (!items.length) {
+                            return;
+                        }
+
+                        hasResults = true;
+
+                        const header = document.createElement('li');
+                        header.textContent = typeLabels[items[0].type] || group;
+                        header.classList.add('tw-font-bold', 'tw-px-2', 'tw-py-1');
                         results.appendChild(header);
 
                         items.forEach((item) => {
@@ -50,6 +64,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
 
                     results.classList.remove('tw-hidden');
+                    if (hasResults) {
+                        results.classList.remove('tw-hidden');
+                    } else {
+                        results.classList.add('tw-hidden');
+                    }
                 });
         }, 300);
     });
