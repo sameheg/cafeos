@@ -14,7 +14,7 @@
         <tbody>
             @foreach($alerts as $alert)
                 <tr>
-                    <td>{{ $alert->product->name ?? $alert->product_id }}</td>
+                    <td>{{ $alert->product->name }}</td>
                     <td>{{ $alert->type }}</td>
                     <td>{{ $alert->message }}</td>
                     <td>{{ $alert->created_at }}</td>

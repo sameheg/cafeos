@@ -2,10 +2,10 @@
 
 namespace Modules\Inventory\Services;
 
+use App\Models\InventoryAlert;
 use App\Business;
 use App\Notifications\InventoryAlertNotification;
 use App\Product;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class AlertService
@@ -17,6 +17,11 @@ class AlertService
     {
         if (!is_null($product->alert_quantity) && $product->quantity_available <= $product->alert_quantity) {
             $message = "Stock for {$product->name} is below threshold.";
+            $this->recordAlert($product, 'stock', $message);
+
+            Notification::route('mail', config('mail.from.address'))
+                ->notify(new InventoryAlertNotification($product, $message));
+
             $this->sendAlert($product, 'stock', $message);
         }
     }
@@ -28,6 +33,10 @@ class AlertService
     {
         if (!is_null($product->alert_sales_quantity) && $soldQuantity >= $product->alert_sales_quantity) {
             $message = "{$product->name} sales exceeded {$product->alert_sales_quantity}.";
+            $this->recordAlert($product, 'sales', $message);
+
+            Notification::route('mail', config('mail.from.address'))
+                ->notify(new InventoryAlertNotification($product, $message));
             $this->sendAlert($product, 'sales', $message);
         }
     }
@@ -35,6 +44,12 @@ class AlertService
     /**
      * Persist alert information to the database.
      */
+    protected function recordAlert(Product $product, string $type, string $message): void
+    {
+        InventoryAlert::create([
+            'product_id' => $product->id,
+            'business_id' => $product->business_id,
+
     protected function recordAlert(int $productId, string $type, string $message, int $periodMinutes = 60): void
     {
         $recentExists = DB::table('inventory_alerts')
@@ -51,8 +66,6 @@ class AlertService
             'product_id' => $productId,
             'type' => $type,
             'message' => $message,
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
     }
 
