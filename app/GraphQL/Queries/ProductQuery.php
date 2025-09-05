@@ -21,16 +21,15 @@ class ProductQuery extends Query
     public function args(): array
     {
         return [
-            'id' => ['type' => Type::int()],
+            'id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'Identifier of the product.',
+            ],
         ];
     }
 
-    public function resolve($root, $args)
+    public function resolve($root, array $args)
     {
-        if (isset($args['id'])) {
-            return Product::find($args['id']);
-        }
-
-        return Product::first();
+        return Product::find($args['id']);
     }
 }
