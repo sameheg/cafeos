@@ -29,6 +29,17 @@ class AdminSidebarMenu
                     )->order($item->order);
                 }
             }
+
+            if (auth()->user()->can('viewLogs')) {
+                $menu->url(
+                    route('admin.logs.index'),
+                    __('Logs'),
+                    [
+                        'icon' => 'fa fa-file-alt',
+                        'active' => request()->is('admin/logs*'),
+                    ]
+                )->order(999);
+            }
         });
 
         $moduleUtil = new ModuleUtil();
