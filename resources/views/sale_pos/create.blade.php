@@ -64,7 +64,9 @@
                 </div>
             </div>
         </div>
-        @include('sale_pos.partials.pos_form_actions')
+        <div class="cashier-fields d-none">
+            @include('sale_pos.partials.pos_form_actions')
+        </div>
         {!! Form::close() !!}
     </section>
 
