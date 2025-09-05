@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'CheckUserLogin' => \App\Http\Middleware\CheckUserLogin::class,
         'setTenant' => \App\Http\Middleware\SetTenant::class,
         'customer.auth' => \App\Http\Middleware\CustomerAuth::class,
+        'tenantResolver' => \App\Http\Middleware\TenantResolver::class,
     ];
 }

@@ -210,6 +210,9 @@
                                     <span
                                         class="tw-text-sm tw-font-medium tw-bg-gradient-to-r tw-from-indigo-500 tw-to-blue-500 tw-inline-block tw-text-transparent tw-bg-clip-text hover:tw-text-[#467BF5] hover:tw-underline">{{ __('business.register_now') }}</span></a>
                             @endif
+                            @if(Module::has('Superadmin'))
+                                <a href="{{ route('superadmin.pricing') }}" class="tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-underline tw-mt-2">View plans</a>
+                            @endif
                         @endif
                     </div>
                 </div>
