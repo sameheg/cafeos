@@ -1555,6 +1555,7 @@ return [
     'windows' => 'windows',
     'linux' => 'Linux',
     'is_product_image_required' => 'Is product image required?',
+    'hide_unavailable_products' => 'Hide unavailable products',
     'currency_precision' => 'Currency precision',
     'currency_precision_help' => 'Number of digits after decimal point for currency value. Example:0.00 for value 2, 0.000 for value 3, 0.0000 for value 4',
     'quantity_precision' => 'Quantity precision',

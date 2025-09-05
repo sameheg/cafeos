@@ -1640,7 +1640,14 @@ class ProductUtil extends Util
                                 $query->where('VLD.location_id', '=', $location_id);
                                 //Check null to show products even if no quantity is available in a location.
                                 //TODO: Maybe add a settings to show product not available at a location or not.
-                                $query->orWhereNull('VLD.location_id');
+                                $hide_unavailable = config('inventory.hide_unavailable');
+                                $common_settings = session()->get('business.common_settings');
+                                if (isset($common_settings['hide_unavailable_products'])) {
+                                    $hide_unavailable = (bool) $common_settings['hide_unavailable_products'];
+                                }
+                                if (! $hide_unavailable) {
+                                    $query->orWhereNull('VLD.location_id');
+                                }
                             });
                         }
                     }
