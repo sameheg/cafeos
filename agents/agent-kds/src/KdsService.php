@@ -18,24 +18,42 @@ class KdsService
     }
 
     /**
-     * Accept a kitchen ticket and broadcast it.
+     * Accept a kitchen ticket and broadcast it as created.
      *
      * @param array<string,mixed> $ticket
      */
     public function receiveTicket(array $ticket): void
     {
-        $this->broadcast($ticket);
+        $payload = [
+            'event' => 'kds.ticket.created',
+            'ticket' => $ticket,
+        ];
+        $this->broadcast($payload);
+    }
+
+    /**
+     * Accept an update to an existing ticket and broadcast it.
+     *
+     * @param array<string,mixed> $ticket
+     */
+    public function updateTicket(array $ticket): void
+    {
+        $payload = [
+            'event' => 'kds.ticket.update',
+            'ticket' => $ticket,
+        ];
+        $this->broadcast($payload);
     }
 
     /**
      * Broadcast ticket data to all registered displays.
      *
-     * @param array<string,mixed> $ticket
+     * @param array<string,mixed> $payload
      */
-    private function broadcast(array $ticket): void
+    private function broadcast(array $payload): void
     {
         foreach ($this->listeners as $listener) {
-            $listener($ticket);
+            $listener($payload);
         }
     }
 }

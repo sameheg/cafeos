@@ -13,8 +13,8 @@ final class TicketFlowTest extends TestCase
         $service = new KdsService();
         $endpoint = new TicketEndpoint($service);
         $received = null;
-        $service->registerDisplay(function (array $ticket) use (&$received): void {
-            $received = $ticket;
+        $service->registerDisplay(function (array $payload) use (&$received): void {
+            $received = $payload;
         });
 
         $ticket = [
@@ -26,7 +26,12 @@ final class TicketFlowTest extends TestCase
 
         $response = $endpoint->handle($ticket);
 
-        $this->assertSame($ticket, $received, 'Display should receive the ticket');
+        $expectedPayload = [
+            'event' => 'kds.ticket.created',
+            'ticket' => $ticket,
+        ];
+
+        $this->assertSame($expectedPayload, $received, 'Display should receive the ticket');
         $this->assertSame(['status' => 'accepted', 'ticket' => $ticket], $response);
     }
 }
