@@ -116,17 +116,25 @@ class BackUpController extends Controller
         }
 
         $file = config('backup.backup.name').'/'.$file_name;
-        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-        if ($disk->exists($file)) {
-            $fs = Storage::disk(config('backup.backup.destination.disks')[0])->getDriver();
+
+        $diskName = null;
+        foreach (config('backup.backup.destination.disks') as $d) {
+            if (Storage::disk($d)->exists($file)) {
+                $diskName = $d;
+                break;
+            }
+        }
+
+        if (! empty($diskName)) {
+            $disk = Storage::disk($diskName);
+            $fs = $disk->getDriver();
             $stream = $fs->readStream($file);
-            //var_dump($fs->size($file));exit;
 
             return \Response::stream(function () use ($stream) {
                 fpassthru($stream);
             }, 200, [
                 'Content-Type' => $fs->mimeType($file),
-                //'Content-Length' => $fs->getSize($file),
+                'Content-Length' => $disk->size($file),
                 'Content-disposition' => 'attachment; filename="'.basename($file).'"',
             ]);
         } else {
