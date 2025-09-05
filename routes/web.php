@@ -69,6 +69,7 @@ use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\Auth\TwoFactorController;
 use App\Http\Controllers\LocaleController;
+use Modules\Inventory\Http\Controllers\InventoryAlertController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -153,6 +154,8 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::post('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 
     Route::resource('brands', BrandController::class);
+
+    Route::get('/admin/inventory/alerts', [InventoryAlertController::class, 'index'])->middleware('auth');
 
     Route::get('/admin-search', [AdminSearchController::class, 'index'])->name('admin.search');
 
