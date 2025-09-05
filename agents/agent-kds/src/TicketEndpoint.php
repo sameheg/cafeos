@@ -18,6 +18,10 @@ class TicketEndpoint
      */
     public function handle(array $ticket): array
     {
+        if (!array_key_exists('station', $ticket)) {
+            $ticket['station'] = null;
+        }
+
         $this->service->receiveTicket($ticket);
 
         return [

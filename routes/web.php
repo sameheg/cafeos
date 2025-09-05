@@ -551,6 +551,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
         Route::get('/orders/mark-line-order-as-served/{id}', [Restaurant\OrderController::class, 'markLineOrderAsServed']);
         Route::get('/print-line-order', [Restaurant\OrderController::class, 'printLineOrder']);
         Route::get('/kitchen-display', [Restaurant\KitchenController::class, 'display']);
+        Route::get('/kds', function () { return view('kds.index'); });
     });
 
     Route::get('bookings/get-todays-bookings', [Restaurant\BookingController::class, 'getTodaysBookings']);
