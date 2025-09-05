@@ -38,6 +38,12 @@
             </div>
 
 
+            <div class="tw-relative tw-flex-1 md:tw-max-w-xs">
+                <input type="text" id="admin-search-input" placeholder="Search..." class="tw-w-full tw-px-2 tw-py-1 tw-rounded" autocomplete="off">
+                <ul id="admin-search-results" class="tw-absolute tw-z-50 tw-w-full tw-bg-white tw-border tw-rounded tw-mt-1 tw-hidden"></ul>
+            </div>
+
+
             {{-- Showing active package for SaaS Superadmin --}}
             @if(Module::has('Superadmin'))
                 @includeIf('superadmin::layouts.partials.active_subscription')
