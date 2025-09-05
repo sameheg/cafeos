@@ -25,6 +25,9 @@
             <div id="invoice_content">
                 {!! $receipt['html_content'] !!}
             </div>
+            <div class="text-center">
+                <a href="{{ url('/customer-portal') }}">View your customer portal</a>
+            </div>
             <div class="spacer"></div>
         </div>
     </div>
