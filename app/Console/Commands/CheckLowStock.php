@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Business;
 use App\Product;
 use App\Utils\NotificationUtil;
-use App\Notifications\CustomerNotification;
+use App\Notifications\InventoryAlertNotification;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\DB;
@@ -62,32 +62,28 @@ class CheckLowStock extends Command
                 continue;
             }
 
-            $message = $products->map(function ($p) {
-                return $p->name . ' (' . (float) $p->quantity_available . ')';
-            })->implode(', ');
-
-            $data = [
-                'subject' => 'Low Stock Alert',
-                'email_body' => $message,
-                'sms_body' => $message,
-                'whatsapp_text' => $message,
-                'email_settings' => $business->email_settings ?? [],
-                'sms_settings' => $business->sms_settings ?? [],
-            ];
-
             $owner = $business->owner;
 
-            if (!empty($owner) && !empty($owner->email)) {
-                Notification::route('mail', [$owner->email])->notify(new CustomerNotification($data));
-            }
-
-            if (!empty($owner) && !empty($owner->contact_number)) {
-                $data['mobile_number'] = $owner->contact_number;
-                $this->notificationUtil->sendSms($data);
-                $this->notificationUtil->sendWhatsapp($data);
-            }
-
             foreach ($products as $product) {
+                $message = $product->name . ' stock is low. Available: ' . (float) $product->quantity_available . ' (alert at ' . (float) $product->alert_quantity . ')';
+
+                if (!empty($owner) && !empty($owner->email) && !empty($business->email_settings)) {
+                    $this->notificationUtil->configureEmail(['email_settings' => $business->email_settings]);
+                    $owner->notify(new InventoryAlertNotification($product, $message));
+                }
+
+                if (!empty($owner) && !empty($owner->contact_number) && !empty($business->sms_settings)) {
+                    $data = [
+                        'sms_body' => $message,
+                        'whatsapp_text' => $message,
+                        'sms_settings' => $business->sms_settings,
+                        'mobile_number' => $owner->contact_number,
+                    ];
+
+                    $this->notificationUtil->sendSms($data);
+                    $this->notificationUtil->sendWhatsapp($data);
+                }
+
                 $this->notificationUtil->activityLog($product, 'low_stock_alert', null, [
                     'quantity_available' => $product->quantity_available,
                     'alert_quantity' => $product->alert_quantity,
