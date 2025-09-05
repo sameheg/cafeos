@@ -175,9 +175,21 @@
             <div class="form-group">
                 <div class="checkbox">
                   <label>
-                    {!! Form::checkbox('common_settings[is_product_image_required]', 1, 
-                        !empty($common_settings['is_product_image_required']) ? true : false, 
+                    {!! Form::checkbox('common_settings[is_product_image_required]', 1,
+                        !empty($common_settings['is_product_image_required']) ? true : false,
                     [ 'class' => 'input-icheck']); !!} {{ __( 'lang_v1.is_product_image_required' ) }}
+                  </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    {!! Form::checkbox('common_settings[hide_unavailable_products]', 1,
+                        !empty($common_settings['hide_unavailable_products']) ? true : false,
+                    [ 'class' => 'input-icheck']); !!} {{ __( 'lang_v1.hide_unavailable_products' ) }}
                   </label>
                 </div>
             </div>
