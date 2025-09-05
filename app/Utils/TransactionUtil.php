@@ -18,6 +18,7 @@ use App\Product;
 use App\PurchaseLine;
 use App\Restaurant\ResTable;
 use App\TaxRate;
+use App\Restaurant\KitchenOrder;
 use App\Transaction;
 use App\TransactionPayment;
 use App\TransactionSellLine;
@@ -449,6 +450,17 @@ class TransactionUtil extends Util
 
         if (! empty($lines_formatted)) {
             $transaction->sell_lines()->saveMany($lines_formatted);
+
+            // Create kitchen orders for each sell line if required
+            if (!empty($transaction->is_kitchen_order)) {
+                foreach ($lines_formatted as $value) {
+                    KitchenOrder::create([
+                        'transaction_id' => $transaction->id,
+                        'item_id' => $value->id,
+                        'status' => 'pending',
+                    ]);
+                }
+            }
 
             //Add corresponding modifier sell lines if exists
             if ($this->isModuleEnabled('modifiers')) {

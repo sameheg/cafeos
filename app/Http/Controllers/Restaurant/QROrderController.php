@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Restaurant;
 
+use App\Restaurant\TableOrder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
 use DNS2D;
 
 class QROrderController extends Controller
@@ -31,10 +33,33 @@ class QROrderController extends Controller
 
     public function order(Request $request, $table)
     {
+        $order = TableOrder::create([
+            'table_id' => $table,
+            'status' => 'pending',
+            'placed_at' => Carbon::now(),
+        ]);
+
         return response()->json([
             'success' => true,
             'table_id' => (int) $table,
+            'order_id' => $order->id,
+            'status' => $order->status,
             'items' => $request->input('items', []),
         ]);
+    }
+
+    public function orders($table)
+    {
+        $orders = TableOrder::where('table_id', $table)->get(['id', 'status', 'placed_at', 'transaction_id']);
+
+        return response()->json([
+            'table_id' => (int) $table,
+            'orders' => $orders,
+        ]);
+    }
+
+    public function view($table)
+    {
+        return view('restaurant.table.orders', ['tableId' => (int) $table]);
     }
 }

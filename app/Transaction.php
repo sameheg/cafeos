@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Restaurant\OrderStatusLog;
 
 class Transaction extends Model
 {
@@ -35,6 +36,31 @@ class Transaction extends Model
      * @var string
      */
     protected $table = 'transactions';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($transaction) {
+            if ($transaction->isDirty('status')) {
+                OrderStatusLog::create([
+                    'transaction_id' => $transaction->id,
+                    'status_from' => $transaction->getOriginal('status'),
+                    'status_to' => $transaction->status,
+                    'changed_by' => auth()->id(),
+                ]);
+            }
+
+            if ($transaction->isDirty('res_order_status')) {
+                OrderStatusLog::create([
+                    'transaction_id' => $transaction->id,
+                    'status_from' => $transaction->getOriginal('res_order_status'),
+                    'status_to' => $transaction->res_order_status,
+                    'changed_by' => auth()->id(),
+                ]);
+            }
+        });
+    }
 
     public function purchase_lines()
     {
@@ -129,6 +155,11 @@ class Transaction extends Model
     public function types_of_service()
     {
         return $this->belongsTo(\App\TypesOfService::class, 'types_of_service_id');
+    }
+
+    public function status_logs()
+    {
+        return $this->hasMany(OrderStatusLog::class);
     }
 
     /**

@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\Restaurant;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class QROrderingTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -33,6 +36,16 @@ class QROrderingTest extends TestCase
         $order->assertJson([
             'success' => true,
             'table_id' => $tableId,
+            'status' => 'pending',
         ]);
+
+        $this->assertDatabaseHas('table_orders', [
+            'table_id' => $tableId,
+            'status' => 'pending',
+        ]);
+
+        $orders = $this->getJson("/restaurant/tables/{$tableId}/orders");
+        $orders->assertStatus(200);
+        $orders->assertJsonFragment(['status' => 'pending']);
     }
 }

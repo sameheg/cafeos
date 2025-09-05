@@ -39,6 +39,9 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->prefix('restaurant')
                 ->group(base_path('routes/restaurant.php'));
+
+            Route::middleware('api')
+                ->group(base_path('routes/graphql.php'));
         });
     }
 

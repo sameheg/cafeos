@@ -222,6 +222,16 @@ class DummyBusinessSeeder extends Seeder
         ];
 
         DB::table('res_tables')->insert($res_tables);
+        $waiter_shifts = [
+            ['id' => '1', 'waiter_id' => '8', 'start_at' => $today, 'end_at' => null, 'created_at' => $today, 'updated_at' => $today],
+        ];
+        DB::table('waiter_shifts')->insert($waiter_shifts);
+
+        $table_assignments = [
+            ['id' => '1', 'res_table_id' => '1', 'waiter_id' => '8', 'assigned_at' => $today, 'released_at' => null, 'created_at' => $today, 'updated_at' => $today],
+            ['id' => '2', 'res_table_id' => '2', 'waiter_id' => '8', 'assigned_at' => $today, 'released_at' => null, 'created_at' => $today, 'updated_at' => $today],
+        ];
+        DB::table('res_table_assignments')->insert($table_assignments);
 
         DB::insert("INSERT INTO tax_rates (id, business_id, name, amount, is_tax_group, created_by, deleted_at, created_at, updated_at) VALUES
                     (1, 1, 'VAT@10%', 10.00, 0, 1, NULL, '2018-01-04 02:40:07', '2018-01-04 02:40:07'),

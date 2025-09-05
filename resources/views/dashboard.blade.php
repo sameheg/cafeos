@@ -11,7 +11,9 @@
 @endsection
 
 @section('javascript')
+<script src="{{ asset('js/app.js?v=' . $asset_v) }}"></script>
 {!! $chart->script() !!}
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="{{ asset('js/dashboard.js?v=' . $asset_v) }}"></script>
 @endsection
+

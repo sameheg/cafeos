@@ -1,8 +1,8 @@
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
+<div class="modal-dialog" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="notificationModalTitle">
+    <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title">@lang('lang_v1.system_notification')</h4>
+        <h4 class="modal-title" id="notificationModalTitle">@lang('lang_v1.system_notification')</h4>
     </div>
     <div class="modal-body">
       @foreach($notifications as $notification)
@@ -21,7 +21,7 @@
       @endforeach
     </div>
     <div class="modal-footer">
-      <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
+        <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal" aria-label="@lang('messages.close')">@lang( 'messages.close' )</button>
     </div>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

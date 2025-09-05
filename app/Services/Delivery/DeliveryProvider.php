@@ -5,14 +5,15 @@ namespace App\Services\Delivery;
 interface DeliveryProvider
 {
     /**
-     * Fetch new orders from the remote service.
+     * Create a new order on the delivery service.
      *
-     * @return array
+     * @param array $data
+     * @return string Remote order identifier
      */
-    public function fetchOrders(): array;
+    public function createOrder(array $data): string;
 
     /**
-     * Update the status for a given order.
+     * Update an existing order on the delivery service.
      */
-    public function updateOrderStatus(string $orderId, string $status): bool;
+    public function updateOrder(string $orderId, array $data): bool;
 }

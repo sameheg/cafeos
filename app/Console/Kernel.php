@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SyncDeliveryOrders;
+use App\Jobs\GenerateReport;
 
 class Kernel extends ConsoleKernel
 {
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new SyncDeliveryOrders('talabat'))->everyThirtyMinutes();
         $schedule->job(new SyncDeliveryOrders('ubereats'))->everyThirtyMinutes();
+        $schedule->job(new GenerateReport('daily'))->dailyAt('02:00');
 
         $env = config('app.env');
         $email = config('mail.username');
@@ -37,6 +39,9 @@ class Kernel extends ConsoleKernel
 
             //Check for products with low stock
             $schedule->command('pos:checkLowStock')->daily();
+
+            //Update forecasted demand for products
+            $schedule->command('pos:forecastDemand')->daily();
 
         }
 

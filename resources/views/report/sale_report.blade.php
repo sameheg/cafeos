@@ -11,29 +11,36 @@
 
 <!-- Main content -->
 <section class="content no-print">
-    @component('components.filters', ['title' => __('report.filters')])
-        @include('sell.partials.sell_list_filters')
-    @endcomponent
-
-    @component('components.widget', ['class' => 'box-primary'])
-        <div class="table-responsive">
-    <table class="table table-bordered table-striped ajax_view" id="sale_report_table">
-        <thead>
-            <tr>
-                <th>@lang('lang_v1.contact_id')</th>
-                <th>@lang('sale.customer_name')</th>
-                <th>@lang('sale.invoice_no')</th>
-                <th>@lang('messages.date')</th>
-                <th>@lang('sale.total') (@lang('product.exc_of_tax'))</th>
-                <th>@lang('sale.discount')</th>
-                <th>@lang('sale.tax')</th>
-                <th>@lang('sale.total') (@lang('product.inc_of_tax'))</th>
-                <th>@lang('lang_v1.payment_method')</th>
-            </tr>
-        </thead>
-    </table>
-</div>
-    @endcomponent
+    <div class="row">
+        <div class="col-12">
+            @component('components.filters', ['title' => __('report.filters')])
+                @include('sell.partials.sell_list_filters')
+            @endcomponent
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            @component('components.widget', ['class' => 'box-primary'])
+                <div class="table-responsive">
+            <table class="table table-bordered table-striped ajax_view" id="sale_report_table">
+                <thead>
+                    <tr>
+                        <th class="d-none d-sm-table-cell">@lang('lang_v1.contact_id')</th>
+                        <th>@lang('sale.customer_name')</th>
+                        <th>@lang('sale.invoice_no')</th>
+                        <th>@lang('messages.date')</th>
+                        <th>@lang('sale.total') (@lang('product.exc_of_tax'))</th>
+                        <th class="d-none d-md-table-cell">@lang('sale.discount')</th>
+                        <th class="d-none d-md-table-cell">@lang('sale.tax')</th>
+                        <th>@lang('sale.total') (@lang('product.inc_of_tax'))</th>
+                        <th class="d-none d-sm-table-cell">@lang('lang_v1.payment_method')</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+            @endcomponent
+        </div>
+    </div>
 
 </section>
 
@@ -78,15 +85,15 @@
                 }
             },
             columns: [
-                { data: 'contact_id', name: 'contacts.contact_id' },
+                { data: 'contact_id', name: 'contacts.contact_id', className: 'd-none d-sm-table-cell' },
                 { data: 'name', name: 'contacts.name' },
                 { data: 'invoice_no_text', name: 'transactions.invoice_no' },
                 { data: 'sale_date', name: 'transactions.transaction_date' },
                 { data: 'total_before_tax', name: 'total_before_tax' },
-                { data: 'discount_amount', name: 'discount_amount' },
-                { data: 'tax_amount', name: 'tax_amount' },
+                { data: 'discount_amount', name: 'discount_amount', className: 'd-none d-md-table-cell' },
+                { data: 'tax_amount', name: 'tax_amount', className: 'd-none d-md-table-cell' },
                 { data: 'final_total', name: 'final_total' },
-                { data: 'payment_methods', name: 'payment_methods' },
+                { data: 'payment_methods', name: 'payment_methods', className: 'd-none d-sm-table-cell' },
             ],
             "fnDrawCallback": function (oSettings) {
                 __currency_convert_recursively($('#sale_report_table'));

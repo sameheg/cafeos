@@ -54,6 +54,7 @@ use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
 use App\Variation;
 use App\Warranty;
+use App\PosEditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -3283,5 +3284,19 @@ class SellPosController extends Controller
             return $output;
 
         }
+    }
+
+    public function editHistory($id)
+    {
+        if (!auth()->user()->can('sell.view')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $logs = PosEditLog::with('user')
+            ->where('transaction_id', $id)
+            ->orderBy('edited_at', 'desc')
+            ->get();
+
+        return view('sell.edit_history', compact('logs'));
     }
 }

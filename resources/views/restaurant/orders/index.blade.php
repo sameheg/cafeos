@@ -48,10 +48,24 @@
     @component('components.widget', ['title' => __( 'restaurant.all_your_orders' )])
         <input type="hidden" id="orders_for" value="waiter">
         <div class="row" id="orders_div">
-         @include('restaurant.partials.show_orders', array('orders_for' => 'waiter'))   
+         @include('restaurant.partials.show_orders', array('orders_for' => 'waiter'))
         </div>
         <div class="overlay hide">
           <i class="fas fa-sync fa-spin"></i>
+        </div>
+        <div class="row">
+            @foreach($orders as $order)
+                @if($order->status_logs->count())
+                    <div class="col-md-12">
+                        <h4 class="text-center">#{{ $order->invoice_no }} @lang('restaurant.order_status')</h4>
+                        <ul class="list-unstyled">
+                            @foreach($order->status_logs as $log)
+                                <li>@format_datetime($log->created_at) - {{ $log->status_from }} &rarr; {{ $log->status_to }}@if($log->changed_by_user) ({{ $log->changed_by_user->first_name }})@endif</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            @endforeach
         </div>
     @endcomponent
     </div>

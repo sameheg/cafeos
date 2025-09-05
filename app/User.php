@@ -39,6 +39,8 @@ class User extends Authenticatable
 
     protected $casts = [
         'dashboard_widgets' => 'array',
+
+        'settings' => 'array',
     ];
 
     // change api guard to web
