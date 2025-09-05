@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\HasTenant;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,7 @@ class User extends Authenticatable
     use SoftDeletes;
     use HasRoles;
     use HasApiTokens;
+    use HasTenant;
 
     /**
      * The attributes that aren't mass assignable.
