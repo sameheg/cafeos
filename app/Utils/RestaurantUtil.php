@@ -93,7 +93,12 @@ class RestaurantUtil extends Util
                 'contacts.name as customer_name',
                 'bl.name as business_location',
                 'rt.name as table_name'
-            )->with(['sell_lines'])
+            )->with([
+                'sell_lines',
+                'status_logs' => function ($q) {
+                    $q->orderBy('created_at', 'asc')->with('changed_by_user');
+                },
+            ])
                     ->orderBy('created_at', 'desc')
                     ->get();
         };
@@ -102,19 +107,6 @@ class RestaurantUtil extends Util
             return Cache::tags(['restaurant_orders', 'business:'.$business_id])
                     ->remember($cacheKey, $ttl, $callback);
         }
-
-        $orders = $query->select(
-            'transactions.*',
-            'contacts.name as customer_name',
-            'bl.name as business_location',
-            'rt.name as table_name'
-        )->with(['sell_lines', 'status_logs' => function ($q) {
-            $q->orderBy('created_at', 'asc')->with('changed_by_user');
-        }])
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-        return $orders;
 
         return Cache::remember($cacheKey, $ttl, $callback);
     }

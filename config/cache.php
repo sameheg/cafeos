@@ -112,5 +112,7 @@ return [
     'restaurant_all_orders_ttl' => env('CACHE_TTL_RESTAURANT_ALL_ORDERS', 60),
     'restaurant_line_orders_key' => 'restaurant_line_orders',
     'restaurant_line_orders_ttl' => env('CACHE_TTL_RESTAURANT_LINE_ORDERS', 60),
+    'invoice_scheme_key' => 'invoice_scheme',
+    'invoice_scheme_ttl' => env('CACHE_TTL_INVOICE_SCHEME', 86400),
 
 ];
