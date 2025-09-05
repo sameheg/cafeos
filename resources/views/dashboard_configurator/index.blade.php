@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', __('Dashboard Configurations'))
+
 @section('title', 'Dashboard Configurations')
 
 @section('content')
@@ -7,6 +9,10 @@
 </section>
 
 <section class="content">
+    <a href="{{ action([\App\Http\Controllers\DashboardConfiguratorController::class, 'create']) }}" class="btn btn-primary mb-3">
+        @lang('messages.add')
+    </a>
+    <table class="table">
     <a href="{{ action([\App\Http\Controllers\DashboardConfiguratorController::class, 'create']) }}" class="btn btn-primary">
         @lang('messages.add')
     </a>
@@ -15,6 +21,32 @@
             <tr>
                 <th>@lang('messages.name')</th>
                 <th>Color</th>
+                <th>@lang('messages.action')</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($dashboards as $dashboard)
+                <tr>
+                    <td>{{ $dashboard->name }}</td>
+                    <td>{{ $dashboard->color }}</td>
+                    <td>
+                        <a href="{{ action([\App\Http\Controllers\DashboardConfiguratorController::class, 'edit'], [$dashboard->id]) }}" class="btn btn-xs btn-primary">@lang('messages.edit')</a>
+                        {!! Form::open(['url' => action([\App\Http\Controllers\DashboardConfiguratorController::class, 'destroy'], [$dashboard->id]), 'method' => 'delete', 'style' => 'display:inline-block']) !!}
+                            <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm(LANG.sure);">@lang('messages.delete')</button>
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3">{{ __('No configurations found') }}</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</section>
+@endsection
+
+
                 <th>@lang('messages.actions')</th>
             </tr>
         </thead>

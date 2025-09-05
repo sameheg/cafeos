@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DashboardConfiguration;
+use App\DashboardWidget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +22,6 @@ class DashboardConfiguratorController extends Controller
         }
 
         $business_id = request()->session()->get('user.business_id');
-
         $dashboards = DashboardConfiguration::where('business_id', $business_id)->get();
 
         return view('dashboard_configurator.index', compact('dashboards'));
@@ -38,6 +38,11 @@ class DashboardConfiguratorController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        $available_widgets = DashboardWidget::all()->mapWithKeys(function ($widget) {
+            return [$widget->name => ['title' => $widget->title]];
+        })->toArray();
+
+        return view('dashboard_configurator.create', compact('available_widgets'));
         return view('dashboard_configurator.create');
     }
 
@@ -56,6 +61,7 @@ class DashboardConfiguratorController extends Controller
         $request->validate([
             'name' => 'required',
             'color' => 'required',
+            'configuration' => 'nullable',
         ]);
 
         try {
@@ -63,6 +69,7 @@ class DashboardConfiguratorController extends Controller
 
             $dashboard = new DashboardConfiguration();
             $dashboard->business_id = $business_id;
+            $dashboard->created_by = auth()->user()->id;
             $dashboard->created_by = $request->user()->id;
             $dashboard->name = $request->input('name');
             $dashboard->color = $request->input('color');
@@ -117,6 +124,9 @@ class DashboardConfiguratorController extends Controller
         $dashboard->configuration = json_decode($dashboard->configuration, true);
 
         //Get all widgets
+        $available_widgets = DashboardWidget::all()->mapWithKeys(function ($widget) {
+            return [$widget->name => ['title' => $widget->title]];
+        })->toArray();
         $available_widgets = [];
         if (Schema::hasTable('dashboard_widgets')) {
             $available_widgets = DB::table('dashboard_widgets')

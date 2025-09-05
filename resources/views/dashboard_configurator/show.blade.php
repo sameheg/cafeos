@@ -7,6 +7,7 @@
 </section>
 
 <section class="content">
+    <p><strong>@lang('messages.name'):</strong> {{ $dashboard->name }}</p>
     <p><strong>Color:</strong> {{ $dashboard->color }}</p>
     <pre>{{ json_encode($dashboard->configuration, JSON_PRETTY_PRINT) }}</pre>
 </section>
