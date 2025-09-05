@@ -99,6 +99,73 @@ class NotificationUtil extends Util
     }
 
     /**
+     * Send a test notification without recording activity logs.
+     *
+     * @param  int    $business_id
+     * @param  string $notification_type
+     * @param  mixed  $transaction
+     * @param  \App\Contact $contact
+     * @return string
+     */
+    public function sendTestNotification($business_id, $notification_type, $transaction, $contact)
+    {
+        $notification_template = NotificationTemplate::where('business_id', $business_id)
+                ->where('template_for', $notification_type)
+                ->first();
+
+        $business = Business::findOrFail($business_id);
+        $data['email_settings'] = $business->email_settings;
+        $data['sms_settings'] = $business->sms_settings;
+        $whatsapp_link = '';
+
+        if (! empty($notification_template)) {
+            $orig_data = [
+                'email_body' => $notification_template->email_body,
+                'sms_body' => $notification_template->sms_body,
+                'subject' => $notification_template->subject,
+                'whatsapp_text' => $notification_template->whatsapp_text,
+            ];
+            $tag_replaced_data = $this->replaceTags($business_id, $orig_data, $transaction, $contact);
+
+            $data['email_body'] = $tag_replaced_data['email_body'];
+            $data['sms_body'] = $tag_replaced_data['sms_body'];
+            $data['whatsapp_text'] = $tag_replaced_data['whatsapp_text'];
+
+            if (! empty($contact->email)) {
+                $data['subject'] = $tag_replaced_data['subject'];
+                $data['to_email'] = $contact->email;
+
+                $customer_notifications = NotificationTemplate::customerNotifications();
+                $supplier_notifications = NotificationTemplate::supplierNotifications();
+
+                try {
+                    if (array_key_exists($notification_type, $customer_notifications)) {
+                        Notification::route('mail', $data['to_email'])
+                                        ->notify(new CustomerNotification($data));
+                    } elseif (array_key_exists($notification_type, $supplier_notifications)) {
+                        Notification::route('mail', $data['to_email'])
+                                        ->notify(new SupplierNotification($data));
+                    }
+                } catch (\Exception $e) {
+                    \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
+                }
+            }
+
+            if (! empty($contact->mobile)) {
+                $data['mobile_number'] = $contact->mobile;
+                try {
+                    $this->sendSms($data);
+                } catch (\Exception $e) {
+                    \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
+                }
+                $whatsapp_link = $this->getWhatsappNotificationLink($data);
+            }
+        }
+
+        return $whatsapp_link;
+    }
+
+    /**
      * Replaces tags from notification body with original value
      *
      * @param  text  $body
