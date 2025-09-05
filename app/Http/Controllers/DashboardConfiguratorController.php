@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DashboardConfiguration;
 use App\DashboardWidget;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardConfiguratorController extends Controller
 {
@@ -41,6 +43,7 @@ class DashboardConfiguratorController extends Controller
         })->toArray();
 
         return view('dashboard_configurator.create', compact('available_widgets'));
+        return view('dashboard_configurator.create');
     }
 
     /**
@@ -67,6 +70,7 @@ class DashboardConfiguratorController extends Controller
             $dashboard = new DashboardConfiguration();
             $dashboard->business_id = $business_id;
             $dashboard->created_by = auth()->user()->id;
+            $dashboard->created_by = $request->user()->id;
             $dashboard->name = $request->input('name');
             $dashboard->color = $request->input('color');
             $dashboard->configuration = $request->input('configuration', '[]');
@@ -123,6 +127,15 @@ class DashboardConfiguratorController extends Controller
         $available_widgets = DashboardWidget::all()->mapWithKeys(function ($widget) {
             return [$widget->name => ['title' => $widget->title]];
         })->toArray();
+        $available_widgets = [];
+        if (Schema::hasTable('dashboard_widgets')) {
+            $available_widgets = DB::table('dashboard_widgets')
+                                    ->get()
+                                    ->mapWithKeys(function ($widget) {
+                                        return [$widget->name => ['title' => $widget->title]];
+                                    })
+                                    ->toArray();
+        }
 
         return view('dashboard_configurator.edit', compact('dashboard', 'available_widgets'));
     }

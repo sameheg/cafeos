@@ -12,4 +12,3 @@
     <pre>{{ json_encode($dashboard->configuration, JSON_PRETTY_PRINT) }}</pre>
 </section>
 @endsection
-

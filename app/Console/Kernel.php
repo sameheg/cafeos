@@ -7,11 +7,13 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SyncDeliveryOrders;
 use App\Jobs\GenerateReport;
 use Modules\Sync\Console\SyncQueueCommand;
+use App\Console\Commands\CleanActivityLog;
 
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
         SyncQueueCommand::class,
+        CleanActivityLog::class,
     ];
     /**
      * Define the application's command schedule.
@@ -31,14 +33,28 @@ class Kernel extends ConsoleKernel
         //Update forecasted demand for products
         $schedule->command('pos:forecastDemand')->daily();
 
+        //Clean old activity logs
+        $schedule->command('activitylog:clean')->daily();
+
         $env = config('app.env');
         $email = config('mail.username');
 
         if ($env === 'live') {
-            //Scheduling backup, specify the time when the backup will get cleaned & time when it will run.
-
-            $schedule->command('backup:clean')->daily()->at('01:00');
-            $schedule->command('backup:run')->daily()->at('01:30');
+            //Scheduling backup according to settings
+            $settings = \App\Models\BackupSetting::first();
+            if ($settings) {
+                switch ($settings->frequency) {
+                    case 'weekly':
+                        $schedule->command('backup:scheduled')->weekly();
+                        break;
+                    case 'monthly':
+                        $schedule->command('backup:scheduled')->monthly();
+                        break;
+                    default:
+                        $schedule->command('backup:scheduled')->daily();
+                        break;
+                }
+            }
 
 
             //Schedule to create recurring invoices

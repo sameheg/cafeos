@@ -70,7 +70,10 @@
                               <a class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline tw-dw-btn-accent"
                                    href="{{action([\App\Http\Controllers\BackUpController::class, 'download'], [$backup['file_name']])}}"><i
                                         class="fa fa-cloud-download"></i> @lang('lang_v1.download')</a>
-                                <a class="tw-dw-btn tw-dw-btn-outline tw-dw-btn-xs tw-dw-btn-error link_confirmation" data-button-type="delete"
+                              <a class="tw-dw-btn tw-dw-btn-outline tw-dw-btn-xs tw-dw-btn-warning"
+                                   href="{{ route('restore_backup', $backup['file_name']) }}"
+                                   onclick="return confirm('Are you sure you want to restore this backup? This will overwrite existing data.');"><i class="fa fa-undo"></i> Restore</a>
+                              <a class="tw-dw-btn tw-dw-btn-outline tw-dw-btn-xs tw-dw-btn-error link_confirmation" data-button-type="delete"
                                    href="{{ route('delete_backup', $backup['file_name']) }}"><i class="fa fa-trash-o"></i>
                                     @lang('messages.delete') </a>
                             </td>
