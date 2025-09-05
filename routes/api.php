@@ -25,4 +25,5 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('products', ProductApiController::class);
     Route::apiResource('orders', OrderApiController::class);
     Route::get('menu-suggestions', [MenuSuggestionController::class, 'index']);
+    Route::apiResource('themes', \App\Http\Controllers\API\ThemeController::class);
 });

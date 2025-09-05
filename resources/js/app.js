@@ -33,6 +33,7 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+Vue.component('theme-preview', require('./components/ThemePreview.vue').default);
 
 const app = new Vue({
     el: '#app'
