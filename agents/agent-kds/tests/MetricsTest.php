@@ -7,6 +7,9 @@ require_once __DIR__ . '/../src/KdsMetrics.php';
 require_once __DIR__ . '/../src/KdsService.php';
 require_once __DIR__ . '/../src/TicketEndpoint.php';
 require_once __DIR__ . '/../src/MetricsEndpoint.php';
+require_once __DIR__ . '/../src/AuthService.php';
+require_once __DIR__ . '/../src/Roles.php';
+require_once __DIR__ . '/../src/Ticket.php';
 
 final class MetricsTest extends TestCase
 {
@@ -14,11 +17,13 @@ final class MetricsTest extends TestCase
     {
         $metrics = new KdsMetrics();
         $service = new KdsService($metrics);
-        $endpoint = new TicketEndpoint($service);
+        $auth = new AuthService('secret');
+        $endpoint = new TicketEndpoint($service, $auth);
         $metricsEndpoint = new MetricsEndpoint($metrics);
+        $token = $auth->generateToken(Roles::CHEF);
 
         $ticket = ['id' => 42];
-        $endpoint->handle($ticket);
+        $endpoint->handle($ticket, $token);
         $this->assertSame(1, $metrics->getQueueLength());
 
         usleep(1000); // simulate preparation time

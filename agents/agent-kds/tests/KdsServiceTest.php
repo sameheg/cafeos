@@ -1,53 +1,64 @@
 <?php
 declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/KdsService.php';
+require_once __DIR__ . '/../src/KdsMetrics.php';
+require_once __DIR__ . '/../src/Ticket.php';
 
-class KdsServiceTest extends TestCase
-{
-    public function testUpdateTicketBroadcastsEvent(): void
-    {
-        $service = new KdsService();
-        $received = null;
-        $service->registerDisplay(function ($payload) use (&$received) {
-            $received = $payload;
-        });
-
-        $service->updateTicket(['id' => 5]);
-
-        $this->assertIsArray($received);
-        $this->assertSame('kds.ticket.update', $received['event']);
-        $this->assertSame(5, $received['ticket']['id']);
 final class KdsServiceTest extends TestCase
 {
-    public function testBroadcastsToAllRegisteredDisplays(): void
+    public function testTicketCreationBroadcastsAndIncrementsQueue(): void
     {
-        $service = new KdsService();
-        $received = [];
-        $service->registerDisplay(function (array $ticket) use (&$received): void {
-            $received[] = ['display1' => $ticket];
-        });
-        $service->registerDisplay(function (array $ticket) use (&$received): void {
-            $received[] = ['display2' => $ticket];
+        $metrics = new KdsMetrics();
+        $service = new KdsService($metrics);
+        $messages = [];
+        $service->registerDisplay(function (array $payload) use (&$messages): void {
+            $messages[] = $payload;
         });
 
-        $ticket = ['id' => 99, 'items' => [['name' => 'Latte', 'qty' => 2]]];
-        $service->receiveTicket($ticket);
+        $ticket = ['id' => 1, 'items' => [['name' => 'Espresso', 'qty' => 1]]];
+        $result = $service->receiveTicket($ticket);
 
-        $this->assertCount(2, $received);
-        $this->assertSame($ticket, $received[0]['display1']);
-        $this->assertSame($ticket, $received[1]['display2']);
+        $this->assertSame(1, $metrics->getQueueLength());
+        $this->assertSame('kds.ticket.created', $messages[0]['event']);
+        $this->assertSame($result, $messages[0]['ticket']);
     }
 
-    public function testBroadcastWithNoDisplaysDoesNotError(): void
+    public function testStatusUpdateBroadcastsToDisplay(): void
     {
-        $service = new KdsService();
-        $ticket = ['id' => 100, 'items' => [['name' => 'Mocha', 'qty' => 1]]];
+        $metrics = new KdsMetrics();
+        $service = new KdsService($metrics);
+        $messages = [];
+        $service->registerDisplay(function (array $payload) use (&$messages): void {
+            $messages[] = $payload;
+        });
 
-        $service->receiveTicket($ticket);
+        $service->receiveTicket(['id' => 2]);
+        $service->updateTicketStatus(2, Ticket::STATUS_PREPARING);
 
-        // No assertions needed; absence of exception indicates pass.
-        $this->assertTrue(true);
+        $this->assertSame('kds.ticket.update', $messages[1]['event']);
+        $this->assertSame('preparing', $messages[1]['ticket']['status']);
+    }
+
+    public function testMetricsLoggedOnTicketCompletion(): void
+    {
+        $metrics = new KdsMetrics();
+        $events = [];
+        $metrics->registerListener(function (string $name, float $value) use (&$events): void {
+            $events[] = [$name, $value];
+        });
+
+        $service = new KdsService($metrics);
+        $service->receiveTicket(['id' => 3]);
+
+        usleep(1000);
+        $service->completeTicket(3);
+
+        $this->assertSame(0, $metrics->getQueueLength());
+        $names = array_column($events, 0);
+        $this->assertContains('kds_queue_length', $names);
+        $this->assertContains('kds_preparation_time_seconds', $names);
     }
 }
