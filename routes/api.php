@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\OrderApiController;
+use App\Http\Controllers\API\RecipeApiController;
 use App\Http\Controllers\Api\MenuSuggestionController;
 use Modules\Reporting\Services\ForecastService;
 use App\Contact;
@@ -30,6 +31,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('orders', OrderApiController::class);
     Route::get('menu-suggestions', [MenuSuggestionController::class, 'index']);
     Route::apiResource('themes', \App\Http\Controllers\API\ThemeController::class);
+    Route::post('catalog/recipes/sync', [RecipeApiController::class, 'sync']);
 });
 
 Route::get('/analytics/realtime', function (ForecastService $service) {
@@ -38,6 +40,8 @@ Route::get('/analytics/realtime', function (ForecastService $service) {
     }, 200, [
         'Content-Type' => 'text/event-stream',
     ]);
+});
+
 Route::middleware('customer.auth')->group(function () {
     Route::get('/customer/points', function (Request $request) {
         $contact = Contact::find($request->attributes->get('customer_id'));
