@@ -12,6 +12,17 @@ use App\Contact;
 use App\Transaction;
 use Modules\Inventory\Http\Controllers\InventoryApiController;
 
+require_once base_path('agents/agent-kds/src/KdsMetrics.php');
+require_once base_path('agents/agent-kds/src/KdsService.php');
+require_once base_path('agents/agent-kds/src/AuthService.php');
+require_once base_path('agents/agent-kds/src/Roles.php');
+require_once base_path('agents/agent-kds/src/TicketEndpoint.php');
+
+$kdsMetrics = new KdsMetrics();
+$kdsService = new KdsService($kdsMetrics);
+$kdsAuth = new AuthService(env('KDS_TOKEN', 'secret'));
+$ticketEndpoint = new TicketEndpoint($kdsService, $kdsAuth);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,13 +79,43 @@ Route::middleware('api.token')->group(function () {
     Route::get('inventory/levels', [InventoryApiController::class, 'levels']);
 });
 
-Route::get('/kds/tickets', function () {
-    return ['tickets' => [
-        ['id' => 1, 'items' => ['Coffee', 'Bagel']],
-        ['id' => 2, 'items' => ['Tea']]
-    ]];
+Route::get('/kds/tickets', function (Request $request) use ($kdsService, $kdsAuth) {
+    $token = $request->bearerToken() ?? '';
+    if (! $kdsAuth->validate($token, [Roles::CHEF, Roles::KITCHEN_MANAGER])) {
+        abort(403);
+    }
+
+    $tickets = array_map(
+        static fn (array $t): array => [
+            'id' => $t['id'],
+            'status' => $t['status'],
+            'preparation_time' => $t['preparation_time'],
+        ],
+        $kdsService->getActiveTickets()
+    );
+
+    return ['tickets' => $tickets];
 });
 
-Route::post('/kds/tickets/{ticket}/status', function ($ticket) {
-    return ['status' => 'ok'];
+Route::post('/kds/tickets/{ticket}/status', function (int $ticket, Request $request) use ($ticketEndpoint, $kdsAuth) {
+    $token = $request->bearerToken() ?? '';
+    if (! $kdsAuth->validate($token, [Roles::CHEF, Roles::KITCHEN_MANAGER])) {
+        abort(403);
+    }
+
+    $data = $request->validate([
+        'status' => 'required|string',
+    ]);
+
+    $response = $ticketEndpoint->update($ticket, $data['status']);
+    $t = $response['ticket'] ?? null;
+    if ($t === null) {
+        abort(404);
+    }
+
+    return [
+        'id' => $t['id'],
+        'status' => $t['status'],
+        'preparation_time' => $t['preparation_time'],
+    ];
 });
