@@ -6,9 +6,13 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SyncDeliveryOrders;
 use App\Jobs\GenerateReport;
+use Modules\Sync\Console\SyncQueueCommand;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        SyncQueueCommand::class,
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -20,6 +24,12 @@ class Kernel extends ConsoleKernel
         $schedule->job(new SyncDeliveryOrders('talabat'))->everyThirtyMinutes();
         $schedule->job(new SyncDeliveryOrders('ubereats'))->everyThirtyMinutes();
         $schedule->job(new GenerateReport('daily'))->dailyAt('02:00');
+
+        //Check for products with low stock
+        $schedule->command('pos:checkLowStock')->daily();
+
+        //Update forecasted demand for products
+        $schedule->command('pos:forecastDemand')->daily();
 
         $env = config('app.env');
         $email = config('mail.username');
@@ -36,12 +46,6 @@ class Kernel extends ConsoleKernel
             $schedule->command('pos:updateRewardPoints')->dailyAt('23:45');
 
             $schedule->command('pos:autoSendPaymentReminder')->dailyAt('8:00');
-
-            //Check for products with low stock
-            $schedule->command('pos:checkLowStock')->daily();
-
-            //Update forecasted demand for products
-            $schedule->command('pos:forecastDemand')->daily();
 
         }
 

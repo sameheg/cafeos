@@ -3,6 +3,7 @@
 namespace Modules\Inventory\Services;
 
 use App\Models\InventoryAlert;
+use App\Business;
 use App\Notifications\InventoryAlertNotification;
 use App\Product;
 use Illuminate\Support\Facades\Notification;
@@ -20,6 +21,8 @@ class AlertService
 
             Notification::route('mail', config('mail.from.address'))
                 ->notify(new InventoryAlertNotification($product, $message));
+
+            $this->sendAlert($product, 'stock', $message);
         }
     }
 
@@ -34,6 +37,7 @@ class AlertService
 
             Notification::route('mail', config('mail.from.address'))
                 ->notify(new InventoryAlertNotification($product, $message));
+            $this->sendAlert($product, 'sales', $message);
         }
     }
 
@@ -45,8 +49,41 @@ class AlertService
         InventoryAlert::create([
             'product_id' => $product->id,
             'business_id' => $product->business_id,
+
+    protected function recordAlert(int $productId, string $type, string $message, int $periodMinutes = 60): void
+    {
+        $recentExists = DB::table('inventory_alerts')
+            ->where('product_id', $productId)
+            ->where('type', $type)
+            ->where('created_at', '>=', now()->subMinutes($periodMinutes))
+            ->exists();
+
+        if ($recentExists) {
+            return;
+        }
+
+        DB::table('inventory_alerts')->insert([
+            'product_id' => $productId,
             'type' => $type,
             'message' => $message,
         ]);
+    }
+
+    /**
+     * Record the alert and notify the business owner.
+     */
+    private function sendAlert(Product $product, string $type, string $message): void
+    {
+        $this->recordAlert($product->id, $type, $message);
+
+        $business = Business::with('owner')->find($product->business_id);
+        $email = optional($business->owner)->email
+            ?? data_get($business?->email_settings, 'mail_from_address')
+            ?? config('mail.from.address');
+
+        if ($email) {
+            Notification::route('mail', [$email])
+                ->notify(new InventoryAlertNotification($product, $message));
+        }
     }
 }
