@@ -27,4 +27,8 @@
 #.scribe
 #/public/docs
 #/public/js/skins/
+<<<<<<< HEAD
 #/public/js/icons/
+=======
+#/public/js/icons/
+>>>>>>> b1a8296d7fab31e68cfb1160f74dfdc1c16b757d
