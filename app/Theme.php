@@ -11,6 +11,8 @@ class Theme extends Model
         'name',
         'primary_color',
         'secondary_color',
+        'logo',
+        'font',
         'layout',
     ];
 }

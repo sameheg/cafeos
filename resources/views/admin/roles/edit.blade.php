@@ -14,6 +14,8 @@
             @foreach($permissions as $permission)
                 <div>
                     <label>
+                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}>
+
                         <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{ $role->permissions->contains($permission->id) ? 'checked' : '' }}>
                         {{ $permission->name }}
                     </label>

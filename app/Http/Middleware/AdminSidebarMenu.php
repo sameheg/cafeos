@@ -18,6 +18,13 @@ class AdminSidebarMenu
         Menu::create('admin-sidebar-menu', function ($menu) {
             $items = AdminMenu::orderBy('order')->get();
             foreach ($items as $item) {
+                if (!$item->permission || auth()->user()->can($item->permission)) {
+                    $menu->url(
+                        $item->url,
+                        __($item->label),
+                        ['icon' => $item->icon, 'active' => request()->is(ltrim($item->url, '/').'*')]
+                    )->order($item->order);
+                }
                 if (empty($item->permission) || auth()->user()->can($item->permission)) {
                     $menu->url(
                         $item->url,
@@ -29,6 +36,17 @@ class AdminSidebarMenu
                     )->order($item->order);
                 }
             }
+
+            if (auth()->user()->can('viewLogs')) {
+                $menu->url(
+                    route('admin.logs.index'),
+                    __('Logs'),
+                    [
+                        'icon' => 'fa fa-file-alt',
+                        'active' => request()->is('admin/logs*'),
+                    ]
+                )->order(999);
+            }
         });
 
         $moduleUtil = new ModuleUtil();
@@ -37,3 +55,4 @@ class AdminSidebarMenu
         return $next($request);
     }
 }
+

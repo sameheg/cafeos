@@ -22,6 +22,11 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'label' => 'required|string|max:255',
+            'url' => 'required|string|max:255',
+            'icon' => 'nullable|string|max:255',
+            'permission' => 'nullable|string|max:255',
+            'order' => 'required|integer',
             'label' => 'required|string|max:191',
             'url' => 'required|string|max:191',
             'icon' => 'nullable|string',
@@ -42,6 +47,11 @@ class MenuController extends Controller
     public function update(Request $request, AdminMenu $menu)
     {
         $data = $request->validate([
+            'label' => 'required|string|max:255',
+            'url' => 'required|string|max:255',
+            'icon' => 'nullable|string|max:255',
+            'permission' => 'nullable|string|max:255',
+            'order' => 'required|integer',
             'label' => 'required|string|max:191',
             'url' => 'required|string|max:191',
             'icon' => 'nullable|string',

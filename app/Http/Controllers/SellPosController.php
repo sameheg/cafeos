@@ -36,6 +36,7 @@ use App\Contact;
 use App\CustomerGroup;
 use App\InvoiceLayout;
 use App\InvoiceScheme;
+use App\InvoiceTemplate;
 use App\Media;
 use App\Product;
 use App\SellingPriceGroup;
@@ -769,6 +770,30 @@ class SellPosController extends Controller
 
         $invoice_layout_id = !empty($invoice_layout_id) ? $invoice_layout_id : $location_details->invoice_layout_id;
         $invoice_layout = $this->businessUtil->invoiceLayout($business_id, $invoice_layout_id);
+
+        $invoice_template = null;
+        if (!empty($location_details->invoice_template_id)) {
+            $invoice_template = InvoiceTemplate::find($location_details->invoice_template_id);
+        } elseif (!empty($business_details->invoice_template_id)) {
+            $invoice_template = InvoiceTemplate::find($business_details->invoice_template_id);
+        }
+        if (!empty($invoice_template)) {
+            if (!empty($invoice_template->logo)) {
+                $invoice_layout->logo = $invoice_template->logo;
+                $invoice_layout->show_logo = 1;
+            }
+            if (!empty($invoice_template->header_html)) {
+                $invoice_layout->header_text = $invoice_template->header_html;
+            }
+            if (!empty($invoice_template->footer_html)) {
+                $invoice_layout->footer_text = $invoice_template->footer_html;
+            }
+            if (!empty($invoice_template->field_toggles)) {
+                foreach ($invoice_template->field_toggles as $field => $value) {
+                    $invoice_layout->{$field} = $value;
+                }
+            }
+        }
 
         //Check if printer setting is provided.
         $receipt_printer_type = is_null($printer_type) ? $location_details->receipt_printer_type : $printer_type;

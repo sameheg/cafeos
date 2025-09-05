@@ -12,6 +12,7 @@ use App\Utils\NotificationUtil;
 use App\Utils\TransactionUtil;
 use Illuminate\Http\Request;
 use Notification;
+use App\Services\IntegrationSettingsService;
 
 class NotificationController extends Controller
 {
@@ -19,16 +20,19 @@ class NotificationController extends Controller
 
     protected $transactionUtil;
 
+    protected IntegrationSettingsService $integrationSettings;
+
     /**
      * Constructor
      *
      * @param  NotificationUtil  $notificationUtil, TransactionUtil $transactionUtil
      * @return void
      */
-    public function __construct(NotificationUtil $notificationUtil, TransactionUtil $transactionUtil)
+    public function __construct(NotificationUtil $notificationUtil, TransactionUtil $transactionUtil, IntegrationSettingsService $integrationSettings)
     {
         $this->notificationUtil = $notificationUtil;
         $this->transactionUtil = $transactionUtil;
+        $this->integrationSettings = $integrationSettings;
     }
 
     /**
@@ -140,9 +144,11 @@ class NotificationController extends Controller
                 $data['whatsapp_text'] = $tag_replaced_data['whatsapp_text'];
             }
 
-            $data['email_settings'] = request()->session()->get('business.email_settings');
+            $data['email_settings'] = request()->session()->get('business.email_settings')
+                ?: $this->integrationSettings->getService('mail');
 
-            $data['sms_settings'] = request()->session()->get('business.sms_settings');
+            $data['sms_settings'] = request()->session()->get('business.sms_settings')
+                ?: $this->integrationSettings->getService('sms');
 
             $notification_type = $request->input('notification_type');
 

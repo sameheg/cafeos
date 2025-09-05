@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DashboardConfiguration;
+use App\DashboardWidget;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardConfiguratorController extends Controller
 {
@@ -14,7 +17,14 @@ class DashboardConfiguratorController extends Controller
      */
     public function index()
     {
-        //
+        if (! auth()->user()->can('configure_dashboard')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $business_id = request()->session()->get('user.business_id');
+        $dashboards = DashboardConfiguration::where('business_id', $business_id)->get();
+
+        return view('dashboard_configurator.index', compact('dashboards'));
     }
 
     /**
@@ -24,7 +34,16 @@ class DashboardConfiguratorController extends Controller
      */
     public function create()
     {
-        //
+        if (! auth()->user()->can('configure_dashboard')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $available_widgets = DashboardWidget::all()->mapWithKeys(function ($widget) {
+            return [$widget->name => ['title' => $widget->title]];
+        })->toArray();
+
+        return view('dashboard_configurator.create', compact('available_widgets'));
+        return view('dashboard_configurator.create');
     }
 
     /**
@@ -35,7 +54,40 @@ class DashboardConfiguratorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (! auth()->user()->can('configure_dashboard')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $request->validate([
+            'name' => 'required',
+            'color' => 'required',
+            'configuration' => 'nullable',
+        ]);
+
+        try {
+            $business_id = $request->session()->get('user.business_id');
+
+            $dashboard = new DashboardConfiguration();
+            $dashboard->business_id = $business_id;
+            $dashboard->created_by = auth()->user()->id;
+            $dashboard->created_by = $request->user()->id;
+            $dashboard->name = $request->input('name');
+            $dashboard->color = $request->input('color');
+            $dashboard->configuration = $request->input('configuration', '[]');
+            $dashboard->save();
+
+            $output = ['success' => true,
+                'msg' => __('lang_v1.success'),
+            ];
+        } catch (\Exception $e) {
+            \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
+
+            $output = ['success' => false,
+                'msg' => __('messages.something_went_wrong'),
+            ];
+        }
+
+        return redirect()->action([self::class, 'index'])->with('status', $output);
     }
 
     /**
@@ -46,7 +98,15 @@ class DashboardConfiguratorController extends Controller
      */
     public function show($id)
     {
-        //
+        if (! auth()->user()->can('configure_dashboard')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $business_id = request()->session()->get('user.business_id');
+        $dashboard = DashboardConfiguration::where('business_id', $business_id)->findOrFail($id);
+        $dashboard->configuration = json_decode($dashboard->configuration, true);
+
+        return view('dashboard_configurator.show', compact('dashboard'));
     }
 
     /**
@@ -64,11 +124,18 @@ class DashboardConfiguratorController extends Controller
         $dashboard->configuration = json_decode($dashboard->configuration, true);
 
         //Get all widgets
-        $available_widgets = [
-            'widget1' => ['title' => 'Widget 1'],
-            'widget2' => ['title' => 'Widget 2'],
-            'widget3' => ['title' => 'Widget 3'],
-        ];
+        $available_widgets = DashboardWidget::all()->mapWithKeys(function ($widget) {
+            return [$widget->name => ['title' => $widget->title]];
+        })->toArray();
+        $available_widgets = [];
+        if (Schema::hasTable('dashboard_widgets')) {
+            $available_widgets = DB::table('dashboard_widgets')
+                                    ->get()
+                                    ->mapWithKeys(function ($widget) {
+                                        return [$widget->name => ['title' => $widget->title]];
+                                    })
+                                    ->toArray();
+        }
 
         return view('dashboard_configurator.edit', compact('dashboard', 'available_widgets'));
     }
@@ -116,6 +183,26 @@ class DashboardConfiguratorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (! auth()->user()->can('configure_dashboard')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        try {
+            $business_id = request()->session()->get('user.business_id');
+            $dashboard = DashboardConfiguration::where('business_id', $business_id)->findOrFail($id);
+            $dashboard->delete();
+
+            $output = ['success' => true,
+                'msg' => __('lang_v1.success'),
+            ];
+        } catch (\Exception $e) {
+            \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
+
+            $output = ['success' => false,
+                'msg' => __('messages.something_went_wrong'),
+            ];
+        }
+
+        return back()->with('status', $output);
     }
 }
