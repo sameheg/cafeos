@@ -111,6 +111,10 @@ final class TicketFlowTest extends TestCase
         $this->assertSame('preparing', $received[1]['status']);
         $this->assertArrayHasKey('preparing', $received[1]['timestamps']);
 
+        $this->assertArrayHasKey('received_at', $received);
+        unset($received['received_at']);
+        $this->assertSame($ticket, $received, 'Display should receive the ticket');
+        $this->assertSame(['status' => 'accepted', 'ticket' => $ticket], $response);
         $endpoint->update(1, Ticket::STATUS_READY);
         $this->assertSame('ready', $received[2]['status']);
         $this->assertNotNull($received[2]['preparation_time']);
