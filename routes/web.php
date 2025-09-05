@@ -436,6 +436,7 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     //Backup
     Route::get('backup/download/{file_name}', [BackUpController::class, 'download']);
     Route::get('backup/{id}/delete', [BackUpController::class, 'delete'])->name('delete_backup');
+    Route::get('backup/restore/{file_name}', [BackUpController::class, 'restore'])->name('restore_backup');
     Route::resource('backup', BackUpController::class)->only('index', 'create', 'store');
 
     Route::get('selling-price-group/activate-deactivate/{id}', [SellingPriceGroupController::class, 'activateDeactivate']);
