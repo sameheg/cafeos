@@ -272,9 +272,11 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     // end pos display screen route
     Route::resource('pos', SellPosController::class);
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('roles', AdminRoleController::class)->only(['index','create','store','edit','update','destroy']);
-        Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
-        Route::resource('menus', AdminMenuController::class);
+    Route::resource('roles', AdminRoleController::class)->only(['index','create','store']);
+    Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store','edit','update','destroy']);
+    Route::resource('roles', AdminRoleController::class)->only(['index','create','store','edit','update','destroy']);
+    Route::resource('permissions', AdminPermissionController::class)->only(['index','create','store']);
+    Route::resource('menus', AdminMenuController::class);
     });
 
     Route::resource('roles', RoleController::class);
