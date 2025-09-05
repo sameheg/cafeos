@@ -22,6 +22,7 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GroupTaxController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QueueDashboardController;
 use App\Http\Controllers\ImportOpeningStockController;
 use App\Http\Controllers\ImportProductsController;
 use App\Http\Controllers\ImportSalesController;
@@ -567,3 +568,4 @@ Route::middleware(['setTenant', 'setData', 'auth', 'SetSessionData', 'language',
     Route::get('/show-notification/{id}', [HomeController::class, 'showNotification']);
     Route::post('/sell/check-invoice-number', [SellController::class, 'checkInvoiceNumber']);
 });
+Route::get('/queue/failed', [QueueDashboardController::class, 'index'])->name('queue.failed');
