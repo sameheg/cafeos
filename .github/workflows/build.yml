@@ -20,6 +20,7 @@ jobs:
           coverage: none
 
       - name: Authenticate Composer with GitHub
+        run: composer config --global github-oauth.github.com ${{ secrets.GH_PAT }}
         run: composer config --global github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Composer dependencies
