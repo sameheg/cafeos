@@ -6,9 +6,8 @@ use GraphQL\Server\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Safe\Exceptions\JsonException;
+use JsonException;
 
-use function Safe\json_decode;
 
 /** Follows https://github.com/graphql/graphql-over-http/blob/main/spec/GraphQLOverHTTP.md. */
 class RequestParser
@@ -119,7 +118,7 @@ class RequestParser
 
         try {
             /** Should be array<string, mixed>|array<int, array<string, mixed>>, but it's user input, so it can be anything. */
-            $operations = json_decode($operationsParam, true);
+            $operations = json_decode($operationsParam, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
             throw new BadMultipartRequestGraphQLException('Parameter operations is not valid JSON.', $e);
         }
@@ -131,7 +130,7 @@ class RequestParser
 
         try {
             /** Should be array<int|string, array<int, string>>, but it's user input, so it can be anything */
-            $map = json_decode($mapParam, true);
+            $map = json_decode($mapParam, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
             throw new BadMultipartRequestGraphQLException('Parameter map is not valid JSON.', $e);
         }

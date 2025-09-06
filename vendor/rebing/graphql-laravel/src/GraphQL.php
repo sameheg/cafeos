@@ -214,10 +214,10 @@ class GraphQL
         $modifiers = [];
 
         while (true) {
-            if (\Safe\preg_match('/^(.+)!$/', $name, $matches)) {
+            if (preg_match('/^(.+)!$/', $name, $matches)) {
                 $name = $matches[1];
                 array_unshift($modifiers, 'nonNull');
-            } elseif (\Safe\preg_match('/^\[(.+)]$/', $name, $matches)) {
+            } elseif (preg_match('/^\[(.+)]$/', $name, $matches)) {
                 $name = $matches[1];
                 array_unshift($modifiers, 'listOf');
             } else {
@@ -308,7 +308,7 @@ class GraphQL
 
         if (!$type instanceof TypeConvertible) {
             throw new TypeNotFound(
-                \Safe\sprintf(
+                sprintf(
                     'Unable to convert %s to a GraphQL type, please add/implement the interface %s',
                     \get_class($type),
                     TypeConvertible::class
@@ -601,7 +601,7 @@ class GraphQL
 
         if (!\is_string($schemaConfig) && !\is_array($schemaConfig)) {
             throw new SchemaNotFound(
-                \Safe\sprintf(
+                sprintf(
                     "Configuration for schema '%s' must be either an array or a class implementing %s, found type %s",
                     $schemaName,
                     ConfigConvertible::class,

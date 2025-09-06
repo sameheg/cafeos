@@ -33,7 +33,7 @@ class MutationMakeCommand extends GeneratorCommand
     protected function replaceGraphqlName(string $stub): string
     {
         $graphqlName = lcfirst($this->getNameInput());
-        $graphqlName = \Safe\preg_replace('/Mutation$/', '', $graphqlName);
+        $graphqlName = preg_replace('/Mutation$/', '', $graphqlName);
 
         return str_replace(
             'DummyGraphqlName',

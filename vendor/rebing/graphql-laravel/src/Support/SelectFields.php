@@ -336,7 +336,7 @@ class SelectFields
 
                 default:
                     throw new RuntimeException(
-                        \Safe\sprintf(
+                        sprintf(
                             "Unsupported use of 'privacy' configuration on field '%s'.",
                             $fieldObject->name
                         )
@@ -370,7 +370,7 @@ class SelectFields
             /** @var BelongsTo|HasManyThrough|HasOneOrMany $relation */
             $foreignKey = $relation->getQualifiedForeignKeyName();
         }
-        $foreignKey = $parentTable ? ($parentTable . '.' . \Safe\preg_replace(
+        $foreignKey = $parentTable ? ($parentTable . '.' . preg_replace(
             '/^' . preg_quote($parentTable, '/') . '\./',
             '',
             $foreignKey

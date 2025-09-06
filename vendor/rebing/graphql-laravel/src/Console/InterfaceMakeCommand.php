@@ -33,7 +33,7 @@ class InterfaceMakeCommand extends GeneratorCommand
     protected function replaceGraphqlName(string $stub): string
     {
         $graphqlName = $this->getNameInput();
-        $graphqlName = \Safe\preg_replace('/Type$/', '', $graphqlName);
+        $graphqlName = preg_replace('/Type$/', '', $graphqlName);
 
         return str_replace(
             'DummyGraphqlName',

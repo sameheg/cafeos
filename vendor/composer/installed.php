@@ -2020,15 +2020,6 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
-        'thecodingmachine/safe' => array(
-            'pretty_version' => 'v2.5.0',
-            'version' => '2.5.0.0',
-            'reference' => '3115ecd6b4391662b4931daac4eba6b07a2ac1f0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../thecodingmachine/safe',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.3',
             'version' => '1.2.3.0',
