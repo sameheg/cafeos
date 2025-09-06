@@ -33,7 +33,7 @@ class QueryMakeCommand extends GeneratorCommand
     protected function replaceGraphqlName(string $stub): string
     {
         $graphqlName = lcfirst($this->getNameInput());
-        $graphqlName = \Safe\preg_replace('/Query$/', '', $graphqlName);
+        $graphqlName = preg_replace('/Query$/', '', $graphqlName);
 
         return str_replace(
             'DummyGraphqlName',

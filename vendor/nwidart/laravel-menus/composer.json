@@ -1,0 +1,15 @@
+{
+  "name": "nwidart/laravel-menus",
+  "autoload": {
+    "psr-4": {
+      "Nwidart\\\Menus\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Nwidart\\\Menus\\MenusServiceProvider"
+      ]
+    }
+  }
+}
