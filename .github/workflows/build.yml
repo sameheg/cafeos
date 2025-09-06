@@ -21,6 +21,7 @@ jobs:
 
       - name: Authenticate Composer with GitHub
         run: composer config --global github-oauth.github.com ${{ secrets.GH_PAT }}
+        run: composer config --global github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Composer dependencies
         run: composer update --no-dev --optimize-autoloader
@@ -30,7 +31,9 @@ jobs:
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
-
+          php artisan config:clear
+          php artisan route:clear
+          php artisan view:clear
       - name: Archive build
         run: zip -r build.zip . -x ".git/*" "tests/*"
 
