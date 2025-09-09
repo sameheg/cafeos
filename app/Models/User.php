@@ -8,11 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
+use App\Support\NotifiesWithLocale;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasTranslations;
+    use HasFactory, Notifiable, HasRoles, HasTranslations, NotifiesWithLocale;
 
     /**
      * The attributes that are translatable.
