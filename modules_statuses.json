@@ -17,5 +17,6 @@
     "Notifications": false,
     "HrJobs": false,
     "Rentals": false,
-    "EquipmentMaintenance": true
+    "EquipmentMaintenance": true,
+    "TableReservations": true
 }
