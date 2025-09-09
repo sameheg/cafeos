@@ -12,7 +12,7 @@ class CreateKitchenTicket
         KitchenTicket::create([
             'order_id' => $event->order->id,
             'status' => 'pending',
-            'approved' => true,
+            'approved' => false,
         ]);
     }
 }
