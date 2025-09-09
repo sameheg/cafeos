@@ -19,5 +19,6 @@
     "Rentals": false,
     "EquipmentMaintenance": true,
     "TableReservations": true,
-    "SelfServiceKiosk": true
+    "SelfServiceKiosk": true,
+    "EquipmentMonitoring": true
 }

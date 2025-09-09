@@ -20,6 +20,7 @@ return [
         'Core' => ['enabled' => true],
         'Crm' => ['enabled' => true],
         'EquipmentMaintenance' => ['enabled' => true],
+        'EquipmentMonitoring' => ['enabled' => true],
         'FloorPlanDesigner' => ['enabled' => false],
         'HrJobs' => ['enabled' => false],
         'Inventory' => ['enabled' => false],
