@@ -1,5 +1,5 @@
 <x-crm::layouts.master>
-    <h1>Hello World</h1>
+    <h1>{{ __('modules.crm.index.title') }}</h1>
 
-    <p>Module: {!! config('crm.name') !!}</p>
+    <p>{{ __('modules.module_label') }} {!! config('crm.name') !!}</p>
 </x-crm::layouts.master>
