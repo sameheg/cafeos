@@ -16,7 +16,8 @@ export default defineConfig({
             buildDirectory: 'build-inventory',
             input: [
                 __dirname + '/resources/assets/sass/app.scss',
-                __dirname + '/resources/assets/js/app.js'
+                __dirname + '/resources/assets/js/app.js',
+                __dirname + '/../../resources/js/Modules/Inventory/Dashboard.vue',
             ],
             refresh: true,
         }),
