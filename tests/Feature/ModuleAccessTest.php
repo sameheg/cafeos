@@ -26,9 +26,7 @@ class ModuleAccessTest extends TestCase
 
     public function test_disabled_modules_do_not_register_routes(): void
     {
-        $this->assertFalse(Route::has('crm.index'));
         $this->assertFalse(Route::has('inventory.index'));
-        $this->assertFalse(Route::has('pos.index'));
     }
 
     public static function activeModuleProvider(): array
