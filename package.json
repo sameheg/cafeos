@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test": "vitest run"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
@@ -13,7 +14,10 @@
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^2.0.0",
         "tailwindcss": "^4.1.13",
-        "vite": "^7.0.4"
+        "vite": "^7.0.4",
+        "vitest": "^1.6.0",
+        "@vue/test-utils": "^2.4.5",
+        "jsdom": "^24.0.0"
     },
     "dependencies": {
         "@inertiajs/vue3": "^2.1.5",

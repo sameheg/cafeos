@@ -22,11 +22,17 @@ jobs:
           php-version: '8.3'
           extensions: mbstring, intl, pdo_mysql, dom, fileinfo
           coverage: none
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
+      - name: Install Node dependencies
+        run: npm ci
       - name: Setup environment
         run: cp .env.example .env && php artisan key:generate
+      - name: Validate translations
+        run: php artisan lang:check
+      - name: Run JS tests
+        run: npm test
       - name: Run migrations
         run: php artisan migrate --force
-      - name: Run tests
+      - name: Run PHP tests
         run: php artisan test

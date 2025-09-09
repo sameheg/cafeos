@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`translation keys > english keys match snapshot 1`] = `
+[
+  "dashboard.stock",
+  "dashboard.title",
+  "pos.enabled",
+  "welcome.title",
+]
+`;

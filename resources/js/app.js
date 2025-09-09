@@ -1,23 +1,8 @@
 import './bootstrap';
-import { createApp, h, watchEffect } from 'vue';
+import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
-import { createI18n } from 'vue-i18n';
-import en from '../../lang/en.json';
-import ar from '../../lang/ar.json';
-
-const locale = document.documentElement.lang || 'en';
-const i18n = createI18n({
-  legacy: false,
-  locale,
-  fallbackLocale: 'en',
-  messages: { en, ar },
-  flatJson: true,
-});
-
-watchEffect(() => {
-  document.documentElement.dir = i18n.global.locale.value === 'ar' ? 'rtl' : 'ltr';
-});
+import { i18n } from './i18n';
 
 createInertiaApp({
   resolve: (name) => {
