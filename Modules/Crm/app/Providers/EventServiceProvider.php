@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Inventory\Providers;
+namespace Modules\Crm\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -11,11 +11,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<string, array<int, string>>
      */
-    protected $listen = [
-        \App\Events\OrderCreated::class => [
-            \Modules\Inventory\Listeners\UpdateInventory::class,
-        ],
-    ];
+    protected $listen = [];
 
     /**
      * Indicates if events should be discovered.
