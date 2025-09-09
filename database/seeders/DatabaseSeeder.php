@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(RolesAndPermissionsSeeder::class);
 
         User::factory()->create([
             'name' => [
@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
                 'ar' => 'مستخدم تجريبي',
             ],
             'email' => 'test@example.com',
+            'tenant_id' => tenant('id'),
         ]);
     }
 }

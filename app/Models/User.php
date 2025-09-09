@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         static::addGlobalScope('tenant', fn ($q) => $q->where('tenant_id', tenant('id')));
     }
+
+    public function getPermissionsTeamId(): int|string|null
+    {
+        return $this->tenant_id;
+    }
 }
