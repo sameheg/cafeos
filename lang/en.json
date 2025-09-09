@@ -1,15 +1,5 @@
 {
   "dashboard.title": "POS Dashboard",
   "dashboard.stock": "Stock",
-  "welcome.title": "CafeOS",
-  "pos.enabled": "POS module is enabled",
-  "pos.created": "Menu item created",
-  "pos.updated": "Menu item updated",
-  "pos.deleted": "Menu item deleted",
-  "pos.moved": "Order moved",
-  "pos.split": "Bill split successfully",
-  "floorPlanDesigner.title": "Floor Plan Designer",
-  "floorPlanDesigner.addTable": "Add table",
-  "floorPlanDesigner.addChair": "Add chair",
-  "floorPlanDesigner.save": "Save Layout"
+  "welcome.title": "CafeOS"
 }

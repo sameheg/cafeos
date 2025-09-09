@@ -71,10 +71,10 @@ class InventoryServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameLower);
-            $this->loadJsonTranslationsFrom($langPath);
+            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
         } else {
             $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'));
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
         }
     }
 

@@ -8,9 +8,9 @@ Route::get('/', function () {
 });
 
 if (Module::isEnabled('Pos')) {
-    Route::middleware(['auth:sanctum', 'tenancy', 'role:owner'])->group(function () {
+        Route::middleware(['auth:sanctum', 'tenancy', 'role:owner'])->group(function () {
         Route::get('/pos', function () {
-            return __('pos.enabled');
+            return __('pos::enabled');
         });
     });
 }

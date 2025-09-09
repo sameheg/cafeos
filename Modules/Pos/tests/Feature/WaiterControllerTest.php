@@ -42,7 +42,7 @@ class WaiterControllerTest extends TestCase
         ]);
 
         $response->assertOk();
-        $response->assertJson(['message' => __('pos.moved')]);
+        $response->assertJson(['message' => __('pos::moved')]);
         $this->assertDatabaseHas('orders', [
             'id' => $order->id,
             'table_id' => 2,
@@ -65,7 +65,7 @@ class WaiterControllerTest extends TestCase
 
         $response->assertOk();
         $response->assertJson([
-            'message' => __('pos.split'),
+            'message' => __('pos::split'),
             'parts' => [50.0, 50.0],
         ]);
 

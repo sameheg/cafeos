@@ -38,7 +38,7 @@ class PosController extends Controller
         $item = MenuItem::create($data);
 
         return response()->json([
-            'message' => __('pos.created'),
+            'message' => __('pos::created'),
             'data' => $item,
         ], 201);
     }
@@ -74,7 +74,7 @@ class PosController extends Controller
         $item->update($data);
 
         return response()->json([
-            'message' => __('pos.updated'),
+            'message' => __('pos::updated'),
             'data' => $item,
         ]);
     }
@@ -88,7 +88,7 @@ class PosController extends Controller
         $item->delete();
 
         return response()->json([
-            'message' => __('pos.deleted'),
+            'message' => __('pos::deleted'),
         ]);
     }
 }

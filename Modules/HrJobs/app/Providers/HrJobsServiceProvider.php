@@ -11,6 +11,7 @@ class HrJobsServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->registerTranslations();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
         $this->loadViewsFrom(module_path($this->name, 'resources/views'), $this->nameLower);
     }
@@ -18,5 +19,18 @@ class HrJobsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
+    }
+
+    protected function registerTranslations(): void
+    {
+        $langPath = resource_path('lang/modules/'.$this->nameLower);
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, $this->nameLower);
+            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
+        } else {
+            $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+        }
     }
 }

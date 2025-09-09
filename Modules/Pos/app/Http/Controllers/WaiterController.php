@@ -26,7 +26,7 @@ class WaiterController extends Controller
 
         event(new TableOpened($order));
 
-        return response()->json(['message' => __('pos.moved')]);
+        return response()->json(['message' => __('pos::moved')]);
     }
 
     public function split(Request $request, Order $order, BillingService $billing)
@@ -40,7 +40,7 @@ class WaiterController extends Controller
         $order->save();
 
         return response()->json([
-            'message' => __('pos.split'),
+            'message' => __('pos::split'),
             'parts' => $parts,
         ]);
     }

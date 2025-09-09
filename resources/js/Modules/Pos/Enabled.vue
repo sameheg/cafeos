@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ t('pos.enabled') }}
+    {{ t('pos::enabled') }}
   </div>
 </template>
 
