@@ -4,6 +4,7 @@ namespace Modules\Pos\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Pos\Models\MenuItem;
 
 class PosController extends Controller
 {
@@ -26,7 +27,21 @@ class PosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'tenant_id' => ['required', 'integer'],
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $item = MenuItem::create($data);
+
+        return response()->json([
+            'message' => __('pos.created'),
+            'data' => $item,
+        ], 201);
+    }
 
     /**
      * Show the specified resource.
@@ -47,10 +62,33 @@ class PosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id)
+    {
+        $item = MenuItem::findOrFail($id);
+
+        $data = $request->validate([
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'price' => ['sometimes', 'required', 'numeric', 'min:0'],
+        ]);
+
+        $item->update($data);
+
+        return response()->json([
+            'message' => __('pos.updated'),
+            'data' => $item,
+        ]);
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+    public function destroy($id)
+    {
+        $item = MenuItem::findOrFail($id);
+        $item->delete();
+
+        return response()->json([
+            'message' => __('pos.deleted'),
+        ]);
+    }
 }
