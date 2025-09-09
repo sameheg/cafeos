@@ -15,5 +15,6 @@
     "Loyalty": true,
     "QrOrdering": true,
     "Notifications": false,
-    "HrJobs": false
+    "HrJobs": false,
+    "Rentals": false
 }
