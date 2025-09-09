@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Stancl\Tenancy\Database\Models\Concerns\HasDatabase;
-use Stancl\Tenancy\Database\Models\Concerns\HasDomains;
+use Stancl\Tenancy\Database\Concerns\HasDatabase;
+use Stancl\Tenancy\Database\Concerns\HasDomains;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Spatie\Translatable\HasTranslations;
 
