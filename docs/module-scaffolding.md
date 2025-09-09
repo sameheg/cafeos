@@ -3,9 +3,10 @@
 The `module:make` Artisan command now scaffolds a module with key components ready for development:
 
 - **Database migration** including a `tenant_id` column for multi-tenancy.
-- **Eloquent model** matching the module name.
-- **Bilingual translation files** under `Resources/lang/en` and `Resources/lang/ar`.
+- **Eloquent model** with `tenant_id` in `$fillable`.
+- **Bilingual translation files** under `Resources/lang/en` and `Resources/lang/ar` with sample entries.
 - **Feature test** stub for isolated testing.
+- **`modules_statuses.json` entry** registering the module disabled by default.
 
 Example:
 
