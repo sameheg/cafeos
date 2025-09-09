@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Inventory\Providers;
+namespace Modules\Crm\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -8,13 +8,13 @@ use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class InventoryServiceProvider extends ServiceProvider
+class CrmServiceProvider extends ServiceProvider
 {
     use PathNamespace;
 
-    protected string $name = 'Inventory';
+    protected string $name = 'Crm';
 
-    protected string $nameLower = 'inventory';
+    protected string $nameLower = 'crm';
 
     /**
      * Boot the application events.
@@ -36,11 +36,6 @@ class InventoryServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-
-        $this->app->bind(
-            \Modules\Core\Contracts\InventoryServiceInterface::class,
-            \Modules\Inventory\Services\InventoryService::class,
-        );
     }
 
     /**
