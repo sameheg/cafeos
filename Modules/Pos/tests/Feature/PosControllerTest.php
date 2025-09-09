@@ -34,7 +34,7 @@ class PosControllerTest extends TestCase
         ]);
 
         $response->assertStatus(201);
-        $response->assertJson(['message' => __('pos.created')]);
+        $response->assertJson(['message' => __('pos::created')]);
 
         $this->assertDatabaseHas('menu_items', [
             'name' => 'Coffee',
@@ -56,7 +56,7 @@ class PosControllerTest extends TestCase
         ]);
 
         $response->assertOk();
-        $response->assertJson(['message' => __('pos.updated')]);
+        $response->assertJson(['message' => __('pos::updated')]);
 
         $this->assertDatabaseHas('menu_items', [
             'id' => $item->id,
@@ -76,7 +76,7 @@ class PosControllerTest extends TestCase
         $response = $this->deleteJson("/pos/{$item->id}");
 
         $response->assertOk();
-        $response->assertJson(['message' => __('pos.deleted')]);
+        $response->assertJson(['message' => __('pos::deleted')]);
 
         $this->assertSoftDeleted('menu_items', ['id' => $item->id]);
     }

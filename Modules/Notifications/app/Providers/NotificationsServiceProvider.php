@@ -16,10 +16,24 @@ class NotificationsServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->mergeConfigFrom(module_path($this->name, 'config/config.php'), 'notifications');
+        $this->registerTranslations();
     }
 
     public function register(): void
     {
         $this->app->register(EventServiceProvider::class);
+    }
+
+    protected function registerTranslations(): void
+    {
+        $langPath = resource_path('lang/modules/'.$this->nameLower);
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, $this->nameLower);
+            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
+        } else {
+            $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+        }
     }
 }

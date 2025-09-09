@@ -1,9 +1,9 @@
 <x-floor-plan-designer::components.layouts.master>
     <div id="floor-editor" dir="rtl">
         <div class="palette">
-            <button id="add-table">@lang('floorPlanDesigner.addTable')</button>
-            <button id="add-chair">@lang('floorPlanDesigner.addChair')</button>
-            <button id="save-layout">@lang('floorPlanDesigner.save')</button>
+            <button id="add-table">@lang('floor-plan-designer::addTable')</button>
+            <button id="add-chair">@lang('floor-plan-designer::addChair')</button>
+            <button id="save-layout">@lang('floor-plan-designer::save')</button>
         </div>
         <div id="canvas" class="relative border h-96 w-full"></div>
     </div>
