@@ -60,6 +60,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 This application can be deployed using [Laravel Forge](https://forge.laravel.com) or a similar tool. The `production.yml` Docker configuration provides module-specific environment variables for configuring services during deployment.
 
+## Module Scaffolding
+
+Generate a new module with migrations, models, bilingual translations, and tests via the Artisan command:
+
+```bash
+php artisan module:make Blog
+```
+
+See [docs/module-scaffolding.md](docs/module-scaffolding.md) for details.
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
