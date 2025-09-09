@@ -11,5 +11,6 @@
     "FloorPlanDesigner": false,
     "Procurement": false,
     "Billing": false,
-    "Membership": true
+    "Membership": true,
+    "Loyalty": true
 }

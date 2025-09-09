@@ -4,7 +4,9 @@ namespace Modules\Pos\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\FloorPlanDesigner\Events\FloorLayoutUpdated;
+use Modules\Pos\Events\OrderCreated;
 use Modules\Pos\Listeners\SyncFloorLayout;
+use Modules\Pos\Listeners\AwardLoyaltyPoints;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         FloorLayoutUpdated::class => [
             SyncFloorLayout::class,
+        ],
+        OrderCreated::class => [
+            AwardLoyaltyPoints::class,
         ],
     ];
 
