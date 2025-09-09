@@ -30,6 +30,7 @@ class OrderTenantScopeTest extends TestCase
     {
         $tenant = new Tenant(['id' => 1]);
         TenantContext::$tenant = $tenant;
+        app()->instance('tenant', $tenant);
 
         $order = Order::create([
             'total' => 100,
@@ -37,23 +38,33 @@ class OrderTenantScopeTest extends TestCase
         ]);
 
         $this->assertSame(1, $order->tenant_id);
+
+        app()->forgetInstance('tenant');
+        TenantContext::$tenant = null;
     }
 
     public function test_orders_are_isolated_by_tenant(): void
     {
         $tenant1 = new Tenant(['id' => 1]);
         TenantContext::$tenant = $tenant1;
+        app()->instance('tenant', $tenant1);
         Order::create(['total' => 10, 'status' => 'pending']);
 
         $tenant2 = new Tenant(['id' => 2]);
         TenantContext::$tenant = $tenant2;
+        app()->instance('tenant', $tenant2);
         Order::create(['total' => 20, 'status' => 'pending']);
 
         TenantContext::$tenant = $tenant1;
+        app()->instance('tenant', $tenant1);
         $this->assertCount(1, Order::all());
 
         TenantContext::$tenant = $tenant2;
+        app()->instance('tenant', $tenant2);
         $this->assertCount(1, Order::all());
+
+        app()->forgetInstance('tenant');
+        TenantContext::$tenant = null;
     }
 }
 
