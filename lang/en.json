@@ -1,5 +1,24 @@
 {
   "dashboard.title": "POS Dashboard",
   "dashboard.stock": "Stock",
-  "welcome.title": "CafeOS"
+  "welcome.title": "CafeOS",
+  "modules.billing.dashboard": "Billing Dashboard",
+  "modules.core.dashboard": "Core Dashboard",
+  "modules.crm.dashboard": "Crm Dashboard",
+  "modules.equipmentmaintenance.dashboard": "EquipmentMaintenance Dashboard",
+  "modules.floorplandesigner.dashboard": "FloorPlanDesigner Dashboard",
+  "modules.hrjobs.dashboard": "HrJobs Dashboard",
+  "modules.inventory.dashboard": "Inventory Dashboard",
+  "modules.jobs.dashboard": "Jobs Dashboard",
+  "modules.kds.dashboard": "Kds Dashboard",
+  "modules.loyalty.dashboard": "Loyalty Dashboard",
+  "modules.marketplace.dashboard": "Marketplace Dashboard",
+  "modules.membership.dashboard": "Membership Dashboard",
+  "modules.notifications.dashboard": "Notifications Dashboard",
+  "modules.pos.dashboard": "Pos Dashboard",
+  "modules.procurement.dashboard": "Procurement Dashboard",
+  "modules.qrordering.dashboard": "QrOrdering Dashboard",
+  "modules.rentals.dashboard": "Rentals Dashboard",
+  "modules.reports.dashboard": "Reports Dashboard",
+  "modules.superadmin.dashboard": "SuperAdmin Dashboard"
 }

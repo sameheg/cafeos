@@ -1,5 +1,24 @@
 {
   "dashboard.title": "لوحة تحكم نقاط البيع",
   "dashboard.stock": "المخزون",
-  "welcome.title": "كافيه أو إس"
+  "welcome.title": "كافيه أو إس",
+  "modules.billing.dashboard": "لوحة تحكم Billing",
+  "modules.core.dashboard": "لوحة تحكم Core",
+  "modules.crm.dashboard": "لوحة تحكم Crm",
+  "modules.equipmentmaintenance.dashboard": "لوحة تحكم EquipmentMaintenance",
+  "modules.floorplandesigner.dashboard": "لوحة تحكم FloorPlanDesigner",
+  "modules.hrjobs.dashboard": "لوحة تحكم HrJobs",
+  "modules.inventory.dashboard": "لوحة تحكم Inventory",
+  "modules.jobs.dashboard": "لوحة تحكم Jobs",
+  "modules.kds.dashboard": "لوحة تحكم Kds",
+  "modules.loyalty.dashboard": "لوحة تحكم Loyalty",
+  "modules.marketplace.dashboard": "لوحة تحكم Marketplace",
+  "modules.membership.dashboard": "لوحة تحكم Membership",
+  "modules.notifications.dashboard": "لوحة تحكم Notifications",
+  "modules.pos.dashboard": "لوحة تحكم Pos",
+  "modules.procurement.dashboard": "لوحة تحكم Procurement",
+  "modules.qrordering.dashboard": "لوحة تحكم QrOrdering",
+  "modules.rentals.dashboard": "لوحة تحكم Rentals",
+  "modules.reports.dashboard": "لوحة تحكم Reports",
+  "modules.superadmin.dashboard": "لوحة تحكم SuperAdmin"
 }

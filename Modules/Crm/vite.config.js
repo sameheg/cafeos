@@ -16,7 +16,8 @@ export default defineConfig({
             buildDirectory: 'build-crm',
             input: [
                 __dirname + '/resources/assets/sass/app.scss',
-                __dirname + '/resources/assets/js/app.js'
+                __dirname + '/resources/assets/js/app.js',
+                __dirname + '/../../resources/js/Modules/Crm/Dashboard.vue',
             ],
             refresh: true,
         }),
