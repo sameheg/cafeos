@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\Core\Contracts\OrderServiceInterface;
+use Modules\Pos\Services\OrderService;
 
 class PosServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,11 @@ class PosServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(
+            OrderServiceInterface::class,
+            OrderService::class,
+        );
     }
 
     /**
