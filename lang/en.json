@@ -20,5 +20,10 @@
   "modules.qrordering.dashboard": "QrOrdering Dashboard",
   "modules.rentals.dashboard": "Rentals Dashboard",
   "modules.reports.dashboard": "Reports Dashboard",
-  "modules.superadmin.dashboard": "SuperAdmin Dashboard"
+  "modules.superadmin.dashboard": "SuperAdmin Dashboard",
+  "modules.module_label": "Module:",
+  "modules.crm.index.title": "Hello World",
+  "modules.pos.index.title": "Hello World",
+  "modules.inventory.index.title": "Hello World",
+  "modules.core.index.title": "Hello World"
 }

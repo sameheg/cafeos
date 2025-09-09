@@ -20,5 +20,10 @@
   "modules.qrordering.dashboard": "لوحة تحكم QrOrdering",
   "modules.rentals.dashboard": "لوحة تحكم Rentals",
   "modules.reports.dashboard": "لوحة تحكم Reports",
-  "modules.superadmin.dashboard": "لوحة تحكم SuperAdmin"
+  "modules.superadmin.dashboard": "لوحة تحكم SuperAdmin",
+  "modules.module_label": "الوحدة:",
+  "modules.crm.index.title": "مرحبا بالعالم",
+  "modules.pos.index.title": "مرحبا بالعالم",
+  "modules.inventory.index.title": "مرحبا بالعالم",
+  "modules.core.index.title": "مرحبا بالعالم"
 }

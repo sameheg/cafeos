@@ -1,5 +1,5 @@
 <x-pos::layouts.master>
-    <h1>Hello World</h1>
+    <h1>{{ __('modules.pos.index.title') }}</h1>
 
-    <p>Module: {!! config('pos.name') !!}</p>
+    <p>{{ __('modules.module_label') }} {!! config('pos.name') !!}</p>
 </x-pos::layouts.master>

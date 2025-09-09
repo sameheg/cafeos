@@ -1,5 +1,5 @@
 <x-core::layouts.master>
-    <h1>Hello World</h1>
+    <h1>{{ __('modules.core.index.title') }}</h1>
 
-    <p>Module: {!! config('core.name') !!}</p>
+    <p>{{ __('modules.module_label') }} {!! config('core.name') !!}</p>
 </x-core::layouts.master>
