@@ -3,13 +3,14 @@
 namespace Modules\Loyalty\Contracts;
 
 use Modules\Loyalty\Models\Coupon;
+use Modules\Membership\Enums\MembershipTier;
 
 interface LoyaltyServiceInterface
 {
     /**
      * Accrue loyalty points for a customer.
      */
-    public function accruePoints(int|string $customerId, int $points, ?int $tenantId = null): void;
+    public function accruePoints(int|string $customerId, int $points, ?int $tenantId = null, MembershipTier $tier = MembershipTier::BRONZE): void;
 
     /**
      * Redeem loyalty points for a customer.
