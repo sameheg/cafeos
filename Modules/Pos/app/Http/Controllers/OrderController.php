@@ -4,6 +4,7 @@ namespace Modules\Pos\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Pos\Events\OrderCreated;
+use Modules\Pos\Events\TableOpened;
 use Illuminate\Http\Request;
 use Modules\Pos\Models\Order;
 
@@ -14,6 +15,7 @@ class OrderController extends Controller
         $order = Order::create($request->only(['tenant_id', 'total', 'status']));
 
         event(new OrderCreated($order, tenant()));
+        event(new TableOpened($order, tenant()));
 
         return response()->json($order, 201);
     }
