@@ -41,6 +41,8 @@ class Order extends Model implements Auditable
         'is_debt',
         'table_id',
         'split',
+        'order_type',
+        'queue_number',
     ];
 
     protected $casts = [
