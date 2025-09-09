@@ -41,14 +41,14 @@ class MakeModule extends Command
             $migrationStub = <<<'PHP'
 <?php
 
-use Illuminate\\Database\\Migrations\\Migration;
-use Illuminate\\Database\\Schema\\Blueprint;
-use Illuminate\\Support\\Facades\\Schema;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('{$table}', function (Blueprint $table) {
+        Schema::create('{{table}}', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
@@ -57,10 +57,11 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('{$table}');
+        Schema::dropIfExists('{{table}}');
     }
 };
 PHP;
+            $migrationStub = str_replace('{{table}}', $table, $migrationStub);
             File::put($migrationPath, $migrationStub);
         }
 
@@ -69,15 +70,16 @@ PHP;
             $modelStub = <<<'PHP'
 <?php
 
-namespace Modules\\{$name}\\Models;
+namespace Modules\{{name}}\Models;
 
-use Illuminate\\Database\\Eloquent\\Model;
+use Illuminate\Database\Eloquent\Model;
 
-class {$name} extends Model
+class {{name}} extends Model
 {
     protected $fillable = ['tenant_id'];
 }
 PHP;
+            $modelStub = str_replace('{{name}}', $name, $modelStub);
             File::put($modelPath, $modelStub);
         }
 
@@ -96,11 +98,11 @@ PHP;
             $testStub = <<<'PHP'
 <?php
 
-namespace Modules\\{$name}\\Tests\\Feature;
+namespace Modules\{{name}}\Tests\Feature;
 
-use Tests\\TestCase;
+use Tests\TestCase;
 
-class {$name}ModuleTest extends TestCase
+class {{name}}ModuleTest extends TestCase
 {
     public function test_example(): void
     {
@@ -108,6 +110,7 @@ class {$name}ModuleTest extends TestCase
     }
 }
 PHP;
+            $testStub = str_replace('{{name}}', $name, $testStub);
             File::put($testPath, $testStub);
         }
 
