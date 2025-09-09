@@ -12,5 +12,6 @@ class SuperAdminServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->loadRoutesFrom(module_path('SuperAdmin', 'routes/api.php'));
     }
 }
