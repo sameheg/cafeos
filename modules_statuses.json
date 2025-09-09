@@ -7,5 +7,6 @@
     "Marketplace": false,
     "Reports": false,
     "SuperAdmin": false,
-    "Kds": false
+    "Kds": false,
+    "FloorPlanDesigner": false
 }

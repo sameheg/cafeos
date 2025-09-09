@@ -2,5 +2,9 @@
   "dashboard.title": "لوحة تحكم نقاط البيع",
   "dashboard.stock": "المخزون",
   "welcome.title": "كافيه أو إس",
-  "pos.enabled": "تم تفعيل وحدة نقاط البيع"
+  "pos.enabled": "تم تفعيل وحدة نقاط البيع",
+  "floorPlanDesigner.title": "مصمم مخطط الطابق",
+  "floorPlanDesigner.addTable": "إضافة طاولة",
+  "floorPlanDesigner.addChair": "إضافة كرسي",
+  "floorPlanDesigner.save": "حفظ التخطيط"
 }

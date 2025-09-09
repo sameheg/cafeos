@@ -1,0 +1,11 @@
+{
+    "name": "FloorPlanDesigner",
+    "alias": "floor-plan-designer",
+    "description": "Design restaurant floor plans with drag and drop",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FloorPlanDesigner\\Providers\\FloorPlanDesignerServiceProvider"
+    ],
+    "files": []
+}
