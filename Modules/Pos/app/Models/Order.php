@@ -16,6 +16,21 @@ class Order extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
 
+    protected static function booted(): void
+    {
+        static::addGlobalScope('tenant', function ($q): void {
+            if (app()->bound('tenant')) {
+                $q->where('tenant_id', tenant('id'));
+            }
+        });
+
+        static::creating(function (self $order): void {
+            if (app()->bound('tenant')) {
+                $order->tenant_id ??= tenant('id');
+            }
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      */
