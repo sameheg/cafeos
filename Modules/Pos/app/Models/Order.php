@@ -23,6 +23,7 @@ class Order extends Model implements Auditable
         'tenant_id',
         'total',
         'status',
+        'is_debt',
     ];
 
     public function tenant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
