@@ -8,7 +8,9 @@ Route::get('/', function () {
 });
 
 if (Module::isEnabled('Pos')) {
-    Route::get('/pos', function () {
-        return 'POS module is enabled';
+    Route::middleware(['auth:sanctum', 'tenancy', 'role:owner'])->group(function () {
+        Route::get('/pos', function () {
+            return 'POS module is enabled';
+        });
     });
 }
