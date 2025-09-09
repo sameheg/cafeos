@@ -4,6 +4,10 @@ namespace Modules\Crm\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Crm\Contracts\CustomerProfileServiceInterface;
+use Modules\Crm\Contracts\OrderHistoryServiceInterface;
+use Modules\Crm\Services\CustomerProfileService;
+use Modules\Crm\Services\OrderHistoryService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -36,6 +40,9 @@ class CrmServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(CustomerProfileServiceInterface::class, CustomerProfileService::class);
+        $this->app->bind(OrderHistoryServiceInterface::class, OrderHistoryService::class);
     }
 
     /**

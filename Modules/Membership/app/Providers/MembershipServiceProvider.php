@@ -3,6 +3,8 @@
 namespace Modules\Membership\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Membership\Contracts\LoyaltyServiceInterface;
+use Modules\Membership\Services\LoyaltyService;
 
 class MembershipServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,7 @@ class MembershipServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        //
+        $this->app->bind(LoyaltyServiceInterface::class, LoyaltyService::class);
     }
 
     protected function registerConfig(): void
