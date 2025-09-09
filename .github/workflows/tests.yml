@@ -30,8 +30,8 @@ jobs:
         run: cp .env.example .env && php artisan key:generate
       - name: Validate translations
         run: php artisan lang:check
-      - name: Run JS tests
-        run: npm test
+      - name: Build assets
+        run: npm run build
       - name: Run migrations
         run: php artisan migrate --force
       - name: Run PHP tests
