@@ -10,5 +10,6 @@
     "Kds": false,
     "FloorPlanDesigner": false,
     "Procurement": false,
-    "Billing": false
+    "Billing": false,
+    "Membership": false
 }
