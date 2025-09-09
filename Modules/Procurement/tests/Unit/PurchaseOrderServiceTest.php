@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Procurement\Models\Supplier;
 use Modules\Procurement\Services\PurchaseOrderService;
 use Modules\Core\Contracts\InventoryServiceInterface;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PurchaseOrderServiceTest extends TestCase
@@ -19,7 +20,7 @@ class PurchaseOrderServiceTest extends TestCase
         $this->artisan('migrate', ['--path' => 'Modules/Procurement/database/migrations', '--realpath' => true]);
     }
 
-    /** @test */
+    #[Test]
     public function it_restocks_inventory_when_order_completed(): void
     {
         $items = [['id' => 1, 'quantity' => 10, 'unit_cost' => 0]];

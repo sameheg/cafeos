@@ -2,13 +2,12 @@
 
 namespace Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ModuleConfigTest extends TestCase
 {
-    /**
-     * @dataProvider moduleProvider
-     */
+    #[DataProvider('moduleProvider')]
     public function test_module_alias_matches_folder(string $folder, string $expected): void
     {
         $path = dirname(__DIR__, 2)."/Modules/{$folder}/module.json";
