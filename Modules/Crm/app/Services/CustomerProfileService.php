@@ -3,7 +3,7 @@
 namespace Modules\Crm\Services;
 
 use Modules\Crm\Contracts\CustomerProfileServiceInterface;
-use Modules\Membership\Contracts\LoyaltyServiceInterface;
+use Modules\Loyalty\Contracts\LoyaltyServiceInterface;
 
 class CustomerProfileService implements CustomerProfileServiceInterface
 {

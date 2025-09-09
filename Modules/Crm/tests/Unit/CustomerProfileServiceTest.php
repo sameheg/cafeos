@@ -4,7 +4,7 @@ namespace Modules\Crm\Tests\Unit;
 
 use Modules\Crm\Contracts\CustomerProfileServiceInterface;
 use Modules\Crm\Providers\CrmServiceProvider;
-use Modules\Membership\Contracts\LoyaltyServiceInterface;
+use Modules\Loyalty\Contracts\LoyaltyServiceInterface;
 use Tests\TestCase;
 
 class CustomerProfileServiceTest extends TestCase
