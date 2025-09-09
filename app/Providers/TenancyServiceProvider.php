@@ -72,11 +72,13 @@ class TenancyServiceProvider extends ServiceProvider
                 Listeners\BootstrapTenancy::class,
                 \App\Listeners\SetTenantCurrency::class,
                 \App\Listeners\SetPermissionsTeam::class,
+                \App\Listeners\PrefixQueueWithTenant::class,
             ],
 
             Events\EndingTenancy::class => [],
             Events\TenancyEnded::class => [
                 Listeners\RevertToCentralContext::class,
+                \App\Listeners\PrefixQueueWithTenant::class,
             ],
 
             Events\BootstrappingTenancy::class => [],
