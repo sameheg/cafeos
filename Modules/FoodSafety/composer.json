@@ -1,0 +1,9 @@
+{
+    "name": "cafeos/foodsafety",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Modules\\FoodSafety\\": ""
+        }
+    }
+}

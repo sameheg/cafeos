@@ -6,6 +6,7 @@ use Modules\Core\Contracts\InventoryServiceInterface;
 use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Models\InventoryItem;
 use Modules\Inventory\Models\StockMovement;
+use Modules\FoodSafety\Services\FoodSafetyService;
 
 class InventoryService implements InventoryServiceInterface
 {
@@ -18,6 +19,10 @@ class InventoryService implements InventoryServiceInterface
             $item = InventoryItem::find($itemId);
             if (!$item) {
                 continue;
+            }
+
+            if (class_exists(FoodSafetyService::class)) {
+                app(FoodSafetyService::class)->ensureNotExpired($item);
             }
 
             $movements = StockMovement::where('inventory_item_id', $item->id)

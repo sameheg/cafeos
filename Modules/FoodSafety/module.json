@@ -1,0 +1,10 @@
+{
+    "name": "FoodSafety",
+    "alias": "foodsafety",
+    "description": "Track ingredient expiry dates and allergen data",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FoodSafety\\Providers\\FoodSafetyServiceProvider"
+    ]
+}
