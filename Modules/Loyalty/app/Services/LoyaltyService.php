@@ -7,11 +7,13 @@ use Illuminate\Support\Str;
 use Modules\Loyalty\Contracts\LoyaltyServiceInterface;
 use Modules\Loyalty\Models\Coupon;
 use Modules\Loyalty\Models\LoyaltyPoint;
+use Modules\Membership\Enums\MembershipTier;
 
 class LoyaltyService implements LoyaltyServiceInterface
 {
-    public function accruePoints(int|string $customerId, int $points, ?int $tenantId = null): void
+    public function accruePoints(int|string $customerId, int $points, ?int $tenantId = null, MembershipTier $tier = MembershipTier::BRONZE): void
     {
+        $points = (int) round($points * $tier->pointsMultiplier());
         LoyaltyPoint::create([
             'customer_id' => $customerId,
             'tenant_id' => $tenantId,
