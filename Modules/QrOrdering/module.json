@@ -1,0 +1,11 @@
+{
+    "name": "QrOrdering",
+    "alias": "qr-ordering",
+    "description": "Customer QR ordering module",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\QrOrdering\\Providers\\QrOrderingServiceProvider"
+    ],
+    "files": []
+}
