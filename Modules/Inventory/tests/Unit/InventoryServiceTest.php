@@ -8,6 +8,8 @@ use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Models\InventoryItem;
 use Modules\Inventory\Models\StockMovement;
 use Modules\Inventory\Services\InventoryService;
+use Modules\FoodSafety\Exceptions\ExpiredIngredientException;
+use Modules\FoodSafety\Models\IngredientInfo;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -21,7 +23,9 @@ class InventoryServiceTest extends TestCase
     {
         parent::setUp();
         $this->app->register(\Modules\Inventory\Providers\InventoryServiceProvider::class);
+        $this->app->register(\Modules\FoodSafety\Providers\FoodSafetyServiceProvider::class);
         $this->artisan('migrate', ['--path' => 'Modules/Inventory/database/migrations', '--realpath' => true]);
+        $this->artisan('migrate', ['--path' => 'Modules/FoodSafety/database/migrations', '--realpath' => true]);
         $this->service = new InventoryService();
     }
 
@@ -80,5 +84,20 @@ class InventoryServiceTest extends TestCase
         $this->service->deductStock([['id' => $item->id, 'quantity' => 6]], 'FIFO');
 
         Event::assertDispatched(LowStockAlert::class);
+    }
+
+    #[Test]
+    public function it_blocks_expired_items(): void
+    {
+        $item = InventoryItem::create(['tenant_id' => 1, 'name' => 'Milk', 'quantity' => 5, 'alert_threshold' => 0]);
+        IngredientInfo::create([
+            'inventory_item_id' => $item->id,
+            'expiry_date' => now()->subDay(),
+            'allergens' => [],
+        ]);
+
+        $this->expectException(ExpiredIngredientException::class);
+
+        $this->service->deductStock([['id' => $item->id, 'quantity' => 1]], 'FIFO');
     }
 }
