@@ -9,5 +9,6 @@
     "SuperAdmin": false,
     "Kds": false,
     "FloorPlanDesigner": false,
-    "Procurement": false
+    "Procurement": false,
+    "Billing": false
 }

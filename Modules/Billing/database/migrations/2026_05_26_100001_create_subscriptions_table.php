@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained('plans');
+            $table->string('provider');
+            $table->string('provider_subscription_id');
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->string('status')->default('active');
