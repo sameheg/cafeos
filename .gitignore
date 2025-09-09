@@ -16,6 +16,13 @@
 /public/build
 /public/hot
 /public/storage
+/public/fonts
+/public/**/*.png
+/public/**/*.jpg
+/public/**/*.jpeg
+/public/**/*.gif
+/public/**/*.svg
+/public/**/*.ico
 /storage/*.key
 /storage/pail
 /vendor
