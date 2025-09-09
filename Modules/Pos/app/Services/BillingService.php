@@ -3,6 +3,7 @@
 namespace Modules\Pos\Services;
 
 use Modules\Pos\Models\Order;
+use Modules\Billing\Events\UnpaidBillAlert;
 
 class BillingService
 {
@@ -25,6 +26,7 @@ class BillingService
     public function markAsDebt(Order $order): Order
     {
         $order->is_debt = true;
+        event(new UnpaidBillAlert($order));
         return $order;
     }
 }

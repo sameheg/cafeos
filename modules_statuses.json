@@ -13,5 +13,6 @@
     "Billing": false,
     "Membership": true,
     "Loyalty": true,
-    "QrOrdering": true
+    "QrOrdering": true,
+    "Notifications": false
 }
