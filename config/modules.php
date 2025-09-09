@@ -16,9 +16,25 @@ return [
     'namespace' => 'Modules',
 
     'modules' => [
+        'Billing' => ['enabled' => false],
+        'Core' => ['enabled' => true],
+        'Crm' => ['enabled' => true],
+        'EquipmentMaintenance' => ['enabled' => true],
+        'FloorPlanDesigner' => ['enabled' => false],
+        'HrJobs' => ['enabled' => false],
+        'Inventory' => ['enabled' => false],
+        'Jobs' => ['enabled' => false],
+        'Kds' => ['enabled' => true],
+        'Loyalty' => ['enabled' => true],
+        'Marketplace' => ['enabled' => false],
+        'Membership' => ['enabled' => true],
+        'Notifications' => ['enabled' => false],
         'Pos' => ['enabled' => true],
-        'Inventory' => ['enabled' => true],
-        'Crm' => ['enabled' => false],
+        'Procurement' => ['enabled' => false],
+        'QrOrdering' => ['enabled' => true],
+        'Rentals' => ['enabled' => false],
+        'Reports' => ['enabled' => true],
+        'SuperAdmin' => ['enabled' => false],
     ],
 
     /*
