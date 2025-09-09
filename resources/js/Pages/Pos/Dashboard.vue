@@ -1,6 +1,7 @@
 <template>
   <div class="p-4">
     <h1>{{ t('dashboard.title') }}</h1>
+    <PosEnabled />
     <div v-if="isInventoryEnabled" class="flex items-center gap-1">
       {{ t('dashboard.stock') }}: {{ stock }}
       <svg class="w-4 h-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -13,6 +14,7 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
+import PosEnabled from '../../Modules/Pos/Enabled.vue';
 
 const { t } = useI18n();
 const { props } = usePage();
