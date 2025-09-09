@@ -14,4 +14,9 @@ class Plan extends Model
         'price',
         'trial_days',
     ];
+
+    protected static function newFactory(): \Modules\Billing\Database\Factories\PlanFactory
+    {
+        return \Modules\Billing\Database\Factories\PlanFactory::new();
+    }
 }
