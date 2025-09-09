@@ -29,7 +29,9 @@ return new class extends Migration
             $table->boolean('should_display_on_index')->default(true);
             $table->string('type', 20);
             $table->longText('content');
-            $table->dateTime('created_at')->nullable();
+            $table->foreignId('tenant_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->unique('uuid');
             $table->index('batch_id');
@@ -41,6 +43,9 @@ return new class extends Migration
         $schema->create('telescope_entries_tags', function (Blueprint $table) {
             $table->uuid('entry_uuid');
             $table->string('tag');
+            $table->foreignId('tenant_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->primary(['entry_uuid', 'tag']);
             $table->index('tag');
@@ -53,6 +58,9 @@ return new class extends Migration
 
         $schema->create('telescope_monitoring', function (Blueprint $table) {
             $table->string('tag')->primary();
+            $table->foreignId('tenant_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
