@@ -7,11 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Translatable\HasTranslations;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasTranslations;
+
+    /**
+     * The attributes that are translatable.
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['name'];
 
     /**
      * The attributes that are mass assignable.

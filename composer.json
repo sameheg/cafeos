@@ -17,6 +17,7 @@
         "owen-it/laravel-auditing": "^14.0",
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-permission": "^6.21",
+        "spatie/laravel-translatable": "^6.11",
         "stancl/tenancy": "^3.9"
     },
     "require-dev": {
