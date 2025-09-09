@@ -3,6 +3,8 @@
 namespace Modules\Crm\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Modules\Reports\Events\CollectReports;
+use Modules\Crm\Listeners\ProvideReportData;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -11,14 +13,18 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<string, array<int, string>>
      */
-    protected $listen = [];
+    protected $listen = [
+        CollectReports::class => [
+            ProvideReportData::class,
+        ],
+    ];
 
     /**
      * Indicates if events should be discovered.
      *
      * @var bool
      */
-    protected static $shouldDiscoverEvents = true;
+    protected static $shouldDiscoverEvents = false;
 
     /**
      * Configure the proper event listeners for email verification.

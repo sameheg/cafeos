@@ -7,6 +7,8 @@ use Modules\FloorPlanDesigner\Events\FloorLayoutUpdated;
 use Modules\Pos\Events\OrderCreated;
 use Modules\Pos\Listeners\SyncFloorLayout;
 use Modules\Pos\Listeners\AwardLoyaltyPoints;
+use Modules\Reports\Events\CollectReports;
+use Modules\Pos\Listeners\ProvideReportData;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         OrderCreated::class => [
             AwardLoyaltyPoints::class,
         ],
+        CollectReports::class => [
+            ProvideReportData::class,
+        ],
     ];
 
     /**
@@ -29,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected static $shouldDiscoverEvents = true;
+    protected static $shouldDiscoverEvents = false;
 
     /**
      * Configure the proper event listeners for email verification.
