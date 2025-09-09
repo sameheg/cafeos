@@ -21,14 +21,94 @@ class MakeModule extends Command
             'Database/Migrations',
             'Http/Controllers',
             'Models',
-            'Resources',
+            'Resources/views',
+            'Resources/lang/en',
+            'Resources/lang/ar',
             'Routes',
             'Services',
-            'Tests',
+            'Tests/Feature',
         ];
 
         foreach ($directories as $dir) {
             File::ensureDirectoryExists("{$basePath}/{$dir}");
+        }
+
+        $table = Str::snake(Str::pluralStudly($name));
+
+        $migrationName = date('Y_m_d_His') . "_create_{$table}_table.php";
+        $migrationPath = "{$basePath}/Database/Migrations/{$migrationName}";
+        if (!File::exists($migrationPath)) {
+            $migrationStub = <<<'PHP'
+<?php
+
+use Illuminate\\Database\\Migrations\\Migration;
+use Illuminate\\Database\\Schema\\Blueprint;
+use Illuminate\\Support\\Facades\\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create('{$table}', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('{$table}');
+    }
+};
+PHP;
+            File::put($migrationPath, $migrationStub);
+        }
+
+        $modelPath = "{$basePath}/Models/{$name}.php";
+        if (!File::exists($modelPath)) {
+            $modelStub = <<<'PHP'
+<?php
+
+namespace Modules\\{$name}\\Models;
+
+use Illuminate\\Database\\Eloquent\\Model;
+
+class {$name} extends Model
+{
+    protected $fillable = ['tenant_id'];
+}
+PHP;
+            File::put($modelPath, $modelStub);
+        }
+
+        $langEn = "{$basePath}/Resources/lang/en/messages.php";
+        if (!File::exists($langEn)) {
+            File::put($langEn, "<?php\n\nreturn [\n    'example' => 'Example',\n];\n");
+        }
+
+        $langAr = "{$basePath}/Resources/lang/ar/messages.php";
+        if (!File::exists($langAr)) {
+            File::put($langAr, "<?php\n\nreturn [\n    'example' => 'مثال',\n];\n");
+        }
+
+        $testPath = "{$basePath}/Tests/Feature/{$name}ModuleTest.php";
+        if (!File::exists($testPath)) {
+            $testStub = <<<'PHP'
+<?php
+
+namespace Modules\\{$name}\\Tests\\Feature;
+
+use Tests\\TestCase;
+
+class {$name}ModuleTest extends TestCase
+{
+    public function test_example(): void
+    {
+        $this->assertTrue(true);
+    }
+}
+PHP;
+            File::put($testPath, $testStub);
         }
 
         $routeFile = "{$basePath}/Routes/web.php";
