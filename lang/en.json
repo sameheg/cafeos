@@ -2,5 +2,9 @@
   "dashboard.title": "POS Dashboard",
   "dashboard.stock": "Stock",
   "welcome.title": "CafeOS",
-  "pos.enabled": "POS module is enabled"
+  "pos.enabled": "POS module is enabled",
+  "floorPlanDesigner.title": "Floor Plan Designer",
+  "floorPlanDesigner.addTable": "Add table",
+  "floorPlanDesigner.addChair": "Add chair",
+  "floorPlanDesigner.save": "Save Layout"
 }
