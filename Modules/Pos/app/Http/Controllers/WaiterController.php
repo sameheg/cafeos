@@ -3,6 +3,8 @@
 namespace Modules\Pos\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+use Modules\Pos\Events\TableOpened;
 use Modules\Pos\Models\Order;
 use Modules\Pos\Services\BillingService;
 
@@ -13,15 +15,33 @@ class WaiterController extends Controller
         return view('pos::waiter.index');
     }
 
-    public function move(Order $order)
+    public function move(Request $request, Order $order)
     {
-        // Placeholder for moving orders between tables
-        return back();
+        $data = $request->validate([
+            'table_id' => ['required', 'integer'],
+        ]);
+
+        $order->table_id = $data['table_id'];
+        $order->save();
+
+        event(new TableOpened($order));
+
+        return response()->json(['message' => __('pos.moved')]);
     }
 
-    public function split(Order $order, BillingService $billing)
+    public function split(Request $request, Order $order, BillingService $billing)
     {
-        $billing->splitBill($order, 2);
-        return back();
+        $data = $request->validate([
+            'parts' => ['required', 'integer', 'min:2'],
+        ]);
+
+        $parts = $billing->splitBill($order, (int) $data['parts']);
+        $order->split = $parts;
+        $order->save();
+
+        return response()->json([
+            'message' => __('pos.split'),
+            'parts' => $parts,
+        ]);
     }
 }

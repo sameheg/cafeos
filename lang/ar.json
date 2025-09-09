@@ -6,6 +6,8 @@
   "pos.created": "تم إنشاء عنصر القائمة",
   "pos.updated": "تم تحديث عنصر القائمة",
   "pos.deleted": "تم حذف عنصر القائمة",
+  "pos.moved": "تم نقل الطلب",
+  "pos.split": "تم تقسيم الفاتورة بنجاح",
   "floorPlanDesigner.title": "مصمم مخطط الطابق",
   "floorPlanDesigner.addTable": "إضافة طاولة",
   "floorPlanDesigner.addChair": "إضافة كرسي",

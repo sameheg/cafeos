@@ -24,6 +24,12 @@ class Order extends Model implements Auditable
         'total',
         'status',
         'is_debt',
+        'table_id',
+        'split',
+    ];
+
+    protected $casts = [
+        'split' => 'array',
     ];
 
     public function tenant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
