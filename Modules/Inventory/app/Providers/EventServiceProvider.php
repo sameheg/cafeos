@@ -15,6 +15,9 @@ class EventServiceProvider extends ServiceProvider
         \Modules\Pos\Events\OrderCreated::class => [
             \Modules\Inventory\Listeners\UpdateInventory::class,
         ],
+        'Modules\\Procurement\\Events\\StockReceived' => [
+            \Modules\Inventory\Listeners\RestockInventory::class,
+        ],
     ];
 
     /**
