@@ -1,0 +1,11 @@
+{
+    "name": "HrJobs",
+    "alias": "hrjobs",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HrJobs\\Providers\\HrJobsServiceProvider"
+    ],
+    "files": []
+}

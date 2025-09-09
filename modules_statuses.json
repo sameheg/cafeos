@@ -14,5 +14,6 @@
     "Membership": true,
     "Loyalty": true,
     "QrOrdering": true,
-    "Notifications": false
+    "Notifications": false,
+    "HrJobs": false
 }
