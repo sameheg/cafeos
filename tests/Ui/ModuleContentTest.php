@@ -5,15 +5,14 @@ namespace Tests\Ui;
 use App\Models\User;
 use App\Http\Middleware\SetUserLocale;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ModuleContentTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @dataProvider activeModuleProvider
-     */
+    #[DataProvider('activeModuleProvider')]
     public function test_index_page_shows_module_name(string $path, string $name): void
     {
         $this->withoutMiddleware([SetUserLocale::class]);

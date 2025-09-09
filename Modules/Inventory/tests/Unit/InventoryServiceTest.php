@@ -8,6 +8,7 @@ use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Models\InventoryItem;
 use Modules\Inventory\Models\StockMovement;
 use Modules\Inventory\Services\InventoryService;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class InventoryServiceTest extends TestCase
@@ -24,7 +25,7 @@ class InventoryServiceTest extends TestCase
         $this->service = new InventoryService();
     }
 
-    /** @test */
+    #[Test]
     public function it_deducts_stock_using_fifo(): void
     {
         $item = InventoryItem::create(['tenant_id' => 1, 'name' => 'Beans', 'quantity' => 0, 'alert_threshold' => 0]);
@@ -45,7 +46,7 @@ class InventoryServiceTest extends TestCase
         $this->assertEquals(5, $last->remaining_quantity);
     }
 
-    /** @test */
+    #[Test]
     public function it_deducts_stock_using_lifo(): void
     {
         $item = InventoryItem::create(['tenant_id' => 1, 'name' => 'Beans', 'quantity' => 0, 'alert_threshold' => 0]);
@@ -66,7 +67,7 @@ class InventoryServiceTest extends TestCase
         $this->assertEquals(0, $last->remaining_quantity);
     }
 
-    /** @test */
+    #[Test]
     public function it_dispatches_low_stock_alert(): void
     {
         Event::fake([LowStockAlert::class]);

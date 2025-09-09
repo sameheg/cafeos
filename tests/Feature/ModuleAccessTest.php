@@ -6,15 +6,14 @@ use App\Models\User;
 use App\Http\Middleware\SetUserLocale;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ModuleAccessTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @dataProvider activeModuleProvider
-     */
+    #[DataProvider('activeModuleProvider')]
     public function test_active_module_index_route_accessible(string $path, string $view): void
     {
         $this->withoutMiddleware([SetUserLocale::class]);

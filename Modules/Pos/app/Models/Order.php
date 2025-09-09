@@ -75,4 +75,9 @@ class Order extends Model implements Auditable
     {
         return $this->toReportArray();
     }
+
+    protected static function newFactory(): \Modules\Pos\Database\Factories\OrderFactory
+    {
+        return \Modules\Pos\Database\Factories\OrderFactory::new();
+    }
 }
