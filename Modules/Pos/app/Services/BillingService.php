@@ -21,12 +21,21 @@ class BillingService
     }
 
     /**
-     * Mark the given order as debt without persisting.
+     * Mark the given order as debt and persist the change.
+     *
+     * If the order is already marked as debt, no action is taken.
      */
     public function markAsDebt(Order $order): Order
     {
+        if ($order->is_debt) {
+            return $order;
+        }
+
         $order->is_debt = true;
+        $order->save();
+
         event(new UnpaidBillAlert($order));
+
         return $order;
     }
 }
