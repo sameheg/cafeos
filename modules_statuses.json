@@ -16,5 +16,6 @@
     "QrOrdering": true,
     "Notifications": false,
     "HrJobs": false,
-    "Rentals": false
+    "Rentals": false,
+    "EquipmentMaintenance": true
 }

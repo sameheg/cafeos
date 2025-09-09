@@ -1,0 +1,11 @@
+{
+    "name": "EquipmentMaintenance",
+    "alias": "equipmentmaintenance",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EquipmentMaintenance\\Providers\\EquipmentMaintenanceServiceProvider"
+    ],
+    "files": []
+}
