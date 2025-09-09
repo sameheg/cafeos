@@ -7,9 +7,17 @@ namespace App\Models;
 use Stancl\Tenancy\Database\Models\Concerns\HasDatabase;
 use Stancl\Tenancy\Database\Models\Concerns\HasDomains;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
+use Spatie\Translatable\HasTranslations;
 
 class Tenant extends BaseTenant
 {
-    use HasDatabase, HasDomains;
+    use HasDatabase, HasDomains, HasTranslations;
+
+    /**
+     * The attributes that are translatable.
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['name'];
 }
 
