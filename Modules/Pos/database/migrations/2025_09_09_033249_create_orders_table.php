@@ -16,10 +16,13 @@ return new class extends Migration
             $table->foreignId('tenant_id');
             $table->decimal('total', 10, 2);
             $table->enum('status', ['pending', 'completed']);
+            $table->unsignedBigInteger('table_id')->nullable();
+            $table->json('split')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->index('tenant_id');
+            $table->index('table_id');
         });
     }
 

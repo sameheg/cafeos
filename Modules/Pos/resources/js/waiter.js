@@ -1,7 +1,4 @@
-export function moveOrder(orderId, fromTable, toTable) {
-    console.log(`Move order ${orderId} from table ${fromTable} to ${toTable}`);
-}
+import { createApp } from 'vue';
+import WaiterApp from './components/WaiterApp.vue';
 
-export function splitBill(orderId, parts) {
-    console.log(`Split order ${orderId} into ${parts} parts`);
-}
+createApp(WaiterApp).mount('#waiter-app');
