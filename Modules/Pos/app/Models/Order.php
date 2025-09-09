@@ -3,6 +3,7 @@
 namespace Modules\Pos\Models;
 
 use App\Models\Tenant;
+use App\Support\CurrencyFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,5 +33,24 @@ class Order extends Model implements Auditable
     public function menuItems(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(MenuItem::class);
+    }
+
+    public function getFormattedTotalAttribute(): string
+    {
+        return CurrencyFormatter::format((float) $this->total);
+    }
+
+    public function toReportArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'total' => $this->formatted_total,
+            'status' => $this->status,
+        ];
+    }
+
+    public function toExportArray(): array
+    {
+        return $this->toReportArray();
     }
 }
