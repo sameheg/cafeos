@@ -3,7 +3,7 @@
 namespace Modules\Pos\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Events\OrderCreated;
+use Modules\Pos\Events\OrderCreated;
 use Illuminate\Http\Request;
 use Modules\Pos\Models\Order;
 

@@ -12,7 +12,7 @@ class EventServiceProvider extends ServiceProvider
      * @var array<string, array<int, string>>
      */
     protected $listen = [
-        \App\Events\OrderCreated::class => [
+        \Modules\Pos\Events\OrderCreated::class => [
             \Modules\Inventory\Listeners\UpdateInventory::class,
         ],
     ];

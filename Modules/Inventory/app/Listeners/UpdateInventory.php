@@ -2,7 +2,7 @@
 
 namespace Modules\Inventory\Listeners;
 
-use App\Events\OrderCreated;
+use Modules\Pos\Events\OrderCreated;
 use Illuminate\Support\Facades\Log;
 use Modules\Core\Contracts\InventoryServiceInterface;
 use Nwidart\Modules\Facades\Module as Modules;

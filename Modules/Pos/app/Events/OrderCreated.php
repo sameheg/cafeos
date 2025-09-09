@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Modules\Pos\Events;
 
 use App\Models\Tenant;
 use Illuminate\Foundation\Events\Dispatchable;
