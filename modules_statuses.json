@@ -18,5 +18,6 @@
     "HrJobs": false,
     "Rentals": false,
     "EquipmentMaintenance": true,
-    "TableReservations": true
+    "TableReservations": true,
+    "SelfServiceKiosk": true
 }
