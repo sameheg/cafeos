@@ -8,5 +8,6 @@
     "Reports": false,
     "SuperAdmin": false,
     "Kds": false,
-    "FloorPlanDesigner": false
+    "FloorPlanDesigner": false,
+    "Procurement": false
 }
