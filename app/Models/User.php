@@ -60,7 +60,11 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
-        static::addGlobalScope('tenant', fn ($q) => $q->where('tenant_id', tenant('id')));
+        static::addGlobalScope('tenant', function ($q) {
+            if (tenant()) {
+                $q->where('tenant_id', tenant('id'));
+            }
+        });
     }
 
     public function getPermissionsTeamId(): int|string|null

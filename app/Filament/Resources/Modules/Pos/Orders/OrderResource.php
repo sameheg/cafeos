@@ -8,6 +8,7 @@ use App\Filament\Resources\Modules\Pos\Orders\Pages\ListOrders;
 use App\Filament\Resources\Modules\Pos\Orders\Schemas\OrderForm;
 use App\Filament\Resources\Modules\Pos\Orders\Tables\OrdersTable;
 use App\Models\Modules\Pos\Order;
+use App\Filament\Resources\Concerns\TenantScoped;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -16,6 +17,8 @@ use Filament\Tables\Table;
 
 class OrderResource extends Resource
 {
+    use TenantScoped;
+
     protected static ?string $model = Order::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
