@@ -6,7 +6,7 @@ use Modules\Pos\Events\OrderCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Modules\Inventory\Listeners\UpdateInventory;
-use Modules\Core\Contracts\OrderServiceInterface;
+use Modules\Pos\Models\Order;
 use Nwidart\Modules\Facades\Module as Modules;
 use Tests\TestCase;
 
@@ -28,7 +28,7 @@ class ModuleToggleTest extends TestCase
         Modules::disable('Inventory');
         Event::fake();
 
-        $order = app(OrderServiceInterface::class)->make();
+        $order = new Order();
         event(new OrderCreated($order));
 
         Event::assertDispatched(OrderCreated::class);

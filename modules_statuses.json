@@ -1,6 +1,9 @@
 {
     "Core": true,
-    "Pos": true,
-    "Inventory": true,
-    "Crm": false
+    "Pos": false,
+    "Inventory": false,
+    "Crm": false,
+    "Jobs": false,
+    "Marketplace": false,
+    "Reports": false
 }
