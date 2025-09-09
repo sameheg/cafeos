@@ -21,6 +21,7 @@ class CreateTenantsTable extends Migration
             $table->string('domain')->unique();
             $table->string('plan_type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->json('data')->nullable();
         });
     }

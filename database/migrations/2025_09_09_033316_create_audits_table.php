@@ -19,6 +19,7 @@ return new class extends Migration
             $morphPrefix = config('audit.user.morph_prefix', 'user');
 
             $table->bigIncrements('id');
+            $table->foreignId('tenant_id')->index();
             $table->string($morphPrefix . '_type')->nullable();
             $table->unsignedBigInteger($morphPrefix . '_id')->nullable();
             $table->string('event');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->string('user_agent', 1023)->nullable();
             $table->string('tags')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index([$morphPrefix . '_id', $morphPrefix . '_type']);
         });

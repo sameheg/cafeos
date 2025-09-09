@@ -18,7 +18,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('attempts');
             $table->unsignedInteger('reserved_at')->nullable();
             $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            $table->foreignId('tenant_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('job_batches', function (Blueprint $table) {
@@ -29,9 +31,11 @@ return new class extends Migration
             $table->integer('failed_jobs');
             $table->longText('failed_job_ids');
             $table->mediumText('options')->nullable();
-            $table->integer('cancelled_at')->nullable();
-            $table->integer('created_at');
-            $table->integer('finished_at')->nullable();
+            $table->timestamp('cancelled_at')->nullable();
+            $table->foreignId('tenant_id')->index();
+            $table->timestamps();
+            $table->timestamp('finished_at')->nullable();
+            $table->softDeletes();
         });
 
         Schema::create('failed_jobs', function (Blueprint $table) {
@@ -41,7 +45,10 @@ return new class extends Migration
             $table->text('queue');
             $table->longText('payload');
             $table->longText('exception');
+            $table->foreignId('tenant_id')->index();
             $table->timestamp('failed_at')->useCurrent();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
