@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/kds",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Kds\\": "app/",
+            "Modules\\Kds\\Database\\Factories\\": "database/factories/",
+            "Modules\\Kds\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Kds\\Tests\\": "tests/"
+        }
+    }
+}

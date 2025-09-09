@@ -6,5 +6,6 @@
     "Jobs": false,
     "Marketplace": false,
     "Reports": false,
-    "SuperAdmin": false
+    "SuperAdmin": false,
+    "Kds": false
 }
