@@ -8,7 +8,8 @@ class IntegrationService
 {
     public function syncInventory(Order $order): void
     {
-        // Placeholder for inventory synchronization
+        $service = app(\Modules\Core\Contracts\InventoryServiceInterface::class);
+        $service->deductStock($order->menuItems);
     }
 
     public function syncCrm(Order $order): void
