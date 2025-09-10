@@ -108,6 +108,12 @@ class TenancyServiceProvider extends ServiceProvider
 
         $this->makeTenancyMiddlewareHighestPriority();
         $this->loadMigrationsFrom(database_path('migrations/central'));
+
+        foreach (glob(base_path('Modules/*/database/migrations')) as $path) {
+            if (is_dir($path)) {
+                $this->loadMigrationsFrom($path);
+            }
+        }
     }
 
     protected function bootEvents()
