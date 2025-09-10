@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tenant;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Stancl\Tenancy\Contracts\Tenant as TenantContract;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('tenants')->insert([
+            'id' => 1,
+            'name' => 'Test Tenant',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $tenant = new Tenant(['id' => 1, 'name' => 'Test Tenant']);
+        app()->instance(TenantContract::class, $tenant);
+
         $this->call([
             RolesAndPermissionsSeeder::class,
             TenantModulesSeeder::class,
@@ -24,7 +36,7 @@ class DatabaseSeeder extends Seeder
                 'ar' => 'مستخدم تجريبي',
             ],
             'email' => 'test@example.com',
-            'tenant_id' => tenant('id'),
+            'tenant_id' => $tenant->id,
         ]);
     }
 }

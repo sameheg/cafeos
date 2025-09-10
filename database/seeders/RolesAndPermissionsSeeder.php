@@ -16,8 +16,9 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $allPermissions = [];
         foreach (Module::all() as $module) {
-            $key = strtolower($module->getName()).'.permissions';
+            $key = strtolower($module->getName()).'.permissions.permissions';
             $permissions = config($key, []);
+
             foreach ($permissions as $permission) {
                 Permission::firstOrCreate([
                     'name' => $permission,
@@ -25,6 +26,7 @@ class RolesAndPermissionsSeeder extends Seeder
                     'tenant_id' => tenant('id'),
                 ]);
             }
+
             $allPermissions = array_merge($allPermissions, $permissions);
         }
 
@@ -33,7 +35,15 @@ class RolesAndPermissionsSeeder extends Seeder
             'guard_name' => 'web',
             'tenant_id' => tenant('id'),
         ]);
-        $manager->givePermissionTo($allPermissions);
+
+        foreach ($allPermissions as $permission) {
+            $perm = Permission::where('name', $permission)->first();
+            if ($perm) {
+                $manager->permissions()->syncWithoutDetaching([
+                    $perm->id => ['tenant_id' => tenant('id')],
+                ]);
+            }
+        }
 
         foreach (['Cashier', 'Waiter', 'Chef', 'Delivery'] as $role) {
             Role::firstOrCreate([
