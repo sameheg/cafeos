@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Prometheus\CollectorRegistry;
-use Prometheus\Histogram;
 use Prometheus\Storage\InMemory;
 use Prometheus\Storage\Redis as RedisStorage;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +27,7 @@ class PrometheusMetricsMiddleware
                 'database' => $config['database'] ?? 0,
             ]);
         } else {
-            $adapter = new InMemory();
+            $adapter = new InMemory;
         }
 
         return $this->registry = new CollectorRegistry($adapter);
@@ -69,4 +68,3 @@ class PrometheusMetricsMiddleware
         return $response;
     }
 }
-

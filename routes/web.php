@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Auth\MfaController;
 use App\Http\Controllers\DriverLocationController;
+use App\Http\Controllers\HealthController;
+use App\Http\Controllers\MetricsController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ShiftController;
-use App\Http\Controllers\MetricsController;
-use App\Http\Controllers\HealthController;
 use Illuminate\Support\Facades\Route;
 use Nwidart\Modules\Facades\Module;
 
