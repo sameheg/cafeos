@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'ws' => [
+        'health_url' => env('WS_HEALTH_URL'),
+    ],
+
+    'prometheus_storage' => env('PROMETHEUS_STORAGE', 'memory'),
+
 ];

@@ -85,12 +85,6 @@ parameters:
 			path: Modules/Crm/tests/Unit/CustomerProfileServiceTest.php
 
 		-
-			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with Modules\\Crm\\Services\\OrderHistoryService will always evaluate to true\.$#'
-			identifier: method.alreadyNarrowedType
-			count: 1
-			path: Modules/Crm/tests/Unit/OrderHistoryServiceTest.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\Marketplace\\Models\\Product\>\|Modules\\Marketplace\\Models\\Product\:\:\$inventory_item_id\.$#'
 			identifier: property.notFound
 			count: 1

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\MfaController;
 use App\Http\Controllers\DriverLocationController;
+use App\Http\Controllers\HealthController;
+use App\Http\Controllers\MetricsController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ShiftController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +12,9 @@ use Nwidart\Modules\Facades\Module;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/metrics', MetricsController::class);
+Route::get('/health', HealthController::class);
 
 Route::get('/promotions/{user}', [PromotionController::class, 'show']);
 
