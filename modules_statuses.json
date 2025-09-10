@@ -21,5 +21,6 @@
     "TableReservations": true,
     "SelfServiceKiosk": true,
     "EquipmentMonitoring": true,
-    "FoodSafety": false
+    "FoodSafety": false,
+    "Training": true
 }
