@@ -51,13 +51,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
 			identifier: argument.type
-			count: 1
-			path: Modules/Core/app/Http/Controllers/Admin/TenantController.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 4
+			count: 3
 			path: Modules/Core/app/Http/Controllers/CoreController.php
 
 		-
@@ -75,7 +69,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
 			identifier: argument.type
-			count: 4
+			count: 3
 			path: Modules/Crm/app/Http/Controllers/CrmController.php
 
 		-
@@ -89,12 +83,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: Modules/Crm/tests/Unit/CustomerProfileServiceTest.php
-
-		-
-			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with Modules\\Crm\\Contracts\\OrderHistoryServiceInterface will always evaluate to true\.$#'
-			identifier: method.alreadyNarrowedType
-			count: 1
-			path: Modules/Crm/tests/Unit/OrderHistoryServiceTest.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\Marketplace\\Models\\Product\>\|Modules\\Marketplace\\Models\\Product\:\:\$inventory_item_id\.$#'
@@ -125,12 +113,6 @@ parameters:
 			identifier: method.alreadyNarrowedType
 			count: 1
 			path: Modules/EquipmentMaintenance/tests/Feature/EquipmentMaintenanceModuleTest.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Modules/EquipmentMonitoring/app/Http/Controllers/DashboardController.php
 
 		-
 			message: '#^Relation ''readings'' is not found in Modules\\EquipmentMonitoring\\Models\\Device model\.$#'
@@ -279,7 +261,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
 			identifier: argument.type
-			count: 4
+			count: 3
 			path: Modules/Pos/app/Http/Controllers/PosController.php
 
 		-
@@ -291,12 +273,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property Modules\\Pos\\Models\\Order\:\:\$table_id\.$#'
 			identifier: property.notFound
-			count: 1
-			path: Modules/Pos/app/Http/Controllers/WaiterController.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
 			count: 1
 			path: Modules/Pos/app/Http/Controllers/WaiterController.php
 
@@ -395,12 +371,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: Modules/Procurement/tests/Unit/PurchaseOrderServiceTest.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Modules/QrOrdering/app/Http/Controllers/QrOrderingController.php
 
 		-
 			message: '#^Access to an undefined property Modules\\TableReservations\\Models\\Reservation\:\:\$customer_name\.$#'

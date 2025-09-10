@@ -17,6 +17,6 @@ class OrderHistoryServiceTest extends TestCase
     public function test_service_resolves(): void
     {
         $service = $this->app->make(OrderHistoryServiceInterface::class);
-        $this->assertNotNull($service);
+        $this->assertInstanceOf(OrderHistoryServiceInterface::class, $service);
     }
 }
