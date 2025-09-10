@@ -108,40 +108,45 @@
 ---
 
 ## 📊 Reports & Monitoring
-### 14. **Reports**
-- **Filters**: By day, shift, hour, employee, item, customer.  
-- **Exports**: CSV, Excel, PDF.  
-- **Integration**: All transaction modules.  
+### 14. **Dashboard**
+- **Features**: Real-time KPI updates via WebSockets.
+- **Integration**: Aggregates metrics from all modules.
 
-### 15. **Notifications**
-- **Scope**: Manager, Waiter, Kitchen, Super Admin, SaaS staff.  
-- **Channels**: In-app, Email, SMS, Push.  
-- **Events**: Low stock, unpaid bill, table opened, subscription expiring.  
-- **Integration**: Global across modules.  
+### 15. **Reports**
+- **Filters**: By day, shift, hour, employee, item, customer.
+- **Exports**: CSV, Excel, PDF.
+- **Integration**: All transaction modules.
+- **Metrics**: Menu engineering (profitability, popularity) and financial forecasting.
+
+### 16. **Notifications**
+- **Scope**: Manager, Waiter, Kitchen, Super Admin, SaaS staff.
+- **Channels**: In-app, Email, SMS, Push.
+- **Events**: Low stock, unpaid bill, table opened, subscription expiring.
+- **Integration**: Global across modules.
 
 ---
 
 ## 🧩 Extra Modules
-### 16. **HR & Jobs**
+### 17. **HR & Jobs**
 - **Features**: Post jobs, apply, track candidates.  
 - **Database**: `jobs`, `applications`.  
 - **Integration**: Membership system.  
 
-### 17. **Restaurant Rentals**
+### 18. **Restaurant Rentals**
 - **Features**: Post restaurants/cafés for rent/sale.
 - **Database**: `listings`.
 - **Integration**: Membership system.
 
-### 18. **Equipment Maintenance**
+### 19. **Equipment Maintenance**
 - **Features**: Track kitchen/coffee equipment health, schedule maintenance.
 - **Database**: `equipment`, `maintenance_logs`.
 
-### 19. **Franchise Management**
+### 20. **Franchise Management**
 - **Features**: Manage and publish franchise opportunities.
 - **Database**: `franchises`.
 - **Integration**: Membership system.
 
-### 20. **Equipment Leasing**
+### 21. **Equipment Leasing**
 - **Features**: Lease hardware with payment schedules and inventory updates.
 - **Database**: `lease_contracts`.
 - **Integration**: Marketplace, Inventory.

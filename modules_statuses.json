@@ -24,5 +24,6 @@
     "FoodSafety": false,
     "Training": true,
     "Franchise": false,
-    "EquipmentLeasing": false
+    "EquipmentLeasing": false,
+    "Dashboard": true
 }
