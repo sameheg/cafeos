@@ -1,114 +1,196 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# CafeOS — منصة SaaS متكاملة للمطاعم والكافيهات
+**Laravel 12 + Vue 3 + Inertia + PWA + POS + KDS + Inventory + CRM + Reports + Multi‑Tenancy + Billing**
 
-## About Laravel
+> *من الآخر:* CafeOS مش “سكريبت”، دي **منصّة أعمال** جاهزة للنمو: بيع سريع (POS)، مطبخ لحظي (KDS)، مخزون دقيق، تقارير تنفيذية، فواتير واشتراكات، وتشغيل متعدد المستأجرين (tenants) على مستوى المؤسسات.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#)
+[![PHP](https://img.shields.io/badge/php-8.3-blue)](#)
+[![Laravel](https://img.shields.io/badge/laravel-12-red)](#)
+[![License](https://img.shields.io/badge/license-AGPL--3.0-black)](#)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔎 لماذا CafeOS؟ (Value Prop)
+- **يولّد إيرادًا من اليوم الأول**: POS + Billing + خطط اشتراك + قيود ميزات.
+- **سرعة التشغيل**: KDS لحظي، Offline‑first، طباعة ESC/POS، X/Z، شِفتات وكاش دراور.
+- **حَوْكمة سهلة**: SuperAdmin يُشغّل/يوقف الموديولات **لكل مستأجر** بضغطة.
+- **تكاليف أقل**: وصفات/BOM + COGS + تنبّه للمخزون المنخفض + تقارير قابلة للتصدير.
+- **قابلية توسّع**: بنية Modules، Feature Flags، Events Bus، وCI/CD جاهز.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🧱 المعمارية (Architecture)
+- **Monolith Modular** عبر `nwidart/modules` مع **Feature Flags per‑tenant**.
+- **Multi‑Tenancy** via `stancl/tenancy`: عزل قواعد بيانات/سكيمات، Middleware، وScopes.
+- **واجهة**: Vue 3 + Inertia + Pinia + Tailwind + RTL جاهز.
+- **Realtime**: Laravel Reverb/ Pusher + قنوات خاصة لكل `tenant_id` + Policies.
+- **Queues**: Horizon/Workers للمهام والاشعارات.
+- **PWA/Offline**: IndexedDB + Background Sync + استراتيجيات Cache واضحة.
+- **Observability**: Sentry/Tracing + Metrics (Prometheus) + صفحة Health.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## Deployment
-
-This application can be deployed using [Laravel Forge](https://forge.laravel.com) or a similar tool. The `production.yml` Docker configuration provides module-specific environment variables for configuring services during deployment.
-
-## Queue Worker
-
-Queued jobs are processed by a dedicated `queue-worker` service defined in the Docker configuration. Start it with:
-
-```bash
-docker compose up queue-worker
+```
+cafeos/
+├─ app/ (النواة العامة)
+├─ Modules/
+│  ├─ Core/            (Tenancy, RBAC, Feature Flags, EventBus)
+│  ├─ SuperAdmin/      (حوكمة وImpersonation وModule Manager)
+│  ├─ Billing/         (Cashier + Plans + Webhooks + Enforcement)
+│  ├─ Pos/             (Checkout, Shifts, Printing, Offline)
+│  ├─ Kds/             (Stations, Routing, Expo, SLA, Realtime)
+│  ├─ Inventory/       (UOM, Recipes/BOM, COGS, Transfers/Stocktake)
+│  ├─ Procurement/     (RFQ→PO→GRN/Invoice + Approvals)
+│  ├─ Crm/             (Profiles, Segments, Consent)
+│  ├─ Loyalty/         (Rules, Ledger, Expiry, POS hooks)
+│  ├─ QrOrdering/      (QR Tables, Checkout, Anti‑spoofing)
+│  ├─ TableReservations/ (Slots, Holds/Deposits, Waitlist)
+│  ├─ FloorPlanDesigner/ (خرائط صالة متزامنة مع POS)
+│  ├─ Notifications/   (Email/SMS/Push/In‑app + Templates)
+│  ├─ Reports/         (Sales, COGS, AOV, Schedulers/Exports)
+│  ├─ Dashboard/       (KPIs تنفيذية + System Health)
+│  └─ ...              (Modules إضافية: Franchise, Marketplace, Jobs, ...)
+├─ bootstrap/providers.php  (تسجيل ServiceProviders)
+├─ config/ (بما فيها broadcasting, horizon, queue, cache, tenancy ...)
+└─ docker-compose.yml
 ```
 
-The service runs `php artisan queue:work` using the same PHP image as the main application.
+---
 
-## Broadcasting
+## 🚀 التشغيل السريع (Quick Start)
 
-Real-time events may be sent over websockets using either [Pusher](https://pusher.com) or [Laravel Reverb](https://reverb.laravel.com).
+### 0) المتطلبات
+- **Docker** (مستحسن) أو: PHP 8.3، Composer، Node 20، Redis، MySQL/Postgres.
+- دومين/ساب دومين محلي (e.g. `cafeos.test`, `tenant1.cafeos.test`).
 
-Set the desired driver in your environment:
-
+### 1) الإعداد
 ```bash
-BROADCAST_CONNECTION=pusher # or reverb
+git clone <repo-url> cafeos && cd cafeos
+cp .env.example .env
+composer install
+npm ci && npm run build   # أو npm run dev
+php artisan key:generate
 ```
 
-When using Pusher, also configure the following keys:
-
+### 2) تهيئة الـ Tenancy
 ```bash
-PUSHER_APP_ID=
-PUSHER_APP_KEY=
-PUSHER_APP_SECRET=
-PUSHER_APP_CLUSTER=mt1
+php artisan tenancy:install         # جداول المركز
+php artisan migrate --force         # مهاجرات المركز
+php artisan tenants:create --domain="tenant1.localhost"
+php artisan tenants:migrate --tenant=tenant1.localhost
 ```
 
-The frontend reads the selected connection via `VITE_BROADCAST_DRIVER` to initialize Echo.
+> **مهم:** تأكد أن `App\Providers\TenancyServiceProvider::class` مسجّل في `bootstrap/providers.php` وأن كل موديل متعدد المستأجرين يورّث `TenantModel`/Trait `BelongsToTenant`.
 
-## Module Scaffolding
-
-Generate a new module with migrations, models, bilingual translations, and tests via the Artisan command:
-
+### 3) البث اللحظي والصفوف
 ```bash
-php artisan module:make Blog
+php artisan horizon     # أو queue:work
+php artisan reverb:start  # إن استخدمت Reverb
 ```
 
-See [docs/module-scaffolding.md](docs/module-scaffolding.md) for details.
+### 4) تكوين البيئة (ENV)
+- **Broadcasting**: `BROADCAST_DRIVER=pusher` + مفاتيح `PUSHER_*` أو Reverb.
+- **Queue**: `QUEUE_CONNECTION=redis`, **Cache**: `redis`.
+- **Tenancy**: `TENANCY_BOOTSTRAP=true`, `TENANCY_CENTRAL_DOMAIN=cafeos.test`.
+- **Billing (Stripe/Paddle)**: `STRIPE_KEY`, `STRIPE_SECRET`, `CASHIER_*`…
+- **Mail/SMS**: إعدادات SMTP وSMS provider.
 
-## Additional Security Features
+### 5) بيانات أولية (اختياري)
+```bash
+php artisan db:seed        # أدوار افتراضية، Tenant demo، إلخ
+```
 
-- Append-only, hash-linked audit logging.
-- IP whitelist middleware to restrict access.
-- Basic TOTP-based MFA service.
-- Placeholder quantum-resistant encryption service using libsodium.
-- Configurable data retention policy.
+---
 
-## License
+## 📦 الموديولات الأساسية (حسب الأولوية)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### P0 — إطلاق المنصة
+- **Core**: Tenancy، RBAC، Feature Flags، EventBus، Health.
+- **SuperAdmin**: Module Manager per‑tenant، Impersonation، Audit.
+- **Billing**: Cashier + Plans + Webhooks + Enforcement.
+- **Pos**: Multi‑tender، Split/Merge، Taxes/Service/Fees، Printing، Shifts/XZ، Refund/Void، Offline‑first.
+- **Inventory**: UOM، Conversions، Recipes/BOM، COGS، Transfers/Stocktake.
+- **Kds**: Stations/Routes، State machine، Expo، SLA/Colors، Realtime.
+- **Reports**: X/Z + Daily Sales + Top SKUs + Discounts/Void.
+- **Dashboard**: KPIs تنفيذية + System Health.
+
+### P1 — تثبيت التشغيل ونمو الإيراد
+- **Procurement**، **Crm**، **Loyalty**، **QrOrdering**، **TableReservations**، **FloorPlanDesigner**، **Notifications** (مع Templates وPreference Center).
+
+### P2 — قيمة مضافة
+- **SelfServiceKiosk**، **Membership**، **Marketplace**، **FoodSafety**، **Training**، **Franchise**.
+
+### P3 — عموديّات ثقيلة
+- **EquipmentMonitoring/Maintenance/Leasing**، **EnergyTracking**، **Rentals**، **Jobs/HrJobs**، **EventManagement**، **HotelPms**، **ArVrMenu**.
+
+> كل موديول **BelongsToTenant** + سياسات وصول + موارد Filament للحوكمة.
+
+---
+
+## 💳 الفوترة والاشتراكات (Billing)
+- Cashier (Stripe/Paddle)، Webhooks، Dunning/Proration، Portal.
+- **Plan Enforcement**: فتح/غلق ميزات حسب الخطة (Feature Flags).
+- **Usage Metering**: Orders/Seats/Locations per‑tenant.
+- **Fiscalization** (اختياري): EG/KSA e‑Invoice + QR + تسلسل فواتير.
+
+---
+
+## 🖨️ الأجهزة والطباعة
+- **ESC/POS**: قوالب إيصال (RTL/QR) + Drawer kick.
+- **Printers Mapping**: مطبخ/إيصال/بار.
+- **Device Provisioning**: أكواد تسجيل، Heartbeat، Kiosk mode.
+- **Customer Display** (اختياري): سلة لحظية + Tips.
+
+---
+
+## 🌐 i18n & RTL
+- تغطية كاملة AR/EN، RTL + أرقام عربية، تنسيقات عملات/مناطق.
+- Localization Manager لاكتشاف المفاتيح الناقصة واستيراد/تصدير JSON.
+
+---
+
+## 🔒 الأمن والامتثال
+- MFA، Rate limiting، Security headers (CSP/HSTS/COOP/CORP)، Cookies آمنة.
+- سياسات صلاحيات دقيقة، Audit لا يُمكن التلاعب به (append‑only).
+- خصوصية/حذف/تصدير بيانات per‑tenant، DPA، Cookies consent.
+
+---
+
+## 📈 الأداء والمراقبة
+- ميزانيات أداء: إضافة صنف للسلة ≤ **50ms**، إغلاق بيع ≤ **2s**، طباعة ≤ **1s**.
+- Observability: Sentry + Tracing + Metrics (p95/p99، Errors/min).
+- صفحة **System Health**: DB/Queue/WebSockets/Scheduler مع توصيات إصلاح.
+
+---
+
+## 🧪 الاختبارات وCI/CD
+- **Pest/PHPUnit** (Feature/Unit/UI) + **Playwright/Cypress** (E2E).
+- GitHub Actions: Pint، PHPStan، Test، Build، Docker publish.
+- Zero‑downtime migrations + Blue/green أو Canary deploys.
+
+---
+
+## 🧭 خارطة الطريق (ملخّص)
+- P0 وP1 جاهزين للإنتاج. P2/P3 حسب السوق (ARPU/التوسّع القطاعي).
+- انظر `GAPS_V2.md` و`GAPS_V2_TASKS.json` لقوائم التنفيذ المفصّلة.
+
+---
+
+## 🙌 المساهمة (Contributing)
+1. افتح Issue بعنوان واضح وأولوية (P0–P3).
+2. اعمل فرعًا `feature/<scope>`، التزم بمعيار Conventional Commits.
+3. شغّل الاختبارات محليًا، وارفق لقطات/تسجيل قصير للواجهة عند الحاجة.
+4. افتح PR مع وصف، خطوات اختبار، وأثر الأداء/الأمن.
+
+---
+
+## 📜 الترخيص
+AGPL‑3.0 — استخدام حر، التعديلات المنشورة يجب أن تكون مفتوحة المصدر.
+
+---
+
+## 📞 الدعم
+- **مشاكل حرجة (Production)**: افتح Issue مع الوسم `priority:P0`.
+- **أسئلة عامة**: Discussions/Slack.
+- **عقود دعم/استضافة مُدارة**: راسلنا على `support@cafeos.example`.
+
+> لو احتجت **عرض ديمو** سريع: شغّل Seeders، فعّل Tenant demo، ثم افتح `tenant1.localhost` — استمتع. القعدة فرض… والمزاج سنة 😎
