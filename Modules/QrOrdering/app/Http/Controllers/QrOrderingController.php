@@ -15,7 +15,7 @@ class QrOrderingController extends Controller
     {
         $items = MenuItem::all();
 
-        return view('qr-ordering::menu', compact('items'));
+        return view('qrordering::menu', compact('items'));
     }
 
     public function placeOrder(Request $request)
