@@ -2,13 +2,12 @@
 
 namespace Modules\Inventory\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Concerns\BelongsToTenant;
 
-class InventoryItem extends Model
+class InventoryItem extends TenantModel
 {
-    use HasFactory, BelongsToTenant;
+    use HasFactory;
 
     protected $fillable = [
         'tenant_id',

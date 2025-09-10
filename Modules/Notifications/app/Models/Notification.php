@@ -2,13 +2,10 @@
 
 namespace Modules\Notifications\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Concerns\BelongsToTenant;
+use App\Models\TenantModel;
 
-class Notification extends Model
+class Notification extends TenantModel
 {
-    use BelongsToTenant;
-
     protected $table = 'notifications_inbox';
 
     protected $fillable = [
