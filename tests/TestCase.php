@@ -22,17 +22,11 @@ abstract class TestCase extends BaseTestCase
 
         $this->baseRefreshDatabase();
 
-        static $migrated = [];
-
         foreach (Module::allEnabled() as $module) {
-            if (! in_array($module->getName(), $migrated, true)) {
-                Artisan::call('migrate', [
-                    '--path' => $module->getPath().'/database/migrations',
-                    '--realpath' => true,
-                ]);
-
-                $migrated[] = $module->getName();
-            }
+            Artisan::call('migrate', [
+                '--path' => $module->getPath().'/database/migrations',
+                '--realpath' => true,
+            ]);
 
             $module->boot();
         }
