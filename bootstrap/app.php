@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Middleware\AuditWebhookSignature;
 use App\Http\Middleware\EnsureModuleEnabled;
 use App\Http\Middleware\InitializeTenancyByDomain;
 use App\Http\Middleware\SetSecurityHeaders;
 use App\Http\Middleware\SetUserLocale;
-use App\Http\Middleware\AuditWebhookSignature;
 use App\Providers\ModuleServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;

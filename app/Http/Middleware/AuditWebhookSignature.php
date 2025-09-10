@@ -33,4 +33,3 @@ class AuditWebhookSignature
         return $next($request);
     }
 }
-

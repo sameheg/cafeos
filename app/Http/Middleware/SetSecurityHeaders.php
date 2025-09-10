@@ -19,4 +19,3 @@ class SetSecurityHeaders
         return $response;
     }
 }
-

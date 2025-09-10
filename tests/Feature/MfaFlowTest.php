@@ -13,7 +13,7 @@ class MfaFlowTest extends TestCase
         config(['security.mfa.enabled' => true]);
 
         $user = User::factory()->create();
-        Cache::put('mfa_code_' . $user->id, '123456', now()->addMinutes(5));
+        Cache::put('mfa_code_'.$user->id, '123456', now()->addMinutes(5));
 
         $response = $this->actingAs($user)->postJson('/mfa/verify', ['code' => '123456']);
 
@@ -25,11 +25,10 @@ class MfaFlowTest extends TestCase
         config(['security.mfa.enabled' => true]);
 
         $user = User::factory()->create();
-        Cache::put('mfa_code_' . $user->id, '123456', now()->addMinutes(5));
+        Cache::put('mfa_code_'.$user->id, '123456', now()->addMinutes(5));
 
         $response = $this->actingAs($user)->postJson('/mfa/verify', ['code' => '000000']);
 
         $response->assertStatus(422);
     }
 }
-

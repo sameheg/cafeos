@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\DriverLocationController;
 use App\Http\Controllers\Auth\MfaController;
+use App\Http\Controllers\DriverLocationController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ShiftController;
 use Illuminate\Support\Facades\Route;

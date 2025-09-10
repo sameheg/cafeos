@@ -60,7 +60,6 @@ class MfaController extends Controller
 
     private function cacheKey(int $userId): string
     {
-        return 'mfa_code_' . $userId;
+        return 'mfa_code_'.$userId;
     }
 }
-
