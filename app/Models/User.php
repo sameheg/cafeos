@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 use App\Support\NotifiesWithLocale;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -70,5 +71,15 @@ class User extends Authenticatable
     public function getPermissionsTeamId(): int|string|null
     {
         return $this->tenant_id;
+    }
+
+    public function purchaseHistories(): HasMany
+    {
+        return $this->hasMany(PurchaseHistory::class);
+    }
+
+    public function preferences(): HasMany
+    {
+        return $this->hasMany(CustomerPreference::class);
     }
 }
