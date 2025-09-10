@@ -2,11 +2,11 @@
 
 namespace Modules\Procurement\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 
-class PurchaseOrder extends Model
+class PurchaseOrder extends TenantModel
 {
-    protected $fillable = ['supplier_id', 'status', 'items'];
+    protected $fillable = ['tenant_id', 'supplier_id', 'status', 'items'];
 
     protected $casts = [
         'items' => 'array',

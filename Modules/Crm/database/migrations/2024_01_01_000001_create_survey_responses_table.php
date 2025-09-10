@@ -9,11 +9,14 @@ return new class extends Migration {
     {
         Schema::create('survey_responses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->unsignedBigInteger('survey_id');
             $table->unsignedBigInteger('branch_id');
             $table->unsignedTinyInteger('rating');
             $table->text('comment')->nullable();
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

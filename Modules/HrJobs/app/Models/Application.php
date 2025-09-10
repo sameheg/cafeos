@@ -2,12 +2,13 @@
 
 namespace Modules\HrJobs\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Application extends Model
+class Application extends TenantModel
 {
     protected $fillable = [
+        'tenant_id',
         'job_id',
         'member_profile_id',
         'resume',

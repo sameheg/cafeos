@@ -2,14 +2,15 @@
 
 namespace Modules\EquipmentMonitoring\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Device extends Model
+class Device extends TenantModel
 {
     use HasFactory;
 
     protected $fillable = [
+        'tenant_id',
         'name',
         'location',
         'temperature_threshold',

@@ -9,10 +9,13 @@ return new class extends Migration {
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->foreignId('supplier_id')->constrained('suppliers');
             $table->string('status')->default('pending');
             $table->json('items');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

@@ -9,10 +9,13 @@ return new class extends Migration {
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->string('name');
             $table->string('location')->nullable();
             $table->float('temperature_threshold');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

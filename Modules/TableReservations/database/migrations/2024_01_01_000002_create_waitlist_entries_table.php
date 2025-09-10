@@ -9,11 +9,14 @@ return new class extends Migration {
     {
         Schema::create('waitlist_entries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->string('customer_name');
             $table->string('phone');
             $table->integer('party_size');
             $table->string('status');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

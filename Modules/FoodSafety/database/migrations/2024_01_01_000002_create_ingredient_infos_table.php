@@ -10,10 +10,13 @@ return new class extends Migration
     {
         Schema::create('ingredient_infos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->unsignedBigInteger('inventory_item_id');
             $table->date('expiry_date')->nullable();
             $table->json('allergens')->nullable();
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

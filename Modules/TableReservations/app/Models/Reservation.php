@@ -2,11 +2,11 @@
 
 namespace Modules\TableReservations\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 
-class Reservation extends Model
+class Reservation extends TenantModel
 {
-    protected $fillable = ['table_id', 'customer_name', 'phone', 'reservation_time', 'status'];
+    protected $fillable = ['tenant_id', 'table_id', 'customer_name', 'phone', 'reservation_time', 'status'];
 
     public function table()
     {

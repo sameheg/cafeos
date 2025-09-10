@@ -9,11 +9,14 @@ return new class extends Migration {
     {
         Schema::create('kitchen_tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('station_id')->nullable()->constrained('kitchen_stations');
             $table->enum('status', ['pending', 'cooking', 'ready'])->default('pending');
             $table->boolean('approved')->default(false);
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

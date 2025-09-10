@@ -2,10 +2,10 @@
 
 namespace Modules\Procurement\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 
-class Supplier extends Model
+class Supplier extends TenantModel
 {
-    protected $fillable = ['name', 'contact'];
+    protected $fillable = ['tenant_id', 'name', 'contact'];
 }
 

@@ -10,12 +10,14 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->foreignId('job_id')->constrained('hr_jobs')->cascadeOnDelete();
             $table->foreignId('member_profile_id')->constrained('member_profiles');
             $table->string('resume')->nullable();
             $table->string('status')->default('submitted');
             $table->timestamps();
             $table->index('job_id');
+            $table->index('tenant_id');
         });
     }
 

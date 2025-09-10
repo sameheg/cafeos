@@ -9,12 +9,15 @@ return new class extends Migration {
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->foreignId('table_id')->constrained('tables')->onDelete('cascade');
             $table->string('customer_name');
             $table->string('phone');
             $table->timestamp('reservation_time');
             $table->string('status');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 
