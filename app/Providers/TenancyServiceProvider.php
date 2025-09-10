@@ -107,6 +107,7 @@ class TenancyServiceProvider extends ServiceProvider
         $this->mapRoutes();
 
         $this->makeTenancyMiddlewareHighestPriority();
+        $this->loadMigrationsFrom(database_path('migrations/central'));
     }
 
     protected function bootEvents()

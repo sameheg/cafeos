@@ -23,6 +23,10 @@ class FoodSafetyServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($modulePath.'resources/lang', 'foodsafety');
         }
 
+        if (is_dir($modulePath.'database/migrations')) {
+            $this->loadMigrationsFrom($modulePath.'database/migrations');
+        }
+
         if (file_exists($modulePath.'routes/web.php')) {
             $this->loadRoutesFrom($modulePath.'routes/web.php');
         }

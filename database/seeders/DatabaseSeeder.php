@@ -15,14 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         DB::table('tenants')->insert([
             'id' => 1,
-            'name' => 'Test Tenant',
+            'name' => json_encode([
+                'en' => 'Test Tenant',
+                'ar' => 'مستأجر تجريبي',
+            ]),
+            'domain' => 'tenant.test',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        $tenant = new Tenant(['id' => 1, 'name' => 'Test Tenant']);
+        $tenant = Tenant::find(1);
         app()->instance(TenantContract::class, $tenant);
 
         $this->call([
