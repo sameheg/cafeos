@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AuditWebhookSignature;
 use App\Http\Middleware\EnsureModuleEnabled;
+use App\Http\Middleware\ETagMiddleware;
 use App\Http\Middleware\InitializeTenancyByDomain;
 use App\Http\Middleware\PrometheusMetricsMiddleware;
 use App\Http\Middleware\SetSecurityHeaders;
@@ -29,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->append(PrometheusMetricsMiddleware::class);
         $middleware->append(SetUserLocale::class);
+        $middleware->append(ETagMiddleware::class);
         $middleware->append(SetSecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

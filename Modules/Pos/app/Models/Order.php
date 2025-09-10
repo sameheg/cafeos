@@ -7,6 +7,7 @@ use App\Models\TenantModel;
 use App\Support\CurrencyFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Pos\Events\OrderCacheInvalidated;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
@@ -35,6 +36,12 @@ class Order extends TenantModel implements Auditable
     ];
 
     protected array $preload = ['menuItems'];
+
+    protected $dispatchesEvents = [
+        'created' => OrderCacheInvalidated::class,
+        'updated' => OrderCacheInvalidated::class,
+        'deleted' => OrderCacheInvalidated::class,
+    ];
 
     public function tenant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

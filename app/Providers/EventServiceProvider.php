@@ -3,8 +3,16 @@
 namespace App\Providers;
 
 use App\Events\AttendanceRecorded;
+use App\Listeners\InvalidateInventoryCache;
+use App\Listeners\InvalidateOrderCache;
+use App\Listeners\RecordCacheHit;
+use App\Listeners\RecordCacheMiss;
 use App\Listeners\SendAttendanceToPayroll;
+use Illuminate\Cache\Events\CacheHit;
+use Illuminate\Cache\Events\CacheMissed;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Modules\Inventory\Events\InventoryCacheInvalidated;
+use Modules\Pos\Events\OrderCacheInvalidated;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -16,6 +24,18 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         AttendanceRecorded::class => [
             SendAttendanceToPayroll::class,
+        ],
+        CacheHit::class => [
+            RecordCacheHit::class,
+        ],
+        CacheMissed::class => [
+            RecordCacheMiss::class,
+        ],
+        OrderCacheInvalidated::class => [
+            InvalidateOrderCache::class,
+        ],
+        InventoryCacheInvalidated::class => [
+            InvalidateInventoryCache::class,
         ],
     ];
 
