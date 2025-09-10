@@ -7,6 +7,7 @@ use Prometheus\CollectorRegistry;
 use Prometheus\Storage\InMemory;
 use Prometheus\Storage\Redis as RedisStorage;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class PrometheusMetricsMiddleware
 {
@@ -18,14 +19,20 @@ class PrometheusMetricsMiddleware
             return $this->registry;
         }
 
-        if (extension_loaded('redis')) {
-            $config = config('database.redis.default');
-            $adapter = new RedisStorage([
-                'host' => $config['host'] ?? '127.0.0.1',
-                'port' => $config['port'] ?? 6379,
-                'password' => $config['password'] ?? null,
-                'database' => $config['database'] ?? 0,
-            ]);
+        $driver = config('services.prometheus_storage', 'memory');
+
+        if ($driver === 'redis' && extension_loaded('redis')) {
+            try {
+                $config = config('database.redis.default');
+                $adapter = new RedisStorage([
+                    'host' => $config['host'] ?? '127.0.0.1',
+                    'port' => $config['port'] ?? 6379,
+                    'password' => $config['password'] ?? null,
+                    'database' => $config['database'] ?? 0,
+                ]);
+            } catch (Throwable $e) {
+                $adapter = new InMemory;
+            }
         } else {
             $adapter = new InMemory;
         }

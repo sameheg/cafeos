@@ -16,7 +16,10 @@ class ModuleContentTest extends TestCase
     public function test_index_page_shows_module_name(string $path, string $name): void
     {
         $this->withoutMiddleware([SetUserLocale::class]);
-        $user = User::factory()->create(['tenant_id' => 1]);
+        $user = User::factory()->create([
+            'tenant_id' => 1,
+            'email_verified_at' => now(),
+        ]);
         $response = $this->actingAs($user)->get($path);
         $response->assertSee("Module: {$name}");
     }
