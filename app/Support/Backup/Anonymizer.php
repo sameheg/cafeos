@@ -23,7 +23,7 @@ class Anonymizer
     /**
      * Anonymize sensitive fields for a single record.
      *
-     * @param array<string, mixed> $record
+     * @param  array<string, mixed>  $record
      * @return array<string, mixed>
      */
     public function anonymize(array $record): array
@@ -35,6 +35,7 @@ class Anonymizer
 
             if ($field === 'email') {
                 $record[$field] = Str::random(10).'@example.com';
+
                 continue;
             }
 
