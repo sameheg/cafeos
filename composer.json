@@ -31,9 +31,9 @@
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
+        "larastan/larastan": "^3",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "nunomaduro/larastan": "^3",
         "pestphp/pest": "^3.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
@@ -47,7 +47,8 @@
             "Modules\\": "Modules/"
         },
         "files": [
-            "app/Support/Features.php"
+            "app/Support/Features.php",
+            "app/Support/Secrets.php"
         ]
     },
     "autoload-dev": {

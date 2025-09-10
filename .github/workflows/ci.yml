@@ -27,6 +27,10 @@ jobs:
         run: composer install --no-interaction --prefer-dist
       - name: Install Node dependencies
         run: npm ci
+      - name: Composer audit
+        run: composer audit --locked --no-interaction
+      - name: NPM audit
+        run: npm audit --audit-level=high
       - name: Run Pint
         run: vendor/bin/pint --test
       - name: Run PHPStan
@@ -37,6 +41,13 @@ jobs:
         run: php artisan lang:check
       - name: Build assets
         run: npm run build
+      - name: Scan Docker image
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: php:8.3-fpm
+          exit-code: '1'
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
       - name: Run migrations
         run: php artisan migrate --force
       - name: Run Pest
