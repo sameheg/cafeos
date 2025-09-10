@@ -9,27 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Concerns\BelongsToTenant;
 
 class Order extends Model implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
     use AuditableTrait;
-
-    protected static function booted(): void
-    {
-        static::addGlobalScope('tenant', function ($q): void {
-            if (app()->bound('tenant')) {
-                $q->where('tenant_id', tenant('id'));
-            }
-        });
-
-        static::creating(function (self $order): void {
-            if (app()->bound('tenant')) {
-                $order->tenant_id ??= tenant('id');
-            }
-        });
-    }
+    use BelongsToTenant;
 
     /**
      * The attributes that are mass assignable.

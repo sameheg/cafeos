@@ -20,7 +20,6 @@ class JobController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $data['tenant_id'] = $request->user()->tenant_id ?? null;
         $data['status'] = 'open';
 
         return Job::create($data);

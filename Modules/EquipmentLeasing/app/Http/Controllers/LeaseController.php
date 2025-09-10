@@ -18,7 +18,6 @@ class LeaseController extends Controller
     public function store(Request $request, InventoryServiceInterface $inventory)
     {
         $data = $request->validate([
-            'tenant_id' => ['required', 'integer'],
             'product_id' => ['required', 'integer', 'exists:marketplace_products,id'],
             'quantity' => ['required', 'integer', 'min:1'],
             'schedule' => ['nullable', 'array'],
@@ -30,7 +29,6 @@ class LeaseController extends Controller
         $total = $product->price * $data['quantity'];
 
         $lease = LeaseContract::create([
-            'tenant_id' => $data['tenant_id'],
             'product_id' => $product->id,
             'quantity' => $data['quantity'],
             'schedule' => $data['schedule'] ?? [],

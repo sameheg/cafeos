@@ -16,7 +16,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tenant_id' => ['required','integer'],
             'inventory_item_id' => ['required','integer'],
             'vendor_id' => ['required','integer'],
             'price' => ['required','numeric'],

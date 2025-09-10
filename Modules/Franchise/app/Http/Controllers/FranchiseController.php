@@ -18,7 +18,6 @@ class FranchiseController extends Controller
         $user = $request->user();
 
         $data = $request->validate([
-            'tenant_id' => ['required', 'integer'],
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
             'fee' => ['nullable', 'numeric'],

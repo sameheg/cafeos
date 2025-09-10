@@ -30,7 +30,6 @@ class PosController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tenant_id' => ['required', 'integer'],
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
         ]);

@@ -11,7 +11,6 @@ class MaintenanceLogController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tenant_id' => 'required|integer',
             'equipment_id' => 'required|integer',
             'performed_at' => 'required|date',
             'notes' => 'nullable|string',

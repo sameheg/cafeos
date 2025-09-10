@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Pos\Tests\Feature;
+namespace Modules\Pos\Tests\Feature {
 
 use Tests\TestCase;
 use Modules\Pos\Models\MenuItem;
@@ -8,6 +8,7 @@ use App\Http\Middleware\InitializeTenancyByDomain;
 use App\Http\Middleware\SetUserLocale;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Tenant;
 
 class PosControllerTest extends TestCase
 {
@@ -23,12 +24,13 @@ class PosControllerTest extends TestCase
 
         $user = User::factory()->create(['tenant_id' => 1]);
         $this->actingAs($user);
+
+        app()->instance('tenant', new Tenant(['id' => 1]));
     }
 
     public function test_store_creates_menu_item(): void
     {
         $response = $this->postJson('/pos', [
-            'tenant_id' => 1,
             'name' => 'Coffee',
             'price' => 3.5,
         ]);
@@ -45,7 +47,6 @@ class PosControllerTest extends TestCase
     public function test_update_updates_menu_item(): void
     {
         $item = MenuItem::create([
-            'tenant_id' => 1,
             'name' => 'Tea',
             'price' => 2.0,
         ]);
@@ -68,7 +69,6 @@ class PosControllerTest extends TestCase
     public function test_destroy_deletes_menu_item(): void
     {
         $item = MenuItem::create([
-            'tenant_id' => 1,
             'name' => 'Cake',
             'price' => 4.0,
         ]);
@@ -81,4 +81,4 @@ class PosControllerTest extends TestCase
         $this->assertSoftDeleted('menu_items', ['id' => $item->id]);
     }
 }
-
+}

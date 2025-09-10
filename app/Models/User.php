@@ -10,11 +10,12 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 use App\Support\NotifiesWithLocale;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\BelongsToTenant;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasTranslations, NotifiesWithLocale;
+    use HasFactory, Notifiable, HasRoles, HasTranslations, NotifiesWithLocale, BelongsToTenant;
 
     /**
      * The attributes that are translatable.
@@ -57,15 +58,6 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    protected static function booted(): void
-    {
-        static::addGlobalScope('tenant', function ($q) {
-            if (tenant()) {
-                $q->where('tenant_id', tenant('id'));
-            }
-        });
     }
 
     public function getPermissionsTeamId(): int|string|null

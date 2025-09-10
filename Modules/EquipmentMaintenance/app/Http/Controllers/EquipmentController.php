@@ -11,7 +11,6 @@ class EquipmentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tenant_id' => 'required|integer',
             'name' => 'required|string',
             'serial_number' => 'nullable|string',
             'description' => 'nullable|string',

@@ -1,18 +1,6 @@
 <?php
 
-namespace App\Support {
-    if (! function_exists(__NAMESPACE__ . '\\tenant')) {
-        function tenant($key = null) {
-            $tenant = \Tests\Unit\CurrencyFormatterTenantContext::$tenant;
-            if (! $tenant) {
-                return null;
-            }
-            return $key ? $tenant->{$key} : $tenant;
-        }
-    }
-}
-
-namespace Tests\Unit {
+namespace Tests\Unit;
 
 use App\Models\Tenant;
 use App\Support\CurrencyFormatter;
@@ -21,24 +9,17 @@ use Modules\Pos\Models\Order;
 use NumberFormatter;
 use Tests\TestCase;
 
-class CurrencyFormatterTenantContext
-{
-    public static ?Tenant $tenant = null;
-}
-
 class CurrencyFormatterTest extends TestCase
 {
     protected function tearDown(): void
     {
         parent::tearDown();
-        CurrencyFormatterTenantContext::$tenant = null;
         app()->forgetInstance('tenant');
     }
 
     public function test_it_uses_tenant_currency_when_available(): void
     {
-        $tenant = new Tenant(['id' => 1, 'currency' => 'EUR']);
-        CurrencyFormatterTenantContext::$tenant = $tenant;
+        app()->instance('tenant', new Tenant(['id' => 1, 'currency' => 'EUR']));
 
         $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::CURRENCY);
 
@@ -62,7 +43,7 @@ class CurrencyFormatterTest extends TestCase
 
     public function test_it_falls_back_to_app_currency_when_tenant_not_available(): void
     {
-        CurrencyFormatterTenantContext::$tenant = null;
+        app()->forgetInstance('tenant');
         config(['app.currency' => 'USD']);
 
         $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::CURRENCY);
@@ -72,6 +53,4 @@ class CurrencyFormatterTest extends TestCase
             CurrencyFormatter::format(10)
         );
     }
-}
-
 }

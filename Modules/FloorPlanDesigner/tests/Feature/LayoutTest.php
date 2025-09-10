@@ -1,12 +1,13 @@
 <?php
 
-namespace Modules\FloorPlanDesigner\Tests\Feature;
+namespace Modules\FloorPlanDesigner\Tests\Feature {
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Modules\FloorPlanDesigner\Events\FloorLayoutUpdated;
 use Modules\FloorPlanDesigner\Providers\FloorPlanDesignerServiceProvider;
 use Tests\TestCase;
+use App\Models\Tenant;
 
 class LayoutTest extends TestCase
 {
@@ -18,6 +19,8 @@ class LayoutTest extends TestCase
         $this->app->register(FloorPlanDesignerServiceProvider::class);
         $this->artisan('migrate', ['--path' => 'Modules/FloorPlanDesigner/database/migrations']);
         $this->withoutMiddleware();
+
+        app()->instance('tenant', new Tenant(['id' => 1]));
     }
 
     public function test_layout_can_be_saved()
@@ -30,4 +33,4 @@ class LayoutTest extends TestCase
         Event::assertDispatched(FloorLayoutUpdated::class);
     }
 }
-
+}

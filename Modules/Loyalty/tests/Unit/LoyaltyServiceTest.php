@@ -17,6 +17,8 @@ class LoyaltyServiceTest extends TestCase
     {
         parent::setUp();
         $this->app->register(LoyaltyServiceProvider::class);
+        $this->artisan('migrate', ['--path' => 'Modules/Loyalty/database/migrations']);
+        app()->forgetInstance('tenant');
     }
 
     public function test_it_applies_tier_multiplier(): void

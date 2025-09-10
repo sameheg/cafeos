@@ -19,7 +19,6 @@ class KioskOrderController extends Controller
         $queueNumber = (int) Order::max('queue_number') + 1;
 
         $order = Order::create([
-            'tenant_id' => tenant('id'),
             'total' => $data['total'],
             'status' => 'pending',
             'order_type' => $data['order_type'],
