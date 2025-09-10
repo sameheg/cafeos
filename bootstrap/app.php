@@ -5,6 +5,7 @@ use App\Http\Middleware\EnsureModuleEnabled;
 use App\Http\Middleware\InitializeTenancyByDomain;
 use App\Http\Middleware\SetSecurityHeaders;
 use App\Http\Middleware\SetUserLocale;
+use App\Http\Middleware\PrometheusMetricsMiddleware;
 use App\Providers\ModuleServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -26,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'module' => EnsureModuleEnabled::class,
             'webhook.signed' => AuditWebhookSignature::class,
         ]);
+        $middleware->append(PrometheusMetricsMiddleware::class);
         $middleware->append(SetUserLocale::class);
         $middleware->append(SetSecurityHeaders::class);
     })

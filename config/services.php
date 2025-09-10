@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'ws' => [
+        'health_url' => env('WS_HEALTH_URL'),
+    ],
+
 ];
