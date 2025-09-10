@@ -1,35 +1,41 @@
 # CRM Module
 
 ## Overview
-Customer management, surveys, segmentation.
+Tracks customer profiles, feedback, and segmentation for targeted marketing.
 
 ## Features
-- Core functional features of CRM.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Customer profile management with notes and tags.
+- Survey and feedback collection.
+- Segmentation for campaigns and loyalty programs.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Loyalty
+- Notifications
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[CRM] --> B[EventBus]
-  B --> C[Reports]
+  POS --> CRM
+  CRM --> Notifications
+  CRM --> Reports
 ```
-- Example workflow for CRM.
+Describes key data flows.
+
+## API
+- `GET /api/crm/customers` – List customer profiles.
+- `POST /api/crm/segments` – Create a new marketing segment.
+
+## Examples
+```bash
+curl /api/crm/customers?segment=vip
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Crm](../resources/js/Modules/Crm)
 
-## Missing Items
-- [ ] Add automated tests for CRM.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Implement GDPR export tools (issue #206).
 
 ## Future Enhancements
-- Extend CRM with AI-driven analytics and marketplace hooks.
+- Predictive churn analysis.

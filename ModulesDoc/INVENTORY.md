@@ -1,35 +1,41 @@
 # Inventory Module
 
 ## Overview
-Stock, products, recipes, BOM, cost tracking.
+Tracks stock levels, batches, and reorder workflows across locations.
 
 ## Features
-- Core functional features of Inventory.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- SKU and batch tracking with expirations.
+- Automatic reorder triggers.
+- Stock movement auditing.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Procurement
+- POS
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Inventory] --> B[EventBus]
-  B --> C[Reports]
+  Procurement --> Inventory
+  Inventory --> POS
+  POS --> Reports
 ```
-- Example workflow for Inventory.
+Describes key data flows.
+
+## API
+- `GET /api/inventory/items` – Retrieve inventory items.
+- `POST /api/inventory/adjust` – Adjust stock levels.
+
+## Examples
+```bash
+curl -X POST /api/inventory/adjust -d 'sku=123&qty=-1'
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Inventory](../resources/js/Modules/Inventory)
 
-## Missing Items
-- [ ] Add automated tests for Inventory.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Add barcode scanning support (issue #212).
 
 ## Future Enhancements
-- Extend Inventory with AI-driven analytics and marketplace hooks.
+- Supplier lead-time forecasting.

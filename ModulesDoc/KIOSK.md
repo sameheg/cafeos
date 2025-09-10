@@ -1,35 +1,40 @@
 # Kiosk Module
 
 ## Overview
-Self-service ordering & payment kiosks.
+Self-service ordering kiosk for in-store customers.
 
 ## Features
-- Core functional features of Kiosk.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Customizable menu layouts.
+- Support for cashless payments.
+- Order status display with QR receipts.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- POS
+- Inventory
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Kiosk] --> B[EventBus]
-  B --> C[Reports]
+  Customer --> Kiosk
+  Kiosk --> POS
+  POS --> Inventory
 ```
-- Example workflow for Kiosk.
+Describes key data flows.
+
+## API
+- `POST /api/kiosk/orders` – Create order from kiosk.
+
+## Examples
+```bash
+curl -X POST /api/kiosk/orders -d 'item_id=1'
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/QrOrdering](../resources/js/Modules/QrOrdering)
 
-## Missing Items
-- [ ] Add automated tests for Kiosk.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Implement accessibility features (issue #215).
 
 ## Future Enhancements
-- Extend Kiosk with AI-driven analytics and marketplace hooks.
+- Facial recognition for loyalty lookup.

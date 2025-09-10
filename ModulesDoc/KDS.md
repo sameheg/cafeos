@@ -1,35 +1,40 @@
 # KDS Module
 
 ## Overview
-Kitchen Display System for real-time order queueing.
+Kitchen display system for managing and prioritizing orders.
 
 ## Features
-- Core functional features of KDS.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Real-time order queue from POS.
+- Color-coded prep timers.
+- Bump and recall actions.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- POS
+- Notifications
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[KDS] --> B[EventBus]
-  B --> C[Reports]
+  POS --> KDS
+  KDS --> Notifications
+  KDS --> Reports
 ```
-- Example workflow for KDS.
+Describes key data flows.
+
+## API
+- `GET /api/kds/orders` – Get open kitchen orders.
+
+## Examples
+```js
+const orders = await fetch('/api/kds/orders').then(r=>r.json());
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Kds](../resources/js/Modules/Kds)
 
-## Missing Items
-- [ ] Add automated tests for KDS.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Add touchscreen gesture support (issue #214).
 
 ## Future Enhancements
-- Extend KDS with AI-driven analytics and marketplace hooks.
+- Voice-controlled updates.

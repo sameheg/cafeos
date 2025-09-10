@@ -1,35 +1,39 @@
 # Marketplace Module
 
 ## Overview
-App store & third-party integrations.
+Connects cafes with third-party vendors for supplies and integrations.
 
 ## Features
-- Core functional features of Marketplace.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Vendor listing and rating.
+- Plugin marketplace with one-click installs.
+- Revenue sharing and billing integration.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Billing
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Marketplace] --> B[EventBus]
-  B --> C[Reports]
+  Vendor --> Marketplace
+  Marketplace --> Billing
+  Marketplace --> Modules
 ```
-- Example workflow for Marketplace.
+Describes key data flows.
+
+## API
+- `GET /api/marketplace/vendors` – List available vendors.
+
+## Examples
+```bash
+curl /api/marketplace/vendors
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Marketplace](../resources/js/Modules/Marketplace)
 
-## Missing Items
-- [ ] Add automated tests for Marketplace.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Implement vendor onboarding flow (issue #217).
 
 ## Future Enhancements
-- Extend Marketplace with AI-driven analytics and marketplace hooks.
+- In-app purchases.

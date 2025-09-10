@@ -1,35 +1,39 @@
 # Energy Module
 
 ## Overview
-Energy consumption tracking & alerts.
+Monitors energy consumption and generates alerts for abnormal usage.
 
 ## Features
-- Core functional features of Energy.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Collects meter readings from IoT devices.
+- Compares usage against benchmarks.
+- Sends notifications when thresholds are exceeded.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Notifications
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Energy] --> B[EventBus]
-  B --> C[Reports]
+  Sensors --> Energy
+  Energy --> Notifications
+  Energy --> Reports
 ```
-- Example workflow for Energy.
+Describes key data flows.
+
+## API
+- `POST /api/energy/readings` – Submit a new energy reading.
+
+## Examples
+```bash
+curl -X POST /api/energy/readings -d 'kwh=15'
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules](../resources/js/Modules)
 
-## Missing Items
-- [ ] Add automated tests for Energy.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Design Vue components for energy charts (issue #208).
 
 ## Future Enhancements
-- Extend Energy with AI-driven analytics and marketplace hooks.
+- Carbon footprint analytics.
