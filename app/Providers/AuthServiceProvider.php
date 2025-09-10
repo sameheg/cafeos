@@ -3,12 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Models\Tenant;
-use Modules\Core\Models\Role;
-use Modules\Core\Models\Permission;
-use App\Policies\TenantPolicy;
-use App\Policies\RolePolicy;
-use App\Policies\PermissionPolicy;
+use Illuminate\Support\Facades\Gate;
+use Modules\Core\Policies\BasePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,11 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array<class-string, class-string>
      */
-    protected $policies = [
-        Tenant::class => TenantPolicy::class,
-        Role::class => RolePolicy::class,
-        Permission::class => PermissionPolicy::class,
-    ];
+    protected $policies = [];
 
     /**
      * Register any authentication / authorization services.
@@ -29,5 +21,22 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+        $this->registerModulePolicies();
+    }
+
+    protected function registerModulePolicies(): void
+    {
+        foreach (glob(base_path('Modules/*/Policies/*Policy.php')) as $policyPath) {
+            if (basename($policyPath) === 'BasePolicy.php') {
+                continue;
+            }
+
+            $module = basename(dirname(dirname($policyPath)));
+            $policyClass = 'Modules\\' . $module . '\\Policies\\' . basename($policyPath, '.php');
+
+            if (method_exists($policyClass, 'modelClass')) {
+                Gate::policy($policyClass::modelClass(), $policyClass);
+            }
+        }
     }
 }

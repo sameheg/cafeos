@@ -22,16 +22,25 @@ class RolesAndPermissionsSeeder extends Seeder
                 Permission::firstOrCreate([
                     'name' => $permission,
                     'guard_name' => 'web',
+                    'tenant_id' => tenant('id'),
                 ]);
             }
             $allPermissions = array_merge($allPermissions, $permissions);
         }
 
-        $manager = Role::firstOrCreate(['name' => 'Manager', 'guard_name' => 'web']);
+        $manager = Role::firstOrCreate([
+            'name' => 'Manager',
+            'guard_name' => 'web',
+            'tenant_id' => tenant('id'),
+        ]);
         $manager->givePermissionTo($allPermissions);
 
         foreach (['Cashier', 'Waiter', 'Chef', 'Delivery'] as $role) {
-            Role::firstOrCreate(['name' => $role, 'guard_name' => 'web']);
+            Role::firstOrCreate([
+                'name' => $role,
+                'guard_name' => 'web',
+                'tenant_id' => tenant('id'),
+            ]);
         }
     }
 }
