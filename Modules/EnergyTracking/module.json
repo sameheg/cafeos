@@ -1,0 +1,11 @@
+{
+    "name": "EnergyTracking",
+    "alias": "energytracking",
+    "description": "Track energy consumption per equipment.",
+    "keywords": ["energy", "equipment"],
+    "priority": 0,
+    "providers": [
+        "Modules\\EnergyTracking\\Providers\\EnergyTrackingServiceProvider"
+    ],
+    "files": []
+}
