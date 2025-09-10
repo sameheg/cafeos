@@ -17,7 +17,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       - name: Install Node dependencies
         run: npm ci
       - name: Composer audit
