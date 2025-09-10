@@ -3,7 +3,7 @@
 namespace App\Support {
     if (! function_exists(__NAMESPACE__ . '\\tenant')) {
         function tenant($key = null) {
-            $tenant = \Tests\Unit\PayrollServiceTenantContext::$tenant;
+            $tenant = \Tests\Unit\CurrencyFormatterTenantContext::$tenant;
             if (! $tenant) {
                 return null;
             }
@@ -20,9 +20,11 @@ use App\Services\PayrollService;
 use NumberFormatter;
 use Tests\TestCase;
 
-class PayrollServiceTenantContext
-{
-    public static ?Tenant $tenant = null;
+if (! class_exists(CurrencyFormatterTenantContext::class)) {
+    class CurrencyFormatterTenantContext
+    {
+        public static ?Tenant $tenant = null;
+    }
 }
 
 class PayrollServiceTest extends TestCase
@@ -30,14 +32,14 @@ class PayrollServiceTest extends TestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        PayrollServiceTenantContext::$tenant = null;
+        CurrencyFormatterTenantContext::$tenant = null;
         app()->forgetInstance('tenant');
     }
 
     public function test_calculates_wages_generates_report_and_exports_csv_with_tenant_currency(): void
     {
         $tenant = new Tenant(['id' => 1, 'currency' => 'EUR']);
-        PayrollServiceTenantContext::$tenant = $tenant;
+        CurrencyFormatterTenantContext::$tenant = $tenant;
 
         $attendances = [
             new Attendance(['clock_in' => '2024-01-01 08:00', 'clock_out' => '2024-01-01 12:00']),
