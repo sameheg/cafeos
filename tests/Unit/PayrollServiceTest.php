@@ -1,18 +1,6 @@
 <?php
 
-namespace App\Support {
-    if (! function_exists(__NAMESPACE__ . '\\tenant')) {
-        function tenant($key = null) {
-            $tenant = \Tests\Unit\CurrencyFormatterTenantContext::$tenant;
-            if (! $tenant) {
-                return null;
-            }
-            return $key ? $tenant->{$key} : $tenant;
-        }
-    }
-}
-
-namespace Tests\Unit {
+namespace Tests\Unit;
 
 use App\Models\Attendance;
 use App\Models\Tenant;
@@ -20,26 +8,17 @@ use App\Services\PayrollService;
 use NumberFormatter;
 use Tests\TestCase;
 
-if (! class_exists(CurrencyFormatterTenantContext::class)) {
-    class CurrencyFormatterTenantContext
-    {
-        public static ?Tenant $tenant = null;
-    }
-}
-
 class PayrollServiceTest extends TestCase
 {
     protected function tearDown(): void
     {
         parent::tearDown();
-        CurrencyFormatterTenantContext::$tenant = null;
         app()->forgetInstance('tenant');
     }
 
     public function test_calculates_wages_generates_report_and_exports_csv_with_tenant_currency(): void
     {
-        $tenant = new Tenant(['id' => 1, 'currency' => 'EUR']);
-        CurrencyFormatterTenantContext::$tenant = $tenant;
+        app()->instance('tenant', new Tenant(['id' => 1, 'currency' => 'EUR']));
 
         $attendances = [
             new Attendance(['clock_in' => '2024-01-01 08:00', 'clock_out' => '2024-01-01 12:00']),
@@ -59,6 +38,3 @@ class PayrollServiceTest extends TestCase
         $this->assertSame("hours,wage\n7.5,80\n", $csv);
     }
 }
-
-}
-

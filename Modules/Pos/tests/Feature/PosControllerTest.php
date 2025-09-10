@@ -1,17 +1,5 @@
 <?php
 
-namespace {
-    if (! function_exists('tenant')) {
-        function tenant($key = null) {
-            $tenant = \Modules\Pos\Tests\Feature\TenantContext::$tenant ?? null;
-            if (! $tenant) {
-                return null;
-            }
-            return $key ? $tenant->{$key} : $tenant;
-        }
-    }
-}
-
 namespace Modules\Pos\Tests\Feature {
 
 use Tests\TestCase;
@@ -21,11 +9,6 @@ use App\Http\Middleware\SetUserLocale;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Tenant;
-
-class TenantContext
-{
-    public static ?Tenant $tenant = null;
-}
 
 class PosControllerTest extends TestCase
 {
@@ -42,8 +25,7 @@ class PosControllerTest extends TestCase
         $user = User::factory()->create(['tenant_id' => 1]);
         $this->actingAs($user);
 
-        TenantContext::$tenant = new Tenant(['id' => 1]);
-        app()->instance('tenant', TenantContext::$tenant);
+        app()->instance('tenant', new Tenant(['id' => 1]));
     }
 
     public function test_store_creates_menu_item(): void

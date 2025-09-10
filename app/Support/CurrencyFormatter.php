@@ -10,15 +10,8 @@ class CurrencyFormatter
     {
         $currency = config('app.currency', 'USD');
 
-        $tenantGetter = null;
-        if (function_exists(__NAMESPACE__ . '\\tenant')) {
-            $tenantGetter = __NAMESPACE__ . '\\tenant';
-        } elseif (function_exists('tenant')) {
-            $tenantGetter = 'tenant';
-        }
-
-        if ($tenantGetter) {
-            $tenantCurrency = $tenantGetter('currency');
+        if (app()->bound('tenant')) {
+            $tenantCurrency = app('tenant')->currency ?? null;
             if ($tenantCurrency) {
                 $currency = $tenantCurrency;
             }
