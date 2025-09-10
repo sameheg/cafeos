@@ -60,6 +60,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 This application can be deployed using [Laravel Forge](https://forge.laravel.com) or a similar tool. The `production.yml` Docker configuration provides module-specific environment variables for configuring services during deployment.
 
+## Queue Worker
+
+Queued jobs are processed by a dedicated `queue-worker` service defined in the Docker configuration. Start it with:
+
+```bash
+docker compose up queue-worker
+```
+
+The service runs `php artisan queue:work` using the same PHP image as the main application.
+
 ## Module Scaffolding
 
 Generate a new module with migrations, models, bilingual translations, and tests via the Artisan command:

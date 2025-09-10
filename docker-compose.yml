@@ -27,6 +27,14 @@ services:
       REVERB_PORT: ${REVERB_PORT}
     ports:
       - "${REVERB_PORT:-8080}:8080"
+  queue-worker:
+    image: php:8.3-fpm
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+      - redis
+    command: php artisan queue:work
   nginx:
     image: nginx:alpine
     ports:
