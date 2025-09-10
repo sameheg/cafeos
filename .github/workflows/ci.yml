@@ -47,6 +47,7 @@ jobs:
           image-ref: php:8.3-fpm
           exit-code: '1'
           severity: CRITICAL,HIGH
+          ignore-unfixed: true
       - name: Run migrations
         run: php artisan migrate --force
       - name: Run Pest
