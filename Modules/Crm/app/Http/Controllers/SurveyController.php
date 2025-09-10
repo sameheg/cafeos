@@ -15,12 +15,11 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tenant_id' => 'required|integer',
             'branch_id' => 'required|integer',
             'question' => 'required|string',
         ]);
 
-        $survey = $this->surveys->createSurvey($data['tenant_id'], $data['branch_id'], $data['question']);
+        $survey = $this->surveys->createSurvey(tenant('id'), $data['branch_id'], $data['question']);
 
         return response()->json($survey);
     }

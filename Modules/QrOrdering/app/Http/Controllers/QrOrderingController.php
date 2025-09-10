@@ -24,7 +24,6 @@ class QrOrderingController extends Controller
         $total = $items->sum('price');
 
         $order = Order::create([
-            'tenant_id' => 1,
             'total' => $total,
             'status' => 'pending',
             'is_debt' => false,

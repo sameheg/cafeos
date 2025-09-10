@@ -29,7 +29,6 @@ class ListingController extends Controller
         abort_unless($isAdvertiser, 403);
 
         $data = $request->validate([
-            'tenant_id' => ['required', 'integer'],
             'type' => ['required', Rule::in(array_column(ListingType::cases(), 'value'))],
             'title' => ['required', 'string'],
             'description' => ['nullable', 'string'],

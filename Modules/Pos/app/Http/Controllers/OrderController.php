@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        $order = Order::create($request->only(['tenant_id', 'total', 'status']));
+        $order = Order::create($request->only(['total', 'status']));
 
         event(new OrderCreated($order, tenant()));
         event(new TableOpened($order, tenant()));

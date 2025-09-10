@@ -22,7 +22,7 @@ class FloorPlanController extends Controller
         ]);
 
         $layout = FloorLayout::updateOrCreate(
-            ['tenant_id' => 1],
+            [],
             ['layout' => $data['layout']]
         );
 

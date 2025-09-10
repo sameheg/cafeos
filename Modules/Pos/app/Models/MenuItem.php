@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Concerns\BelongsToTenant;
 
 class MenuItem extends Model implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
     use AuditableTrait;
+    use BelongsToTenant;
 
     /**
      * The attributes that are mass assignable.

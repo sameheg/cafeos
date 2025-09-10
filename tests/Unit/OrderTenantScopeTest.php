@@ -1,12 +1,14 @@
 <?php
 
-namespace Modules\Pos\Models {
-    function tenant($key = null) {
-        $tenant = \Tests\Unit\TenantContext::$tenant;
-        if (! $tenant) {
-            return null;
+namespace {
+    if (! function_exists('tenant')) {
+        function tenant($key = null) {
+            $tenant = \Tests\Unit\TenantContext::$tenant ?? null;
+            if (! $tenant) {
+                return null;
+            }
+            return $key ? $tenant->{$key} : $tenant;
         }
-        return $key ? $tenant->{$key} : $tenant;
     }
 }
 
@@ -30,7 +32,6 @@ class OrderTenantScopeTest extends TestCase
     {
         $tenant = new Tenant(['id' => 1]);
         TenantContext::$tenant = $tenant;
-        app()->instance('tenant', $tenant);
 
         $order = Order::create([
             'total' => 100,
@@ -39,7 +40,6 @@ class OrderTenantScopeTest extends TestCase
 
         $this->assertSame(1, $order->tenant_id);
 
-        app()->forgetInstance('tenant');
         TenantContext::$tenant = null;
     }
 
@@ -47,25 +47,19 @@ class OrderTenantScopeTest extends TestCase
     {
         $tenant1 = new Tenant(['id' => 1]);
         TenantContext::$tenant = $tenant1;
-        app()->instance('tenant', $tenant1);
         Order::create(['total' => 10, 'status' => 'pending']);
 
         $tenant2 = new Tenant(['id' => 2]);
         TenantContext::$tenant = $tenant2;
-        app()->instance('tenant', $tenant2);
         Order::create(['total' => 20, 'status' => 'pending']);
 
         TenantContext::$tenant = $tenant1;
-        app()->instance('tenant', $tenant1);
         $this->assertCount(1, Order::all());
 
         TenantContext::$tenant = $tenant2;
-        app()->instance('tenant', $tenant2);
         $this->assertCount(1, Order::all());
 
-        app()->forgetInstance('tenant');
         TenantContext::$tenant = null;
     }
 }
-
 }
