@@ -13,6 +13,7 @@ class QrOrderingServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerTranslations();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadViewsFrom(module_path($this->moduleName, 'resources/views'), $this->moduleNameLower);
     }
 
