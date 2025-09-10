@@ -15,6 +15,9 @@ jobs:
           extensions: mbstring, intl, pdo_mysql, dom, fileinfo
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Install Node dependencies
         run: npm ci
       - name: Composer audit
