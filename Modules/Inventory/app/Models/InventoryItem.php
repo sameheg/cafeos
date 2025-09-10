@@ -4,6 +4,7 @@ namespace Modules\Inventory\Models;
 
 use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Inventory\Events\InventoryCacheInvalidated;
 
 class InventoryItem extends TenantModel
 {
@@ -16,6 +17,12 @@ class InventoryItem extends TenantModel
         'quantity',
         'alert_threshold',
         'cost_per_unit',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => InventoryCacheInvalidated::class,
+        'updated' => InventoryCacheInvalidated::class,
+        'deleted' => InventoryCacheInvalidated::class,
     ];
 
     public function stockMovements(): \Illuminate\Database\Eloquent\Relations\HasMany
