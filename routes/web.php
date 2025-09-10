@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Nwidart\Modules\Facades\Module;
 use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\ShiftController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,3 +18,8 @@ if (Module::isEnabled('Pos')) {
         });
     });
 }
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/manager/shifts/assign', [ShiftController::class, 'assign']);
+    Route::post('/manager/shifts/swap', [ShiftController::class, 'swap']);
+});
