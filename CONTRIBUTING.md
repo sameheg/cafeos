@@ -227,16 +227,15 @@ Target test coverage: 80%+.
 
 🚦 10. CI/CD
 
-Each Pull Request must pass:
+Each Pull Request must pass all GitHub Actions jobs:
 
-php artisan test
+- vendor/bin/pint --test
+- vendor/bin/phpstan analyse
+- ./vendor/bin/pest
+- npm run build
+- php artisan lang:check (to ensure no missing translations)
 
-npm run build
-
-php artisan lang:check (to ensure no missing translations).
-
-Any PR that fails → rejected.
-
+Any PR without a green pipeline is rejected.
 ⚡ 11. Performance & Security
 
 Use Redis for per-tenant sessions & caching.
