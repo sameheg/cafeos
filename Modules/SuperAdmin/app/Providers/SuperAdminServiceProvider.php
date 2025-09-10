@@ -15,6 +15,7 @@ class SuperAdminServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerTranslations();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(module_path('SuperAdmin', 'routes/api.php'));
     }
 

@@ -18,6 +18,7 @@ class ReportsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerTranslations();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     protected function registerTranslations(): void

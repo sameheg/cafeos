@@ -225,6 +225,8 @@ UI Tests (Inertia pages).
 
 Target test coverage: 80%+.
 
+All new tests must rely on official factories or seeders; never depend on missing or manual data.
+
 🚦 10. CI/CD
 
 Each Pull Request must pass all GitHub Actions jobs:

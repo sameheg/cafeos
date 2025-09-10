@@ -163,9 +163,7 @@ return [
      * understand which ones you want to enable.
      */
     'features' => [
-        'database',
-        'redis',
-        'queue',
+        //
     ],
 
     /**
