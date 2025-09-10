@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class NotificationsServiceProvider extends ServiceProvider
 {
     protected string $name = 'Notifications';
+
     protected string $nameLower = 'notifications';
 
     public function boot(): void
@@ -33,10 +34,10 @@ class NotificationsServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'));
         }
     }
 }

@@ -3,9 +3,9 @@
 namespace Modules\Pos\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Modules\Pos\Events\OrderCreated;
 use Modules\Pos\Events\TableOpened;
-use Illuminate\Http\Request;
 use Modules\Pos\Models\Order;
 
 class OrderController extends Controller

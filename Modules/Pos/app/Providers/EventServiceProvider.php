@@ -5,10 +5,10 @@ namespace Modules\Pos\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\FloorPlanDesigner\Events\FloorLayoutUpdated;
 use Modules\Pos\Events\OrderCreated;
-use Modules\Pos\Listeners\SyncFloorLayout;
 use Modules\Pos\Listeners\AwardLoyaltyPoints;
-use Modules\Reports\Events\CollectReports;
 use Modules\Pos\Listeners\ProvideReportData;
+use Modules\Pos\Listeners\SyncFloorLayout;
+use Modules\Reports\Events\CollectReports;
 
 class EventServiceProvider extends ServiceProvider
 {

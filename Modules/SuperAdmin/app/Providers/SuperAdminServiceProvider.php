@@ -7,11 +7,10 @@ use Illuminate\Support\ServiceProvider;
 class SuperAdminServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'SuperAdmin';
+
     protected string $moduleNameLower = 'super-admin';
 
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     public function boot(): void
     {
@@ -25,10 +24,10 @@ class SuperAdminServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
         }
     }
 }

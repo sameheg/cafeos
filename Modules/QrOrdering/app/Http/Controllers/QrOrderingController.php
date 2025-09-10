@@ -4,16 +4,17 @@ namespace Modules\QrOrdering\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Kds\Models\KitchenTicket;
+use Modules\Pos\Events\OrderCreated;
 use Modules\Pos\Models\MenuItem;
 use Modules\Pos\Models\Order;
-use Modules\Pos\Events\OrderCreated;
-use Modules\Kds\Models\KitchenTicket;
 
 class QrOrderingController extends Controller
 {
     public function menu()
     {
         $items = MenuItem::all();
+
         return view('qr-ordering::menu', compact('items'));
     }
 

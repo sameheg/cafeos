@@ -4,12 +4,12 @@ namespace Modules\Inventory\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Modules\FoodSafety\Exceptions\ExpiredIngredientException;
+use Modules\FoodSafety\Models\IngredientInfo;
 use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Models\InventoryItem;
 use Modules\Inventory\Models\StockMovement;
 use Modules\Inventory\Services\InventoryService;
-use Modules\FoodSafety\Exceptions\ExpiredIngredientException;
-use Modules\FoodSafety\Models\IngredientInfo;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class InventoryServiceTest extends TestCase
         $this->app->register(\Modules\FoodSafety\Providers\FoodSafetyServiceProvider::class);
         $this->artisan('migrate', ['--path' => 'Modules/Inventory/database/migrations', '--realpath' => true]);
         $this->artisan('migrate', ['--path' => 'Modules/FoodSafety/database/migrations', '--realpath' => true]);
-        $this->service = new InventoryService();
+        $this->service = new InventoryService;
     }
 
     #[Test]

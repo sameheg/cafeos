@@ -48,7 +48,7 @@ class PayrollService
     {
         $csv = "hours,wage\n";
         foreach ($reports as $report) {
-            $csv .= $report['hours'] . ',' . $report['wage'] . "\n";
+            $csv .= $report['hours'].','.$report['wage']."\n";
         }
 
         return $csv;
@@ -80,4 +80,3 @@ class PayrollService
         return $hours;
     }
 }
-

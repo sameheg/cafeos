@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class EquipmentMonitoringServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'EquipmentMonitoring';
+
     protected string $moduleNameLower = 'equipmentmonitoring';
 
     public function boot(): void

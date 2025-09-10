@@ -7,7 +7,7 @@ class FinancialReportService
     /**
      * Generate aggregate financial report.
      *
-     * @param array $transactions Each transaction contains revenue and cost.
+     * @param  array  $transactions  Each transaction contains revenue and cost.
      */
     public function generateReport(array $transactions): array
     {
@@ -26,8 +26,8 @@ class FinancialReportService
     /**
      * Forecast revenue using a simple moving average.
      *
-     * @param array $monthlyRevenue Historical revenue values.
-     * @param int $months Number of months to forecast.
+     * @param  array  $monthlyRevenue  Historical revenue values.
+     * @param  int  $months  Number of months to forecast.
      */
     public function forecastRevenue(array $monthlyRevenue, int $months = 1): array
     {

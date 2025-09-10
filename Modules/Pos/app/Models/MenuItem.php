@@ -2,6 +2,7 @@
 
 namespace Modules\Pos\Models;
 
+use App\Models\Concerns\BelongsToTenant;
 use App\Models\Tenant;
 use App\Support\CurrencyFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,14 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
-use App\Models\Concerns\BelongsToTenant;
 
 class MenuItem extends Model implements Auditable
 {
-    use HasFactory;
-    use SoftDeletes;
     use AuditableTrait;
     use BelongsToTenant;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

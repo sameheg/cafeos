@@ -10,4 +10,3 @@ class EventServiceProvider extends ServiceProvider
 
     protected static $shouldDiscoverEvents = true;
 }
-

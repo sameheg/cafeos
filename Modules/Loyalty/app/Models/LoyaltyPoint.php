@@ -2,13 +2,13 @@
 
 namespace Modules\Loyalty\Models;
 
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Concerns\BelongsToTenant;
 
 class LoyaltyPoint extends Model
 {
-    use HasFactory, BelongsToTenant;
+    use BelongsToTenant, HasFactory;
 
     protected $fillable = [
         'customer_id',

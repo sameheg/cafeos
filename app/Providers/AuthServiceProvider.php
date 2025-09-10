@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use Modules\Core\Policies\BasePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -32,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
             }
 
             $module = basename(dirname(dirname($policyPath)));
-            $policyClass = 'Modules\\' . $module . '\\Policies\\' . basename($policyPath, '.php');
+            $policyClass = 'Modules\\'.$module.'\\Policies\\'.basename($policyPath, '.php');
 
             if (method_exists($policyClass, 'modelClass')) {
                 Gate::policy($policyClass::modelClass(), $policyClass);

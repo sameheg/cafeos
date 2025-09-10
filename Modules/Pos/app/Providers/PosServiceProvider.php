@@ -4,11 +4,11 @@ namespace Modules\Pos\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Contracts\OrderServiceInterface;
+use Modules\Pos\Services\OrderService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Modules\Core\Contracts\OrderServiceInterface;
-use Modules\Pos\Services\OrderService;
 
 class PosServiceProvider extends ServiceProvider
 {
@@ -73,10 +73,10 @@ class PosServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'));
         }
     }
 
@@ -136,7 +136,7 @@ class PosServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace').'\\'.$this->name.'\\View\\Components', $this->nameLower);
     }
 
     /**

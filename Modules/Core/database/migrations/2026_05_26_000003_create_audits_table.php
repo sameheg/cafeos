@@ -20,8 +20,8 @@ return new class extends Migration
 
             $table->bigIncrements('id');
             $table->foreignId('tenant_id')->index();
-            $table->string($morphPrefix . '_type')->nullable();
-            $table->unsignedBigInteger($morphPrefix . '_id')->nullable();
+            $table->string($morphPrefix.'_type')->nullable();
+            $table->unsignedBigInteger($morphPrefix.'_id')->nullable();
             $table->string('event');
             $table->morphs('auditable');
             $table->text('old_values')->nullable();
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index([$morphPrefix . '_id', $morphPrefix . '_type']);
+            $table->index([$morphPrefix.'_id', $morphPrefix.'_type']);
         });
     }
 

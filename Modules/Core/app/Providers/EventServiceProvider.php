@@ -3,8 +3,8 @@
 namespace Modules\Core\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Modules\Reports\Events\CollectReports;
 use Modules\Core\Listeners\ProvideReportData;
+use Modules\Reports\Events\CollectReports;
 
 class EventServiceProvider extends ServiceProvider
 {

@@ -2,8 +2,8 @@
 
 namespace Tests\Ui;
 
-use App\Models\User;
 use App\Http\Middleware\SetUserLocale;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;

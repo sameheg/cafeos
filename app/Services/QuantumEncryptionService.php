@@ -19,6 +19,7 @@ class QuantumEncryptionService
     public function decrypt(string $cipher, string $publicKey, string $secretKey): string
     {
         $decoded = sodium_base642bin($cipher, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
+
         return sodium_crypto_box_seal_open($decoded, sodium_crypto_box_keypair_from_secretkey_and_publickey($secretKey, $publicKey));
     }
 }

@@ -11,9 +11,7 @@ class CustomerProfileService implements CustomerProfileServiceInterface
     /** @var array<int|string, MembershipTier> */
     private array $tiers = [];
 
-    public function __construct(private LoyaltyServiceInterface $loyalty)
-    {
-    }
+    public function __construct(private LoyaltyServiceInterface $loyalty) {}
 
     public function getProfile(int|string $customerId): array
     {
@@ -27,12 +25,14 @@ class CustomerProfileService implements CustomerProfileServiceInterface
     public function upgradeTier(int|string $customerId): MembershipTier
     {
         $current = $this->tiers[$customerId] ?? MembershipTier::BRONZE;
+
         return $this->tiers[$customerId] = $current->next();
     }
 
     public function downgradeTier(int|string $customerId): MembershipTier
     {
         $current = $this->tiers[$customerId] ?? MembershipTier::BRONZE;
+
         return $this->tiers[$customerId] = $current->previous();
     }
 }

@@ -2,14 +2,12 @@
 
 namespace Modules\Inventory\Listeners;
 
-use Modules\Reports\Events\CollectReports;
 use Modules\Inventory\Services\InventoryReportGenerator;
+use Modules\Reports\Events\CollectReports;
 
 class ProvideReportData
 {
-    public function __construct(private InventoryReportGenerator $generator)
-    {
-    }
+    public function __construct(private InventoryReportGenerator $generator) {}
 
     public function handle(CollectReports $event): array
     {

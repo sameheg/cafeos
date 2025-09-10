@@ -2,8 +2,8 @@
 
 namespace Modules\Core\Models;
 
-use Spatie\Permission\Models\Role as SpatieRole;
 use App\Models\Concerns\BelongsToTenant;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
 {

@@ -9,7 +9,5 @@ class SubscriptionExpiring
 {
     use Dispatchable;
 
-    public function __construct(public int|string $customerId, public Carbon $expiresAt)
-    {
-    }
+    public function __construct(public int|string $customerId, public Carbon $expiresAt) {}
 }

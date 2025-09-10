@@ -16,7 +16,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $allPermissions = [];
         foreach (Module::all() as $module) {
-            $key = strtolower($module->getName()) . '.permissions';
+            $key = strtolower($module->getName()).'.permissions';
             $permissions = config($key, []);
             foreach ($permissions as $permission) {
                 Permission::firstOrCreate([

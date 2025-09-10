@@ -2,8 +2,8 @@
 
 namespace Modules\Pos\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Modules\Pos\Events\TableOpened;
 use Modules\Pos\Models\Order;
 use Modules\Pos\Services\BillingService;

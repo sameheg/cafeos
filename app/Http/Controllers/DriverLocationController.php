@@ -25,4 +25,3 @@ class DriverLocationController extends Controller
         return response()->noContent();
     }
 }
-

@@ -33,7 +33,7 @@ class AuditLogger
         $payload['hash'] = hash('sha256', json_encode($payload));
 
         // Append the new payload atomically to preserve immutability
-        file_put_contents($this->file, json_encode($payload) . PHP_EOL, FILE_APPEND | LOCK_EX);
+        file_put_contents($this->file, json_encode($payload).PHP_EOL, FILE_APPEND | LOCK_EX);
     }
 
     /**
@@ -53,9 +53,10 @@ class AuditLogger
             if (! isset($entry['ts'])) {
                 return false;
             }
+
             return Carbon::parse($entry['ts'])->greaterThanOrEqualTo($cutoff);
         });
 
-        file_put_contents($this->file, implode(PHP_EOL, $filtered) . (count($filtered) ? PHP_EOL : ''), LOCK_EX);
+        file_put_contents($this->file, implode(PHP_EOL, $filtered).(count($filtered) ? PHP_EOL : ''), LOCK_EX);
     }
 }

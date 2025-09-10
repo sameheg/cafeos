@@ -4,8 +4,8 @@ namespace Modules\TableReservations\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\TableReservations\Models\Reservation;
 use Modules\Notifications\Services\NotificationService;
+use Modules\TableReservations\Models\Reservation;
 
 class ReservationController extends Controller
 {
@@ -23,19 +23,22 @@ class ReservationController extends Controller
             'reservation_time' => 'required|date',
         ]);
         $data['status'] = 'pending';
+
         return Reservation::create($data);
     }
 
     public function update(Request $request, Reservation $reservation)
     {
         $reservation->update($request->only(['reservation_time', 'status']));
+
         return $reservation;
     }
 
     public function confirm(Reservation $reservation, NotificationService $notifications)
     {
         $reservation->update(['status' => 'confirmed']);
-        $notifications->send('Reservation confirmed for ' . $reservation->customer_name, ['sms', 'push']);
+        $notifications->send('Reservation confirmed for '.$reservation->customer_name, ['sms', 'push']);
+
         return response()->json(['status' => 'confirmed']);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Modules\FloorPlanDesigner\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\BelongsToTenant;
+use Illuminate\Database\Eloquent\Model;
 
 class FloorLayout extends Model
 {
@@ -15,4 +15,3 @@ class FloorLayout extends Model
         'layout' => 'array',
     ];
 }
-

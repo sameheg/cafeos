@@ -2,9 +2,9 @@
 
 namespace Modules\Reports\Tests\Feature;
 
-use Tests\TestCase;
 use App\Http\Middleware\InitializeTenancyByDomain;
 use App\Http\Middleware\SetUserLocale;
+use Tests\TestCase;
 
 class ReportControllerTest extends TestCase
 {

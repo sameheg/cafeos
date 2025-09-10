@@ -76,10 +76,10 @@ class CrmServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'));
         }
     }
 
@@ -139,7 +139,7 @@ class CrmServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace').'\\'.$this->name.'\\View\\Components', $this->nameLower);
     }
 
     /**

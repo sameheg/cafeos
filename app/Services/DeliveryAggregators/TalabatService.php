@@ -11,4 +11,3 @@ class TalabatService implements DeliveryAggregator
         // TODO: Integrate with Talabat API
     }
 }
-

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class KdsServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Kds';
+
     protected string $moduleNameLower = 'kds';
 
     public function register(): void
@@ -28,10 +29,10 @@ class KdsServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
         }
     }
 }

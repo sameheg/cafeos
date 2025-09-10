@@ -35,9 +35,9 @@ class MakeModule extends Command
 
         $table = Str::snake(Str::pluralStudly($name));
 
-        $migrationName = date('Y_m_d_His') . "_create_{$table}_table.php";
+        $migrationName = date('Y_m_d_His')."_create_{$table}_table.php";
         $migrationPath = "{$basePath}/Database/Migrations/{$migrationName}";
-        if (!File::exists($migrationPath)) {
+        if (! File::exists($migrationPath)) {
             $migrationStub = <<<'PHP'
 <?php
 
@@ -66,7 +66,7 @@ PHP;
         }
 
         $modelPath = "{$basePath}/Models/{$name}.php";
-        if (!File::exists($modelPath)) {
+        if (! File::exists($modelPath)) {
             $modelStub = <<<'PHP'
 <?php
 
@@ -84,17 +84,17 @@ PHP;
         }
 
         $langEn = "{$basePath}/Resources/lang/en/messages.php";
-        if (!File::exists($langEn)) {
+        if (! File::exists($langEn)) {
             File::put($langEn, "<?php\n\nreturn [\n    'example' => 'Example',\n];\n");
         }
 
         $langAr = "{$basePath}/Resources/lang/ar/messages.php";
-        if (!File::exists($langAr)) {
+        if (! File::exists($langAr)) {
             File::put($langAr, "<?php\n\nreturn [\n    'example' => 'مثال',\n];\n");
         }
 
         $testPath = "{$basePath}/Tests/Feature/{$name}ModuleTest.php";
-        if (!File::exists($testPath)) {
+        if (! File::exists($testPath)) {
             $testStub = <<<'PHP'
 <?php
 
@@ -115,19 +115,19 @@ PHP;
         }
 
         $routeFile = "{$basePath}/Routes/web.php";
-        if (!File::exists($routeFile)) {
+        if (! File::exists($routeFile)) {
             File::put($routeFile, "<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n// {$name} module routes\n");
         }
 
         $statusPath = base_path('modules_statuses.json');
         $statuses = File::exists($statusPath) ? json_decode(File::get($statusPath), true) : [];
-        if (!array_key_exists($name, $statuses)) {
+        if (! array_key_exists($name, $statuses)) {
             $statuses[$name] = false;
             File::put($statusPath, json_encode($statuses, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
 
         $this->info("Module {$name} scaffolded.");
+
         return self::SUCCESS;
     }
 }
-

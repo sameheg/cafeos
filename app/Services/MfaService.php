@@ -15,10 +15,11 @@ class MfaService
     public function getCurrentCode(string $secret): string
     {
         $time = floor(time() / 30);
-        $binaryTime = pack('N*', 0) . pack('N*', $time);
+        $binaryTime = pack('N*', 0).pack('N*', $time);
         $hash = hash_hmac('sha1', $binaryTime, hex2bin($secret), true);
         $offset = ord(substr($hash, -1)) & 0x0F;
-        $truncated = unpack('N', substr($hash, $offset, 4))[1] & 0x7fffffff;
+        $truncated = unpack('N', substr($hash, $offset, 4))[1] & 0x7FFFFFFF;
+
         return str_pad((string) ($truncated % 1000000), 6, '0', STR_PAD_LEFT);
     }
 

@@ -2,23 +2,25 @@
 
 namespace Tests\Unit;
 
+use App\Support\NotifiesWithLocale;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Tests\TestCase;
-use App\Support\NotifiesWithLocale;
 
 class NotifiesWithLocaleTest extends TestCase
 {
     public function test_notification_uses_recipient_locale(): void
     {
-        $user = new class {
+        $user = new class
+        {
             use Notifiable;
             use NotifiesWithLocale;
 
             public string $locale = 'fr';
         };
 
-        $notification = new class extends Notification {
+        $notification = new class extends Notification
+        {
             public function via($notifiable): array
             {
                 return [];

@@ -22,7 +22,7 @@ class DynamicPricingService
     public function calculate(float $basePrice, ?string $customer = null, ?DateTimeInterface $at = null): float
     {
         $price = $basePrice;
-        $at = $at ?? new \DateTimeImmutable();
+        $at = $at ?? new \DateTimeImmutable;
 
         foreach ($this->rules as $rule) {
             switch ($rule['type'] ?? '') {

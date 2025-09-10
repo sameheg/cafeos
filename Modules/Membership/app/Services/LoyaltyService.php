@@ -2,9 +2,9 @@
 
 namespace Modules\Membership\Services;
 
+use Illuminate\Support\Carbon;
 use Modules\Membership\Contracts\LoyaltyServiceInterface;
 use Modules\Membership\Events\SubscriptionExpiring;
-use Illuminate\Support\Carbon;
 
 class LoyaltyService implements LoyaltyServiceInterface
 {

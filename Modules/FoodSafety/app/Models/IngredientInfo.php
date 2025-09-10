@@ -38,6 +38,7 @@ class IngredientInfo extends TenantModel
             return false;
         }
         $now = now();
+
         return $this->expiry_date->isAfter($now) && $this->expiry_date->isBefore($now->copy()->addDays($days));
     }
 }

@@ -17,4 +17,3 @@ class FloorLayoutUpdated
         $this->layout = $layout;
     }
 }
-

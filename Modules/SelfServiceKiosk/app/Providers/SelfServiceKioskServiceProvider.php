@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class SelfServiceKioskServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'SelfServiceKiosk';
+
     protected string $moduleNameLower = 'self-service-kiosk';
 
     public function boot(): void
@@ -23,14 +24,14 @@ class SelfServiceKioskServiceProvider extends ServiceProvider
 
     protected function registerTranslations(): void
     {
-        $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
+        $langPath = resource_path('lang/modules/'.$this->moduleNameLower);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'resources/lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'resources/lang'), $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'resources/lang'));
         }
     }
 }

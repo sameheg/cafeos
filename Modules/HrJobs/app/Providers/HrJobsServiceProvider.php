@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class HrJobsServiceProvider extends ServiceProvider
 {
     protected string $name = 'HrJobs';
+
     protected string $nameLower = 'hrjobs';
 
     public function boot(): void
@@ -27,10 +28,10 @@ class HrJobsServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->nameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'));
         }
     }
 }

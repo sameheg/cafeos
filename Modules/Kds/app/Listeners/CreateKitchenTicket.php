@@ -2,8 +2,8 @@
 
 namespace Modules\Kds\Listeners;
 
-use Modules\Pos\Events\OrderCreated;
 use Modules\Kds\Models\KitchenTicket;
+use Modules\Pos\Events\OrderCreated;
 
 class CreateKitchenTicket
 {

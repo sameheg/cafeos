@@ -2,8 +2,8 @@
 
 namespace Modules\Core\Models;
 
-use Spatie\Permission\Models\Permission as SpatiePermission;
 use App\Models\Concerns\BelongsToTenant;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class Permission extends SpatiePermission
 {

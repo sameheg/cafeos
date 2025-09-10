@@ -4,9 +4,9 @@ namespace Modules\Billing\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Billing\Models\Subscription;
-use Modules\Billing\Models\Plan;
 use Illuminate\Support\Facades\Auth;
+use Modules\Billing\Models\Plan;
+use Modules\Billing\Models\Subscription;
 
 class SubscriptionController extends Controller
 {

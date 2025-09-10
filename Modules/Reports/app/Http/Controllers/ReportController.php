@@ -8,13 +8,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportController
 {
-    public function __construct(private ReportAggregator $aggregator)
-    {
-    }
+    public function __construct(private ReportAggregator $aggregator) {}
 
     public function index(Request $request)
     {
         $filters = $request->only(['time', 'staff', 'item']);
+
         return response()->json($this->aggregator->aggregate($filters));
     }
 
@@ -34,7 +33,7 @@ class ReportController
     {
         $response = new StreamedResponse(function () use ($data) {
             $handle = fopen('php://output', 'w');
-            if (!empty($data)) {
+            if (! empty($data)) {
                 fputcsv($handle, array_keys(reset($data)));
                 foreach ($data as $row) {
                     fputcsv($handle, $row);
@@ -62,7 +61,7 @@ class ReportController
     {
         $response = new StreamedResponse(function () use ($data) {
             foreach ($data as $row) {
-                echo implode(' | ', $row) . "\n";
+                echo implode(' | ', $row)."\n";
             }
         });
 

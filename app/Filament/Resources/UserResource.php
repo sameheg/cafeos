@@ -8,7 +8,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
@@ -43,10 +44,10 @@ class UserResource extends Resource
                 TextColumn::make('roles.name')->label('Roles')->badge(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 

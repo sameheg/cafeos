@@ -9,7 +9,5 @@ class LowSurveyScore
 {
     use Dispatchable;
 
-    public function __construct(public SurveyResponse $response)
-    {
-    }
+    public function __construct(public SurveyResponse $response) {}
 }

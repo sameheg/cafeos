@@ -3,11 +3,11 @@
 namespace Modules\Notifications\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Modules\Inventory\Events\LowStockAlert;
 use Modules\Billing\Events\UnpaidBillAlert;
-use Modules\Pos\Events\TableOpened;
+use Modules\Inventory\Events\LowStockAlert;
 use Modules\Membership\Events\SubscriptionExpiring;
 use Modules\Notifications\Listeners\SendNotification;
+use Modules\Pos\Events\TableOpened;
 
 class EventServiceProvider extends ServiceProvider
 {

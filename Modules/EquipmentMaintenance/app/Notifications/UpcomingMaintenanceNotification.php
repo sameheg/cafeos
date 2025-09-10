@@ -11,9 +11,7 @@ class UpcomingMaintenanceNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public MaintenanceSchedule $schedule)
-    {
-    }
+    public function __construct(public MaintenanceSchedule $schedule) {}
 
     public function via($notifiable): array
     {
@@ -24,8 +22,8 @@ class UpcomingMaintenanceNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Upcoming Maintenance Reminder')
-            ->line('Equipment: ' . $this->schedule->equipment->name)
-            ->line('Scheduled for: ' . $this->schedule->scheduled_at->toDateString())
+            ->line('Equipment: '.$this->schedule->equipment->name)
+            ->line('Scheduled for: '.$this->schedule->scheduled_at->toDateString())
             ->line('Thank you.');
     }
 }

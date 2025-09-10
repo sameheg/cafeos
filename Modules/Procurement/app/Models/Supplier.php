@@ -8,4 +8,3 @@ class Supplier extends TenantModel
 {
     protected $fillable = ['tenant_id', 'name', 'contact'];
 }
-

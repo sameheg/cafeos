@@ -27,6 +27,7 @@ class ApplicationController extends Controller
             'status' => 'required|string',
         ]);
         $application->update($data);
+
         return $application;
     }
 

@@ -13,7 +13,7 @@ class DashboardBroadcasterTest extends TestCase
     {
         Event::fake();
 
-        $broadcaster = new DashboardBroadcaster();
+        $broadcaster = new DashboardBroadcaster;
         $payload = ['sales' => 100];
         $broadcaster->broadcast($payload);
 

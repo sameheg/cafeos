@@ -26,7 +26,7 @@ class NpsAnalyticsServiceTest extends TestCase
         $service->submitResponse($survey->id, 1, 9);
         $service->submitResponse($survey->id, 1, 5);
 
-        $analytics = new NpsAnalyticsService();
+        $analytics = new NpsAnalyticsService;
         $nps = $analytics->calculateForBranch(1);
 
         $this->assertEqualsWithDelta(33.33, $nps, 0.01);

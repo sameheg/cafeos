@@ -8,9 +8,7 @@ use Modules\Crm\Contracts\SurveyServiceInterface;
 
 class SurveyController extends Controller
 {
-    public function __construct(private SurveyServiceInterface $surveys)
-    {
-    }
+    public function __construct(private SurveyServiceInterface $surveys) {}
 
     public function store(Request $request)
     {

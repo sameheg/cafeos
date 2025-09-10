@@ -11,4 +11,3 @@ class SyncFloorLayout
         \Log::info('Floor layout synced', ['tenant_id' => $event->layout->tenant_id]);
     }
 }
-

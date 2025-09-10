@@ -16,10 +16,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'inventory_item_id' => ['required','integer'],
-            'vendor_id' => ['required','integer'],
-            'price' => ['required','numeric'],
-            'description' => ['nullable','string'],
+            'inventory_item_id' => ['required', 'integer'],
+            'vendor_id' => ['required', 'integer'],
+            'price' => ['required', 'numeric'],
+            'description' => ['nullable', 'string'],
         ]);
 
         $product = Product::create($data);

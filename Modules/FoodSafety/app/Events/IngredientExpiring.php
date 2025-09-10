@@ -10,7 +10,5 @@ class IngredientExpiring
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public IngredientInfo $info)
-    {
-    }
+    public function __construct(public IngredientInfo $info) {}
 }

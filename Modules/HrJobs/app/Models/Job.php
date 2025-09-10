@@ -2,9 +2,9 @@
 
 namespace Modules\HrJobs\Models;
 
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Concerns\BelongsToTenant;
 
 class Job extends Model
 {

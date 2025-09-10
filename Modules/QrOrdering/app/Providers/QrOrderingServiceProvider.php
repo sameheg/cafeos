@@ -2,12 +2,12 @@
 
 namespace Modules\QrOrdering\Providers;
 
-use Modules\QrOrdering\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class QrOrderingServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'QrOrdering';
+
     protected string $moduleNameLower = 'qr-ordering';
 
     public function boot(): void
@@ -27,10 +27,10 @@ class QrOrderingServiceProvider extends ServiceProvider
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom($langPath, $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom($langPath);
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
         }
     }
 }
