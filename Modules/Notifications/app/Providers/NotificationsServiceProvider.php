@@ -16,6 +16,9 @@ class NotificationsServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->mergeConfigFrom(module_path($this->name, 'config/config.php'), 'notifications');
+        $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        $this->loadViewsFrom(module_path($this->name, 'Resources/views'), $this->nameLower);
+        $this->loadRoutesFrom(module_path($this->name, 'routes/web.php'));
         $this->registerTranslations();
     }
 

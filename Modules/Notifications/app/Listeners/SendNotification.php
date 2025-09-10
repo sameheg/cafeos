@@ -26,7 +26,16 @@ class SendNotification
             default => 'Notification',
         };
 
+        $role = match (true) {
+            $event instanceof LowStockAlert => 'manager',
+            $event instanceof UnpaidBillAlert => 'accounting',
+            $event instanceof TableOpened => 'frontdesk',
+            $event instanceof SubscriptionExpiring => 'support',
+            $event instanceof LowSurveyScore => 'manager',
+            default => 'admin',
+        };
+
         $channels = config('notifications.channels', ['in-app']);
-        $this->notifications->send($message, $channels);
+        $this->notifications->send($message, $channels, $role);
     }
 }
