@@ -15,12 +15,26 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshDatabase()
     {
-        foreach (Module::allEnabled() as $module) {
+        foreach (Module::all() as $module) {
             $module->register();
-            $module->boot();
         }
 
         $this->baseRefreshDatabase();
+
+        static $migrated = false;
+
+        foreach (Module::all() as $module) {
+            if (! $migrated) {
+                \Artisan::call('migrate', [
+                    '--path' => $module->getPath().'/database/migrations',
+                    '--realpath' => true,
+                ]);
+            }
+
+            $module->boot();
+        }
+
+        $migrated = true;
     }
 
     protected function setUp(): void
