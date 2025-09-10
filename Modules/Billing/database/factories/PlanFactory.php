@@ -13,8 +13,11 @@ class PlanFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
+            'slug' => $this->faker->unique()->slug(),
+            'stripe_price_id' => $this->faker->uuid(),
             'price' => $this->faker->randomFloat(2, 1, 100),
             'trial_days' => $this->faker->numberBetween(0, 30),
+            'modules' => [],
         ];
     }
 }

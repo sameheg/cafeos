@@ -4,6 +4,9 @@ namespace Modules\Billing\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Billing\Services\PaymentGatewayManager;
+use Laravel\Cashier\Cashier;
+use Modules\Billing\Models\Subscription;
+use App\Models\Tenant;
 
 class BillingServiceProvider extends ServiceProvider
 {
@@ -21,7 +24,12 @@ class BillingServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->registerTranslations();
+        $this->loadRoutesFrom(module_path($this->name, 'routes/web.php'));
+        $this->loadViewsFrom(module_path($this->name, 'resources/views'), $this->nameLower);
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Cashier::useCustomerModel(Tenant::class);
+        Cashier::useSubscriptionModel(Subscription::class);
     }
 
     protected function registerConfig(): void

@@ -2,31 +2,37 @@
 
 namespace Modules\Billing\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\BelongsToTenant;
+use Laravel\Cashier\Subscription as CashierSubscription;
 
-class Subscription extends Model
+class Subscription extends CashierSubscription
 {
-    use HasFactory, BelongsToTenant;
+    use BelongsToTenant;
 
     protected $fillable = [
         'tenant_id',
         'plan_id',
-        'provider',
-        'provider_subscription_id',
-        'starts_at',
+        'name',
+        'stripe_id',
+        'stripe_status',
+        'stripe_price',
+        'quantity',
+        'trial_ends_at',
         'ends_at',
-        'status',
     ];
 
     protected $casts = [
-        'starts_at' => 'datetime',
+        'trial_ends_at' => 'datetime',
         'ends_at' => 'datetime',
     ];
 
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function allowsModule(string $module): bool
+    {
+        return $this->plan?->includesModule($module) ?? false;
     }
 }
