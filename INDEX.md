@@ -6,6 +6,7 @@
 - ARCHITECTURE.md → system architecture  
 - ROADMAP.md → phased roadmap  
 - CONTRIBUTING.md → contribution guide  
-- PRODUCTION_READINESS.md → go-live checklist  
-- SECURITY.md → security policy  
+- PRODUCTION_READINESS.md → go-live checklist
+- SECURITY.md → security policy
 - SUPPORT.md → support channels
+- ModulesDoc/README.md → modules index
