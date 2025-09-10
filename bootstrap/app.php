@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Middleware\AuditWebhookSignature;
 use App\Http\Middleware\EnsureModuleEnabled;
 use App\Http\Middleware\InitializeTenancyByDomain;
+use App\Http\Middleware\SetSecurityHeaders;
 use App\Http\Middleware\SetUserLocale;
 use App\Providers\ModuleServiceProvider;
 use Illuminate\Foundation\Application;
@@ -22,8 +24,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'tenancy' => InitializeTenancyByDomain::class,
             'module' => EnsureModuleEnabled::class,
+            'webhook.signed' => AuditWebhookSignature::class,
         ]);
         $middleware->append(SetUserLocale::class);
+        $middleware->append(SetSecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

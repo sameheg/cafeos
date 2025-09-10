@@ -9,4 +9,4 @@ Route::middleware('web')->group(function (): void {
     Route::post('billing/subscriptions/{plan}', [SubscriptionController::class, 'store'])->name('billing.subscriptions.store');
 });
 
-Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
+Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])->middleware('webhook.signed');
