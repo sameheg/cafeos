@@ -25,14 +25,44 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        DB::table('tenants')->insert([
-            'id' => 1,
-            'name' => 'Test Tenant',
+        $tenantData = [
+            'id' => '1',
+            'name' => json_encode([
+                'en' => 'Test Tenant',
+                'ar' => 'مستأجر تجريبي',
+            ]),
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ];
 
-        $tenant = new Tenant(['id' => 1, 'name' => 'Test Tenant']);
+        if (Schema::hasColumn('tenants', 'domain')) {
+            $tenantData['domain'] = 'tenant.test';
+        }
+
+        DB::table('tenants')->insert($tenantData);
+
+        if (Schema::hasTable('domains') && Schema::hasColumn('tenants', 'domain')) {
+            DB::table('domains')->insert([
+                'domain' => 'tenant.test',
+                'tenant_id' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $tenantAttributes = [
+            'id' => '1',
+            'name' => [
+                'en' => 'Test Tenant',
+                'ar' => 'مستأجر تجريبي',
+            ],
+        ];
+
+        if (isset($tenantData['domain'])) {
+            $tenantAttributes['domain'] = 'tenant.test';
+        }
+
+        $tenant = new Tenant($tenantAttributes);
         app()->instance(TenantContract::class, $tenant);
 
         $this->call([
