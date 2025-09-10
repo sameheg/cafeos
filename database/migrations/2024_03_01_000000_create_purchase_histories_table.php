@@ -8,6 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (! env('INVENTORY_MODULE_ENABLED', false)) {
+            return;
+        }
+
         Schema::create('purchase_histories', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
