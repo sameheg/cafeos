@@ -22,5 +22,7 @@
     "SelfServiceKiosk": true,
     "EquipmentMonitoring": true,
     "FoodSafety": false,
-    "Training": true
+    "Training": true,
+    "Franchise": false,
+    "EquipmentLeasing": false
 }

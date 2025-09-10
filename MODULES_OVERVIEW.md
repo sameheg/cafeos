@@ -128,13 +128,23 @@
 - **Integration**: Membership system.  
 
 ### 17. **Restaurant Rentals**
-- **Features**: Post restaurants/cafés for rent/sale.  
-- **Database**: `listings`.  
-- **Integration**: Membership system.  
+- **Features**: Post restaurants/cafés for rent/sale.
+- **Database**: `listings`.
+- **Integration**: Membership system.
 
 ### 18. **Equipment Maintenance**
-- **Features**: Track kitchen/coffee equipment health, schedule maintenance.  
-- **Database**: `equipment`, `maintenance_logs`.  
+- **Features**: Track kitchen/coffee equipment health, schedule maintenance.
+- **Database**: `equipment`, `maintenance_logs`.
+
+### 19. **Franchise Management**
+- **Features**: Manage and publish franchise opportunities.
+- **Database**: `franchises`.
+- **Integration**: Membership system.
+
+### 20. **Equipment Leasing**
+- **Features**: Lease hardware with payment schedules and inventory updates.
+- **Database**: `lease_contracts`.
+- **Integration**: Marketplace, Inventory.
 
 ---
 
