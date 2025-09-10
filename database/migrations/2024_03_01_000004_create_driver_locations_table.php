@@ -17,11 +17,14 @@ return new class extends Migration
 
         Schema::create('driver_locations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('driver_id')->constrained('users');
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->timestamp('recorded_at');
+            $table->string('status')->default('active');
             $table->timestamps();
+            $table->index(['tenant_id', 'status', 'created_at']);
         });
     }
 

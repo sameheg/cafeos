@@ -14,11 +14,14 @@ return new class extends Migration
 
         Schema::create('purchase_histories', function (Blueprint $table): void {
             $table->id();
+            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('item');
             $table->unsignedInteger('quantity');
             $table->decimal('price', 8, 2);
+            $table->string('status')->default('active');
             $table->timestamps();
+            $table->index(['tenant_id', 'status', 'created_at']);
         });
     }
 

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait BelongsToTenant
 {
+    use PreloadsRelations;
+
     protected static function bootBelongsToTenant(): void
     {
         static::addGlobalScope('tenant', function (Builder $builder): void {
