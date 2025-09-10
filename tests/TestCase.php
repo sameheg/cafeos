@@ -23,6 +23,7 @@ abstract class TestCase extends BaseTestCase
         $this->baseRefreshDatabase();
 
         Artisan::call('module:migrate', [
+            '--all' => true,
             '--database' => config('database.default'),
             '--force' => true,
         ]);
