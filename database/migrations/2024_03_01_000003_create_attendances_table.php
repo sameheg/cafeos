@@ -17,10 +17,13 @@ return new class extends Migration
 
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id')->index();
             $table->foreignId('shift_id')->constrained()->cascadeOnDelete();
             $table->timestamp('clock_in')->nullable();
             $table->timestamp('clock_out')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
+            $table->index(['tenant_id', 'status', 'created_at']);
         });
     }
 

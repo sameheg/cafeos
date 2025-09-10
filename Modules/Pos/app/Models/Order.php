@@ -2,19 +2,17 @@
 
 namespace Modules\Pos\Models;
 
-use App\Models\Concerns\BelongsToTenant;
 use App\Models\Tenant;
+use App\Models\TenantModel;
 use App\Support\CurrencyFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Order extends Model implements Auditable
+class Order extends TenantModel implements Auditable
 {
     use AuditableTrait;
-    use BelongsToTenant;
     use HasFactory;
     use SoftDeletes;
 
@@ -35,6 +33,8 @@ class Order extends Model implements Auditable
     protected $casts = [
         'split' => 'array',
     ];
+
+    protected array $preload = ['menuItems'];
 
     public function tenant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

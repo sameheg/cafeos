@@ -17,11 +17,14 @@ return new class extends Migration
 
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id')->index();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('assigned_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamp('start_time');
             $table->timestamp('end_time');
+            $table->string('status')->default('active');
             $table->timestamps();
+            $table->index(['tenant_id', 'status', 'created_at']);
         });
     }
 
