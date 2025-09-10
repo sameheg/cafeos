@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DriverLocationController;
+use App\Http\Controllers\Auth\MfaController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ShiftController;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,6 @@ if (Module::isEnabled('Pos')) {
 Route::middleware(['auth'])->group(function () {
     Route::post('/manager/shifts/assign', [ShiftController::class, 'assign']);
     Route::post('/manager/shifts/swap', [ShiftController::class, 'swap']);
+    Route::post('/mfa/challenge', [MfaController::class, 'challenge'])->name('mfa.challenge');
+    Route::post('/mfa/verify', [MfaController::class, 'verify'])->name('mfa.verify');
 });
