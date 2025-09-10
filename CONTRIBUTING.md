@@ -145,6 +145,8 @@ Tenant Admin can assign permissions per staff member.
 
 Each module must have its own tables with mandatory tenant_id.
 
+Migrations must be generated via `php artisan make:migration` so that filenames use real timestamps and remain in chronological order.
+
 Every migration must include:
 
 $table->foreignId('tenant_id')->index();
