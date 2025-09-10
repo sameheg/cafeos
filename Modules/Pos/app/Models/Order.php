@@ -7,9 +7,9 @@ use App\Models\TenantModel;
 use App\Support\CurrencyFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Pos\Events\OrderCacheInvalidated;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\Pos\Events\OrderCacheInvalidated;
 
 class Order extends TenantModel implements Auditable
 {

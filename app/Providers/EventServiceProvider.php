@@ -10,9 +10,9 @@ use App\Listeners\RecordCacheMiss;
 use App\Listeners\SendAttendanceToPayroll;
 use Illuminate\Cache\Events\CacheHit;
 use Illuminate\Cache\Events\CacheMissed;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\Inventory\Events\InventoryCacheInvalidated;
 use Modules\Pos\Events\OrderCacheInvalidated;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {

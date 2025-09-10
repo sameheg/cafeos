@@ -14,7 +14,7 @@ class RecordCacheHit
     {
         $this->registry = class_exists('Redis')
             ? CollectorRegistry::getDefault()
-            : new CollectorRegistry(new InMemory());
+            : new CollectorRegistry(new InMemory);
     }
 
     public function handle(CacheHit $event): void

@@ -10,7 +10,5 @@ class InventoryCacheInvalidated
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public InventoryItem $item)
-    {
-    }
+    public function __construct(public InventoryItem $item) {}
 }
