@@ -25,5 +25,9 @@
     "Training": true,
     "Franchise": false,
     "EquipmentLeasing": false,
-    "Dashboard": true
+    "Dashboard": true,
+    "ArVrMenu": false,
+    "EnergyTracking": false,
+    "EventManagement": false,
+    "HotelPms": false
 }
