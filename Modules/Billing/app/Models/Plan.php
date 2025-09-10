@@ -11,9 +11,21 @@ class Plan extends Model
 
     protected $fillable = [
         'name',
+        'slug',
+        'stripe_price_id',
         'price',
         'trial_days',
+        'modules',
     ];
+
+    protected $casts = [
+        'modules' => 'array',
+    ];
+
+    public function includesModule(string $module): bool
+    {
+        return in_array($module, $this->modules ?? []);
+    }
 
     protected static function newFactory(): \Modules\Billing\Database\Factories\PlanFactory
     {
