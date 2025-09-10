@@ -3,9 +3,9 @@
 namespace Modules\Notifications\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Modules\Notifications\Models\Notification;
 use Modules\Notifications\Services\NotificationService;
 

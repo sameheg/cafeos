@@ -1,5 +1,14 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     paths:
         - app
         - Modules
     level: 5
+    bootstrapFiles:
+        - vendor/nunomaduro/larastan/bootstrap.php
+    excludePaths:
+        - Modules/*/tests
+        - tests
+
