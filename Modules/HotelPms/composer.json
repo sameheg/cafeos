@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\HotelPms\\Providers\\HotelPmsServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\HotelPms\\": "app/",
             "Modules\\HotelPms\\Database\\Factories\\": "database/factories/",
-            "Modules\\HotelPms\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\HotelPms\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\HotelPms\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

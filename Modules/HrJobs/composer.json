@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\HrJobs\\Providers\\HrJobsServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\HrJobs\\": "app/",
             "Modules\\HrJobs\\Database\\Factories\\": "database/factories/",
-            "Modules\\HrJobs\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\HrJobs\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\HrJobs\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

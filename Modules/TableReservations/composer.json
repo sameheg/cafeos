@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\TableReservations\\Providers\\TableReservationsServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\TableReservations\\": "app/",
             "Modules\\TableReservations\\Database\\Factories\\": "database/factories/",
-            "Modules\\TableReservations\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\TableReservations\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\TableReservations\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

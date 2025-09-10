@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\EventManagement\\Providers\\EventManagementServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\EventManagement\\": "app/",
             "Modules\\EventManagement\\Database\\Factories\\": "database/factories/",
-            "Modules\\EventManagement\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\EventManagement\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\EventManagement\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

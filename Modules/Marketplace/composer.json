@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\Marketplace\\Providers\\MarketplaceServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\Marketplace\\": "app/",
             "Modules\\Marketplace\\Database\\Factories\\": "database/factories/",
-            "Modules\\Marketplace\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Marketplace\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Marketplace\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

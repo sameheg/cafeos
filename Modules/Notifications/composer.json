@@ -9,16 +9,18 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {
-            }
+            "providers": [
+                "Modules\\Notifications\\Providers\\NotificationsServiceProvider"
+            ],
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\Notifications\\": "app/",
             "Modules\\Notifications\\Database\\Factories\\": "database/factories/",
-            "Modules\\Notifications\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Notifications\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Notifications\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

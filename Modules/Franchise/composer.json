@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\Franchise\\Providers\\FranchiseServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\Franchise\\": "app/",
             "Modules\\Franchise\\Database\\Factories\\": "database/factories/",
-            "Modules\\Franchise\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Franchise\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Franchise\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

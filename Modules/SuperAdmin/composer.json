@@ -9,16 +9,18 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {
-            }
+            "providers": [
+                "Modules\\SuperAdmin\\Providers\\SuperAdminServiceProvider"
+            ],
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\SuperAdmin\\": "app/",
             "Modules\\SuperAdmin\\Database\\Factories\\": "database/factories/",
-            "Modules\\SuperAdmin\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\SuperAdmin\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\SuperAdmin\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

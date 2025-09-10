@@ -9,17 +9,18 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {
-
-            }
+            "providers": [
+                "Modules\\Inventory\\Providers\\InventoryServiceProvider"
+            ],
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\Inventory\\": "app/",
             "Modules\\Inventory\\Database\\Factories\\": "database/factories/",
-            "Modules\\Inventory\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Inventory\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Inventory\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\FoodSafety\\Providers\\FoodSafetyServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\FoodSafety\\": "app/",
             "Modules\\FoodSafety\\Database\\Factories\\": "database/factories/",
-            "Modules\\FoodSafety\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\FoodSafety\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\FoodSafety\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

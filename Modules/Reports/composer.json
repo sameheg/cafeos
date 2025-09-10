@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\Reports\\Providers\\ReportsServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\Reports\\": "app/",
             "Modules\\Reports\\Database\\Factories\\": "database/factories/",
-            "Modules\\Reports\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Reports\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Reports\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

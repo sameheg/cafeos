@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\Procurement\\Providers\\ProcurementServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\Procurement\\": "app/",
             "Modules\\Procurement\\Database\\Factories\\": "database/factories/",
-            "Modules\\Procurement\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Procurement\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Procurement\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

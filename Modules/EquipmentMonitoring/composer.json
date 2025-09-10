@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\EquipmentMonitoring\\Providers\\EquipmentMonitoringServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\EquipmentMonitoring\\": "app/",
             "Modules\\EquipmentMonitoring\\Database\\Factories\\": "database/factories/",
-            "Modules\\EquipmentMonitoring\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\EquipmentMonitoring\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\EquipmentMonitoring\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

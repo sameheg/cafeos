@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\Training\\Providers\\TrainingServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\Training\\": "app/",
             "Modules\\Training\\Database\\Factories\\": "database/factories/",
-            "Modules\\Training\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Training\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Training\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

@@ -5,7 +5,8 @@
         "psr-4": {
             "Modules\\SelfServiceKiosk\\": "app/",
             "Modules\\SelfServiceKiosk\\Database\\Factories\\": "database/factories/",
-            "Modules\\SelfServiceKiosk\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\SelfServiceKiosk\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\SelfServiceKiosk\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {
@@ -15,7 +16,9 @@
     },
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\SelfServiceKiosk\\Providers\\SelfServiceKioskServiceProvider"
+            ],
             "aliases": {}
         }
     }

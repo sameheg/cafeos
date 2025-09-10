@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\ArVrMenu\\Providers\\ArVrMenuServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\ArVrMenu\\": "app/",
             "Modules\\ArVrMenu\\Database\\Factories\\": "database/factories/",
-            "Modules\\ArVrMenu\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\ArVrMenu\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\ArVrMenu\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

@@ -9,17 +9,18 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {
-
-            }
+            "providers": [
+                "Modules\\Crm\\Providers\\CrmServiceProvider"
+            ],
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\Crm\\": "app/",
             "Modules\\Crm\\Database\\Factories\\": "database/factories/",
-            "Modules\\Crm\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Crm\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Crm\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

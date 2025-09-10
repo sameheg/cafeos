@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\EquipmentLeasing\\Providers\\EquipmentLeasingServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\EquipmentLeasing\\": "app/",
             "Modules\\EquipmentLeasing\\Database\\Factories\\": "database/factories/",
-            "Modules\\EquipmentLeasing\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\EquipmentLeasing\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\EquipmentLeasing\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\Loyalty\\Providers\\LoyaltyServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\Loyalty\\": "app/",
             "Modules\\Loyalty\\Database\\Factories\\": "database/factories/",
-            "Modules\\Loyalty\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Loyalty\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Loyalty\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

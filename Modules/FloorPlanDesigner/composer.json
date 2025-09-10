@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\FloorPlanDesigner\\Providers\\FloorPlanDesignerServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\FloorPlanDesigner\\": "app/",
             "Modules\\FloorPlanDesigner\\Database\\Factories\\": "database/factories/",
-            "Modules\\FloorPlanDesigner\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\FloorPlanDesigner\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\FloorPlanDesigner\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

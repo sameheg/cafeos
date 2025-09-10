@@ -9,17 +9,18 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {
-
-            }
+            "providers": [
+                "Modules\\Billing\\Providers\\BillingServiceProvider"
+            ],
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\Billing\\": "app/",
             "Modules\\Billing\\Database\\Factories\\": "database/factories/",
-            "Modules\\Billing\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Billing\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Billing\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

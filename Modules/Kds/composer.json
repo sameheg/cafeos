@@ -9,17 +9,18 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {
-
-            }
+            "providers": [
+                "Modules\\Kds\\Providers\\KdsServiceProvider"
+            ],
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\Kds\\": "app/",
             "Modules\\Kds\\Database\\Factories\\": "database/factories/",
-            "Modules\\Kds\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Kds\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Kds\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {

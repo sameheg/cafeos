@@ -5,7 +5,8 @@
         "psr-4": {
             "Modules\\QrOrdering\\": "app/",
             "Modules\\QrOrdering\\Database\\Factories\\": "database/factories/",
-            "Modules\\QrOrdering\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\QrOrdering\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\QrOrdering\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {
@@ -15,7 +16,9 @@
     },
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\QrOrdering\\Providers\\QrOrderingServiceProvider"
+            ],
             "aliases": {}
         }
     }

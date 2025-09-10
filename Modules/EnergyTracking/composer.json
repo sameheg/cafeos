@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Modules\\EnergyTracking\\Providers\\EnergyTrackingServiceProvider"
+            ],
             "aliases": {}
         }
     },
@@ -17,7 +19,8 @@
         "psr-4": {
             "Modules\\EnergyTracking\\": "app/",
             "Modules\\EnergyTracking\\Database\\Factories\\": "database/factories/",
-            "Modules\\EnergyTracking\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\EnergyTracking\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\EnergyTracking\\Providers\\": "Providers/"
         }
     },
     "autoload-dev": {
