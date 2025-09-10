@@ -70,6 +70,27 @@ docker compose up queue-worker
 
 The service runs `php artisan queue:work` using the same PHP image as the main application.
 
+## Broadcasting
+
+Real-time events may be sent over websockets using either [Pusher](https://pusher.com) or [Laravel Reverb](https://reverb.laravel.com).
+
+Set the desired driver in your environment:
+
+```bash
+BROADCAST_CONNECTION=pusher # or reverb
+```
+
+When using Pusher, also configure the following keys:
+
+```bash
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_APP_CLUSTER=mt1
+```
+
+The frontend reads the selected connection via `VITE_BROADCAST_DRIVER` to initialize Echo.
+
 ## Module Scaffolding
 
 Generate a new module with migrations, models, bilingual translations, and tests via the Artisan command:
