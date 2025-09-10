@@ -8,6 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (! env('CRM_MODULE_ENABLED', false)) {
+            return;
+        }
+
         Schema::create('customer_preferences', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();

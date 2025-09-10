@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (! env('POS_MODULE_ENABLED', true)) {
+            return;
+        }
+
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shift_id')->constrained()->cascadeOnDelete();

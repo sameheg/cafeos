@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (! env('POS_MODULE_ENABLED', true)) {
+            return;
+        }
+
         Schema::create('driver_locations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('driver_id')->constrained('users');
