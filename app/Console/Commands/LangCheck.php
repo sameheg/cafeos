@@ -15,7 +15,7 @@ class LangCheck extends Command
         $failed = false;
 
         // Check application level translations
-        if (!$this->checkPair(lang_path('en.json'), lang_path('ar.json'))) {
+        if (! $this->checkPair(lang_path('en.json'), lang_path('ar.json'))) {
             $failed = true;
         }
 
@@ -23,25 +23,27 @@ class LangCheck extends Command
         $modules = glob(base_path('Modules/*'), GLOB_ONLYDIR);
         foreach ($modules as $modulePath) {
             $module = basename($modulePath);
-            $enDir = $modulePath . '/Resources/lang/en';
-            $arDir = $modulePath . '/Resources/lang/ar';
+            $enDir = $modulePath.'/Resources/lang/en';
+            $arDir = $modulePath.'/Resources/lang/ar';
 
-            if (!is_dir($enDir) || !is_dir($arDir)) {
+            if (! is_dir($enDir) || ! is_dir($arDir)) {
                 $this->error("Missing lang directories for module: {$module}");
                 $failed = true;
+
                 continue;
             }
 
-            foreach (glob($enDir . '/*.php') as $file) {
+            foreach (glob($enDir.'/*.php') as $file) {
                 $name = basename($file);
-                $arFile = $arDir . '/' . $name;
-                if (!file_exists($arFile)) {
+                $arFile = $arDir.'/'.$name;
+                if (! file_exists($arFile)) {
                     $this->error("Missing translation file in ar for {$module}: {$name}");
                     $failed = true;
+
                     continue;
                 }
 
-                if (!$this->checkPair($file, $arFile, "{$module}:{$name}")) {
+                if (! $this->checkPair($file, $arFile, "{$module}:{$name}")) {
                     $failed = true;
                 }
             }

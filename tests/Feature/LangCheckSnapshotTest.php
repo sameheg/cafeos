@@ -11,8 +11,8 @@ class LangCheckSnapshotTest extends TestCase
     {
         $output = Artisan::call('lang:check');
         $outputText = Artisan::output();
-        $snapshot = __DIR__ . '/../__snapshots__/lang_check.snap';
-        if (!file_exists($snapshot)) {
+        $snapshot = __DIR__.'/../__snapshots__/lang_check.snap';
+        if (! file_exists($snapshot)) {
             mkdir(dirname($snapshot), 0777, true);
             file_put_contents($snapshot, $outputText);
         }
