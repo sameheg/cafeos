@@ -70,6 +70,14 @@ php artisan module:make Blog
 
 See [docs/module-scaffolding.md](docs/module-scaffolding.md) for details.
 
+## Additional Security Features
+
+- Append-only, hash-linked audit logging.
+- IP whitelist middleware to restrict access.
+- Basic TOTP-based MFA service.
+- Placeholder quantum-resistant encryption service using libsodium.
+- Configurable data retention policy.
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
