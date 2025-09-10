@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Crm\Contracts\CustomerProfileServiceInterface;
 use Modules\Crm\Contracts\OrderHistoryServiceInterface;
+use Modules\Crm\Contracts\SurveyServiceInterface;
 use Modules\Crm\Services\CustomerProfileService;
 use Modules\Crm\Services\OrderHistoryService;
+use Modules\Crm\Services\SurveyService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -43,6 +45,7 @@ class CrmServiceProvider extends ServiceProvider
 
         $this->app->bind(CustomerProfileServiceInterface::class, CustomerProfileService::class);
         $this->app->bind(OrderHistoryServiceInterface::class, OrderHistoryService::class);
+        $this->app->bind(SurveyServiceInterface::class, SurveyService::class);
     }
 
     /**
