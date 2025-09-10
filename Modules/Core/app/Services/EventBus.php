@@ -7,14 +7,11 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 class EventBus
 {
-    public function __construct(protected Dispatcher $dispatcher)
-    {
-    }
+    public function __construct(protected Dispatcher $dispatcher) {}
 
     /**
      * Dispatch an event within the current tenant context.
      *
-     * @param  object|string  $event
      * @param  array<int,mixed>  $payload
      */
     public function dispatch(object|string $event, array $payload = []): void
@@ -25,8 +22,6 @@ class EventBus
     /**
      * Dispatch an event for a specific tenant.
      *
-     * @param  Tenant  $tenant
-     * @param  object|string  $event
      * @param  array<int,mixed>  $payload
      */
     public function dispatchToTenant(Tenant $tenant, object|string $event, array $payload = []): void

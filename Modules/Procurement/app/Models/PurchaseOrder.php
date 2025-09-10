@@ -17,4 +17,3 @@ class PurchaseOrder extends TenantModel
         return $this->belongsTo(Supplier::class);
     }
 }
-

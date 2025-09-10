@@ -15,8 +15,7 @@ class KdsTicketCreated implements ShouldBroadcast
         public int $tenantId,
         public int $stationId,
         public array $payload = []
-    ) {
-    }
+    ) {}
 
     public function broadcastOn(): PrivateChannel
     {
@@ -28,4 +27,3 @@ class KdsTicketCreated implements ShouldBroadcast
         return 'kds.ticket.created';
     }
 }
-

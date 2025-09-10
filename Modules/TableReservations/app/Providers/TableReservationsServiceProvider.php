@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class TableReservationsServiceProvider extends ServiceProvider
 {
     protected string $name = 'TableReservations';
+
     protected string $nameLower = 'tablereservations';
 
     public function boot(): void

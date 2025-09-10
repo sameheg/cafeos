@@ -3,9 +3,9 @@
 namespace Modules\Procurement\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Core\Contracts\InventoryServiceInterface;
 use Modules\Procurement\Models\Supplier;
 use Modules\Procurement\Services\PurchaseOrderService;
-use Modules\Core\Contracts\InventoryServiceInterface;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -42,4 +42,3 @@ class PurchaseOrderServiceTest extends TestCase
         $this->assertEquals('completed', $order->fresh()->status);
     }
 }
-

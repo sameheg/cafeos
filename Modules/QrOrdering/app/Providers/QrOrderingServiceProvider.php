@@ -2,12 +2,12 @@
 
 namespace Modules\QrOrdering\Providers;
 
-use Modules\QrOrdering\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class QrOrderingServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'QrOrdering';
+
     protected string $moduleNameLower = 'qr-ordering';
 
     public function boot(): void

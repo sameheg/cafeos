@@ -25,7 +25,7 @@ class PayrollServiceTest extends TestCase
             new Attendance(['clock_in' => '2024-01-02 09:00', 'clock_out' => '2024-01-02 12:30']),
         ];
 
-        $service = new PayrollService();
+        $service = new PayrollService;
         $report = $service->generatePayoutReport($attendances, 10, 5);
 
         $this->assertSame(7.5, $report['hours']);

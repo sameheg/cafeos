@@ -9,7 +9,7 @@ class CoreReportGenerator implements ReportGenerator
     public function generate(array $filters): array
     {
         return [
-            ['module' => 'core']
+            ['module' => 'core'],
         ];
     }
 }

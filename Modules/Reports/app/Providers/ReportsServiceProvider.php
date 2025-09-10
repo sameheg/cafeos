@@ -3,12 +3,11 @@
 namespace Modules\Reports\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Reports\Providers\RouteServiceProvider;
-
 
 class ReportsServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Reports';
+
     protected string $moduleNameLower = 'reports';
 
     public function register(): void

@@ -35,11 +35,12 @@ class LangCheck extends Command
             foreach ($untranslated as $key) {
                 $this->error("Untranslated key: {$key}");
             }
+
             return self::FAILURE;
         }
 
         $this->info('All translation keys are present and translated.');
+
         return self::SUCCESS;
     }
 }
-

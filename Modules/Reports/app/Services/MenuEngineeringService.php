@@ -6,9 +6,6 @@ class MenuEngineeringService
 {
     /**
      * Calculate profitability and popularity for menu items.
-     *
-     * @param array $items
-     * @return array
      */
     public function calculate(array $items): array
     {

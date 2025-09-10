@@ -11,7 +11,5 @@ class TableOpened
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public Order $order, public ?Tenant $tenant = null)
-    {
-    }
+    public function __construct(public Order $order, public ?Tenant $tenant = null) {}
 }

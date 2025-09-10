@@ -11,7 +11,7 @@ class Features
     {
         $tenantId = tenant('id');
 
-        if (!$tenantId) {
+        if (! $tenantId) {
             return false;
         }
 

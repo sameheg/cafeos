@@ -17,7 +17,7 @@ class BillingServiceTest extends TestCase
     public function test_split_bill_creates_parts()
     {
         $order = new Order(['total' => 100]);
-        $service = new BillingService();
+        $service = new BillingService;
         $parts = $service->splitBill($order, 2);
         $this->assertCount(2, $parts);
         $this->assertEquals(50, $parts[0]);
@@ -31,7 +31,7 @@ class BillingServiceTest extends TestCase
         $order->total = 100;
         $order->shouldReceive('save')->once()->andReturnTrue();
 
-        $service = new BillingService();
+        $service = new BillingService;
         $service->markAsDebt($order);
 
         $this->assertTrue($order->is_debt);
@@ -49,7 +49,7 @@ class BillingServiceTest extends TestCase
         $order->is_debt = true;
         $order->shouldNotReceive('save');
 
-        $service = new BillingService();
+        $service = new BillingService;
         $service->markAsDebt($order);
 
         Event::assertNotDispatched(UnpaidBillAlert::class);

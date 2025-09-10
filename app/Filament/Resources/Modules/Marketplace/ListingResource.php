@@ -6,7 +6,6 @@ use App\Filament\Resources\Concerns\TenantScoped;
 use App\Filament\Resources\Modules\Marketplace\Pages\CreateListing;
 use App\Filament\Resources\Modules\Marketplace\Pages\EditListing;
 use App\Filament\Resources\Modules\Marketplace\Pages\ListListings;
-use Modules\Marketplace\Models\Listing;
 use BackedEnum;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -14,6 +13,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Modules\Marketplace\Models\Listing;
 
 class ListingResource extends Resource
 {

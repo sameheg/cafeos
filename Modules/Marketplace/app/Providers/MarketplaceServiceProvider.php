@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class MarketplaceServiceProvider extends ServiceProvider
 {
     protected string $name = 'Marketplace';
+
     protected string $nameLower = 'marketplace';
 
     public function boot(): void

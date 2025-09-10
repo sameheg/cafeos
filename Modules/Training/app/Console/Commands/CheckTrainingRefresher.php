@@ -3,8 +3,8 @@
 namespace Modules\Training\Console\Commands;
 
 use Illuminate\Console\Command;
-use Modules\Training\Models\TrainingCompletion;
 use Illuminate\Support\Facades\Log;
+use Modules\Training\Models\TrainingCompletion;
 
 class CheckTrainingRefresher extends Command
 {
@@ -26,6 +26,7 @@ class CheckTrainingRefresher extends Command
         }
 
         $this->info('Checked training refreshers: '.count($expiring));
+
         return self::SUCCESS;
     }
 }

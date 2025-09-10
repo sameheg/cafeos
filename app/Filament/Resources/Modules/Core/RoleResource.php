@@ -6,12 +6,12 @@ use App\Filament\Resources\Concerns\TenantScoped;
 use App\Filament\Resources\Modules\Core\Pages\CreateRole;
 use App\Filament\Resources\Modules\Core\Pages\EditRole;
 use App\Filament\Resources\Modules\Core\Pages\ListRoles;
-use Modules\Core\Models\Role;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Modules\Core\Models\Role;
 
 class RoleResource extends Resource
 {

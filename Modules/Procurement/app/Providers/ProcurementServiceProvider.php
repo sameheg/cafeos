@@ -3,12 +3,13 @@
 namespace Modules\Procurement\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Procurement\Services\PurchaseOrderService;
 use Modules\Core\Contracts\InventoryServiceInterface;
+use Modules\Procurement\Services\PurchaseOrderService;
 
 class ProcurementServiceProvider extends ServiceProvider
 {
     protected string $name = 'Procurement';
+
     protected string $nameLower = 'procurement';
 
     public function boot(): void
@@ -37,4 +38,3 @@ class ProcurementServiceProvider extends ServiceProvider
         }
     }
 }
-

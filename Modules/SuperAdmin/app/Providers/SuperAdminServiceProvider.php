@@ -7,11 +7,10 @@ use Illuminate\Support\ServiceProvider;
 class SuperAdminServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'SuperAdmin';
+
     protected string $moduleNameLower = 'super-admin';
 
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     public function boot(): void
     {

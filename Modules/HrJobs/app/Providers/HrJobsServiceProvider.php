@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class HrJobsServiceProvider extends ServiceProvider
 {
     protected string $name = 'HrJobs';
+
     protected string $nameLower = 'hrjobs';
 
     public function boot(): void

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class RentalsServiceProvider extends ServiceProvider
 {
     protected string $name = 'Rentals';
+
     protected string $nameLower = 'rentals';
 
     public function boot(): void

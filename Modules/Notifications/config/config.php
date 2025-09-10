@@ -7,4 +7,3 @@ return [
         'manager' => 'admin',
     ],
 ];
-

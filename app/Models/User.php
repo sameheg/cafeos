@@ -3,19 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Concerns\BelongsToTenant;
+use App\Support\NotifiesWithLocale;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
-use App\Support\NotifiesWithLocale;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Concerns\BelongsToTenant;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasTranslations, NotifiesWithLocale, BelongsToTenant;
+    use BelongsToTenant, HasFactory, HasRoles, HasTranslations, Notifiable, NotifiesWithLocale;
 
     /**
      * The attributes that are translatable.

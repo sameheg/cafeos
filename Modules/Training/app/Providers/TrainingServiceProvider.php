@@ -3,7 +3,6 @@
 namespace Modules\Training\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schedule;
 use Modules\Training\Console\Commands\CheckTrainingRefresher;
 
 class TrainingServiceProvider extends ServiceProvider

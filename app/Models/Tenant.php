@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Laravel\Cashier\Billable;
+use Spatie\Translatable\HasTranslations;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDomains;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
-use Spatie\Translatable\HasTranslations;
-use Laravel\Cashier\Billable;
 
 class Tenant extends BaseTenant
 {
-    use HasDatabase, HasDomains, HasTranslations, Billable;
+    use Billable, HasDatabase, HasDomains, HasTranslations;
 
     /**
      * The attributes that are translatable.
@@ -28,4 +28,3 @@ class Tenant extends BaseTenant
         return $subscription?->allowsModule($module) ?? false;
     }
 }
-

@@ -2,8 +2,8 @@
 
 namespace Modules\Pos\Services;
 
-use Modules\Pos\Models\Order;
 use Modules\Billing\Events\UnpaidBillAlert;
+use Modules\Pos\Models\Order;
 
 class BillingService
 {
@@ -17,6 +17,7 @@ class BillingService
         }
 
         $amount = (float) $order->total / $parts;
+
         return array_fill(0, $parts, $amount);
     }
 

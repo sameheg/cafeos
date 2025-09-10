@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\HrJobs\Http\Controllers\JobController;
 use Modules\HrJobs\Http\Controllers\ApplicationController;
+use Modules\HrJobs\Http\Controllers\JobController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('hr-jobs', JobController::class)->only(['index', 'store', 'show']);

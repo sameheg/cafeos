@@ -8,9 +8,7 @@ use Modules\Pos\Events\OrderCreated;
 
 class AwardLoyaltyPoints
 {
-    public function __construct(private LoyaltyServiceInterface $loyalty)
-    {
-    }
+    public function __construct(private LoyaltyServiceInterface $loyalty) {}
 
     public function handle(OrderCreated $event): void
     {

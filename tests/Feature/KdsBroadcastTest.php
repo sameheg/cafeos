@@ -44,4 +44,3 @@ class KdsBroadcastTest extends TestCase
             ->assertStatus(403);
     }
 }
-

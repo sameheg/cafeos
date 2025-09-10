@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class KdsServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Kds';
+
     protected string $moduleNameLower = 'kds';
 
     public function register(): void

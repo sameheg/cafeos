@@ -7,9 +7,7 @@ use Modules\Crm\Services\NpsAnalyticsService;
 
 class NpsController extends Controller
 {
-    public function __construct(private NpsAnalyticsService $analytics)
-    {
-    }
+    public function __construct(private NpsAnalyticsService $analytics) {}
 
     public function show(int $branch)
     {

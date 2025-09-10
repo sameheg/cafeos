@@ -3,10 +3,10 @@
 namespace Modules\Inventory\Services;
 
 use Modules\Core\Contracts\InventoryServiceInterface;
+use Modules\FoodSafety\Services\FoodSafetyService;
 use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Models\InventoryItem;
 use Modules\Inventory\Models\StockMovement;
-use Modules\FoodSafety\Services\FoodSafetyService;
 
 class InventoryService implements InventoryServiceInterface
 {
@@ -17,7 +17,7 @@ class InventoryService implements InventoryServiceInterface
             $qty = is_array($itemData) ? $itemData['quantity'] : $itemData->quantity;
 
             $item = InventoryItem::find($itemId);
-            if (!$item) {
+            if (! $item) {
                 continue;
             }
 
@@ -69,7 +69,7 @@ class InventoryService implements InventoryServiceInterface
             $unitCost = is_array($itemData) ? ($itemData['unit_cost'] ?? 0) : ($itemData->unit_cost ?? 0);
 
             $item = InventoryItem::find($itemId);
-            if (!$item) {
+            if (! $item) {
                 continue;
             }
 

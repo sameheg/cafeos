@@ -9,6 +9,7 @@ use Modules\EquipmentMaintenance\Console\CheckMaintenanceSchedules;
 class EquipmentMaintenanceServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'EquipmentMaintenance';
+
     protected string $moduleNameLower = 'equipmentmaintenance';
 
     public function boot(): void
@@ -64,6 +65,7 @@ class EquipmentMaintenanceServiceProvider extends ServiceProvider
                 $paths[] = $path.'/modules/'.$this->moduleNameLower;
             }
         }
+
         return $paths;
     }
 

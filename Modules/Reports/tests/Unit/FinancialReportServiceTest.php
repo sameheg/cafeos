@@ -9,7 +9,7 @@ class FinancialReportServiceTest extends TestCase
 {
     public function test_generates_report_and_forecast(): void
     {
-        $service = new FinancialReportService();
+        $service = new FinancialReportService;
         $transactions = [
             ['revenue' => 1000, 'cost' => 400],
             ['revenue' => 1500, 'cost' => 500],

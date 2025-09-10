@@ -2,15 +2,16 @@
 
 namespace Modules\EquipmentMaintenance\Console;
 
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 use Modules\EquipmentMaintenance\Models\MaintenanceSchedule;
-use App\Models\User;
 use Modules\EquipmentMaintenance\Notifications\UpcomingMaintenanceNotification;
 
 class CheckMaintenanceSchedules extends Command
 {
     protected $signature = 'equipment-maintenance:check';
+
     protected $description = 'Send alerts for upcoming maintenance';
 
     public function handle(): int
@@ -21,6 +22,7 @@ class CheckMaintenanceSchedules extends Command
 
         if ($schedules->isEmpty()) {
             $this->info('No upcoming maintenance.');
+
             return self::SUCCESS;
         }
 
@@ -31,6 +33,7 @@ class CheckMaintenanceSchedules extends Command
         }
 
         $this->info('Notifications sent.');
+
         return self::SUCCESS;
     }
 }

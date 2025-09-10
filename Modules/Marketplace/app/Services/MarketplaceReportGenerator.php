@@ -9,7 +9,7 @@ class MarketplaceReportGenerator implements ReportGenerator
     public function generate(array $filters): array
     {
         return [
-            ['module' => 'marketplace']
+            ['module' => 'marketplace'],
         ];
     }
 }

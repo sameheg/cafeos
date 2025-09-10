@@ -22,11 +22,10 @@ class PrefixQueueWithTenant
             $queue = $settings['queue_base'];
 
             if ($event instanceof TenancyInitialized) {
-                $queue = $event->tenant->getTenantKey() . '-' . $queue;
+                $queue = $event->tenant->getTenantKey().'-'.$queue;
             }
 
             config(["queue.connections.$name.queue" => $queue]);
         }
     }
 }
-

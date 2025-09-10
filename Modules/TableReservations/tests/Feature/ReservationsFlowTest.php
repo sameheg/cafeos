@@ -5,10 +5,10 @@ namespace Modules\TableReservations\Tests\Feature;
 use App\Http\Middleware\SetUserLocale;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\TableReservations\Models\Table;
-use Modules\TableReservations\Models\Reservation;
-use Modules\Notifications\Services\NotificationService;
 use Mockery;
+use Modules\Notifications\Services\NotificationService;
+use Modules\TableReservations\Models\Reservation;
+use Modules\TableReservations\Models\Table;
 use Tests\TestCase;
 
 class ReservationsFlowTest extends TestCase
@@ -34,7 +34,7 @@ class ReservationsFlowTest extends TestCase
         $mock->shouldReceive('send')->once();
         $this->app->instance(NotificationService::class, $mock);
 
-        $response = $this->actingAs($user)->postJson('/api/v1/reservations/' . $reservation->id . '/confirm');
+        $response = $this->actingAs($user)->postJson('/api/v1/reservations/'.$reservation->id.'/confirm');
 
         $response->assertOk();
         $this->assertDatabaseHas('reservations', ['id' => $reservation->id, 'status' => 'confirmed']);

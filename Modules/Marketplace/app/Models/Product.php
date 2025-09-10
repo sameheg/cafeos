@@ -2,14 +2,14 @@
 
 namespace Modules\Marketplace\Models;
 
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Inventory\Models\InventoryItem;
-use App\Models\Concerns\BelongsToTenant;
 
 class Product extends Model
 {
-    use HasFactory, BelongsToTenant;
+    use BelongsToTenant, HasFactory;
 
     protected $fillable = [
         'tenant_id',

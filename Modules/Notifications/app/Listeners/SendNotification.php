@@ -2,18 +2,16 @@
 
 namespace Modules\Notifications\Listeners;
 
-use Modules\Notifications\Services\NotificationService;
-use Modules\Inventory\Events\LowStockAlert;
 use Modules\Billing\Events\UnpaidBillAlert;
-use Modules\Pos\Events\TableOpened;
-use Modules\Membership\Events\SubscriptionExpiring;
 use Modules\Crm\Events\LowSurveyScore;
+use Modules\Inventory\Events\LowStockAlert;
+use Modules\Membership\Events\SubscriptionExpiring;
+use Modules\Notifications\Services\NotificationService;
+use Modules\Pos\Events\TableOpened;
 
 class SendNotification
 {
-    public function __construct(private NotificationService $notifications)
-    {
-    }
+    public function __construct(private NotificationService $notifications) {}
 
     public function handle(object $event): void
     {

@@ -8,7 +8,7 @@ class CashierAuditLogger
 
     public function __construct(?string $logFile = null)
     {
-        $this->logFile = $logFile ?? sys_get_temp_dir() . '/cashier_audit.log';
+        $this->logFile = $logFile ?? sys_get_temp_dir().'/cashier_audit.log';
     }
 
     /**
@@ -24,7 +24,7 @@ class CashierAuditLogger
             'timestamp' => date(DATE_ATOM),
         ];
 
-        file_put_contents($this->logFile, json_encode($entry) . PHP_EOL, FILE_APPEND);
+        file_put_contents($this->logFile, json_encode($entry).PHP_EOL, FILE_APPEND);
 
         return $entry;
     }

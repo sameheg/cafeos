@@ -4,8 +4,8 @@ namespace Modules\TableReservations\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\TableReservations\Models\WaitlistEntry;
 use Modules\Notifications\Services\NotificationService;
+use Modules\TableReservations\Models\WaitlistEntry;
 
 class WaitlistController extends Controller
 {
@@ -22,13 +22,15 @@ class WaitlistController extends Controller
             'party_size' => 'required|integer',
         ]);
         $data['status'] = 'waiting';
+
         return WaitlistEntry::create($data);
     }
 
     public function update(Request $request, WaitlistEntry $waitlist, NotificationService $notifications)
     {
         $waitlist->update($request->only(['status']));
-        $notifications->send('Waitlist update for ' . $waitlist->customer_name, ['sms', 'push']);
+        $notifications->send('Waitlist update for '.$waitlist->customer_name, ['sms', 'push']);
+
         return $waitlist;
     }
 }

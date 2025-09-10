@@ -32,7 +32,7 @@ class MakeModuleCommandTest extends TestCase
 
         $testPath = "{$basePath}/Tests/Feature/{$module}ModuleTest.php";
         $this->assertFileExists($testPath);
-        $this->assertStringContainsString('namespace Modules\\' . $module . '\\Tests\\Feature;', File::get($testPath));
+        $this->assertStringContainsString('namespace Modules\\'.$module.'\\Tests\\Feature;', File::get($testPath));
 
         $statusPath = base_path('modules_statuses.json');
         $statuses = json_decode(File::get($statusPath), true);

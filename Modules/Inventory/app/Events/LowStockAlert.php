@@ -9,7 +9,5 @@ class LowStockAlert
 {
     use Dispatchable;
 
-    public function __construct(public InventoryItem $item)
-    {
-    }
+    public function __construct(public InventoryItem $item) {}
 }

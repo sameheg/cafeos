@@ -12,6 +12,7 @@ class FloorPlanController extends Controller
     public function index()
     {
         $layout = FloorLayout::first();
+
         return view('floor-plan-designer::editor', ['layout' => $layout?->layout ?? []]);
     }
 
@@ -31,4 +32,3 @@ class FloorPlanController extends Controller
         return response()->json(['status' => 'ok']);
     }
 }
-

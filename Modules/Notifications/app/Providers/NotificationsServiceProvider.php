@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class NotificationsServiceProvider extends ServiceProvider
 {
     protected string $name = 'Notifications';
+
     protected string $nameLower = 'notifications';
 
     public function boot(): void

@@ -14,7 +14,7 @@ class SetUserLocaleTest extends TestCase
         $tenant = new Tenant(['id' => 't1', 'name' => ['en' => 'Tenant'], 'locale' => 'ar']);
         app()->instance('tenant', $tenant);
 
-        $middleware = new SetUserLocale();
+        $middleware = new SetUserLocale;
         $request = Request::create('/', 'GET');
         $session = app('session')->driver();
         $request->setLaravelSession($session);
@@ -32,7 +32,7 @@ class SetUserLocaleTest extends TestCase
         $tenant = new Tenant(['id' => 't1', 'name' => ['en' => 'Tenant'], 'locale' => 'ar']);
         app()->instance('tenant', $tenant);
 
-        $middleware = new SetUserLocale();
+        $middleware = new SetUserLocale;
         $request = Request::create('/', 'GET', ['lang' => 'fr']);
         $session = app('session')->driver();
         $request->setLaravelSession($session);

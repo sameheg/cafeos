@@ -32,6 +32,7 @@ class LoyaltyService implements LoyaltyServiceInterface
                 'customer_id' => $customerId,
                 'points' => -$points,
             ]);
+
             return true;
         });
     }
@@ -57,6 +58,7 @@ class LoyaltyService implements LoyaltyServiceInterface
             return false;
         }
         $coupon->update(['redeemed_at' => now()]);
+
         return true;
     }
 }

@@ -11,9 +11,7 @@ class DashboardUpdated implements ShouldBroadcast
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public array $data)
-    {
-    }
+    public function __construct(public array $data) {}
 
     public function broadcastOn(): Channel
     {

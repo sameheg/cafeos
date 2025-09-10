@@ -25,6 +25,7 @@ abstract class BasePolicy
     protected function permission(string $action): string
     {
         $model = class_basename(static::$model);
+
         return Str::kebab($model).'.'.$action;
     }
 

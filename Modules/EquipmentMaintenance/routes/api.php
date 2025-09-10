@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\EquipmentMaintenance\Http\Controllers\EquipmentController;
-use Modules\EquipmentMaintenance\Http\Controllers\MaintenanceScheduleController;
 use Modules\EquipmentMaintenance\Http\Controllers\MaintenanceLogController;
+use Modules\EquipmentMaintenance\Http\Controllers\MaintenanceScheduleController;
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     Route::post('equipment', [EquipmentController::class, 'store'])->name('equipment.store');

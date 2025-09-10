@@ -5,8 +5,8 @@ namespace Modules\Core\Tests\Unit;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Core\Models\Role;
-use Tests\TestCase;
 use Spatie\Permission\PermissionRegistrar;
+use Tests\TestCase;
 
 class RolePolicyTest extends TestCase
 {

@@ -9,6 +9,7 @@ use Modules\Loyalty\Services\LoyaltyService;
 class LoyaltyServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Loyalty';
+
     protected string $moduleNameLower = 'loyalty';
 
     public function boot(): void

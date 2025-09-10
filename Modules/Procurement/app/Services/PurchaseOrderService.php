@@ -2,18 +2,17 @@
 
 namespace Modules\Procurement\Services;
 
-use Modules\Procurement\Models\PurchaseOrder;
 use Modules\Core\Contracts\InventoryServiceInterface;
+use Modules\Procurement\Models\PurchaseOrder;
 
 class PurchaseOrderService
 {
-    public function __construct(private InventoryServiceInterface $inventory)
-    {
-    }
+    public function __construct(private InventoryServiceInterface $inventory) {}
 
     public function createOrder(array $data): PurchaseOrder
     {
         $data['status'] = $data['status'] ?? 'pending';
+
         return PurchaseOrder::create($data);
     }
 
@@ -24,4 +23,3 @@ class PurchaseOrderService
         $order->save();
     }
 }
-

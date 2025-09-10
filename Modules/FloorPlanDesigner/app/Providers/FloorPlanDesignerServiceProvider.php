@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class FloorPlanDesignerServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'FloorPlanDesigner';
+
     protected string $moduleNameLower = 'floor-plan-designer';
 
     public function register(): void
@@ -38,4 +39,3 @@ class FloorPlanDesignerServiceProvider extends ServiceProvider
         }
     }
 }
-

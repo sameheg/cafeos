@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\Modules\Pos\Orders;
 
+use App\Filament\Resources\Concerns\TenantScoped;
 use App\Filament\Resources\Modules\Pos\Orders\Pages\CreateOrder;
 use App\Filament\Resources\Modules\Pos\Orders\Pages\EditOrder;
 use App\Filament\Resources\Modules\Pos\Orders\Pages\ListOrders;
 use App\Filament\Resources\Modules\Pos\Orders\Schemas\OrderForm;
 use App\Filament\Resources\Modules\Pos\Orders\Tables\OrdersTable;
 use App\Models\Modules\Pos\Order;
-use App\Filament\Resources\Concerns\TenantScoped;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

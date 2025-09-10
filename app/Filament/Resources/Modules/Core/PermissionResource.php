@@ -6,12 +6,12 @@ use App\Filament\Resources\Concerns\TenantScoped;
 use App\Filament\Resources\Modules\Core\Pages\CreatePermission;
 use App\Filament\Resources\Modules\Core\Pages\EditPermission;
 use App\Filament\Resources\Modules\Core\Pages\ListPermissions;
-use Modules\Core\Models\Permission;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Modules\Core\Models\Permission;
 
 class PermissionResource extends Resource
 {

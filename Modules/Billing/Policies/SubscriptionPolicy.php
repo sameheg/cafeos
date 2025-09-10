@@ -2,8 +2,8 @@
 
 namespace Modules\Billing\Policies;
 
-use Modules\Core\Policies\BasePolicy;
 use Modules\Billing\Models\Subscription;
+use Modules\Core\Policies\BasePolicy;
 
 class SubscriptionPolicy extends BasePolicy
 {

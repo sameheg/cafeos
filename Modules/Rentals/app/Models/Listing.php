@@ -2,14 +2,14 @@
 
 namespace Modules\Rentals\Models;
 
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use App\Models\Concerns\BelongsToTenant;
 
 class Listing extends Model
 {
-    use HasFactory, HasTranslations, BelongsToTenant;
+    use BelongsToTenant, HasFactory, HasTranslations;
 
     /**
      * The attributes that are translatable.

@@ -2,15 +2,16 @@
 
 namespace Modules\Billing\Providers;
 
+use App\Models\Tenant;
 use Illuminate\Support\ServiceProvider;
-use Modules\Billing\Services\PaymentGatewayManager;
 use Laravel\Cashier\Cashier;
 use Modules\Billing\Models\Subscription;
-use App\Models\Tenant;
+use Modules\Billing\Services\PaymentGatewayManager;
 
 class BillingServiceProvider extends ServiceProvider
 {
     protected string $name = 'Billing';
+
     protected string $nameLower = 'billing';
 
     public function register(): void

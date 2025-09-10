@@ -20,4 +20,3 @@ class DriverLocation extends Model
         'recorded_at' => 'datetime',
     ];
 }
-

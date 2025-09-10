@@ -18,19 +18,21 @@ class TableController extends Controller
         return Table::create($request->validate([
             'name' => 'required',
             'seats' => 'required|integer',
-            'status' => 'required'
+            'status' => 'required',
         ]));
     }
 
     public function update(Request $request, Table $table)
     {
-        $table->update($request->only(['name','seats','status']));
+        $table->update($request->only(['name', 'seats', 'status']));
+
         return $table;
     }
 
     public function destroy(Table $table)
     {
         $table->delete();
+
         return response()->noContent();
     }
 }

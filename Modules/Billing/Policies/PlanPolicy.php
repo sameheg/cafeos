@@ -2,8 +2,8 @@
 
 namespace Modules\Billing\Policies;
 
-use Modules\Core\Policies\BasePolicy;
 use Modules\Billing\Models\Plan;
+use Modules\Core\Policies\BasePolicy;
 
 class PlanPolicy extends BasePolicy
 {

@@ -6,8 +6,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Core\Models\Permission;
 use Modules\Core\Models\Role;
-use Tests\TestCase;
 use Spatie\Permission\PermissionRegistrar;
+use Tests\TestCase;
 
 class PermissionPolicyTest extends TestCase
 {

@@ -2,14 +2,14 @@
 
 namespace Modules\Pos\Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Middleware\InitializeTenancyByDomain;
 use App\Http\Middleware\SetUserLocale;
-use Modules\Pos\Models\Order;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Modules\Pos\Events\TableOpened;
+use Modules\Pos\Models\Order;
+use Tests\TestCase;
 
 class WaiterControllerTest extends TestCase
 {

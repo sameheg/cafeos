@@ -2,9 +2,8 @@
 
 namespace Modules\EquipmentMonitoring\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Modules\EquipmentMonitoring\Models\Alert;
+use Illuminate\Http\Request;
 use Modules\EquipmentMonitoring\Models\Device;
 
 class ReadingController extends Controller
