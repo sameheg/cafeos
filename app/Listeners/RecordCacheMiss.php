@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Cache\Events\CacheMissed;
 use Prometheus\CollectorRegistry;
 use Prometheus\Storage\InMemory;
+use Throwable;
 
 class RecordCacheMiss
 {
@@ -12,9 +13,11 @@ class RecordCacheMiss
 
     public function __construct()
     {
-        $this->registry = class_exists('Redis')
-            ? CollectorRegistry::getDefault()
-            : new CollectorRegistry(new InMemory);
+        try {
+            $this->registry = CollectorRegistry::getDefault();
+        } catch (Throwable $e) {
+            $this->registry = new CollectorRegistry(new InMemory);
+        }
     }
 
     public function handle(CacheMissed $event): void
