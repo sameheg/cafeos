@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\Tenant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
 use Nwidart\Modules\Facades\Module;
 
 abstract class TestCase extends BaseTestCase
@@ -15,26 +16,26 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshDatabase()
     {
-        foreach (Module::all() as $module) {
+        foreach (Module::allEnabled() as $module) {
             $module->register();
         }
 
         $this->baseRefreshDatabase();
 
-        static $migrated = false;
+        static $migrated = [];
 
-        foreach (Module::all() as $module) {
-            if (! $migrated) {
-                \Artisan::call('migrate', [
+        foreach (Module::allEnabled() as $module) {
+            if (! in_array($module->getName(), $migrated, true)) {
+                Artisan::call('migrate', [
                     '--path' => $module->getPath().'/database/migrations',
                     '--realpath' => true,
                 ]);
+
+                $migrated[] = $module->getName();
             }
 
             $module->boot();
         }
-
-        $migrated = true;
     }
 
     protected function setUp(): void
