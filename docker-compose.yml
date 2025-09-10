@@ -7,6 +7,7 @@ services:
     depends_on:
       - mysql
       - redis
+      - reverb
   mysql:
     image: mysql:8
     environment:
@@ -34,6 +35,7 @@ services:
     depends_on:
       - mysql
       - redis
+      - reverb
     command: php artisan queue:work
   nginx:
     image: nginx:alpine
