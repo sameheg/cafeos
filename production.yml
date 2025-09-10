@@ -31,7 +31,7 @@ services:
       REVERB_PORT: ${REVERB_PORT}
     ports:
       - "${REVERB_PORT:-8080}:8080"
-  queue-worker:
+  horizon:
     image: php:8.3-fpm
     volumes:
       - .:/var/www
@@ -42,7 +42,8 @@ services:
       POS_MODULE_ENABLED: ${POS_MODULE_ENABLED:-true}
       INVENTORY_MODULE_ENABLED: ${INVENTORY_MODULE_ENABLED:-true}
       CRM_MODULE_ENABLED: ${CRM_MODULE_ENABLED:-false}
-    command: php artisan queue:work
+    command: php artisan horizon
+    restart: unless-stopped
   nginx:
     image: nginx:alpine
     ports:
