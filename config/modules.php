@@ -16,12 +16,20 @@ return [
     'namespace' => 'Modules',
 
     'modules' => [
+        'ArVrMenu' => ['enabled' => false],
         'Billing' => ['enabled' => false],
         'Core' => ['enabled' => true],
         'Crm' => ['enabled' => true],
+        'Dashboard' => ['enabled' => true],
+        'EnergyTracking' => ['enabled' => false],
+        'EquipmentLeasing' => ['enabled' => false],
         'EquipmentMaintenance' => ['enabled' => true],
         'EquipmentMonitoring' => ['enabled' => true],
+        'EventManagement' => ['enabled' => false],
         'FloorPlanDesigner' => ['enabled' => false],
+        'FoodSafety' => ['enabled' => false],
+        'Franchise' => ['enabled' => false],
+        'HotelPms' => ['enabled' => false],
         'HrJobs' => ['enabled' => false],
         'Inventory' => ['enabled' => false],
         'Jobs' => ['enabled' => false],
@@ -35,7 +43,10 @@ return [
         'QrOrdering' => ['enabled' => true],
         'Rentals' => ['enabled' => false],
         'Reports' => ['enabled' => true],
+        'SelfServiceKiosk' => ['enabled' => true],
         'SuperAdmin' => ['enabled' => false],
+        'TableReservations' => ['enabled' => true],
+        'Training' => ['enabled' => true],
     ],
 
     /*
