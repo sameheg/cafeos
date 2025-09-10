@@ -2,14 +2,13 @@
 
 namespace Modules\Franchise\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use App\Models\Concerns\BelongsToTenant;
 
-class Franchise extends Model
+class Franchise extends TenantModel
 {
-    use HasFactory, HasTranslations, BelongsToTenant;
+    use HasFactory, HasTranslations;
 
     protected array $translatable = ['name', 'description'];
 
