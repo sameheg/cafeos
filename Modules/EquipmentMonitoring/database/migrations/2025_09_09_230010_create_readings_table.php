@@ -9,10 +9,13 @@ return new class extends Migration {
     {
         Schema::create('readings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->foreignId('device_id')->constrained('devices')->cascadeOnDelete();
             $table->float('temperature')->nullable();
             $table->string('status');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

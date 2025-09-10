@@ -2,15 +2,16 @@
 
 namespace Modules\FoodSafety\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class IngredientInfo extends Model
+class IngredientInfo extends TenantModel
 {
     use HasFactory;
 
     protected $fillable = [
+        'tenant_id',
         'inventory_item_id',
         'expiry_date',
         'allergens',

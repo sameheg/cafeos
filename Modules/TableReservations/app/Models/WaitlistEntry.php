@@ -2,12 +2,12 @@
 
 namespace Modules\TableReservations\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 use Modules\Membership\Enums\MembershipTier;
 
-class WaitlistEntry extends Model
+class WaitlistEntry extends TenantModel
 {
-    protected $fillable = ['customer_name', 'phone', 'party_size', 'status', 'membership_tier'];
+    protected $fillable = ['tenant_id', 'customer_name', 'phone', 'party_size', 'status', 'membership_tier'];
 
     protected $casts = [
         'membership_tier' => MembershipTier::class,

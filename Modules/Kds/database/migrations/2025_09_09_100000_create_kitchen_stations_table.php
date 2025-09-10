@@ -9,8 +9,11 @@ return new class extends Migration {
     {
         Schema::create('kitchen_stations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 

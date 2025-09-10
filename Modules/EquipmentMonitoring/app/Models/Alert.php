@@ -2,16 +2,17 @@
 
 namespace Modules\EquipmentMonitoring\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Alert extends Model
+class Alert extends TenantModel
 {
     use HasFactory;
 
     public $timestamps = true;
 
     protected $fillable = [
+        'tenant_id',
         'device_id',
         'message',
     ];

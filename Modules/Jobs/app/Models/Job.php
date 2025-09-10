@@ -2,10 +2,10 @@
 
 namespace Modules\Jobs\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\TenantModel;
 use Spatie\Translatable\HasTranslations;
 
-class Job extends Model
+class Job extends TenantModel
 {
     use HasTranslations;
 
@@ -15,4 +15,6 @@ class Job extends Model
      * @var list<string>
      */
     protected array $translatable = ['description'];
+
+    protected $fillable = ['tenant_id'];
 }

@@ -2,14 +2,15 @@
 
 namespace Modules\Crm\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class SurveyResponse extends Model
+class SurveyResponse extends TenantModel
 {
     use HasFactory;
 
     protected $fillable = [
+        'tenant_id',
         'survey_id',
         'branch_id',
         'rating',

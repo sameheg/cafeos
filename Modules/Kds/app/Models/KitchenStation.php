@@ -2,14 +2,15 @@
 
 namespace Modules\Kds\Models;
 
+use App\Models\TenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class KitchenStation extends Model
+class KitchenStation extends TenantModel
 {
     use HasFactory;
 
     protected $fillable = [
+        'tenant_id',
         'name',
     ];
 }

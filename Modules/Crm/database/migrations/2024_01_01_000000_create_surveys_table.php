@@ -13,6 +13,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('branch_id');
             $table->string('question');
             $table->timestamps();
+
+            $table->index('tenant_id');
         });
     }
 
