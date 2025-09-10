@@ -15,39 +15,10 @@ return [
     */
     'namespace' => 'Modules',
 
-    'modules' => [
-        'ArVrMenu' => ['enabled' => false],
-        'Billing' => ['enabled' => false],
-        'Core' => ['enabled' => true],
-        'Crm' => ['enabled' => true],
-        'Dashboard' => ['enabled' => true],
-        'EnergyTracking' => ['enabled' => false],
-        'EquipmentLeasing' => ['enabled' => false],
-        'EquipmentMaintenance' => ['enabled' => true],
-        'EquipmentMonitoring' => ['enabled' => true],
-        'EventManagement' => ['enabled' => false],
-        'FloorPlanDesigner' => ['enabled' => false],
-        'FoodSafety' => ['enabled' => false],
-        'Franchise' => ['enabled' => false],
-        'HotelPms' => ['enabled' => false],
-        'HrJobs' => ['enabled' => false],
-        'Inventory' => ['enabled' => false],
-        'Jobs' => ['enabled' => false],
-        'Kds' => ['enabled' => true],
-        'Loyalty' => ['enabled' => true],
-        'Marketplace' => ['enabled' => false],
-        'Membership' => ['enabled' => true],
-        'Notifications' => ['enabled' => false],
-        'Pos' => ['enabled' => true],
-        'Procurement' => ['enabled' => false],
-        'QrOrdering' => ['enabled' => true],
-        'Rentals' => ['enabled' => false],
-        'Reports' => ['enabled' => true],
-        'SelfServiceKiosk' => ['enabled' => true],
-        'SuperAdmin' => ['enabled' => false],
-        'TableReservations' => ['enabled' => true],
-        'Training' => ['enabled' => true],
-    ],
+    'modules' => array_map(
+        fn ($enabled) => ['enabled' => $enabled],
+        json_decode(file_get_contents(base_path('modules_statuses.json')), true) ?? []
+    ),
 
     /*
     |--------------------------------------------------------------------------
