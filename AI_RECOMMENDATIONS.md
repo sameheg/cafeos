@@ -20,3 +20,41 @@
 - Product upsell
 - Cross-sell recommendations
 - Personalized offers
+
+## Model Choice
+- Collaborative filtering for user-item affinity.
+- Association rule mining for bundle suggestions.
+
+## Data Requirements
+- `orders` and `order_items` for purchase history.
+- `customers` for demographics.
+- `loyalty` for reward tier segmentation.
+
+## Training Pipeline
+1. Build user-item matrix from `orders` and `order_items`.
+2. Join with `customers` and `loyalty` for user features.
+3. Train recommender system and expose API endpoint.
+
+### Sample Code (Python)
+```python
+import pandas as pd
+
+orders = pd.read_sql('SELECT customer_id, sku FROM order_items JOIN orders ON orders.id = order_items.order_id', con=db_conn)
+pivot = orders.pivot_table(index='customer_id', columns='sku', aggfunc='size', fill_value=0)
+# pass `pivot` to recommendation engine
+```
+
+### Sample Code (PHP)
+```php
+<?php
+$pdo = new PDO($dsn, $user, $pass);
+$sql = 'SELECT customer_id, sku FROM order_items JOIN orders ON orders.id = order_items.order_id';
+$data = $pdo->query($sql)->fetchAll();
+// Send $data to recommendation service
+?>
+```
+
+## Evaluation Metrics
+- Precision@K and Recall@K.
+- Click-through rate.
+- Conversion uplift.
