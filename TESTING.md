@@ -31,4 +31,42 @@ npm run test:e2e
 - Minimum 80% coverage per module.  
 
 ## CI Integration
-- All PRs trigger full test suite.  
+- All PRs trigger full test suite.
+
+## Unit Tests
+- Execute fast feedback loops with Pest.
+```bash
+./vendor/bin/pest
+```
+```
+Pest 2.x
+✓ example test passes
+```
+
+## Integration Tests
+- Validate module interactions via PHPUnit.
+```bash
+./vendor/bin/phpunit --testsuite=Integration
+```
+```
+PHPUnit 9.x
+..                                                                  2 / 2 (100%)
+```
+
+## Performance Tests
+- Assess client performance with Cypress.
+```bash
+npx cypress run --config-file cypress.performance.config.js
+```
+```
+All specs passed!                             3 of 3 completed (2s)
+```
+
+## Model Validation
+- Verify AI model quality and response speed.
+```bash
+python scripts/validate_models.py
+```
+```
+assistant_accuracy=0.91 latency=180ms
+```
