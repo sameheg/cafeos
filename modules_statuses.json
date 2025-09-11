@@ -1,4 +1,5 @@
 {
     "Core": true,
-    "Pos": true
+    "Pos": true,
+    "Kds": true
 }
