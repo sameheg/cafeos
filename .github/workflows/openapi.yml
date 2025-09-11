@@ -15,6 +15,10 @@ jobs:
           php-version: '8.2'
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
+      - name: Prepare database
+        run: |
+          touch database/database.sqlite
+          php artisan migrate --no-interaction --force
       - name: Generate OpenAPI spec
         run: |
           php artisan scribe:generate
