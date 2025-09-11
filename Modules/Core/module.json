@@ -1,0 +1,14 @@
+{
+    "name": "core",
+    "description": "Core module providing foundational features",
+    "version": "1.0.0",
+    "dependencies": [],
+    "autoload": {
+        "psr-4": {
+            "Modules\\Core\\": "app/"
+        }
+    },
+    "providers": [
+        "Modules\\Core\\Providers\\CoreServiceProvider"
+    ]
+}
