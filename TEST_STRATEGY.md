@@ -25,3 +25,8 @@ Testing types used in system.
 - E2E tests (Cypress)
 - Performance tests (JMeter)
 - Chaos tests
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

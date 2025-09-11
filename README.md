@@ -137,3 +137,7 @@ npm run test:e2e
 
 ## 📌 License
 MIT License – feel free to use, extend, and contribute.
+
+## Related Docs
+- [AGENTS.md](AGENTS.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)

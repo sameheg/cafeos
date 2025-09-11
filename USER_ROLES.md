@@ -65,4 +65,9 @@ flowchart TD
 ## Security Notes
 - 2FA required for Owner & Manager.  
 - Session timeout: 30 min idle.  
-- All actions logged in audit trail.  
+- All actions logged in audit trail.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

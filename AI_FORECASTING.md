@@ -1,3 +1,29 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [AI Forecasting](#ai-forecasting)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Features](#features)
+  - [Model Choice](#model-choice)
+  - [Data Requirements](#data-requirements)
+  - [Training Pipeline](#training-pipeline)
+    - [Sample Code (Python)](#sample-code-python)
+    - [Sample Code (PHP)](#sample-code-php)
+  - [Evaluation Metrics](#evaluation-metrics)
+  - [Testing](#testing)
+    - [Unit Tests](#unit-tests)
+    - [Integration Tests](#integration-tests)
+    - [Performance Tests](#performance-tests)
+    - [Model Validation](#model-validation)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # AI Forecasting
 
 ## Overview
@@ -101,3 +127,8 @@ mape=8.5% latency=240ms
 **Acceptance Criteria**
 - Accuracy (MAPE) ≤ 10%
 - Latency ≤ 300ms
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

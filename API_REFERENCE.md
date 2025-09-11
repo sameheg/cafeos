@@ -1,3 +1,29 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [API Reference](#api-reference)
+  - [Authentication](#authentication)
+    - [POST /api/auth/login](#post-apiauthlogin)
+    - [POST /api/auth/register](#post-apiauthregister)
+    - [POST /api/auth/logout](#post-apiauthlogout)
+  - [POS](#pos)
+    - [POST /api/pos/orders](#post-apiposorders)
+    - [GET /api/pos/orders/{id}](#get-apiposordersid)
+  - [Inventory](#inventory)
+    - [GET /api/inventory/items](#get-apiinventoryitems)
+    - [POST /api/inventory/adjust](#post-apiinventoryadjust)
+  - [Billing](#billing)
+    - [POST /api/billing/subscribe](#post-apibillingsubscribe)
+    - [GET /api/billing/invoices](#get-apibillinginvoices)
+  - [Marketplace](#marketplace)
+    - [GET /api/marketplace/vendors](#get-apimarketplacevendors)
+    - [POST /api/marketplace/plugins/install](#post-apimarketplacepluginsinstall)
+  - [Error Codes](#error-codes)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # API Reference
 
 This document describes core API endpoints. For a full specification, see `openapi.yaml` or Postman collection.
@@ -268,3 +294,8 @@ sequenceDiagram
 - **403** Forbidden → No permission.
 - **404** Not Found → Resource missing.
 - **500** Internal Server Error → Unexpected issue.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

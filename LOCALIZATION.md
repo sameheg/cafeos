@@ -25,4 +25,9 @@
 - Dynamic direction switching.  
 
 ## Tenant Branding
-- Each tenant can customize theme + language.  
+- Each tenant can customize theme + language.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

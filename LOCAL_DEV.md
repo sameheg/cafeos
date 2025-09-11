@@ -30,3 +30,8 @@
 4. Run composer install && npm install
 5. Run php artisan migrate --seed
 6. Open http://localhost:8000
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

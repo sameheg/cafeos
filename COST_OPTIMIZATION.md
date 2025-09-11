@@ -1,3 +1,24 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Cost Optimization (FinOps)](#cost-optimization-finops)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Techniques](#techniques)
+  - [Reporting](#reporting)
+  - [Use Cases](#use-cases)
+  - [Setup Steps](#setup-steps)
+  - [Example Configuration](#example-configuration)
+  - [Scenario](#scenario)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Cost Optimization (FinOps)
 
 ## Overview
@@ -53,3 +74,8 @@ budget_alerts:
 ## Scenario
 A tenant's service exceeds 80% CPU for a sustained period; auto-scaling launches new instances and cost alerts monitor spend.
 When usage drops, the system scales in to minimize costs.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -1,3 +1,20 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Developer Onboarding Guide](#developer-onboarding-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Day 1 Checklist](#day-1-checklist)
+  - [Tools](#tools)
+  - [Best Practices](#best-practices)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Developer Onboarding Guide
 
 ## Overview
@@ -30,3 +47,8 @@
 ## Best Practices
 - Commit with Conventional Commits.
 - Create PRs with description & screenshots.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

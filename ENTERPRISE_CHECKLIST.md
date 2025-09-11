@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Enterprise Readiness Checklist](#enterprise-readiness-checklist)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Enterprise Readiness Checklist
 
 ## Overview
@@ -136,3 +150,8 @@ This checklist tracks coverage of all areas in the EliteSaaS Documentation Pack.
 ---
 
 ✅ All areas are now fully covered for **1000% Enterprise SaaS Readiness**.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

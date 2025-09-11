@@ -53,4 +53,9 @@ await axios.post('/api/pos/orders', {items: [...]});
 
 ## Future Enhancements
 - Offline mode with service workers.  
-- Self-checkout mode.  
+- Self-checkout mode.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

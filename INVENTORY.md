@@ -1,3 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Inventory Module](#inventory-module)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+    - [Workflow](#workflow)
+    - [API](#api)
+    - [Examples](#examples)
+    - [Security](#security)
+    - [Future Enhancements](#future-enhancements)
+  - [References](#references)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Inventory Module
 
 ## Overview
@@ -44,3 +63,8 @@ curl -X POST /api/inventory/adjust -d 'sku=123&qty=-1'
 
 ## References
 - Additional resources and documentation about Inventory for further learning.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

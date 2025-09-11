@@ -32,3 +32,8 @@
 - Organize AI model files under `models/` with domain-specific subdirectories.
 - Use `snake_case` for filenames and `PascalCase` for class names.
 - Document algorithms in `ALGO.md` files describing purpose, inputs, outputs, and complexity.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -45,4 +45,9 @@ flowchart TD
 
 ## Future Enhancements
 - IoT temperature sensors integration.  
-- Predictive food safety analytics.  
+- Predictive food safety analytics.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -37,3 +37,8 @@ php artisan migrate:fresh --seed
 ```
 
 This will create demo tenants, users, and products.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

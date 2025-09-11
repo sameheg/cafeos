@@ -1,3 +1,23 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Energy Tracking Module](#energy-tracking-module)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Features](#features)
+  - [Workflow](#workflow)
+  - [API](#api)
+  - [Security](#security)
+  - [Future Enhancements](#future-enhancements)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Energy Tracking Module
 
 ## Overview
@@ -43,4 +63,9 @@ flowchart TD
 
 ## Future Enhancements
 - IoT smart meter integration.  
-- AI-driven energy optimization.  
+- AI-driven energy optimization.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

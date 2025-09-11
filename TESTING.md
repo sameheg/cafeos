@@ -1,3 +1,25 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Testing Guide](#testing-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Types of Tests](#types-of-tests)
+  - [Commands](#commands)
+  - [Coverage](#coverage)
+  - [CI Integration](#ci-integration)
+  - [Unit Tests](#unit-tests)
+  - [Integration Tests](#integration-tests)
+  - [Performance Tests](#performance-tests)
+  - [Model Validation](#model-validation)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Testing Guide
 
 ## Overview
@@ -70,3 +92,8 @@ python scripts/validate_models.py
 ```
 assistant_accuracy=0.91 latency=180ms
 ```
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

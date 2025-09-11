@@ -1,3 +1,19 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [SDK Guide](#sdk-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Supported SDKs](#supported-sdks)
+  - [Example (JS)](#example-js)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # SDK Guide
 
 ## Overview
@@ -27,3 +43,8 @@ import { Client } from 'elitesaas-sdk'
 const client = new Client({ apiKey: "xxx" })
 client.orders.list()
 ```
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

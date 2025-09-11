@@ -22,6 +22,7 @@
   - [👩‍💻 Contribution](#-contribution)
   - [📂 Config & Environment](#-config--environment)
   - [✅ Summary](#-summary)
+  - [Related Docs](#related-docs)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -226,3 +227,8 @@ This documentation package provides everything needed to:
 - Ensure compliance & testing.  
 
 Use this **MASTER_INDEX.md** as your main hub.
+
+## Related Docs
+- [README.md](README.md)
+- [DOC_TEMPLATE.md](DOC_TEMPLATE.md)
+

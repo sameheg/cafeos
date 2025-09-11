@@ -171,4 +171,9 @@ This system overview shows:
 - **Security**: RBAC, Audit Logs, Privacy, Compliance.  
 - **Frontend**: UI/UX, Mobile, PWA, Localization.  
 - **Integrations**: Payments, API Gateway, External APIs, Data Warehouse.  
-- **Future**: AI Assistants, Workflow Automation, KPIs.  
+- **Future**: AI Assistants, Workflow Automation, KPIs.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -23,3 +23,8 @@
 ## Use Cases
 - Sync employee data
 - Performance reviews
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

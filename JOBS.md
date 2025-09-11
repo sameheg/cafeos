@@ -47,4 +47,9 @@ flowchart TD
 
 ## Future Enhancements
 - AI-driven CV screening.  
-- Video interview integration.  
+- Video interview integration.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

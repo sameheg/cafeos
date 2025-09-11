@@ -31,4 +31,9 @@ php artisan tenants:rollback
 - Apply migrations gradually with health checks.  
 
 ## Rollback
-- Rollback only the affected tenant schema if error occurs.  
+- Rollback only the affected tenant schema if error occurs.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+
