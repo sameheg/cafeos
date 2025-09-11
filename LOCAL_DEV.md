@@ -1,19 +1,19 @@
 # Local Development Setup
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Local Dev.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Local Dev concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Local Dev in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Local Dev in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Local Dev for further learning.
 
 
 ## Prerequisites

@@ -1,19 +1,19 @@
 # Support Guide
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Support Guide.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Support Guide concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Support Guide in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Support Guide in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Support Guide for further learning.
 
 
 ## Support Tiers

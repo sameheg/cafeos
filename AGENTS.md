@@ -35,19 +35,19 @@
 # Modules (Agents) Documentation
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Agents.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Agents concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Agents in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Agents in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Agents for further learning.
 
 
 ## Core & Governance

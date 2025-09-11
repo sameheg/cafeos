@@ -1,19 +1,39 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Monitoring & Alerting Guide](#monitoring--alerting-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Tools](#tools)
+  - [Alerts](#alerts)
+  - [Setup Examples](#setup-examples)
+    - [Sentry](#sentry)
+    - [Prometheus Exporter](#prometheus-exporter)
+    - [Grafana](#grafana)
+  - [See Also](#see-also)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Monitoring & Alerting Guide
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Monitoring.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Monitoring concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Monitoring in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Monitoring in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Monitoring for further learning.
 
 
 ## Tools

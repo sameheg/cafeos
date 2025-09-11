@@ -1,19 +1,46 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [EliteSaaS Documentation Hub](#elitesaas-documentation-hub)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [📊 Platform Map (High-Level)](#-platform-map-high-level)
+- [📖 Table of Contents](#-table-of-contents)
+  - [🚀 General Docs](#-general-docs)
+  - [🏛 Core & Governance](#-core--governance)
+  - [🍽 Hospitality Ops](#-hospitality-ops)
+  - [🔌 Extensions](#-extensions)
+  - [⚙️ DevOps & Operations](#-devops--operations)
+  - [🔒 Security & Compliance](#-security--compliance)
+  - [🧪 Testing & Localization](#-testing--localization)
+  - [🎨 Frontend](#-frontend)
+  - [📡 API & Monitoring](#-api--monitoring)
+  - [👩‍💻 Contribution](#-contribution)
+  - [📂 Config & Environment](#-config--environment)
+  - [✅ Summary](#-summary)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # EliteSaaS Documentation Hub
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Master Index.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Master Index concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Master Index in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Master Index in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Master Index for further learning.
 
 
 Welcome to the **EliteSaaS Platform** documentation hub.  

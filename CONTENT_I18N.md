@@ -1,19 +1,19 @@
 # Content Internationalization (i18n)
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Content I18N.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Content I18N concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Content I18N in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Content I18N in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Content I18N for further learning.
 
 
 ## Overview

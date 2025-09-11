@@ -1,19 +1,19 @@
 # SDK Guide
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Sdk Guide.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Sdk Guide concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Sdk Guide in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Sdk Guide in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Sdk Guide for further learning.
 
 
 ## Supported SDKs

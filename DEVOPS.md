@@ -19,19 +19,19 @@
 # DevOps Guide
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Devops.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Devops concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Devops in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Devops in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Devops for further learning.
 
 
 ## Local Setup
