@@ -1,3 +1,7 @@
+# Environment:
+# - Requires Docker 20+ and Docker Compose 1.29+
+# - Services: app (PHP), MySQL 8.0, Redis (alpine), Nginx (alpine)
+
 version: '3.8'
 
 services:

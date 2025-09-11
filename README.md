@@ -8,6 +8,7 @@
   - [Setup](#setup)
   - [Usage](#usage)
   - [References](#references)
+  - [Environment](#environment)
   - [🚀 Overview](#-overview)
   - [✨ Key Features](#-key-features)
   - [🛠️ Tech Stack](#-tech-stack)
@@ -39,6 +40,16 @@
 
 ## References
 - Additional resources and documentation about Readme for further learning.
+
+## Environment
+- Requires **Docker 20+** and **Docker Compose 1.29+**.
+- Services defined in [`docker-compose.yml`](docker-compose.yml):
+  - PHP application container built from the project's `Dockerfile`.
+  - **MySQL 8.0** database.
+  - **Redis (alpine)** cache.
+  - **Nginx (alpine)** web server using [`nginx.conf`](nginx.conf).
+- Copy `.env.example` to `.env` to configure application variables.
+- No machine learning dependencies are currently included; add specific versions and installation steps if ML features are introduced.
 
 
 ## 🚀 Overview
