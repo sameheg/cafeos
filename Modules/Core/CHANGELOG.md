@@ -8,3 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-01-01
 ### Added
 - Initial release of the Core module.
+
+## [1.1.0] - 2025-09-11
+### Added
+- Module release command.

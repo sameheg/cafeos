@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Console\Commands\CoreOptimizeCommand;
 use Modules\Core\Console\Commands\ModulesListCommand;
+use Modules\Core\Console\Commands\ModuleReleaseCommand;
 use Modules\Core\Events\TenantCreated;
 use Modules\Core\Http\Middleware\AuditAction;
 use Modules\Core\Http\Middleware\EnsureModuleEnabled;
@@ -47,5 +48,11 @@ class CoreServiceProvider extends ServiceProvider
 
         Event::listen(TenantCreated::class, BootstrapTenant::class);
         Event::subscribe(RecordOutboxEvent::class);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ModuleReleaseCommand::class,
+            ]);
+        }
     }
 }
