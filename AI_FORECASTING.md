@@ -20,3 +20,42 @@
 - Predict inventory demand
 - Forecast sales trends
 - AI-driven staffing optimization
+
+## Model Choice
+- Time-series models such as Prophet or ARIMA.
+- LSTM networks for complex patterns.
+
+## Data Requirements
+- `orders` and `order_items` for historical sales.
+- `inventory_items` for stock levels.
+- `subscriptions` for seasonality signals.
+
+## Training Pipeline
+1. Pull order history from `orders` and `order_items`.
+2. Merge with `inventory_items` to estimate stock-outs.
+3. Train forecasting model and serialize artifacts.
+
+### Sample Code (Python)
+```python
+import pandas as pd
+from prophet import Prophet
+
+orders = pd.read_sql('SELECT created_at, total FROM orders', con=db_conn)
+model = Prophet().fit(orders.rename(columns={"created_at": "ds", "total": "y"}))
+forecast = model.predict(model.make_future_dataframe(30))
+```
+
+### Sample Code (PHP)
+```php
+<?php
+$pdo = new PDO($dsn, $user, $pass);
+$stmt = $pdo->query('SELECT created_at, total FROM orders');
+$data = $stmt->fetchAll();
+// Pass $data to forecasting service
+?>
+```
+
+## Evaluation Metrics
+- Mean absolute percentage error (MAPE).
+- Root mean square error (RMSE).
+- Inventory turnover improvement.
