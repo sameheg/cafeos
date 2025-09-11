@@ -1,3 +1,0 @@
-<?php
-
-// EquipmentMaintenance module routes

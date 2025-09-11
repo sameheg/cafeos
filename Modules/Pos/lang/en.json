@@ -1,8 +1,0 @@
-{
-  "enabled": "POS module is enabled",
-  "created": "Menu item created",
-  "updated": "Menu item updated",
-  "deleted": "Menu item deleted",
-  "moved": "Order moved",
-  "split": "Bill split successfully"
-}
