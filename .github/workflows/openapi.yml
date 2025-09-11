@@ -1,0 +1,27 @@
+name: API Docs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+      - name: Generate OpenAPI spec
+        run: |
+          php artisan scribe:generate
+          mkdir -p docs/openapi/modules
+          cp public/docs/openapi.yaml docs/openapi/modules/core.yaml
+      - name: Upload spec
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-openapi
+          path: docs/openapi/modules/core.yaml
