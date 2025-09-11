@@ -17,8 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (! Schema::hasTable('tenants')) {
+        $centralConnection = config('tenancy.database.central_connection');
+
+        if (! Schema::connection($centralConnection)->hasTable('tenants')) {
             Artisan::call('migrate', [
+                '--database' => $centralConnection,
                 '--path' => database_path('migrations/central'),
                 '--realpath' => true,
                 '--force' => true,
@@ -35,14 +38,17 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ];
 
-        if (Schema::hasColumn('tenants', 'domain')) {
+        if (Schema::connection($centralConnection)->hasColumn('tenants', 'domain')) {
             $tenantData['domain'] = 'tenant.test';
         }
 
-        DB::table('tenants')->insert($tenantData);
+        DB::connection($centralConnection)->table('tenants')->insert($tenantData);
 
-        if (Schema::hasTable('domains') && Schema::hasColumn('tenants', 'domain')) {
-            DB::table('domains')->insert([
+        if (
+            Schema::connection($centralConnection)->hasTable('domains')
+            && Schema::connection($centralConnection)->hasColumn('tenants', 'domain')
+        ) {
+            DB::connection($centralConnection)->table('domains')->insert([
                 'domain' => 'tenant.test',
                 'tenant_id' => '1',
                 'created_at' => now(),
