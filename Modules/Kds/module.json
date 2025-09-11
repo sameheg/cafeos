@@ -1,0 +1,11 @@
+{
+    "name": "Kds",
+    "alias": "kds",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Kds\\Providers\\KdsServiceProvider"
+    ],
+    "files": []
+}
