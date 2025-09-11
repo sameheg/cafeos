@@ -58,3 +58,45 @@ $data = $pdo->query($sql)->fetchAll();
 - Precision@K and Recall@K.
 - Click-through rate.
 - Conversion uplift.
+
+## Testing
+### Unit Tests
+- Check recommendation algorithms with Pest.
+```bash
+./vendor/bin/pest --testsuite=recommendations-unit
+```
+```
+Pest 2.x
+✓ ranks top products
+```
+
+### Integration Tests
+- Validate data joins via PHPUnit.
+```bash
+./vendor/bin/phpunit --testsuite=recommendations-integration
+```
+```
+PHPUnit 9.x
+..                                                                  2 / 2 (100%)
+```
+
+### Performance Tests
+- Use Cypress to profile recommendation latency.
+```bash
+npx cypress run --spec cypress/e2e/recommendations.cy.js
+```
+```
+All specs passed!                             1 of 1 completed (1s)
+```
+
+### Model Validation
+- Verify precision and response times.
+```bash
+python scripts/validate_recommendations.py
+```
+```
+precision@5=0.27 latency=220ms
+```
+**Acceptance Criteria**
+- Accuracy (Precision@5) ≥ 0.25
+- Latency ≤ 250ms

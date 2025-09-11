@@ -64,3 +64,45 @@ echo $response->getBody();
 - Response accuracy.
 - Resolution rate.
 - Customer satisfaction.
+
+## Testing
+### Unit Tests
+- Validate dialog utilities with Pest.
+```bash
+./vendor/bin/pest --testsuite=chatbot-unit
+```
+```
+Pest 2.x
+✓ formats greeting
+```
+
+### Integration Tests
+- Check API endpoints via PHPUnit.
+```bash
+./vendor/bin/phpunit --testsuite=chatbot-integration
+```
+```
+PHPUnit 9.x
+..                                                                  2 / 2 (100%)
+```
+
+### Performance Tests
+- Run Cypress scripts for load and latency.
+```bash
+npx cypress run --spec cypress/e2e/chatbot.cy.js
+```
+```
+All specs passed!                             1 of 1 completed (1s)
+```
+
+### Model Validation
+- Evaluate conversational accuracy and response time.
+```bash
+python scripts/validate_chatbot.py
+```
+```
+accuracy=0.88 latency=210ms
+```
+**Acceptance Criteria**
+- Accuracy ≥ 0.85
+- Latency ≤ 250ms

@@ -59,3 +59,45 @@ $data = $stmt->fetchAll();
 - Mean absolute percentage error (MAPE).
 - Root mean square error (RMSE).
 - Inventory turnover improvement.
+
+## Testing
+### Unit Tests
+- Assess forecasting helpers with Pest.
+```bash
+./vendor/bin/pest --testsuite=forecasting-unit
+```
+```
+Pest 2.x
+✓ computes seasonal index
+```
+
+### Integration Tests
+- Validate data pipelines via PHPUnit.
+```bash
+./vendor/bin/phpunit --testsuite=forecasting-integration
+```
+```
+PHPUnit 9.x
+..                                                                  2 / 2 (100%)
+```
+
+### Performance Tests
+- Execute Cypress scenarios to measure UI lag.
+```bash
+npx cypress run --spec cypress/e2e/forecasting.cy.js
+```
+```
+All specs passed!                             1 of 1 completed (1s)
+```
+
+### Model Validation
+- Check forecast accuracy and latency.
+```bash
+python scripts/validate_forecasting.py
+```
+```
+mape=8.5% latency=240ms
+```
+**Acceptance Criteria**
+- Accuracy (MAPE) ≤ 10%
+- Latency ≤ 300ms

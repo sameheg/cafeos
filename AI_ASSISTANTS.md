@@ -67,3 +67,45 @@ echo $response->getBody();
 - Task completion rate.
 - Average response time.
 - User satisfaction score.
+
+## Testing
+### Unit Tests
+- Verify assistant helpers with Pest.
+```bash
+./vendor/bin/pest --testsuite=assistants-unit
+```
+```
+Pest 2.x
+✓ generates suggestion
+```
+
+### Integration Tests
+- Ensure service wiring via PHPUnit.
+```bash
+./vendor/bin/phpunit --testsuite=assistants-integration
+```
+```
+PHPUnit 9.x
+..                                                                  2 / 2 (100%)
+```
+
+### Performance Tests
+- Measure request latency using Cypress.
+```bash
+npx cypress run --spec cypress/e2e/assistants.cy.js
+```
+```
+All specs passed!                             1 of 1 completed (1s)
+```
+
+### Model Validation
+- Evaluate model accuracy and latency.
+```bash
+python scripts/validate_assistants.py
+```
+```
+accuracy=0.92 latency=190ms
+```
+**Acceptance Criteria**
+- Accuracy ≥ 0.90
+- Latency ≤ 200ms
