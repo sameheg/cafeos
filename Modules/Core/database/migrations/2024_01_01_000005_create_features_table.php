@@ -7,18 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
-            $table->id();
+        Schema::create('features', function (Blueprint $table) {
             $table->string('name');
-            $table->string('domain')->unique();
-            $table->json('data')->nullable();
+            $table->string('scope')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            $table->primary(['name', 'scope']);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('features');
     }
 };

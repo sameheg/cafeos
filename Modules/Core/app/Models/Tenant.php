@@ -2,20 +2,22 @@
 
 namespace Modules\Core\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tenant extends Model
 {
-    use SoftDeletes;
+    use HasUlids;
 
     protected $fillable = [
         'name',
-        'domain',
-        'data',
+        'subdomain',
     ];
 
-    protected $casts = [
-        'data' => 'array',
-    ];
+    protected $casts = [];
+
+    public static function current(): ?self
+    {
+        return app('tenant');
+    }
 }

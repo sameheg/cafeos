@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Core\Http\Controllers\CoreController;
+use Modules\Core\Http\Controllers\TenantController;
+use Modules\Core\Http\Controllers\UserController;
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('cores', CoreController::class)->names('core');
+Route::prefix('v1/core')->group(function () {
+    Route::post('/tenants', [TenantController::class, 'store'])->middleware('throttle:10,1');
+    Route::get('/users/{id}', [UserController::class, 'show'])->middleware('auth');
 });
