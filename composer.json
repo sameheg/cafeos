@@ -36,7 +36,8 @@
       "Modules\\Pos\\": "Modules/Pos/app/",
       "Modules\\Kds\\": "Modules/Kds/app/",
       "Modules\\Kiosk\\": "Modules/Kiosk/app/",
-      "Modules\\Qr\\": "Modules/Qr/app/"
+      "Modules\\Qr\\": "Modules/Qr/app/",
+      "Modules\\Inventory\\": "Modules/Inventory/app/"
     }
   },
   "autoload-dev": {

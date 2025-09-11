@@ -3,5 +3,6 @@
     "Pos": true,
     "Kds": true,
     "Qr": true,
-    "Kiosk": true
+    "Kiosk": true,
+    "Inventory": true
 }
