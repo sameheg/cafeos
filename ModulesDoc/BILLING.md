@@ -1,35 +1,41 @@
 # Billing Module
 
 ## Overview
-Subscriptions and payments via Stripe/Paddle.
+Manages subscriptions, invoices, and payment processing for tenants.
 
 ## Features
-- Core functional features of Billing.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Supports Stripe and Paddle payment gateways.
+- Generates invoices and handles refunds.
+- Multi-currency and tax rate configuration.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Notifications
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Billing] --> B[EventBus]
-  B --> C[Reports]
+  POS --> Billing
+  Billing --> Notifications
+  Billing --> Reports
 ```
-- Example workflow for Billing.
+Describes key data flows.
+
+## API
+- `GET /api/billing/invoices` – List invoices for the current tenant.
+- `POST /api/billing/subscribe` – Create a subscription for a plan.
+
+## Examples
+```bash
+curl -X POST /api/billing/subscribe -d 'plan_id=1'
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Billing](../resources/js/Modules/Billing)
 
-## Missing Items
-- [ ] Add automated tests for Billing.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Implement webhook handling for payment events (issue #203).
+- Add Pest unit tests for subscription logic (issue #204).
 
 ## Future Enhancements
-- Extend Billing with AI-driven analytics and marketplace hooks.
+- Usage-based billing support.

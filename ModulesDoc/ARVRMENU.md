@@ -1,35 +1,45 @@
 # ARVRMenu Module
 
 ## Overview
-Augmented/VR menu visualization.
+Provides augmented and virtual reality interfaces for browsing the menu and placing orders.
 
 ## Features
-- Core functional features of ARVRMenu.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Render 3D menu items using WebXR.
+- Real-time price and availability updates through EventBus.
+- Supports marker-based AR and VR headsets.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Inventory
+- POS
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[ARVRMenu] --> B[EventBus]
-  B --> C[Reports]
+  Customer -->|scan marker| ARView
+  ARView -->|create order| POS
+  POS --> Inventory
+  POS --> Reports
 ```
-- Example workflow for ARVRMenu.
+Describes key data flows.
+
+## API
+- `GET /api/arvrmenu/menu` – Retrieve AR-ready menu data.
+- `POST /api/arvrmenu/orders` – Submit an order from the AR/VR interface.
+
+## Examples
+```js
+fetch('/api/arvrmenu/menu')
+  .then(r => r.json())
+  .then(menu => console.log(menu))
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/QrOrdering](../resources/js/Modules/QrOrdering)
 
-## Missing Items
-- [ ] Add automated tests for ARVRMenu.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Integrate WebXR device API (see issue #201).
+- Add end-to-end tests with Playwright (issue #202).
 
 ## Future Enhancements
-- Extend ARVRMenu with AI-driven analytics and marketplace hooks.
+- AI-driven menu recommendations.

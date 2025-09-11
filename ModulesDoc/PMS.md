@@ -1,35 +1,40 @@
 # PMS Module
 
 ## Overview
-Hotel PMS integration (rooms, guests).
+Property management system for managing rooms and bookings.
 
 ## Features
-- Core functional features of PMS.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Room inventory and status management.
+- Billing integration for stays.
+- Guest communication tools.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Billing
+- Reservations
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[PMS] --> B[EventBus]
-  B --> C[Reports]
+  Reservations --> PMS
+  PMS --> Billing
+  PMS --> Reports
 ```
-- Example workflow for PMS.
+Describes key data flows.
+
+## API
+- `GET /api/pms/rooms` – List rooms and availability.
+
+## Examples
+```bash
+curl /api/pms/rooms?status=vacant
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules](../resources/js/Modules)
 
-## Missing Items
-- [ ] Add automated tests for PMS.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Integrate with channel managers (issue #219).
 
 ## Future Enhancements
-- Extend PMS with AI-driven analytics and marketplace hooks.
+- Smart lock integration.

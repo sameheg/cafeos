@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Stancl\Tenancy\Contracts\Tenant as TenantContract;
 
 class DatabaseSeeder extends Seeder
@@ -15,14 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('tenants')->insert([
-            'id' => 1,
-            'name' => 'Test Tenant',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $tenant = Tenant::withoutEvents(function () {
+            $tenant = Tenant::create([
+                'id' => '1',
+                'name' => [
+                    'en' => 'Test Tenant',
+                    'ar' => 'مستأجر تجريبي',
+                ],
+                'domain' => 'test.localhost',
+            ]);
 
-        $tenant = new Tenant(['id' => 1, 'name' => 'Test Tenant']);
+            $tenant->domains()->create(['domain' => 'test.localhost']);
+
+            return $tenant;
+        });
+
         app()->instance(TenantContract::class, $tenant);
 
         $this->call([

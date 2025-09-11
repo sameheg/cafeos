@@ -1,35 +1,37 @@
 # Reports Module
 
 ## Overview
-Analytics, KPIs, exports, forecasting tools.
+Generates analytics, KPIs, and forecasting tools across modules.
 
 ## Features
-- Core functional features of Reports.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Pre-built sales and inventory reports.
+- Custom report builder with export options.
+- Scheduled report delivery.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Reports] --> B[EventBus]
-  B --> C[Reports]
+  Modules --> Reports
+  Reports --> Users
 ```
-- Example workflow for Reports.
+Describes key data flows.
+
+## API
+- `GET /api/reports/sales` – Retrieve sales report data.
+
+## Examples
+```bash
+curl /api/reports/sales?range=30d
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Reports](../resources/js/Modules/Reports)
 
-## Missing Items
-- [ ] Add automated tests for Reports.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Implement drag-and-drop report builder (issue #222).
 
 ## Future Enhancements
-- Extend Reports with AI-driven analytics and marketplace hooks.
+- Predictive analytics.

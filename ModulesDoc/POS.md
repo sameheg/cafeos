@@ -1,35 +1,42 @@
 # POS Module
 
 ## Overview
-Point of Sale module for transactions, carts, receipts.
+Point of sale for processing orders, payments, and receipts.
 
 ## Features
-- Core functional features of POS.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Supports dine-in, take-out, and delivery orders.
+- Handles discounts, tips, and tax calculations.
+- Synchronizes with inventory in real time.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Billing
+- Inventory
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[POS] --> B[EventBus]
-  B --> C[Reports]
+  Customer --> POS
+  POS --> Billing
+  POS --> Inventory
+  POS --> Reports
 ```
-- Example workflow for POS.
+Describes key data flows.
+
+## API
+- `POST /api/pos/orders` – Create a new order.
+
+## Examples
+```js
+await axios.post('/api/pos/orders', {items: [...]});
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Pos](../resources/js/Modules/Pos)
+- [resources/js/Pages/Pos](../resources/js/Pages/Pos)
 
-## Missing Items
-- [ ] Add automated tests for POS.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Add offline mode with service workers (issue #220).
 
 ## Future Enhancements
-- Extend POS with AI-driven analytics and marketplace hooks.
+- Self-checkout mode.

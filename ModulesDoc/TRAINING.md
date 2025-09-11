@@ -1,35 +1,39 @@
 # Training Module
 
 ## Overview
-Employee onboarding & training tracking.
+Provides employee onboarding courses and tracks completion.
 
 ## Features
-- Core functional features of Training.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Course builder with quizzes.
+- Progress tracking and certificates.
+- Integration with Jobs module for new hires.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Jobs
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Training] --> B[EventBus]
-  B --> C[Reports]
+  Instructor --> Training
+  Training --> Jobs
+  Training --> Reports
 ```
-- Example workflow for Training.
+Describes key data flows.
+
+## API
+- `GET /api/training/courses` – List available courses.
+
+## Examples
+```bash
+curl /api/training/courses
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules](../resources/js/Modules)
 
-## Missing Items
-- [ ] Add automated tests for Training.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Upload video lessons to CDN (issue #224).
 
 ## Future Enhancements
-- Extend Training with AI-driven analytics and marketplace hooks.
+- Adaptive learning paths.

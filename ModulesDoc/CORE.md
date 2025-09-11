@@ -1,35 +1,38 @@
 # Core Module
 
 ## Overview
-Handles tenancy, RBAC, feature flags, and event bus.
+Provides tenancy, RBAC, feature flags, and the central event bus.
 
 ## Features
-- Core functional features of Core.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Multi-tenant database isolation.
+- Role-based access control using Spatie permissions.
+- Event bus for cross-module communication.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Core] --> B[EventBus]
-  B --> C[Reports]
+  Modules --> EventBus
+  EventBus --> Modules
+  EventBus --> Reports
 ```
-- Example workflow for Core.
+Describes key data flows.
+
+## API
+- `POST /api/core/events` – Publish an internal event.
+
+## Examples
+```php
+Event::dispatch(new ModuleEvent('inventory.updated'))
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Core](../resources/js/Modules/Core)
 
-## Missing Items
-- [ ] Add automated tests for Core.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Document multi-tenant setup guide (issue #205).
 
 ## Future Enhancements
-- Extend Core with AI-driven analytics and marketplace hooks.
+- Service mesh integration.
