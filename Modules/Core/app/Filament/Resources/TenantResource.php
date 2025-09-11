@@ -7,11 +7,17 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\Tenant;
 
 class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
+
+    public static function canViewAny(): bool
+    {
+        return Gate::allows('manage-tenants');
+    }
 
     public static function form(Form $form): Form
     {

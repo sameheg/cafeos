@@ -7,11 +7,24 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use App\Models\User;
+use Modules\Core\Models\Tenant;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+
+    public static function canViewAny(): bool
+    {
+        return Gate::allows('manage-users');
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('tenant_id', Tenant::current()?->id);
+    }
 
     public static function form(Form $form): Form
     {
