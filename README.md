@@ -141,3 +141,8 @@ MIT License – feel free to use, extend, and contribute.
 ## Related Docs
 - [AGENTS.md](AGENTS.md)
 - [MASTER_INDEX.md](MASTER_INDEX.md)
+
+## Changelog
+- Added Last Updated metadata
+
+Last Updated: 2025-09-11 by ChatGPT
