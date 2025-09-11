@@ -1,19 +1,36 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Event Bus](#event-bus)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Event Types](#event-types)
+  - [Technology](#technology)
+  - [Flow](#flow)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Event Bus
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Event Bus.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Event Bus concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Event Bus in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Event Bus in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Event Bus for further learning.
 
 
 ## Overview

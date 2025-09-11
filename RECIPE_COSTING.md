@@ -1,19 +1,19 @@
 # Recipe Costing & BOM
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Recipe Costing.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Recipe Costing concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Recipe Costing in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Recipe Costing in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Recipe Costing for further learning.
 
 
 ## Overview

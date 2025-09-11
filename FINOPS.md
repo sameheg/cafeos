@@ -1,19 +1,19 @@
 # FinOps
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Finops.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Finops concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Finops in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Finops in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Finops for further learning.
 
 
 ## Objectives

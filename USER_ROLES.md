@@ -1,19 +1,19 @@
 # User Roles & Permissions
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of User Roles.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic User Roles concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable User Roles in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying User Roles in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about User Roles for further learning.
 
 
 ## Overview

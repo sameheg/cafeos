@@ -1,19 +1,19 @@
 # KPIs & OKRs
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Kpis Okrs.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Kpis Okrs concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Kpis Okrs in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Kpis Okrs in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Kpis Okrs for further learning.
 
 
 ## KPIs

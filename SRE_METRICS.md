@@ -1,19 +1,19 @@
 # SRE Metrics
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Sre Metrics.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Sre Metrics concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Sre Metrics in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Sre Metrics in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Sre Metrics for further learning.
 
 
 ## SLIs (Service Level Indicators)

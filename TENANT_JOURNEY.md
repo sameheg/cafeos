@@ -1,19 +1,19 @@
 # Tenant Journey
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Tenant Journey.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Tenant Journey concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Tenant Journey in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Tenant Journey in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Tenant Journey for further learning.
 
 
 ## Step 1: Signup

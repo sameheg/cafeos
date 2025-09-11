@@ -1,19 +1,19 @@
 # Rentals Module
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Rentals.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Rentals concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Rentals in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Rentals in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Rentals for further learning.
 
 
 ## Overview

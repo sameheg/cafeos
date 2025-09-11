@@ -1,19 +1,38 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Scaling & High Availability Guide](#scaling--high-availability-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Horizontal Scaling](#horizontal-scaling)
+  - [Database Scaling](#database-scaling)
+  - [Redis Scaling](#redis-scaling)
+  - [File Storage](#file-storage)
+  - [High Availability](#high-availability)
+  - [Disaster Recovery](#disaster-recovery)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Scaling & High Availability Guide
 
 ## Overview
-- TBD
+- This section outlines the primary goals and scope of Scaling.
 
 ## Prerequisites
-- TBD
+- Familiarity with basic Scaling concepts and system requirements is recommended.
 
 ## Setup
-- TBD
+- Follow these steps to configure and enable Scaling in your environment.
 
 ## Usage
-- TBD
+- Instructions and examples for applying Scaling in day-to-day operations.
 
 ## References
-- TBD
+- Additional resources and documentation about Scaling for further learning.
 
 
 ## Horizontal Scaling
