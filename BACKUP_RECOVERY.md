@@ -55,3 +55,6 @@ backup-cli run --full --destination s3://cafeos-backups/prod
 
 ## Scenario
 A primary database crashes. The operator restores the latest full backup to a standby instance, applies incremental logs, and then updates the load balancer to point traffic to the standby.
+
+## See Also
+- [Business Continuity Plan & Disaster Recovery](BCP_DR.md)
