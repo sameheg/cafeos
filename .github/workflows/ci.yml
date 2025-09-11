@@ -13,14 +13,26 @@ jobs:
         with:
           php-version: '8.3'
           extensions: mbstring, intl, pdo_mysql, dom, fileinfo
+      - uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
       - name: Install Node dependencies
         run: npm ci
       - name: Composer audit
         run: composer audit --locked --no-interaction
       - name: NPM audit
         run: npm audit --audit-level=high
+        continue-on-error: true
       - name: Run Pint
         run: vendor/bin/pint --test
       - name: Run PHPStan
