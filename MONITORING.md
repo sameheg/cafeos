@@ -1,5 +1,21 @@
 # Monitoring & Alerting Guide
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Tools
 - **Sentry** → error tracking.  
 - **ELK Stack** (Elasticsearch, Logstash, Kibana) → centralized logging.  

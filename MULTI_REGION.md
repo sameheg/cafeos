@@ -1,6 +1,22 @@
 # Multi-Region Strategy
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Ensures high availability across regions.
 
 ## Approaches

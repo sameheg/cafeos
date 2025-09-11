@@ -1,6 +1,22 @@
 # Workflow Automation
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Automation rules for recurring tasks.
 
 ## Examples

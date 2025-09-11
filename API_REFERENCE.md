@@ -1,5 +1,21 @@
 # API Reference
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 This document describes core API endpoints.  
 For a full specification, see `openapi.yaml` or Postman collection.
 

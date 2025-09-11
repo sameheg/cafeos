@@ -1,5 +1,21 @@
 # Changelog
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## v1.0.0
 - Initial release with Core, POS, Inventory, Billing.  
 

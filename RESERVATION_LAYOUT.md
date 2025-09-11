@@ -1,6 +1,22 @@
 # Reservation Layout
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Defines table layout UI for reservations.
 
 ## Features

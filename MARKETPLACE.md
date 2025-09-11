@@ -1,6 +1,22 @@
 # Marketplace Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Connects cafes with third-party vendors for supplies and integrations.
 
 ## Features

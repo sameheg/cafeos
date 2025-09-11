@@ -1,6 +1,22 @@
 # HR Analytics (Jobs & Training)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Analytics for HR-related modules.
 
 ## Jobs KPIs

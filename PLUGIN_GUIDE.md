@@ -1,6 +1,22 @@
 # Plugin Development Guide
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 The Marketplace module allows third-party developers to build and publish plugins that extend EliteSaaS functionality.
 
 ## Plugin Structure

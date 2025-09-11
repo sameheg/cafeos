@@ -1,5 +1,21 @@
 # Frontend Guide
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Stack
 - Vue3 + Inertia.js  
 - TailwindCSS for styling  

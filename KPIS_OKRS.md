@@ -1,5 +1,21 @@
 # KPIs & OKRs
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## KPIs
 - Uptime: 99.9%
 - Avg API latency: <200ms

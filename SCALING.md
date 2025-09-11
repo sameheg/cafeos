@@ -1,5 +1,21 @@
 # Scaling & High Availability Guide
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Horizontal Scaling
 - Multiple app containers behind load balancer.  
 - Nginx/HAProxy for load distribution.  

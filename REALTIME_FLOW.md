@@ -1,6 +1,22 @@
 # Realtime Data Flow
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 This diagram illustrates the realtime interactions between modules during daily operations.  
 Data flows through POS, Inventory, KDS, Billing, Reports, and CRM using WebSockets, Events, and Queues.
 

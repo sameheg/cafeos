@@ -1,6 +1,22 @@
 # Predictive Maintenance (Equipment)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Predicts equipment failures using data patterns.
 
 ## Features

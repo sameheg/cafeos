@@ -1,6 +1,22 @@
 # Reports KPIs
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Defines the standard KPIs and dashboard templates for each module.
 
 ## POS KPIs

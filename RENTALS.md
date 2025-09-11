@@ -1,6 +1,22 @@
 # Rentals Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Manages listings for cafes/restaurants available for rent or sale.
 
 ## Features

@@ -1,6 +1,22 @@
 # POS Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Point of sale for processing orders, payments, and receipts.
 
 ## Features

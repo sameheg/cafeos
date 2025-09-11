@@ -1,6 +1,22 @@
 # AI Assistants (Future)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 AI-driven features planned.
 
 ## Use Cases

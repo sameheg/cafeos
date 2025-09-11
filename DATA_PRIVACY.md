@@ -1,6 +1,22 @@
 # Data Privacy
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Ensures compliance with GDPR, HIPAA.
 
 ## Principles

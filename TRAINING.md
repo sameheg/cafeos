@@ -1,6 +1,22 @@
 # Training Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Manages staff training programs, courses, and evaluations.
 
 ## Features

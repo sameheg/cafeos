@@ -1,5 +1,21 @@
 # Database Expansion
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## New Core Tables
 - modules
 - feature_flags

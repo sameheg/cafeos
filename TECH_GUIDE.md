@@ -1,5 +1,21 @@
 # EliteSaaS Technical Guide
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## 1. Architecture Overview
 - Modular SaaS built with Laravel 12 + PHP 8.4.  
 - Multi-tenant isolation: per-database or schema.  

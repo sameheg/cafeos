@@ -1,6 +1,22 @@
 # Event Bus
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 The Event Bus enables decoupled communication between modules via Pub/Sub.
 
 ## Event Types

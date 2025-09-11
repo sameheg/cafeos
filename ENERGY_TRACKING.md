@@ -1,6 +1,22 @@
 # Energy Tracking Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Monitors energy and water usage to optimize resource consumption.
 
 ## Features

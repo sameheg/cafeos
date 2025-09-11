@@ -1,6 +1,22 @@
 # Campaigns (CRM & Loyalty)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Campaign engine for marketing & promotions.
 
 ## Features

@@ -1,6 +1,22 @@
 # Content Internationalization (i18n)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Handles multi-language content, translations, and RTL support.
 
 ## Features

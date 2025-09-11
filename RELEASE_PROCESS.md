@@ -1,5 +1,21 @@
 # Release Process
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Flow
 1. Dev branch → Feature branches.
 2. PR → main branch.

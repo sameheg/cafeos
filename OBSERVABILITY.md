@@ -1,6 +1,22 @@
 # Observability
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Ensures deep visibility across services using logs, metrics, and traces.
 
 ## Components

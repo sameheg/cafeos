@@ -1,6 +1,22 @@
 # PWA Behavior
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Defines offline-first and sync behavior.
 
 ## Features
