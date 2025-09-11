@@ -15,7 +15,7 @@ class LocalizationTest extends TestCase
     {
         Tenant::create(['name' => 'Acme', 'slug' => 'acme', 'locale' => 'ar']);
 
-        $response = $this->withHeader('X-Tenant', 'acme')->get('/v1/healthz');
+        $response = $this->withHeader('X-Tenant', 'acme')->getJson('/v1/healthz');
 
         $response->assertJson([
             'status' => 'ok',

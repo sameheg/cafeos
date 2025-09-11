@@ -5,10 +5,14 @@
     "dependencies": [],
     "autoload": {
         "psr-4": {
-            "Modules\\Core\\": "app/"
+            "Modules\\Core\\": "app/",
+            "Modules\\Core\\Domain\\": "src/Domain/",
+            "Modules\\Core\\Application\\": "src/Application/",
+            "Modules\\Core\\Infrastructure\\": "src/Infrastructure/"
         }
     },
     "providers": [
-        "Modules\\Core\\Providers\\CoreServiceProvider"
+        "Modules\\Core\\Providers\\CoreServiceProvider",
+        "Modules\\Core\\Infrastructure\\Providers\\CorePanelProvider"
     ]
 }

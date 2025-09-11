@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer
+      - run: composer install --no-dev --prefer-dist
+      - run: npm ci && npm run build
+      - run: php artisan migrate --force
+      - run: php artisan core:optimize
+      - run: php artisan config:clear && php artisan cache:clear

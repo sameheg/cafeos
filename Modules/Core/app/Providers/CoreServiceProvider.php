@@ -5,6 +5,8 @@ namespace Modules\Core\Providers;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Console\Commands\CoreOptimizeCommand;
+use Modules\Core\Console\Commands\ModulesListCommand;
 use Modules\Core\Events\TenantCreated;
 use Modules\Core\Http\Middleware\AuditAction;
 use Modules\Core\Http\Middleware\EnsureModuleEnabled;
@@ -20,6 +22,10 @@ class CoreServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Register bindings for the core module here
+        $this->commands([
+            CoreOptimizeCommand::class,
+            ModulesListCommand::class,
+        ]);
     }
 
     public function boot(): void

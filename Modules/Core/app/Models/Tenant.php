@@ -4,10 +4,11 @@ namespace Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class Tenant extends Model
 {
-    use HasFactory;
+    use HasFactory, HasFlags;
 
     protected $guarded = [];
 

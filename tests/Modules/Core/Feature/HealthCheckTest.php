@@ -15,11 +15,16 @@ class HealthCheckTest extends TestCase
     {
         Tenant::create(['name' => 'T1', 'slug' => 't1']);
 
-        $response = $this->withHeader('X-Tenant', 't1')->get('/v1/healthz');
+        $response = $this->withHeader('X-Tenant', 't1')->getJson('/v1/healthz');
         $response->assertOk();
         $response->assertJson([
             'status' => 'ok',
             'message' => 'OK',
+            'checks' => [
+                'database' => true,
+                'cache' => true,
+                'queue' => true,
+            ],
         ]);
     }
 }

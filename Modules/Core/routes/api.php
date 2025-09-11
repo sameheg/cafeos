@@ -1,21 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Core\Http\Controllers\FeatureFlagController;
 use Modules\Core\Http\Controllers\InvitationController;
 use Modules\Core\Http\Controllers\MetricsController;
 use Modules\Core\Http\Controllers\ModuleController;
 use Modules\Core\Http\Controllers\SettingsController;
 use Modules\Core\Http\Controllers\TenantController;
+use Modules\Core\Infrastructure\Http\Controllers\FeatureFlagController;
+use Modules\Core\Infrastructure\Http\Controllers\HealthController;
 
 Route::prefix('v1')->group(function () {
     Route::middleware(['resolve-tenant', 'set-locale-from-tenant', 'subscription-gate', 'audit'])->group(function () {
-        Route::get('/healthz', function () {
-            return response()->json([
-                'status' => 'ok',
-                'message' => __('core::health.ok'),
-            ]);
-        });
+        Route::get('/healthz', HealthController::class);
 
         Route::get('/modules', [ModuleController::class, 'index']);
         Route::post('/modules/{name}/toggle', [ModuleController::class, 'toggle']);
