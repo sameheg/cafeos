@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - run: composer install --prefer-dist --no-dev --no-progress
+      - run: php artisan migrate --force
+      - run: php artisan config:cache
+      - name: Deploy
+        run: echo "Deploying via SSH or Envoyer"
