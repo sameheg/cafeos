@@ -2,5 +2,6 @@
     "Core": true,
     "Pos": true,
     "Kds": true,
-    "Qr": true
+    "Qr": true,
+    "Kiosk": true
 }

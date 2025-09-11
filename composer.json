@@ -35,6 +35,7 @@
       "Modules\\Core\\": "Modules/Core/app/",
       "Modules\\Pos\\": "Modules/Pos/app/",
       "Modules\\Kds\\": "Modules/Kds/app/",
+      "Modules\\Kiosk\\": "Modules/Kiosk/app/",
       "Modules\\Qr\\": "Modules/Qr/app/"
     }
   },
