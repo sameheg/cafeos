@@ -1,3 +1,37 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Modules (Agents) Documentation](#modules-agents-documentation)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Core & Governance](#core--governance)
+    - [Core](#core)
+    - [Super Admin](#super-admin)
+    - [Billing](#billing)
+  - [Hospitality Ops](#hospitality-ops)
+    - [POS](#pos)
+    - [Inventory](#inventory)
+    - [KDS](#kds)
+    - [Procurement](#procurement)
+    - [CRM](#crm)
+    - [Reservations](#reservations)
+    - [Franchise](#franchise)
+    - [Food Safety](#food-safety)
+  - [Extensions](#extensions)
+    - [Marketplace](#marketplace)
+    - [Jobs](#jobs)
+    - [Rentals](#rentals)
+    - [Training](#training)
+    - [Energy Tracking](#energy-tracking)
+    - [Equipment](#equipment)
+    - [AR/VR Menu](#arvr-menu)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Modules (Agents) Documentation
 
 ## Overview
