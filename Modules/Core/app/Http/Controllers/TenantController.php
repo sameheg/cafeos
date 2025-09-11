@@ -2,25 +2,30 @@
 
 namespace Modules\Core\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Events\TenantCreated;
+use Modules\Core\Http\Requests\TenantRequest;
+use Modules\Core\Http\Resources\TenantResource;
 use Modules\Core\Models\Tenant;
 
 class TenantController
 {
     public function index()
     {
-        return Tenant::all();
+        Gate::authorize('viewAny', Tenant::class);
+
+        return TenantResource::collection(Tenant::all());
     }
 
-    public function store(Request $request)
+    public function store(TenantRequest $request)
     {
-        $tenant = Tenant::create($request->only('name', 'slug'));
+        Gate::authorize('create', Tenant::class);
+
+        $tenant = Tenant::create($request->validated());
         TenantCreated::dispatch($tenant);
 
-        return response()->json([
+        return (new TenantResource($tenant))->additional([
             'message' => __('core::messages.tenant_created'),
-            'tenant' => $tenant,
-        ], 201);
+        ]);
     }
 }
