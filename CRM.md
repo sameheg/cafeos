@@ -38,12 +38,21 @@ flowchart TD
 ## API
 - `GET /api/crm/customers` – List customers.  
 - `POST /api/crm/customers` – Create customer profile.  
-- `POST /api/crm/loyalty/add` – Add loyalty points.  
-- `POST /api/crm/coupons/issue` – Issue coupon.  
+- `POST /api/crm/loyalty/add` – Add loyalty points.
+- `POST /api/crm/coupons/issue` – Issue coupon.
+
+## Use Case
+### Register a new customer
+```bash
+curl -X POST https://api.example.com/crm/customers \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe","email":"john@example.com","phone":"+1555000111"}'
+```
 
 ## Security
-- Access restricted to tenant managers/authorized staff.  
-- GDPR compliance for customer data.  
+- Access restricted to tenant managers/authorized staff.
+- GDPR compliance for customer data.
 
 ## Future Enhancements
 - AI-based customer segmentation.  
