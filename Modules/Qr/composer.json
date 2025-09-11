@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/qr",
+    "description": "",
+    "authors": [
+        {"name": "Nicolas Widart", "email": "n.widart@gmail.com"}
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Qr\\": "app/",
+            "Modules\\Qr\\Database\\Factories\\": "database/factories/",
+            "Modules\\Qr\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Qr\\Tests\\": "tests/"
+        }
+    }
+}

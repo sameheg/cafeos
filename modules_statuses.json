@@ -1,5 +1,6 @@
 {
     "Core": true,
     "Pos": true,
-    "Kds": true
+    "Kds": true,
+    "Qr": true
 }
