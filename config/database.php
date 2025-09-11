@@ -43,6 +43,20 @@ return [
             'transaction_mode' => 'DEFERRED',
         ],
 
+        'landlord' => [
+            'driver' => 'sqlite',
+            'database' => env('LANDLORD_DB_DATABASE', database_path('landlord.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ],
+
+        'tenant' => [
+            'driver' => 'sqlite',
+            'database' => env('TENANT_DB_DATABASE', database_path('tenant.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),

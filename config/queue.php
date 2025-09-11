@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'database'),
+    'default' => env('QUEUE_CONNECTION', 'tenant'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,12 +34,21 @@ return [
             'driver' => 'sync',
         ],
 
-        'database' => [
+        'tenant' => [
             'driver' => 'database',
-            'connection' => env('DB_QUEUE_CONNECTION'),
-            'table' => env('DB_QUEUE_TABLE', 'jobs'),
-            'queue' => env('DB_QUEUE', 'default'),
-            'retry_after' => (int) env('DB_QUEUE_RETRY_AFTER', 90),
+            'connection' => env('TENANT_DB_CONNECTION', 'tenant'),
+            'table' => 'jobs',
+            'queue' => env('TENANT_QUEUE', 'default'),
+            'retry_after' => 90,
+            'after_commit' => false,
+        ],
+
+        'landlord' => [
+            'driver' => 'database',
+            'connection' => env('LANDLORD_DB_CONNECTION', 'landlord'),
+            'table' => 'jobs',
+            'queue' => env('LANDLORD_QUEUE', 'default'),
+            'retry_after' => 90,
             'after_commit' => false,
         ],
 
