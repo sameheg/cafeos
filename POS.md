@@ -42,10 +42,28 @@ flowchart TD
 ## API
 - `POST /api/pos/orders` – Create a new order.  
 
-## Examples
-```js
-await axios.post('/api/pos/orders', {items: [...]});
-```
+## Use Case
+### Place an order through the API
+1. Create an order:
+   ```bash
+   curl -X POST https://api.example.com/pos/orders \
+     -H "Authorization: Bearer <token>" \
+     -H "Content-Type: application/json" \
+     -d '{"items":[{"sku":"coffee","qty":2}],"payment_method":"card"}'
+   ```
+2. Expected response:
+   ```json
+   {
+     "order_id": 555,
+     "total": 9.50,
+     "status": "pending"
+   }
+   ```
+3. Retrieve the order to confirm:
+   ```bash
+   curl -H "Authorization: Bearer <token>" https://api.example.com/pos/orders/555
+   ```
+
 
 ## Security
 - Tenant isolation for order data.  

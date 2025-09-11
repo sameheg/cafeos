@@ -36,13 +36,38 @@ flowchart TD
 ```
 
 ## API
-- `POST /api/reservations` – Create reservation.  
-- `GET /api/reservations` – List reservations.  
-- `DELETE /api/reservations/{id}` – Cancel reservation.  
+- `POST /api/reservations` – Create reservation.
+- `GET /api/reservations` – List reservations.
+- `DELETE /api/reservations/{id}` – Cancel reservation.
+
+## Use Case
+### Create a table reservation
+1. Send a `POST` request to create a reservation:
+   ```bash
+   curl -X POST https://api.example.com/reservations \
+     -H "Authorization: Bearer <token>" \
+     -H "Content-Type: application/json" \
+     -d '{"table_id":12,"customer_name":"Alice","time":"2025-09-15T19:00:00Z","party_size":4}'
+   ```
+2. Expected response:
+   ```json
+   {
+     "id": 101,
+     "table_id": 12,
+     "customer_name": "Alice",
+     "time": "2025-09-15T19:00:00Z",
+     "party_size": 4,
+     "status": "confirmed"
+   }
+   ```
+3. Verify the reservation exists:
+   ```bash
+   curl -H "Authorization: Bearer <token>" https://api.example.com/reservations?customer_name=Alice
+   ```
 
 ## Security
-- Role-based access (staff, managers).  
-- Tenant isolation for reservation data.  
+- Role-based access (staff, managers).
+- Tenant isolation for reservation data.
 
 ## Future Enhancements
 - Online deposit payments.  
