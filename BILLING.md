@@ -38,13 +38,22 @@ flowchart TD
 ```
 
 ## API
-- `POST /api/billing/subscribe` – Subscribe tenant to plan.  
-- `GET /api/billing/invoices` – List invoices.  
-- `POST /api/billing/pay` – Process payment.  
+- `POST /api/billing/subscribe` – Subscribe tenant to plan.
+- `GET /api/billing/invoices` – List invoices.
+- `POST /api/billing/pay` – Process payment.
+
+## Use Case
+### Create a new invoice
+```bash
+curl -X POST https://api.example.com/billing/invoices \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"tenant_id":123,"amount":99.99,"description":"Monthly subscription"}'
+```
 
 ## Security
-- Only tenant admins can manage subscriptions.  
-- PCI DSS compliance for payment data.  
+- Only tenant admins can manage subscriptions.
+- PCI DSS compliance for payment data.
 
 ## Future Enhancements
 - Multi-gateway fallback.  
