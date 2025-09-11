@@ -17,6 +17,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $tenant = Tenant::withoutEvents(function () {
+            $tenant = Tenant::create([
+                'id' => '1',
+                'name' => [
+                    'en' => 'Test Tenant',
+                    'ar' => 'مستأجر تجريبي',
+                ],
+                'domain' => 'test.localhost',
+            ]);
+
+            $tenant->domains()->create(['domain' => 'test.localhost']);
+
+            return $tenant;
+        });
+
         $centralConnection = config('tenancy.database.central_connection');
 
         if (! Schema::connection($centralConnection)->hasTable('tenants')) {

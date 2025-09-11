@@ -1,35 +1,40 @@
 # Franchise Module
 
 ## Overview
-Multi-brand & branch governance tools.
+Manages franchisee information, royalties, and compliance documents.
 
 ## Features
-- Core functional features of Franchise.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Franchisee onboarding and contract management.
+- Royalty calculation and invoicing.
+- Compliance document repository.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Billing
+- Reports
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Franchise] --> B[EventBus]
-  B --> C[Reports]
+  Franchisee --> Franchise
+  Franchise --> Billing
+  Franchise --> Reports
 ```
-- Example workflow for Franchise.
+Describes key data flows.
+
+## API
+- `GET /api/franchise/locations` – List franchise locations.
+
+## Examples
+```bash
+curl /api/franchise/locations
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules](../resources/js/Modules)
 
-## Missing Items
-- [ ] Add automated tests for Franchise.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Automate royalty statements (issue #211).
 
 ## Future Enhancements
-- Extend Franchise with AI-driven analytics and marketplace hooks.
+- Franchisee portal.

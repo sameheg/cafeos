@@ -1,35 +1,38 @@
 # Dashboard Module
 
 ## Overview
-Aggregated tenant dashboard for operations.
+Displays KPIs and operational metrics across modules for managers.
 
 ## Features
-- Core functional features of Dashboard.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Real-time sales, inventory, and staffing widgets.
+- Configurable layouts per tenant.
+- Drill-down reports and export options.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Reports
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Dashboard] --> B[EventBus]
-  B --> C[Reports]
+  Modules --> Dashboard
+  Dashboard --> Reports
 ```
-- Example workflow for Dashboard.
+Describes key data flows.
+
+## API
+- `GET /api/dashboard/metrics` – Fetch aggregated KPI metrics.
+
+## Examples
+```js
+const metrics = await axios.get('/api/dashboard/metrics');
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/SuperAdmin](../resources/js/Modules/SuperAdmin)
 
-## Missing Items
-- [ ] Add automated tests for Dashboard.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Add customizable widget library (issue #207).
 
 ## Future Enhancements
-- Extend Dashboard with AI-driven analytics and marketplace hooks.
+- Mobile dashboard app.

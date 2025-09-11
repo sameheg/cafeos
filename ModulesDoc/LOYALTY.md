@@ -1,35 +1,40 @@
 # Loyalty Module
 
 ## Overview
-Coupons, points, rewards, gamification.
+Awards points and manages reward redemption for returning customers.
 
 ## Features
-- Core functional features of Loyalty.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Point accrual rules per product or spend.
+- Reward catalog and redemption tracking.
+- Integration with CRM for targeted offers.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- CRM
+- Notifications
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Loyalty] --> B[EventBus]
-  B --> C[Reports]
+  POS --> Loyalty
+  Loyalty --> CRM
+  Loyalty --> Notifications
 ```
-- Example workflow for Loyalty.
+Describes key data flows.
+
+## API
+- `GET /api/loyalty/points` – Fetch loyalty points for current user.
+
+## Examples
+```bash
+curl /api/loyalty/points
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Loyalty](../resources/js/Modules/Loyalty)
 
-## Missing Items
-- [ ] Add automated tests for Loyalty.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Add tiered loyalty levels (issue #216).
 
 ## Future Enhancements
-- Extend Loyalty with AI-driven analytics and marketplace hooks.
+- Partner reward network.

@@ -1,35 +1,40 @@
 # Procurement Module
 
 ## Overview
-Suppliers, POs, transfers, stock intake.
+Handles supplier management, purchase orders, and stock intake.
 
 ## Features
-- Core functional features of Procurement.
-- Integration with other CafeOS modules.
-- i18n/RTL and multi-currency ready.
+- Supplier directory with contract terms.
+- Purchase order lifecycle management.
+- Stock intake and reconciliation.
 
 ## Dependencies
-- Depends on: Core (tenancy, RBAC, EventBus).
-- May require: Billing, Inventory, Notifications.
+- Core
+- Inventory
+- Billing
 
 ## Workflows
 ```mermaid
 flowchart LR
-  A[Procurement] --> B[EventBus]
-  B --> C[Reports]
+  Procurement --> Inventory
+  Procurement --> Billing
+  Procurement --> Reports
 ```
-- Example workflow for Procurement.
+Describes key data flows.
+
+## API
+- `POST /api/procurement/purchase-orders` – Create a new purchase order.
+
+## Examples
+```bash
+curl -X POST /api/procurement/purchase-orders -d 'supplier_id=3'
+```
 
 ## UI/UX
-- Interfaces: dashboards, CRUD screens, forms.
-- POS/KDS integration if applicable.
-- Mobile-first responsive layouts.
+- [resources/js/Modules/Procurement](../resources/js/Modules/Procurement)
 
-## Missing Items
-- [ ] Add automated tests for Procurement.
-- [ ] Add REST/GraphQL endpoints.
-- [ ] Add Blade components with namespace.
-- [ ] Production-grade validations.
+## Action Plan
+- Automate vendor performance reports (issue #221).
 
 ## Future Enhancements
-- Extend Procurement with AI-driven analytics and marketplace hooks.
+- EDI integration.
