@@ -2,6 +2,8 @@
 
 ## Overview
 - This section outlines the primary goals and scope of Inventory.
+- Tracks stock levels, batches, and reorder workflows across locations.
+- Features include SKU and batch tracking with expirations, automatic reorder triggers, and stock movement auditing.
 
 ## Prerequisites
 - Familiarity with basic Inventory concepts and system requirements is recommended.
@@ -12,19 +14,8 @@
 ## Usage
 - Instructions and examples for applying Inventory in day-to-day operations.
 
-## References
-- Additional resources and documentation about Inventory for further learning.
-
-
-## Overview
-Tracks stock levels, batches, and reorder workflows across locations.
-
-## Features
-- SKU and batch tracking with expirations.  
-- Automatic reorder triggers.  
-- Stock movement auditing.  
-
-## Workflow
+### Workflow
+The following diagram shows how inventory interacts with other modules.
 ```mermaid
 flowchart TD
     Supplier --> Procurement
@@ -34,19 +25,22 @@ flowchart TD
     POS --> Reports
 ```
 
-## API
-- `GET /api/inventory/items` – Retrieve inventory items.  
-- `POST /api/inventory/adjust` – Adjust stock levels.  
+### API
+- `GET /api/inventory/items` – Retrieve inventory items.
+- `POST /api/inventory/adjust` – Adjust stock levels.
 
-## Examples
+### Examples
 ```bash
 curl -X POST /api/inventory/adjust -d 'sku=123&qty=-1'
 ```
 
-## Security
-- Tenant isolation for stock data.  
-- Role-based access (managers, stock controllers).  
+### Security
+- Tenant isolation for stock data.
+- Role-based access (managers, stock controllers).
 
-## Future Enhancements
-- Supplier lead-time forecasting.  
-- Barcode scanning & IoT sensor integration.  
+### Future Enhancements
+- Supplier lead-time forecasting.
+- Barcode scanning & IoT sensor integration.
+
+## References
+- Additional resources and documentation about Inventory for further learning.
