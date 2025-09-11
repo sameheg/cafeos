@@ -25,5 +25,10 @@
 - PRs must pass CI.  
 
 ## Code Review
-- At least 1 approval before merge.  
-- Ensure tests pass.  
+- At least 1 approval before merge.
+- Ensure tests pass.
+
+## AI Contribution Guidelines
+- Organize AI model files under `models/` with domain-specific subdirectories.
+- Use `snake_case` for filenames and `PascalCase` for class names.
+- Document algorithms in `ALGO.md` files describing purpose, inputs, outputs, and complexity.

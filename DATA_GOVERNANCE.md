@@ -26,3 +26,8 @@ Defines policies for data classification, cataloging, and retention.
 
 ## Compliance
 - GDPR, HIPAA, PCI-DSS alignment.
+
+## Review & Audit Policy
+- All model and dataset updates require peer review before deployment.
+- Maintain versioned records of training data and model parameters.
+- Conduct quarterly audits to evaluate data quality, bias, and regulatory adherence.
