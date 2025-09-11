@@ -7,14 +7,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [8.2, 8.3]
+    env:
+      OTEL_TRACES_SAMPLER_TYPE: always_off
+      OTEL_TRACES_EXPORTER: null
+      OTEL_INSTRUMENTATION_ENABLED: false
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.3
           extensions: mbstring, intl, sqlite
           tools: composer
       - run: composer install --no-progress --prefer-dist

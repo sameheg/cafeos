@@ -6,8 +6,8 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
-        "filament/filament": "*",
+        "php": "^8.3",
+        "filament/filament": "^4.0",
         "keepsuit/laravel-opentelemetry": "*",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
