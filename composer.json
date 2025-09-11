@@ -28,6 +28,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Modules\\Core\\": "Modules/Core/app/",
+            "Modules\\Core\\Database\\Factories\\": "Modules/Core/database/factories/",
+            "Modules\\Core\\Database\\Seeders\\": "Modules/Core/database/seeders/",
             "Modules\\": "Modules/"
         }
     },
