@@ -35,3 +35,7 @@ flowchart TD
     Metrics --> Grafana
     Traces --> Jaeger
 ```
+
+## See Also
+- [Monitoring & Alerting Guide](MONITORING.md)
+- [Monitoring Flow](MONITORING_FLOW.md)

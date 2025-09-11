@@ -35,3 +35,7 @@ flowchart TD
 - **Sentry**: error tracking and alerting.
 - **Prometheus + Grafana**: metrics visualization.
 - **ELK Stack**: log aggregation and analysis.
+
+## See Also
+- [Monitoring & Alerting Guide](MONITORING.md)
+- [Observability](OBSERVABILITY.md)

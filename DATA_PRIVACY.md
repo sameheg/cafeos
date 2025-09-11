@@ -26,3 +26,6 @@ Ensures compliance with GDPR, HIPAA.
 
 ## Requests
 - API for data deletion/export
+
+## See Also
+- [Consent Management](CONSENT_MANAGEMENT.md)

@@ -38,3 +38,7 @@ Deploy exporter sidecar for Laravel app.
 
 ### Grafana
 Import dashboard templates for Laravel + MySQL + Redis.
+
+## See Also
+- [Monitoring Flow](MONITORING_FLOW.md)
+- [Observability](OBSERVABILITY.md)

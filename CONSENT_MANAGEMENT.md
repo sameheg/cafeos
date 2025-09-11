@@ -45,3 +45,6 @@ curl -X POST https://api.cafeos.example/consents \
 ## Scenario
 When a new user registers, the signup form calls the consent API to store their choice.
 If the user later updates their preferences, the system logs the change and sends a notification to compliance teams.
+
+## See Also
+- [Data Privacy](DATA_PRIVACY.md)
