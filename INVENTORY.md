@@ -1,6 +1,22 @@
 # Inventory Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Tracks stock levels, batches, and reorder workflows across locations.
 
 ## Features

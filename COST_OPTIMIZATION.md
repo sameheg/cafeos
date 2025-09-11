@@ -1,6 +1,22 @@
 # Cost Optimization (FinOps)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Ensures cloud resources are cost-efficient.
 
 ## Techniques

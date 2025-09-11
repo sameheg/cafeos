@@ -1,6 +1,22 @@
 # Settings
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 System settings include both global and tenant-level configs.
 
 ## Types

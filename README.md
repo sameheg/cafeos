@@ -1,5 +1,21 @@
 # EliteSaaS Platform
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## 🚀 Overview
 EliteSaaS is a next-generation **multi-tenant SaaS platform** designed to manage cafes, restaurants, hospitality operations, and extended domains such as **marketplace, recruitment, rentals, training, and supply chain**.  
 The platform is **modular, scalable, and global-ready**, outperforming existing systems like **Odoo** and **Foodics**.

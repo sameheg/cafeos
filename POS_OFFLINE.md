@@ -1,6 +1,22 @@
 # POS Offline Mode
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Allows POS to operate without internet.
 
 ## Features

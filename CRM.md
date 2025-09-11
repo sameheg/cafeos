@@ -1,6 +1,22 @@
 # CRM Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Manages customer data, preferences, loyalty programs, and coupons.
 
 ## Features

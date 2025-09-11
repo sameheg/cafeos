@@ -1,5 +1,21 @@
 # Multi-Tenancy Migration Guide
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Strategy
 - Each tenant has isolated DB/schema.  
 - Migrations run per tenant using tenancy package.  

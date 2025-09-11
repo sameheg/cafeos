@@ -1,5 +1,21 @@
 # Support Guide
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Support Tiers
 - **L1 (Basic Support)** → common issues, password resets, how-to guides.
 - **L2 (Technical Support)** → bug reports, module errors, integrations.

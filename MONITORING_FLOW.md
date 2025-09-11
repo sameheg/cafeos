@@ -1,6 +1,22 @@
 # Monitoring Flow
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Shows how logs, metrics, and errors flow from the application to monitoring tools.
 
 ## Flow Diagram

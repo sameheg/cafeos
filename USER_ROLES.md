@@ -1,6 +1,22 @@
 # User Roles & Permissions
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Defines the access control matrix for different user roles in the system.  
 Roles are enforced with RBAC at both tenant and module level.
 

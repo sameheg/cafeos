@@ -1,6 +1,22 @@
 # Consent Management (CRM)
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Manages GDPR consent for customer data.
 
 ## Features

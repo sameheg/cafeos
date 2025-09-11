@@ -1,6 +1,22 @@
 # Reservations Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Handles table booking and reservation management for restaurants and cafes.
 
 ## Features

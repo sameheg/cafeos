@@ -1,6 +1,22 @@
 # Admin Panel Documentation
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 The Admin Panel provides centralized management for both **Super Admins** (platform-level) and **Tenant Admins** (business-level).
 
 ---

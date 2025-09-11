@@ -1,6 +1,22 @@
 # Equipment Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Tracks maintenance and lifecycle of equipment in cafes/restaurants.
 
 ## Features

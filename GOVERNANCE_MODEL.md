@@ -1,5 +1,21 @@
 # Governance Model
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Structure
 - Board oversight
 - Security committee

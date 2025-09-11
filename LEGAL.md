@@ -1,5 +1,21 @@
 # Legal & Policies
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Documents
 - Terms of Service (ToS)
 - Service Level Agreement (SLA)

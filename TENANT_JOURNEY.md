@@ -1,5 +1,21 @@
 # Tenant Journey
 
+## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
 ## Step 1: Signup
 - Tenant signs up with email, company name, domain.
 - System generates tenant schema/database.

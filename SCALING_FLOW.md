@@ -1,6 +1,22 @@
 # Scaling Flow
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Illustrates how the platform scales horizontally and vertically.
 
 ## Flow Diagram

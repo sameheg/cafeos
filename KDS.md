@@ -1,6 +1,22 @@
 # Kitchen Display System (KDS) Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Displays incoming orders from POS to the kitchen for preparation and tracking.
 
 ## Features

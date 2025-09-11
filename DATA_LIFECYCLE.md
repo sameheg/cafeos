@@ -1,6 +1,22 @@
 # Data Lifecycle
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Describes the lifecycle of data from creation to deletion, ensuring compliance.
 
 ## Stages

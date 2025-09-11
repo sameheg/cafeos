@@ -1,6 +1,22 @@
 # Billing Module
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Handles subscription management, invoicing, and payment processing for tenants.
 
 ## Features

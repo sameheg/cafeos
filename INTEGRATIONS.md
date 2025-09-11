@@ -1,6 +1,22 @@
 # Integrations
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Supported third-party providers and APIs.
 
 ## Payment Providers

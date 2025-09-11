@@ -1,6 +1,22 @@
 # Audit Logs
 
 ## Overview
+- TBD
+
+## Prerequisites
+- TBD
+
+## Setup
+- TBD
+
+## Usage
+- TBD
+
+## References
+- TBD
+
+
+## Overview
 Audit logging ensures accountability and compliance.
 
 ## Logged Actions
