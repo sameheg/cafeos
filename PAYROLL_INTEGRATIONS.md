@@ -23,3 +23,8 @@
 ## Use Cases
 - Automate salary payouts
 - Tax compliance
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

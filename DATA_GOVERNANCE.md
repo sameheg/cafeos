@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Data Governance](#data-governance)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Areas](#areas)
+  - [Compliance](#compliance)
+  - [Review & Audit Policy](#review--audit-policy)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Data Governance
 
 ## Overview
@@ -31,3 +49,8 @@ Defines policies for data classification, cataloging, and retention.
 - All model and dataset updates require peer review before deployment.
 - Maintain versioned records of training data and model parameters.
 - Conduct quarterly audits to evaluate data quality, bias, and regulatory adherence.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

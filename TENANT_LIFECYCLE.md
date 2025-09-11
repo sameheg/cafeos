@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Tenant Lifecycle](#tenant-lifecycle)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Stages](#stages)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Tenant Lifecycle
 
 ## Overview
@@ -21,3 +36,8 @@
 - Activation (payment confirmed)
 - Upgrade/downgrade plan
 - Churn/exit process
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

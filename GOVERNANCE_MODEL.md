@@ -1,3 +1,19 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Governance Model](#governance-model)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Structure](#structure)
+  - [Processes](#processes)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Governance Model
 
 ## Overview
@@ -24,3 +40,8 @@
 ## Processes
 - Regular audits
 - Release approvals
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

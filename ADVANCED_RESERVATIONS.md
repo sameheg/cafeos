@@ -20,3 +20,8 @@
 - Waitlist management
 - Dynamic table allocation
 - Priority seating rules
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

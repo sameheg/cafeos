@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [API Gateway](#api-gateway)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # API Gateway
 
 ## Overview
@@ -24,3 +38,8 @@ flowchart TD
 
 ## References
 - Additional resources and documentation about Api Gateway for further learning.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

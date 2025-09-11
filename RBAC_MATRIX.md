@@ -1,3 +1,19 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [RBAC Matrix](#rbac-matrix)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Example](#example)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # RBAC Matrix
 
 ## Overview
@@ -25,3 +41,8 @@ Detailed permission matrix for roles.
 - Cashier: POS only
 - Waiter: orders only
 - Chef: KDS only
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

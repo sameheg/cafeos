@@ -23,3 +23,8 @@ Coding standards for backend & frontend.
 - PSR-12 for PHP
 - ESLint for JS
 - Commit messages: Conventional Commits
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -1,3 +1,24 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Marketplace Module](#marketplace-module)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Features](#features)
+  - [Workflow: Plugin Lifecycle](#workflow-plugin-lifecycle)
+  - [API](#api)
+  - [Examples](#examples)
+  - [Security](#security)
+  - [Future Enhancements](#future-enhancements)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Marketplace Module
 
 ## Overview
@@ -50,4 +71,9 @@ curl /api/marketplace/vendors
 
 ## Future Enhancements
 - In-app purchases.  
-- Plugin rating and review system.  
+- Plugin rating and review system.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

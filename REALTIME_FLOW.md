@@ -52,4 +52,9 @@ flowchart TD
 ## Technology
 - **WebSockets (Pusher/Socket.IO)** → POS/KDS sync.  
 - **Redis Pub/Sub** → Inventory and Billing events.  
-- **Queue Workers (Horizon)** → async processing.  
+- **Queue Workers (Horizon)** → async processing.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -27,3 +27,8 @@ Search system for items, customers, orders.
 - POS (products)
 - CRM (customers)
 - Inventory (items)
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -20,3 +20,8 @@
 - Connect with suppliers for auto-replenishment
 - EDI support
 - APIs for external ERPs
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

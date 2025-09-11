@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Data Warehouse & ETL](#data-warehouse--etl)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [Pipeline](#pipeline)
+  - [Use Cases](#use-cases)
+  - [Tools](#tools)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Data Warehouse & ETL
 
 ## Overview
@@ -31,3 +49,8 @@ Aggregates historical data for advanced analytics.
 
 ## Tools
 - Airflow, dbt, or Laravel jobs.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

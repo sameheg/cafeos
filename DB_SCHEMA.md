@@ -69,3 +69,8 @@ erDiagram
 
 ## Rentals
 - listings (id, type, location, price, status)
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

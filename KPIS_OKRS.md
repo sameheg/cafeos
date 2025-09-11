@@ -29,3 +29,8 @@
 - Objective: Increase tenant adoption.
   - KR1: +20% new tenants.
   - KR2: Launch 3 new integrations.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

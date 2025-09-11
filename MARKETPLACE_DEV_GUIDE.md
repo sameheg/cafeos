@@ -27,3 +27,8 @@ Guide for third-party vendors to build & publish plugins.
 
 ## Plugin Lifecycle
 - Install → Enable → Update → Disable → Remove
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

@@ -45,4 +45,9 @@ flowchart TD
 
 ## Future Enhancements
 - Voice alerts for new orders.  
-- Smart kitchen device integration (IoT).  
+- Smart kitchen device integration (IoT).
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

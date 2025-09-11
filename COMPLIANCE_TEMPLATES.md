@@ -34,4 +34,9 @@ This will be processed within 30 days and confirmed once complete.
 ## Privacy Policy (Sample)
 - We collect only necessary data.  
 - Data is encrypted at rest and in transit.  
-- Users can request deletion anytime.  
+- Users can request deletion anytime.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

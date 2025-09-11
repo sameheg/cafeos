@@ -20,3 +20,8 @@
 - Support for multiple locations
 - Transfer stock between warehouses
 - Per-warehouse low stock alerts
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

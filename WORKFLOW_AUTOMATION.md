@@ -23,3 +23,8 @@ Automation rules for recurring tasks.
 - Auto reorder stock when low
 - Send reminder emails
 - Escalate unresolved tickets
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

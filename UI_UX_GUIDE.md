@@ -1,3 +1,30 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [UI/UX Design Guide](#uiux-design-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Design System](#design-system)
+    - [Colors](#colors)
+    - [Typography](#typography)
+    - [Components](#components)
+  - [Wireframes & Mockups](#wireframes--mockups)
+    - [POS Screen](#pos-screen)
+    - [Inventory Screen](#inventory-screen)
+    - [CRM Dashboard](#crm-dashboard)
+    - [Reports Screen](#reports-screen)
+  - [UX Flows](#ux-flows)
+    - [Order Flow (Customer → POS → KDS → Billing → Reports)](#order-flow-customer-%E2%86%92-pos-%E2%86%92-kds-%E2%86%92-billing-%E2%86%92-reports)
+    - [Reservation Flow](#reservation-flow)
+  - [Accessibility](#accessibility)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # UI/UX Design Guide
 
 ## Overview
@@ -95,4 +122,8 @@ flowchart TD
 - WCAG 2.1 AA compliant.
 - Keyboard shortcuts for POS.
 - Screen reader friendly.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
 

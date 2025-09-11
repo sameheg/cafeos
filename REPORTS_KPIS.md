@@ -1,3 +1,23 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Reports KPIs](#reports-kpis)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Overview](#overview-1)
+  - [POS KPIs](#pos-kpis)
+  - [Inventory KPIs](#inventory-kpis)
+  - [CRM & Loyalty KPIs](#crm--loyalty-kpis)
+  - [Reservations KPIs](#reservations-kpis)
+  - [Exports](#exports)
+  - [Related Docs](#related-docs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Reports KPIs
 
 ## Overview
@@ -40,3 +60,8 @@ Defines the standard KPIs and dashboard templates for each module.
 
 ## Exports
 - PDF, Excel templates preconfigured
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

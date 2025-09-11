@@ -25,3 +25,8 @@
 ## Purpose
 - Define responsibilities between provider and tenants.
 - Ensure compliance with international laws.
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+

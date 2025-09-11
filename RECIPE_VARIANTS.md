@@ -23,3 +23,8 @@ Supports multiple versions of recipes.
 - Base recipe + variations
 - Cost calculation per variant
 - Menu integration
+
+## Related Docs
+- [README.md](README.md)
+- [MASTER_INDEX.md](MASTER_INDEX.md)
+
