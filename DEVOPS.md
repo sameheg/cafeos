@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [DevOps Guide](#devops-guide)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [Local Setup](#local-setup)
+  - [Production Setup](#production-setup)
+  - [CI/CD](#cicd)
+    - [Pipeline Diagram](#pipeline-diagram)
+  - [Monitoring](#monitoring)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # DevOps Guide
 
 ## Overview

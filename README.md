@@ -1,3 +1,28 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [EliteSaaS Platform](#elitesaas-platform)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [References](#references)
+  - [🚀 Overview](#-overview)
+  - [✨ Key Features](#-key-features)
+  - [🛠️ Tech Stack](#-tech-stack)
+  - [📦 Modules (Agents)](#-modules-agents)
+  - [⚡ Quick Start](#-quick-start)
+    - [1. Clone & Install](#1-clone--install)
+    - [2. Environment Setup](#2-environment-setup)
+    - [3. Migrate & Seed](#3-migrate--seed)
+    - [4. Run the App](#4-run-the-app)
+  - [🧪 Testing](#-testing)
+  - [📖 Documentation](#-documentation)
+  - [📌 License](#-license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # EliteSaaS Platform
 
 ## Overview
