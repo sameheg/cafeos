@@ -3,6 +3,7 @@
 namespace Modules\Core\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Http\Middleware\ApplyTheme;
 use Modules\Core\Http\Middleware\ResolveTenant;
@@ -33,6 +34,9 @@ class CoreServiceProvider extends ServiceProvider
         $router->pushMiddlewareToGroup('api', ResolveTenant::class);
 
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Gate::define('manage-tenants', fn ($user) => $user->hasRole('TenantAdmin'));
+        Gate::define('manage-users', fn ($user) => $user->hasRole('TenantAdmin'));
     }
 
     public function register(): void

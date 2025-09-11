@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Modules\Core\Models\Tenant;
 use Modules\Core\Models\FeatureFlag;
+use Spatie\Permission\Models\Role;
 
 class CoreDatabaseSeeder extends Seeder
 {
@@ -17,12 +18,16 @@ class CoreDatabaseSeeder extends Seeder
             'subdomain' => 'acme',
         ]);
 
-        User::create([
+        $adminRole = Role::firstOrCreate(['name' => 'TenantAdmin']);
+        Role::firstOrCreate(['name' => 'Staff']);
+
+        $admin = User::create([
             'name' => 'Tenant Admin',
             'email' => 'admin@acme.test',
             'password' => bcrypt('password'),
             'tenant_id' => $tenant->id,
         ]);
+        $admin->assignRole($adminRole);
 
         FeatureFlag::create([
             'tenant_id' => $tenant->id,
