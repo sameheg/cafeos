@@ -26,3 +26,11 @@
 - Annual audits
 - Access reviews
 - Risk assessments
+
+## GDPR
+- Appoint a data protection officer and maintain processing records.
+- Example: when a user requests deletion, purge their PII from active systems and confirm within 30 days.
+
+## PCI DSS
+- Isolate the cardholder data environment and run quarterly ASV scans.
+- Example: route all payments through a tokenization gateway so raw card numbers are never stored.
