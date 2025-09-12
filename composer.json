@@ -60,13 +60,17 @@
       "Modules\\SuperAdmin\\Database\\Seeders\\": "Modules/SuperAdmin/database/seeders/",
       "Modules\\Dashboard\\": "Modules/Dashboard/app/",
       "Modules\\Dashboard\\Database\\Factories\\": "Modules/Dashboard/database/factories/",
-      "Modules\\Dashboard\\Database\\Seeders\\": "Modules/Dashboard/database/seeders/"
+      "Modules\\Dashboard\\Database\\Seeders\\": "Modules/Dashboard/database/seeders/",
+      "Modules\\Notifications\\": "Modules/Notifications/app/",
+      "Modules\\Notifications\\Database\\Factories\\": "Modules/Notifications/database/factories/",
+      "Modules\\Notifications\\Database\\Seeders\\": "Modules/Notifications/database/seeders/"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/",
-      "Modules\\SuperAdmin\\Tests\\": "Modules/SuperAdmin/tests/"
+      "Modules\\SuperAdmin\\Tests\\": "Modules/SuperAdmin/tests/",
+      "Modules\\Notifications\\Tests\\": "Modules/Notifications/tests/"
     }
   },
   "scripts": {
