@@ -4,5 +4,6 @@
     "Kds": true,
     "Qr": true,
     "Kiosk": true,
-    "Inventory": true
+    "Inventory": true,
+    "HRJobs": true
 }
