@@ -37,7 +37,8 @@
       "Modules\\Kds\\": "Modules/Kds/app/",
       "Modules\\Kiosk\\": "Modules/Kiosk/app/",
       "Modules\\Qr\\": "Modules/Qr/app/",
-      "Modules\\Inventory\\": "Modules/Inventory/app/"
+      "Modules\\Inventory\\": "Modules/Inventory/app/",
+      "Modules\\HRJobs\\": "Modules/HRJobs/app/"
     }
   },
   "autoload-dev": {
