@@ -19,5 +19,6 @@
     "Dashboard": true,
     "Notifications": true,
     "Rentals": true,
-    "FoodSafety": true
+    "FoodSafety": true,
+    "Energy": true
 }

@@ -65,7 +65,10 @@
       "Modules\\Notifications\\Database\\Factories\\": "Modules/Notifications/database/factories/",
       "Modules\\Notifications\\Database\\Seeders\\": "Modules/Notifications/database/seeders/",
       "Modules\\Rentals\\": "Modules/Rentals/app/",
-      "Modules\\FoodSafety\\": "Modules/FoodSafety/app/"
+      "Modules\\FoodSafety\\": "Modules/FoodSafety/app/",
+      "Modules\\Energy\\": "Modules/Energy/app/",
+      "Modules\\Energy\\Database\\Factories\\": "Modules/Energy/database/factories/",
+      "Modules\\Energy\\Database\\Seeders\\": "Modules/Energy/database/seeders/"
     }
   },
   "autoload-dev": {
@@ -73,7 +76,8 @@
       "Tests\\": "tests/",
       "Modules\\SuperAdmin\\Tests\\": "Modules/SuperAdmin/tests/",
       "Modules\\Notifications\\Tests\\": "Modules/Notifications/tests/",
-      "Modules\\FoodSafety\\Tests\\": "Modules/FoodSafety/tests/"
+      "Modules\\FoodSafety\\Tests\\": "Modules/FoodSafety/tests/",
+      "Modules\\Energy\\Tests\\": "Modules/Energy/tests/"
     }
   },
   "scripts": {
