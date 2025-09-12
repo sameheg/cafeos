@@ -1,8 +1,0 @@
-{
-    "name": "EliteSaaS POS",
-    "short_name": "POS",
-    "start_url": "/pos/cart",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#2563eb"
-}
