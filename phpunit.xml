@@ -38,6 +38,9 @@
         <testsuite name="FloorPlanDesigner">
             <directory>Modules/FloorPlanDesigner/tests</directory>
         </testsuite>
+        <testsuite name="Reservations">
+            <directory>Modules/Reservations/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
