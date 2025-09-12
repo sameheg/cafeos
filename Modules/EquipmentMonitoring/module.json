@@ -1,0 +1,12 @@
+{
+    "name": "EquipmentMonitoring",
+    "alias": "equipmentmonitoring",
+    "description": "Telemetry and alert monitoring for equipment",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EquipmentMonitoring\\Providers\\EquipmentMonitoringServiceProvider",
+        "Modules\\EquipmentMonitoring\\Providers\\RouteServiceProvider"
+    ],
+    "files": []
+}
