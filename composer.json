@@ -86,6 +86,9 @@
       "Modules\\Reservations\\": "Modules/Reservations/app/",
       "Modules\\Reservations\\Database\\Factories\\": "Modules/Reservations/database/factories/",
       "Modules\\Reservations\\Database\\Seeders\\": "Modules/Reservations/database/seeders/"
+      ,"Modules\\Loyalty\\": "Modules/Loyalty/app/",
+      "Modules\\Loyalty\\Database\\Factories\\": "Modules/Loyalty/database/factories/",
+      "Modules\\Loyalty\\Database\\Seeders\\": "Modules/Loyalty/database/seeders/"
     }
   },
   "autoload-dev": {
@@ -100,7 +103,8 @@
       "Modules\\EquipmentMonitoring\\Tests\\": "Modules/EquipmentMonitoring/tests/",
       "Modules\\EventManagement\\Tests\\": "Modules/EventManagement/tests/",
       "Modules\\HotelPms\\Tests\\": "Modules/HotelPms/tests/",
-      "Modules\\Reservations\\Tests\\": "Modules/Reservations/tests/"
+      "Modules\\Reservations\\Tests\\": "Modules/Reservations/tests/",
+      "Modules\\Loyalty\\Tests\\": "Modules/Loyalty/tests/"
     }
   },
   "scripts": {
