@@ -1,0 +1,12 @@
+{
+    "name": "FloorPlanDesigner",
+    "alias": "floorplandesigner",
+    "description": "Interactive floor plan designer with zones, versioning and heatmaps",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FloorPlanDesigner\\Providers\\FloorPlanDesignerServiceProvider",
+        "Modules\\FloorPlanDesigner\\Providers\\RouteServiceProvider"
+    ],
+    "files": []
+}
