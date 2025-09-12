@@ -11,6 +11,7 @@ class FeatureFlag extends Model
     use HasUlids, BelongsToTenant;
 
     protected $fillable = [
+        'tenant_id',
         'name',
         'enabled',
         'cohort',
