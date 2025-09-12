@@ -9,3 +9,59 @@ Route::patch('/{floorplan}', [FloorplanController::class, 'update'])
 
 Route::get('/heatmap/{floorplan}', [FloorplanController::class, 'heatmap'])
     ->name('heatmap');
+
+
+use Modules\FloorPlanDesigner\Http\Controllers\ZoneController;
+use Modules\FloorPlanDesigner\Http\Controllers\ActionsController;
+use Modules\FloorPlanDesigner\Http\Controllers\ExportImportController;
+
+Route::get('/{floorplan}/zones', [ZoneController::class, 'index'])->name('zones.index');
+Route::post('/{floorplan}/zones', [ZoneController::class, 'store'])->name('zones.store');
+Route::patch('/{floorplan}/zones/{zone}', [ZoneController::class, 'update'])->name('zones.update');
+Route::delete('/{floorplan}/zones/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
+
+Route::post('/{floorplan}/publish', [ActionsController::class, 'publish'])->name('publish');
+Route::post('/{floorplan}/archive', [ActionsController::class, 'archive'])->name('archive');
+Route::post('/{floorplan}/schedule', [ActionsController::class, 'schedule'])->name('schedule');
+
+Route::get('/export/{floorplan}', [ExportImportController::class, 'export'])->name('export');
+Route::post('/import', [ExportImportController::class, 'import'])->name('import');
+
+
+/**
+ * ASSET delivery for pro-canvas (adjust to your asset pipeline if needed)
+ */
+Route::get('/assets/pro-canvas.js', function () {
+    $path = module_path('FloorPlanDesigner', '/resources/assets/pro/pro-canvas.js');
+    return response()->file($path, ['Content-Type' => 'application/javascript']);
+})->name('assets.projs');
+
+
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Modules\FloorPlanDesigner\Models\Floorplan;
+
+/**
+ * Expose tables from a floorplan (integration point with POS)
+ */
+Route::get('/{floorplan}/tables', function (Floorplan $floorplan): JsonResponse {
+    $furn = collect($floorplan->json_data['furniture'] ?? [])
+        ->where('type','table')
+        ->map(fn($t) => [
+            'furniture_id' => $t['id'] ?? null,
+            'name' => $t['meta']['name'] ?? 'Table',
+            'capacity' => $t['meta']['cap'] ?? 2,
+            'status' => $t['meta']['status'] ?? 'available',
+            'pos_table_id' => $t['meta']['pos_table_id'] ?? null,
+        ])->values();
+    return response()->json(['tables' => $furn]);
+})->name('tables.index');
+
+
+use Modules\FloorPlanDesigner\Http\Controllers\Enterprise\FurnitureController as EntFurniture;
+
+Route::get('/{floorplan}/furniture', [EntFurniture::class,'index'])->name('furniture.index');
+Route::post('/{floorplan}/furniture', [EntFurniture::class,'store'])->name('furniture.store');
+Route::patch('/{floorplan}/furniture/{furniture}', [EntFurniture::class,'update'])->name('furniture.update');
+Route::delete('/{floorplan}/furniture/{furniture}', [EntFurniture::class,'destroy'])->name('furniture.destroy');
+Route::post('/{floorplan}/furniture/batch', [EntFurniture::class,'batchSave'])->name('furniture.batch');

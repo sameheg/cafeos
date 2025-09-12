@@ -10,6 +10,8 @@ use Modules\FloorPlanDesigner\Models\Floorplan as FloorplanModel;
 use Modules\FloorPlanDesigner\Models\FloorplanZone as FloorplanZoneModel;
 use Modules\FloorPlanDesigner\Policies\FloorplanPolicy;
 use Modules\FloorPlanDesigner\Policies\FloorplanZonePolicy;
+use Modules\FloorPlanDesigner\Models\Furniture as FurnitureModel;
+use Modules\FloorPlanDesigner\Policies\FurniturePolicy;
 
 class FloorPlanDesignerServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,6 @@ class FloorPlanDesignerServiceProvider extends ServiceProvider
         Floorplan::observe(FloorplanObserver::class);
         Gate::policy(FloorplanModel::class, FloorplanPolicy::class);
         Gate::policy(FloorplanZoneModel::class, FloorplanZonePolicy::class);
+        Gate::policy(FurnitureModel::class, FurniturePolicy::class);
     }
 }
