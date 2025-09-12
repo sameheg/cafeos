@@ -1,0 +1,21 @@
+{
+    "name": "nwidart/procurement",
+    "description": "Procurement module for EliteSaaS",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Procurement\\": "app/",
+            "Modules\\Procurement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Procurement\\Tests\\": "tests/"
+        }
+    }
+}
