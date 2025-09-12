@@ -1,16 +1,31 @@
 <?php
-
-namespace Modules\Pos\database\seeders;
+namespace Modules\Pos\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Pos\Models\PosOrder;
-use Modules\Pos\Models\PosItem;
+use Modules\Pos\App\Models\Order;
+use Modules\Pos\App\Models\OrderItem;
 
 class PosSeeder extends Seeder
 {
     public function run(): void
     {
-        $order = PosOrder::create(['tenant_id' => 't1', 'total' => 15]);
-        PosItem::create(['order_id' => $order->id, 'product_id' => 'p1', 'qty' => 3, 'price' => 5]);
+        $order = Order::create([
+            'tenant_id' => 1,
+            'table_id' => 5,
+            'status' => 'paid',
+            'subtotal' => 100,
+            'total' => 100,
+            'paid_total' => 100,
+            'paid_at' => now(),
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order->id,
+            'sku' => 'SKU-COFFEE',
+            'name' => 'Cappuccino',
+            'qty' => 2,
+            'price' => 50,
+            'line_total' => 100,
+        ]);
     }
 }
