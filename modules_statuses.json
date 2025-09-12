@@ -9,5 +9,6 @@
     "Procurement": true,
     "Membership": true,
     "Marketplace": true,
-    "Crm": true
+    "Crm": true,
+    "Billing": true
 }
