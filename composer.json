@@ -51,15 +51,19 @@
       "Modules\\Franchise\\": "Modules/Franchise/app/",
       "Modules\\Reports\\": "Modules/Reports/app/",
       "Modules\\Reports\\Database\\Factories\\": "Modules/Reports/database/factories/",
-      "Modules\\Reports\\Database\\Seeders\\": "Modules/Reports/database/seeders/"
+      "Modules\\Reports\\Database\\Seeders\\": "Modules/Reports/database/seeders/",
       "Modules\\Training\\": "Modules/Training/app/",
       "Modules\\Training\\Database\\Factories\\": "Modules/Training/database/factories/",
-      "Modules\\Training\\Database\\Seeders\\": "Modules/Training/database/seeders/"
+      "Modules\\Training\\Database\\Seeders\\": "Modules/Training/database/seeders/",
+      "Modules\\SuperAdmin\\": "Modules/SuperAdmin/app/",
+      "Modules\\SuperAdmin\\Database\\Factories\\": "Modules/SuperAdmin/database/factories/",
+      "Modules\\SuperAdmin\\Database\\Seeders\\": "Modules/SuperAdmin/database/seeders/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Tests\\": "tests/",
+      "Modules\\SuperAdmin\\Tests\\": "Modules/SuperAdmin/tests/"
     }
   },
   "scripts": {
