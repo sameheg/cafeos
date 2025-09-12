@@ -20,5 +20,6 @@
     "Notifications": true,
     "Rentals": true,
     "FoodSafety": true,
-    "Energy": true
+    "Energy": true,
+    "EquipmentLeasing": true
 }
