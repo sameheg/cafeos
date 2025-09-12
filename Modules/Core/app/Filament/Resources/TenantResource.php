@@ -8,6 +8,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\Filament\Resources\TenantResource\Pages;
 use Modules\Core\Models\Tenant;
 
 class TenantResource extends Resource
@@ -37,5 +38,14 @@ class TenantResource extends Resource
             Tables\Actions\BulkAction::make('export')
                 ->action(fn($records) => null),
         ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListTenants::route('/'),
+            'create' => Pages\CreateTenant::route('/create'),
+            'edit' => Pages\EditTenant::route('/{record}/edit'),
+        ];
     }
 }
