@@ -57,7 +57,10 @@
       "Modules\\Training\\Database\\Seeders\\": "Modules/Training/database/seeders/",
       "Modules\\SuperAdmin\\": "Modules/SuperAdmin/app/",
       "Modules\\SuperAdmin\\Database\\Factories\\": "Modules/SuperAdmin/database/factories/",
-      "Modules\\SuperAdmin\\Database\\Seeders\\": "Modules/SuperAdmin/database/seeders/"
+      "Modules\\SuperAdmin\\Database\\Seeders\\": "Modules/SuperAdmin/database/seeders/",
+      "Modules\\Dashboard\\": "Modules/Dashboard/app/",
+      "Modules\\Dashboard\\Database\\Factories\\": "Modules/Dashboard/database/factories/",
+      "Modules\\Dashboard\\Database\\Seeders\\": "Modules/Dashboard/database/seeders/"
     }
   },
   "autoload-dev": {
