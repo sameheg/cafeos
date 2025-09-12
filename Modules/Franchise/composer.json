@@ -1,0 +1,21 @@
+{
+    "name": "nwidart/franchise",
+    "description": "Franchise module for EliteSaaS",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Franchise\\": "app/",
+            "Modules\\Franchise\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Franchise\\Tests\\": "tests/"
+        }
+    }
+}
