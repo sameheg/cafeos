@@ -30,3 +30,13 @@
 * And much more...
 
 For more details, check the [documentation](https://saasykit.com/docs).
+
+## Adding Translations
+
+To contribute a new language:
+
+1. Copy the `lang/en` directory to `lang/<locale>` (for example, `lang/ar`).
+2. Translate the strings inside the copied files.
+3. Ensure the application tests still pass.
+
+Laravel will automatically fall back to the English strings defined in `config/app.php` when a translation key is missing.
