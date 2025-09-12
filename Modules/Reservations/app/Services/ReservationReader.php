@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\DB;
 
 class ReservationReader
 {
-    /**
-     * هل توجد حجز/تعارض نشط أو خلال نافذة 15 دقيقة؟
-     */
     public function hasActiveOrImminentConflict(?int $tenantId, int $tableId, \DateTimeInterface $at): bool
     {
         $windowStart = (clone $at)->modify('-15 minutes');

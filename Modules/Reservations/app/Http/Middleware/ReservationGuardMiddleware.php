@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\Reservations\App\Http\Middleware;
 
 use Closure;
@@ -7,10 +6,6 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Modules\Reservations\App\Services\ReservationReader;
 
-/**
- * يمنع فتح طلب على طاولة محجوزة (أو متعارض وقتيًا) قبل إنشاء الأوردر.
- * يعمل فقط لو الفلاج pos.strict_reservation_guard مفعّل.
- */
 class ReservationGuardMiddleware
 {
     public function __construct(private ReservationReader $reader) {}

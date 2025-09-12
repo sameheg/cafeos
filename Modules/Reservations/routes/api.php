@@ -1,9 +1,11 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-use Modules\Reservations\Http\Controllers\ReservationController;
+use Modules\Reservations\App\Http\Controllers\ReservationController;
 
-Route::prefix('v1')->group(function () {
-    Route::post('/reservations', [ReservationController::class, 'store'])->middleware('throttle:200,60');
-    Route::patch('/reservations/{reservation}/checkin', [ReservationController::class, 'checkin']);
+Route::prefix('v1/reservations')->group(function () {
+    Route::get('/', [ReservationController::class, 'index']);
+    Route::post('/', [ReservationController::class, 'store']);
+    Route::get('/{reservation}', [ReservationController::class, 'show']);
+    Route::put('/{reservation}', [ReservationController::class, 'update']);
+    Route::delete('/{reservation}', [ReservationController::class, 'destroy']);
 });

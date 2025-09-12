@@ -1,51 +1,57 @@
 <?php
+namespace Modules\Reservations\App\Http\Controllers;
 
-namespace Modules\Reservations\Http\Controllers;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Laravel\Pennant\Feature;
-use Modules\Reservations\Models\Reservation;
-use Modules\Reservations\Models\ReservationStatus;
-use Modules\Reservations\Services\CapacityChecker;
-use Modules\Reservations\Services\OverbookException;
+use Illuminate\Routing\Controller;
+use Modules\Reservations\App\Models\Reservation;
+use Modules\Reservations\App\Http\Resources\ReservationResource;
 
+/**
+ * @group Reservations
+ *
+ * APIs for managing reservations
+ */
 class ReservationController extends Controller
 {
-    public function store(Request $request, CapacityChecker $checker): JsonResponse
+    public function index()
     {
-        $data = $request->validate([
-            'time' => ['required', 'date', 'after:now'],
-            'table_id' => ['required', 'string'],
-        ]);
-
-        $tenantId = $request->input('tenant_id', app()->bound('tenant') ? app('tenant')->id : 't1');
-
-        try {
-            $checker->ensureCapacity($tenantId, new \DateTime($data['time']));
-        } catch (OverbookException $e) {
-            return response()->json(['message' => 'Overbooked'], 409);
-        }
-
-        $reservation = Reservation::create([
-            'tenant_id' => $tenantId,
-            'table_id' => $data['table_id'],
-            'time' => $data['time'],
-            'status' => ReservationStatus::Reserved,
-        ]);
-
-        if (Feature::active('reservations_deposits')) {
-            // Deposit handling would occur here
-        }
-
-        return response()->json(['res_id' => $reservation->id]);
+        return ReservationResource::collection(Reservation::paginate());
     }
 
-    public function checkin(Reservation $reservation): JsonResponse
+    public function store(Request $request)
     {
-        $reservation->update(['status' => ReservationStatus::CheckedIn]);
+        $data = $request->validate([
+            'tenant_id' => 'nullable|integer',
+            'table_id' => 'required|integer',
+            'status' => 'required|string|in:pending,confirmed,seated,cancelled',
+            'start_at' => 'required|date',
+            'end_at' => 'required|date|after:start_at',
+        ]);
 
-        return response()->json(['checked_in' => true]);
+        $reservation = Reservation::create($data);
+        return (new ReservationResource($reservation))->response()->setStatusCode(201);
+    }
+
+    public function show(Reservation $reservation)
+    {
+        return new ReservationResource($reservation);
+    }
+
+    public function update(Request $request, Reservation $reservation)
+    {
+        $data = $request->validate([
+            'status' => 'sometimes|string|in:pending,confirmed,seated,cancelled',
+            'start_at' => 'sometimes|date',
+            'end_at' => 'sometimes|date|after:start_at',
+        ]);
+
+        $reservation->update($data);
+        return new ReservationResource($reservation);
+    }
+
+    public function destroy(Reservation $reservation)
+    {
+        $reservation->delete();
+        return response()->json(null, 204);
     }
 }
