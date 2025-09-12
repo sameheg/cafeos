@@ -79,3 +79,13 @@ Route::get('/{floorplan}/overlay', function(\Modules\FloorPlanDesigner\Models\Fl
     });
     return response()->json(['data'=>$items]);
 })->name('overlay');
+
+
+use Modules\FloorPlanDesigner\Http\Controllers\SelfOrder\SelfOrderController;
+
+Route::get('/qr', [SelfOrderController::class,'show'])->name('selforder.show');
+Route::post('/selforder/start', [SelfOrderController::class,'startOrder'])->name('selforder.start');
+
+
+use Modules\FloorPlanDesigner\Http\Controllers\Enterprise\SalesHeatmapController;
+Route::get('/{floorplan}/heatmap/sales', SalesHeatmapController::class)->name('heatmap.sales');

@@ -136,3 +136,12 @@ Seeder اختياري لإنشاء صلاحيات Spatie Permission إن متا�
 - Stats: `floorplan_stats` + job `ComputeFloorplanStats` (placeholder to integrate with POS data)
 - Filament Widget: `FloorplanKpi`
 - Pro Canvas: polling overlay كل 5 ثواني وتلوين العناصر حسب الحالة
+
+
+## Enterprise++ Additions
+- Self-Order Page عبر QR: `GET /api/v1/floorplan/qr?tenant=...&plan=...&table=...`
+- Start Order API (stub): `POST /api/v1/floorplan/selforder/start` (اربطه بـ POS)
+- Realtime Collaboration cursors: Event `cursor.moved` على قناة `tenant.{tenant_id}.floorplan`
+- Sales Heatmap: `GET /api/v1/floorplan/{id}/heatmap/sales` (placeholder للتجميع من POS)
+- Alerts Engine: Job `EvaluateFloorplanAlerts` + Notification `FloorAlert`
+- Filament Widget: `SalesHeatmapWidget`
