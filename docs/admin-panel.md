@@ -1,72 +1,13 @@
-# EliteSaaS Admin Panel
+# Admin Panel
 
-This document outlines the structure of the Filament based admin panel. It
-serves as a reference for developers extending or integrating with the panel.
+The EliteSaaS admin panel is built with Filament v3. Super admins can manage
+users, roles and modules from this interface.
 
-## Packages
+## User Management
 
-Ensure the following packages are installed:
+- Create, edit and delete users.
+- Assign roles using [Spatie\Permission](https://spatie.be/docs/laravel-permission/v6/basic-usage).
+- Import or export users from the table header actions.
+- All changes are recorded via [Spatie Activitylog](https://spatie.be/docs/laravel-activitylog/v4/introduction).
 
-```bash
-composer require filament/filament:^3.0 livewire/livewire:^3.0 tenancy/tenancy spatie/laravel-permission laravel/pennant
-```
-
-## Service Provider
-
-The panel is registered via `App\Providers\Filament\AdminPanelProvider` which
-auto-discovers resources, pages and widgets from the application and modules.
-
-## Structure
-
-```
-app/
-├── Filament/
-│   ├── Pages/
-│   │   └── Dashboard.php
-│   └── Widgets/
-│       ├── StatsOverview.php
-│       └── TenantStats.php
-└── Providers/
-    └── Filament/
-        └── AdminPanelProvider.php
-Modules/Core/
-└── app/
-    ├── Filament/
-    │   └── Resources/
-    │       ├── TenantResource.php
-    │       └── UserResource.php
-    └── Models/
-        └── Tenant.php
-```
-
-Additional resources for other modules can follow the same convention under
-`Modules/<Module>/app/Filament`.
-
-## Migrations
-
-The Core module includes a migration for the `tenants` table located at
-`Modules/Core/database/migrations`.
-
-## Running
-
-After installing packages and publishing assets run:
-
-```bash
-php artisan migrate
-npm run build
-```
-
-You can access the panel at `/admin`.
-
-## Feature Flags
-
-Module availability can be controlled per tenant using feature flags. The
-`FeatureFlagResource` located in `Modules/Core/app/Filament/Resources` provides a
-Filament interface for toggling modules. Flags are also exposed via an API:
-
-```
-PATCH /api/v1/admin/modules/{module} { enabled: bool }
-```
-
-This endpoint emits the `admin.module.toggled@v1` domain event whenever a flag is
-updated.
+To access the panel run the development server and visit `/admin`.

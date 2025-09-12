@@ -5,6 +5,7 @@ namespace Modules\SuperAdmin\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Modules\Core\Models\Tenant;
 use Modules\SuperAdmin\Events\ModuleDisabled;
 
 class Flag extends Model
@@ -18,6 +19,11 @@ class Flag extends Model
     protected $casts = [
         'enabled' => 'boolean',
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
     public function suspend(): void
     {
