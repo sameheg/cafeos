@@ -11,6 +11,7 @@
     "Marketplace": true,
     "Crm": false,
     "Billing": true,
-    "Jobs": true
-    "Franchise": true
+    "Jobs": true,
+    "Franchise": true,
+    "Reports": true
 }

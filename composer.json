@@ -16,7 +16,8 @@
     "laravel/tinker": "^2.10.1",
     "nwidart/laravel-modules": "^12.0",
     "simplesoftwareio/simple-qrcode": "^4.2",
-    "spatie/laravel-permission": "^6.21"
+    "spatie/laravel-permission": "^6.21",
+    "maatwebsite/excel": "^3.1"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",
@@ -46,9 +47,11 @@
       "Modules\\Billing\\": "Modules/Billing/app/",
       "Modules\\Jobs\\": "Modules/Jobs/app/",
       "Modules\\Jobs\\Database\\Factories\\": "Modules/Jobs/database/factories/",
-      "Modules\\Jobs\\Database\\Seeders\\": "Modules/Jobs/database/seeders/"
-      "Modules\\Crm\\": "Modules/Crm/app/",
-      "Modules\\Franchise\\": "Modules/Franchise/app/"
+      "Modules\\Jobs\\Database\\Seeders\\": "Modules/Jobs/database/seeders/",
+      "Modules\\Franchise\\": "Modules/Franchise/app/",
+      "Modules\\Reports\\": "Modules/Reports/app/",
+      "Modules\\Reports\\Database\\Factories\\": "Modules/Reports/database/factories/",
+      "Modules\\Reports\\Database\\Seeders\\": "Modules/Reports/database/seeders/"
     }
   },
   "autoload-dev": {
