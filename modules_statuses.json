@@ -17,5 +17,6 @@
     "Training": true,
     "SuperAdmin": true,
     "Dashboard": true,
-    "Notifications": true
+    "Notifications": true,
+    "Rentals": true
 }

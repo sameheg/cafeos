@@ -63,7 +63,8 @@
       "Modules\\Dashboard\\Database\\Seeders\\": "Modules/Dashboard/database/seeders/",
       "Modules\\Notifications\\": "Modules/Notifications/app/",
       "Modules\\Notifications\\Database\\Factories\\": "Modules/Notifications/database/factories/",
-      "Modules\\Notifications\\Database\\Seeders\\": "Modules/Notifications/database/seeders/"
+      "Modules\\Notifications\\Database\\Seeders\\": "Modules/Notifications/database/seeders/",
+      "Modules\\Rentals\\": "Modules/Rentals/app/"
     }
   },
   "autoload-dev": {
