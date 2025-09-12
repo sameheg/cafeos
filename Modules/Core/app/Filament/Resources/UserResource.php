@@ -10,6 +10,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
+use Modules\Core\Filament\Resources\UserResource\Pages;
 use Modules\Core\Models\Tenant;
 
 class UserResource extends Resource
@@ -44,5 +45,14 @@ class UserResource extends Resource
             Tables\Actions\BulkAction::make('assignRole')
                 ->action(fn($records) => null),
         ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
+        ];
     }
 }
