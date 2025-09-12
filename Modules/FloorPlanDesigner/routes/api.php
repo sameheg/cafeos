@@ -65,3 +65,17 @@ Route::post('/{floorplan}/furniture', [EntFurniture::class,'store'])->name('furn
 Route::patch('/{floorplan}/furniture/{furniture}', [EntFurniture::class,'update'])->name('furniture.update');
 Route::delete('/{floorplan}/furniture/{furniture}', [EntFurniture::class,'destroy'])->name('furniture.destroy');
 Route::post('/{floorplan}/furniture/batch', [EntFurniture::class,'batchSave'])->name('furniture.batch');
+
+
+/**
+ * Enterprise+ overlay: return furniture with live-ready fields (status, name, pos_table_id, qr_url)
+ */
+Route::get('/{floorplan}/overlay', function(\Modules\FloorPlanDesigner\Models\Floorplan $floorplan){
+    $items = \Modules\FloorPlanDesigner\Models\Furniture::where('plan_id',$floorplan->id)->orderBy('layer')->get()->map(function($f){
+        return [
+            'id'=>(string)$f->id,'type'=>$f->type,'x'=>$f->x,'y'=>$f->y,'w'=>$f->w,'h'=>$f->h,'r'=>$f->r,'layer'=>$f->layer,
+            'name'=>$f->name,'capacity'=>$f->capacity,'status'=>$f->status,'pos_table_id'=>$f->pos_table_id,'qr_url'=>$f->qr_url,
+        ];
+    });
+    return response()->json(['data'=>$items]);
+})->name('overlay');

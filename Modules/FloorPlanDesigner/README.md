@@ -126,3 +126,13 @@ Seeder اختياري لإنشاء صلاحيات Spatie Permission إن متا�
 
 ## Realtime Overlay (Hook)
 - استعمل Laravel Echo للاستماع لقناة `tenant.{tenant_id}.floorplan` وتحديث الـCanvas لايف.
+
+
+## Enterprise+ Additions
+- Columns: `qr_url`, `branch_id`, `floor_number`
+- Overlay endpoint: `GET /api/v1/floorplan/{id}/overlay` (status-ready payload)
+- POS Listeners: update furniture status on `pos.order.started` / `pos.order.closed` (wire events in your app)
+- Command: `php artisan floorplan:generate-qr {plan} --base-url="https://yourapp/qr"`
+- Stats: `floorplan_stats` + job `ComputeFloorplanStats` (placeholder to integrate with POS data)
+- Filament Widget: `FloorplanKpi`
+- Pro Canvas: polling overlay كل 5 ثواني وتلوين العناصر حسب الحالة

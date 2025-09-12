@@ -94,7 +94,9 @@
       ctx.lineWidth = 2; ctx.strokeStyle = sel ? '#0ea5e9' : '#444';
       ctx.stroke();
     } else {
-      ctx.fillStyle = sel ? 'rgba(14,165,233,0.15)' : 'rgba(0,0,0,0.05)';
+      const st = (it.meta && it.meta.status) || 'available';
+      const color = st==='occupied' ? 'rgba(239,68,68,0.2)' : (st==='in-progress' ? 'rgba(59,130,246,0.2)' : 'rgba(34,197,94,0.2)');
+      ctx.fillStyle = sel ? 'rgba(14,165,233,0.15)' : color;
       ctx.strokeStyle = sel ? '#0ea5e9' : '#333';
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -341,3 +343,25 @@
 
   draw(); syncPanels();
 })();
+
+
+  // Enterprise+ overlay polling
+  async function pollOverlay(){
+    const planId = new URLSearchParams(location.search).get('id');
+    if(!planId) return;
+    try{
+      const res = await fetch(`/api/v1/floorplan/${planId}/overlay`);
+      const json = await res.json();
+      const byId = Object.fromEntries(state.items.map(it=>[it.id,it]));
+      (json.data||[]).forEach(f=>{
+        const it = byId[f.id] || state.items.find(x=>x.meta?.pos_table_id===f.pos_table_id);
+        if (!it) return;
+        it.meta = Object.assign({}, it.meta||{}, { name:f.name, cap:f.capacity, status:f.status, pos_table_id:f.pos_table_id, qr_url:f.qr_url });
+      });
+      draw(); syncPanels();
+    }catch(e){}
+    setTimeout(pollOverlay, 5000);
+  }
+  pollOverlay();
+
+  // Color by status inside drawItem
