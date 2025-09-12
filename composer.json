@@ -71,7 +71,10 @@
       "Modules\\Energy\\Database\\Seeders\\": "Modules/Energy/database/seeders/",
       "Modules\\EquipmentLeasing\\": "Modules/EquipmentLeasing/app/",
       "Modules\\EquipmentLeasing\\Database\\Factories\\": "Modules/EquipmentLeasing/database/factories/",
-      "Modules\\EquipmentLeasing\\Database\\Seeders\\": "Modules/EquipmentLeasing/database/seeders/"
+      "Modules\\EquipmentLeasing\\Database\\Seeders\\": "Modules/EquipmentLeasing/database/seeders/",
+      "Modules\\EquipmentMaintenance\\": "Modules/EquipmentMaintenance/app/",
+      "Modules\\EquipmentMaintenance\\Database\\Factories\\": "Modules/EquipmentMaintenance/database/factories/",
+      "Modules\\EquipmentMaintenance\\Database\\Seeders\\": "Modules/EquipmentMaintenance/database/seeders/"
     }
   },
   "autoload-dev": {
@@ -81,7 +84,8 @@
       "Modules\\Notifications\\Tests\\": "Modules/Notifications/tests/",
       "Modules\\FoodSafety\\Tests\\": "Modules/FoodSafety/tests/",
       "Modules\\Energy\\Tests\\": "Modules/Energy/tests/",
-      "Modules\\EquipmentLeasing\\Tests\\": "Modules/EquipmentLeasing/tests/"
+      "Modules\\EquipmentLeasing\\Tests\\": "Modules/EquipmentLeasing/tests/",
+      "Modules\\EquipmentMaintenance\\Tests\\": "Modules/EquipmentMaintenance/tests/"
     }
   },
   "scripts": {

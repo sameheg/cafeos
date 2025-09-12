@@ -21,5 +21,6 @@
     "Rentals": true,
     "FoodSafety": true,
     "Energy": true,
-    "EquipmentLeasing": true
+    "EquipmentLeasing": true,
+    "EquipmentMaintenance": true
 }
