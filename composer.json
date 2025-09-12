@@ -64,14 +64,16 @@
       "Modules\\Notifications\\": "Modules/Notifications/app/",
       "Modules\\Notifications\\Database\\Factories\\": "Modules/Notifications/database/factories/",
       "Modules\\Notifications\\Database\\Seeders\\": "Modules/Notifications/database/seeders/",
-      "Modules\\Rentals\\": "Modules/Rentals/app/"
+      "Modules\\Rentals\\": "Modules/Rentals/app/",
+      "Modules\\FoodSafety\\": "Modules/FoodSafety/app/"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/",
       "Modules\\SuperAdmin\\Tests\\": "Modules/SuperAdmin/tests/",
-      "Modules\\Notifications\\Tests\\": "Modules/Notifications/tests/"
+      "Modules\\Notifications\\Tests\\": "Modules/Notifications/tests/",
+      "Modules\\FoodSafety\\Tests\\": "Modules/FoodSafety/tests/"
     }
   },
   "scripts": {
