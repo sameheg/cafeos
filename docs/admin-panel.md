@@ -57,3 +57,16 @@ npm run build
 ```
 
 You can access the panel at `/admin`.
+
+## Feature Flags
+
+Module availability can be controlled per tenant using feature flags. The
+`FeatureFlagResource` located in `Modules/Core/app/Filament/Resources` provides a
+Filament interface for toggling modules. Flags are also exposed via an API:
+
+```
+PATCH /api/v1/admin/modules/{module} { enabled: bool }
+```
+
+This endpoint emits the `admin.module.toggled@v1` domain event whenever a flag is
+updated.
