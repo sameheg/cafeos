@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "POS API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/pos/customers": {
+      "get": {
+        "summary": "List customers"
+      },
+      "post": {
+        "summary": "Create customer"
+      }
+    },
+    "/api/v1/pos/order/{order}/pay": {
+      "post": {
+        "summary": "Capture payment"
+      }
+    },
+    "/api/v1/pos/order/{order}/discount": {
+      "post": {
+        "summary": "Apply discount"
+      }
+    },
+    "/api/v1/pos/order/{order}/refund": {
+      "post": {
+        "summary": "Refund order"
+      }
+    },
+    "/api/v1/pos/reports/daily": {
+      "get": {
+        "summary": "Daily sales"
+      }
+    },
+    "/api/v1/pos/reports/top-items": {
+      "get": {
+        "summary": "Top items"
+      }
+    },
+    "/api/v1/pos/order/{order}/bills": {
+      "get": {
+        "summary": "List split bills"
+      },
+      "post": {
+        "summary": "Create bill"
+      }
+    },
+    "/api/v1/pos/order/{order}/bills/{bill}/items": {
+      "post": {
+        "summary": "Add item to bill"
+      }
+    },
+    "/api/v1/pos/item/{item}/kitchen/{status}": {
+      "patch": {
+        "summary": "Update kitchen status"
+      }
+    },
+    "/api/v1/pos/item/{item}/modifiers": {
+      "post": {
+        "summary": "Add item modifier"
+      }
+    },
+    "/api/v1/pos/audits": {
+      "get": {
+        "summary": "Audit log"
+      }
+    },
+    "/api/v1/pos/offline/token": {
+      "post": {
+        "summary": "Get offline sync token"
+      }
+    },
+    "/api/v1/pos/offline/push": {
+      "post": {
+        "summary": "Push offline mutations"
+      }
+    },
+    "/api/v1/pos/order/{order}/delivery/assign": {
+      "post": {
+        "summary": "Assign driver"
+      }
+    },
+    "/api/v1/pos/order/{order}/delivery/{status}": {
+      "patch": {
+        "summary": "Set delivery status"
+      }
+    },
+    "/api/v1/pos/promotions": {
+      "get": {
+        "summary": "List promotions"
+      }
+    },
+    "/api/v1/pos/order/{order}/promotions/apply": {
+      "post": {
+        "summary": "Apply promotion code"
+      }
+    },
+    "/api/v1/pos/order/{order}/print/{printer}": {
+      "post": {
+        "summary": "Print receipt (stub)"
+      }
+    },
+    "/api/v1/pos/drawer/{printer}/open": {
+      "post": {
+        "summary": "Open cash drawer (stub)"
+      }
+    },
+    "/api/v1/pos/health": {
+      "get": {
+        "summary": "Health check"
+      }
+    },
+    "/api/v1/pos/metrics": {
+      "get": {
+        "summary": "Basic metrics"
+      }
+    },
+    "/api/v1/pos/reports/pnl": {
+      "get": {
+        "summary": "P&L report"
+      }
+    },
+    "/api/v1/pos/reports/occupancy": {
+      "get": {
+        "summary": "Occupancy report"
+      }
+    }
+  }
+}
