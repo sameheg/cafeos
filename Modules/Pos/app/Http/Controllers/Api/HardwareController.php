@@ -1,25 +1,49 @@
 <?php
+namespace Modules\Pos\App\Http\Controllers\Api;
 
-namespace Modules\Pos\Http\Controllers\Api;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-use Modules\Pos\Services\HardwarePrinter;
-
-use Illuminate\Http\JsonResponse;
-use Modules\Pos\Models\PosOrder;
-use Modules\Pos\Models\PosPrinter;
-
-class HardwareController
+class HardwareController extends Controller
 {
-    public function printReceipt(PosOrder $order, PosPrinter $printer): JsonResponse {
-        // Example ESC/POS call (stub)
-        \Log::info('Printing receipt',['order_id'=>$order->id,'printer'=>$printer->endpoint]);
-        $ok = $printer->endpoint ? HardwarePrinter::printRaw($printer->endpoint, "ORDER #{$order->id}\nTOTAL: {$order->total}\n\n") : false;
-        return response()->json(['ok'=>$ok,'printed_on'=>$printer->name,'order_id'=>$order->id]);
+    public function printReceipt(Request $request)
+    {
+        $data = $request->validate(['content'=>'required|string']);
+        $driver = config('pos.hardware.driver', 'log');
+
+        if ($driver === 'escpos' && class_exists('Mike42\\Escpos\\Printer')) {
+            try {
+                $connector = new \Mike42\Escpos\PrintConnectors\NetworkPrintConnector(parse_url(config('pos.hardware.printer_uri'), PHP_URL_HOST), (int)parse_url(config('pos.hardware.printer_uri'), PHP_URL_PORT));
+                $printer = new \Mike42\Escpos\Printer($connector);
+                $printer->text($data['content']."\n");
+                $printer->cut();
+                $printer->close();
+                return response()->json(['message'=>'printed']);
+            } catch (\Throwable $e) {
+                return response()->json(['message'=>'printer_error','error'=>$e->getMessage()], 502);
+            }
+        }
+
+        Log::info('[POS-HW] print simulated', ['content'=>substr($data['content'],0,120)]);
+        return response()->json(['message'=>'printed_log']);
     }
 
-    public function openDrawer(PosPrinter $printer): JsonResponse {
-        \Log::info('Drawer opened',['printer'=>$printer->endpoint]);
-        $ok = $printer->endpoint ? HardwarePrinter::openDrawerRaw($printer->endpoint) : false;
-        return response()->json(['ok'=>$ok,'drawer'=>$ok?'opened':'failed','printer'=>$printer->name]);
+    public function openDrawer()
+    {
+        $driver = config('pos.hardware.driver', 'log');
+        if ($driver === 'escpos' && class_exists('Mike42\\Escpos\\Printer')) {
+            try {
+                $connector = new \Mike42\Escpos\PrintConnectors\NetworkPrintConnector(parse_url(config('pos.hardware.printer_uri'), PHP_URL_HOST), (int)parse_url(config('pos.hardware.printer_uri'), PHP_URL_PORT));
+                $printer = new \Mike42\Escpos\Printer($connector);
+                $printer->pulse();
+                $printer->close();
+                return response()->json(['message'=>'drawer_opened']);
+            } catch (\Throwable $e) {
+                return response()->json(['message'=>'printer_error','error'=>$e->getMessage()], 502);
+            }
+        }
+        Log::info('[POS-HW] drawer open simulated');
+        return response()->json(['message'=>'drawer_open_log']);
     }
 }

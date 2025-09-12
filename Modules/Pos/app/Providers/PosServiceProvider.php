@@ -9,6 +9,7 @@ class PosServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        // Bind default gateways (replace in your app)
         $this->app->bind(BillingGateway::class, function () {
             return new class implements BillingGateway {
                 public function createInvoice($order, array $lines, array $meta = []): array {
@@ -16,10 +17,11 @@ class PosServiceProvider extends ServiceProvider
                 }
             };
         });
-
         $this->app->bind(InventoryGateway::class, function () {
             return new class implements InventoryGateway {
                 public function consumeItems(array $items, array $meta = []): bool { return true; }
+                public function reserveItems(array $items, array $meta = []): bool { return true; }
+                public function releaseReservation(array $items, array $meta = []): bool { return true; }
             };
         });
     }

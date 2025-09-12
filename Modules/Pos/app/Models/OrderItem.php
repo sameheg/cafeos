@@ -16,7 +16,7 @@ class OrderItem extends Model
         static::saving(function (self $item) {
             $qty = (float)($item->qty ?? 0);
             $price = (float)($item->price ?? 0);
-            $item->line_total = $qty * $price;
+            $item->line_total = round($qty * $price, 2);
         });
     }
 

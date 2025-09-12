@@ -1,42 +1,68 @@
 <?php
-
-namespace Modules\Pos\Http\Controllers\Api;
+namespace Modules\Pos\App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Modules\Pos\Models\PosOrder;
-use Modules\Pos\Models\PosRefund;
-use Modules\Pos\Services\InventoryService;
-use Modules\Pos\Models\PosAudit;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Pos\App\Models\Order;
+use Modules\Pos\App\Models\Refund;
+use Modules\Pos\App\Models\RefundItem;
+use Modules\Pos\App\Services\TotalsCalculator;
+use Modules\Pos\App\Services\PosAudit;
 
-class RefundController
+class RefundController extends Controller
 {
-    public function refund(Request $r, PosOrder $order): JsonResponse {
-        $data = $r->validate(['amount'=>'required|numeric|min:0','reason'=>'nullable|string','items'=>'array']);
-        abort_unless(auth()->user()?->can('pos.order.refund'), 403);
-        $rf = PosRefund::create([
-            'tenant_id'=>$order->tenant_id,
-            'order_id'=>$order->id,
-            'amount'=>$data['amount'],
-            'reason'=>$data['reason'] ?? null,
-            'items'=>$data['items'] ?? [],
+    public function __construct(private PosAudit $audit) {}
+
+    public function refund(Request $request, Order $order)
+    {
+        $this->authorize('update', $order);
+
+        $data = $request->validate([
+            'amount' => 'required|numeric|min:0.01',
+            'reason' => 'nullable|string',
+            'items' => 'nullable|array',
+            'items.*.order_item_id' => 'required_with:items|integer',
+            'items.*.qty' => 'required_with:items|numeric|min:0.01',
+            'items.*.amount' => 'required_with:items|numeric|min:0',
         ]);
-        // reverse inventory
-        foreach(($data['items'] ?? []) as $it){
-            if(isset($it['id'])){
-                $item = $order->items()->find($it['id']);
-                if($item) InventoryService::reverseForItem($item);
+
+        return DB::transaction(function () use ($order, $data) {
+            $order->recalcTotals();
+
+            $alreadyRefunded = (float)$order->refunded_total;
+            $paid = (float)$order->paid_total;
+            $amount = (float)$data['amount'];
+
+            if ($amount + $alreadyRefunded > $paid) {
+                return response()->json(['message'=>'Refund exceeds paid total'], 422);
             }
-        }
-        // audit
-        PosAudit::create([
-            'tenant_id'=>$order->tenant_id,
-            'user_id'=>$r->user()->id ?? null,
-            'action'=>'refund.created',
-            'entity_type'=>'order',
-            'entity_id'=>$order->id,
-            'data'=>$rf->toArray()
-        ]);
-        return response()->json(['refund'=>$rf]);
+
+            $refund = Refund::create([
+                'order_id' => $order->id,
+                'amount' => $amount,
+                'reason' => $data['reason'] ?? null,
+            ]);
+
+            if (!empty($data['items'])) {
+                foreach ($data['items'] as $ri) {
+                    RefundItem::create([
+                        'refund_id' => $refund->id,
+                        'order_item_id' => $ri['order_item_id'],
+                        'qty' => $ri['qty'],
+                        'amount' => $ri['amount'],
+                    ]);
+                }
+            }
+
+            $order->refunded_total = $alreadyRefunded + $amount;
+            $order->save();
+
+            app(TotalsCalculator::class)->recalc($order);
+
+            $this->audit->log('order.refund', ['order_id'=>$order->id,'amount'=>$amount]);
+
+            return response()->json(['message'=>'Refund created','refund_id'=>$refund->id], 201);
+        });
     }
 }

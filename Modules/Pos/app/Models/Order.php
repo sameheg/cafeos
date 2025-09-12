@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tenant_id','table_id','status','subtotal','discount_total','tax_total','total','paid_at','invoice_id'];
+    protected $fillable = ['tenant_id','table_id','status','subtotal','discount_total','tax_total','total','paid_at','invoice_id','paid_total','refunded_total','customer_id'];
 
     protected $casts = [
         'paid_at' => 'datetime',
@@ -18,6 +18,11 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function refunds(): HasMany
+    {
+        return $this->hasMany(Refund::class);
     }
 
     public function recalcTotals(): void

@@ -15,8 +15,11 @@ return new class extends Migration {
             $table->decimal('discount_total', 12, 2)->default(0);
             $table->decimal('tax_total', 12, 2)->default(0);
             $table->decimal('total', 12, 2)->default(0);
+            $table->decimal('paid_total', 12, 2)->default(0);
+            $table->decimal('refunded_total', 12, 2)->default(0);
             $table->timestamp('paid_at')->nullable();
             $table->string('invoice_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->timestamps();
         });
     }
