@@ -1,0 +1,13 @@
+{
+    "name": "ArMenu",
+    "alias": "ar-menu",
+    "description": "AR/VR interactive menu module",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ArMenu\\Providers\\ArMenuServiceProvider",
+        "Modules\\ArMenu\\Providers\\EventServiceProvider",
+        "Modules\\ArMenu\\Providers\\RouteServiceProvider"
+    ],
+    "files": []
+}

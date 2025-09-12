@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/ar-menu",
+    "description": "AR/VR menu module",
+    "authors": [
+        {"name": "EliteSaaS", "email": "dev@elitesaas.test"}
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ArMenu\\": "app/",
+            "Modules\\ArMenu\\Database\\Factories\\": "database/factories/",
+            "Modules\\ArMenu\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ArMenu\\Tests\\": "tests/"
+        }
+    }
+}
