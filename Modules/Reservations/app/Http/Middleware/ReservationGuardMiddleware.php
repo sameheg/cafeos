@@ -12,27 +12,13 @@ class ReservationGuardMiddleware
 
     public function handle(Request $request, Closure $next): Response
     {
-        if (!config('pos.strict_reservation_guard', true)) {
-            return $next($request);
-        }
-
         $tableId   = $request->input('table_id');
         $tenantId  = tenant('id') ?? null;
         $openAt    = now();
 
-        if (!$tableId) {
-            return $next($request);
-        }
-
-        $conflict = $this->reader->hasActiveOrImminentConflict(
-            tenantId: $tenantId,
-            tableId:  (int)$tableId,
-            at:       $openAt
-        );
-
-        if ($conflict) {
+        if ($tableId && $this->reader->hasActiveOrImminentConflict($tenantId, (int)$tableId, $openAt)) {
             return response()->json([
-                'message' => 'Table is reserved / time-conflict. Choose another table or cancel reservation.',
+                'message' => 'Table is reserved / time-conflict.',
                 'code'    => 'RESERVATION_CONFLICT'
             ], 409);
         }

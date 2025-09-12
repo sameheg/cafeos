@@ -6,11 +6,6 @@ use Illuminate\Routing\Controller;
 use Modules\Reservations\App\Models\Reservation;
 use Modules\Reservations\App\Http\Resources\ReservationResource;
 
-/**
- * @group Reservations
- *
- * APIs for managing reservations
- */
 class ReservationController extends Controller
 {
     public function index()
@@ -27,9 +22,8 @@ class ReservationController extends Controller
             'start_at' => 'required|date',
             'end_at' => 'required|date|after:start_at',
         ]);
-
         $reservation = Reservation::create($data);
-        return (new ReservationResource($reservation))->response()->setStatusCode(201);
+        return new ReservationResource($reservation);
     }
 
     public function show(Reservation $reservation)
@@ -44,7 +38,6 @@ class ReservationController extends Controller
             'start_at' => 'sometimes|date',
             'end_at' => 'sometimes|date|after:start_at',
         ]);
-
         $reservation->update($data);
         return new ReservationResource($reservation);
     }
