@@ -24,5 +24,6 @@
     "EquipmentLeasing": true,
     "EquipmentMaintenance": true,
     "FloorPlanDesigner": false,
-    "EquipmentMonitoring": true
+    "EquipmentMonitoring": true,
+    "EventManagement": true
 }

@@ -1,0 +1,11 @@
+{
+    "name": "EventManagement",
+    "alias": "eventmanagement",
+    "description": "Event booking and ticket management",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EventManagement\\Providers\\EventManagementServiceProvider"
+    ],
+    "files": []
+}
