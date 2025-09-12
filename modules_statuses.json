@@ -27,5 +27,6 @@
   "EquipmentMonitoring": true,
   "EventManagement": true,
   "ArMenu": false,
-  "HotelPms": true
+  "HotelPms": true,
+  "Reservations": true
 }
