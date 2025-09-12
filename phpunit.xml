@@ -20,6 +20,9 @@
         <testsuite name="Marketplace">
             <directory>Modules/Marketplace/tests</directory>
         </testsuite>
+        <testsuite name="Jobs">
+            <directory>Modules/Jobs/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
