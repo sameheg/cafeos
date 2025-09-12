@@ -13,6 +13,7 @@ class RefundController
 {
     public function refund(Request $r, PosOrder $order): JsonResponse {
         $data = $r->validate(['amount'=>'required|numeric|min:0','reason'=>'nullable|string','items'=>'array']);
+        abort_unless(auth()->user()?->can('pos.order.refund'), 403);
         $rf = PosRefund::create([
             'tenant_id'=>$order->tenant_id,
             'order_id'=>$order->id,

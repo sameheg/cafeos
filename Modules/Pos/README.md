@@ -59,3 +59,18 @@ php artisan optimize:clear
 - فعّل قواعد Loyalty/Promotions حسب استراتيجيتك.
 - طبّق BOM & Unit Conversions في جداول Inventory الخاصة بك (إن لم تكن موجودة، استخدم `item.meta.bom`).
 
+
+## 🎁 Loyalty & Promotions (Plus Edition)
+- **Loyalty**: points accumulate on payment; redeem with `POST /api/v1/pos/order/{order}/loyalty/redeem`.
+- **Promotions**: percent_off, amount_off, buy X get Y (BxGy), happy_hour rules supported.
+- **APIs**:
+  - `GET /api/v1/pos/promotions`
+  - `POST /api/v1/pos/order/{order}/promotions/apply` with {"code":"..."}
+
+## 🎁 Loyalty & Promotions (FINAL+)
+- Loyalty:
+  - Earn points تلقائيًا عند الدفع.
+  - Redeem: `POST /api/v1/pos/order/{order}/loyalty/redeem` مع `{ "points": N }` (1 نقطة = 1 عملة افتراضيًا).
+- Promotions Engine (قواعد فعلية):
+  - percent_off, amount_off, bxgy, happy_hour عبر `pos_promotion_rules`.
+  - Apply: `POST /api/v1/pos/order/{order}/promotions/apply` مع `{"code":"..."}.

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Modules\Pos\Models\PosTable;
 use Modules\Pos\Models\PosOrder;
+use Modules\Pos\Services\InventoryService;
+use Modules\Pos\Services\TotalsCalculator;
 
 class TableController
 {

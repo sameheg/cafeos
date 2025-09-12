@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Modules\Pos\Models\PosOrder;
 use Modules\Pos\Models\PosPayment;
+use Modules\Pos\Services\TotalsCalculator;
+use Modules\Pos\Services\BillingService;
+use Modules\Pos\Services\LoyaltyService;
 
 class PaymentController
 {
@@ -23,6 +26,8 @@ class PaymentController
             'meta'=>$data['meta'] ?? [],
         ]);
         $order->update(['status'=>'paid']);
+        TotalsCalculator::recalc($order);
+        if ($order->outstanding_total <= 0) { BillingService::createInvoice($order); LoyaltyService::awardPoints($order); }
         PosAudit::create(['tenant_id'=>$order->tenant_id,'user_id'=>auth()->id(),'action'=>'order.pay','entity_type'=>'order','entity_id'=>$order->id,'data'=>$p->toArray()]);
         return response()->json(['payment'=>$p,'order_status'=>$order->status]);
     }

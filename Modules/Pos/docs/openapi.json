@@ -93,7 +93,7 @@
     },
     "/api/v1/pos/order/{order}/promotions/apply": {
       "post": {
-        "summary": "Apply promotion code"
+        "summary": "Apply promotion code with rules"
       }
     },
     "/api/v1/pos/order/{order}/print/{printer}": {
@@ -124,6 +124,11 @@
     "/api/v1/pos/reports/occupancy": {
       "get": {
         "summary": "Occupancy report"
+      }
+    },
+    "/api/v1/pos/order/{order}/loyalty/redeem": {
+      "post": {
+        "summary": "Redeem loyalty points"
       }
     }
   }
