@@ -41,6 +41,9 @@
         <testsuite name="Reservations">
             <directory>Modules/Reservations/tests</directory>
         </testsuite>
+        <testsuite name="Loyalty">
+            <directory>Modules/Loyalty/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
