@@ -32,6 +32,9 @@
         <testsuite name="Energy">
             <directory>Modules/Energy/tests</directory>
         </testsuite>
+        <testsuite name="EquipmentLeasing">
+            <directory>Modules/EquipmentLeasing/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>

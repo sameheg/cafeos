@@ -1,0 +1,22 @@
+{
+    "name": "nwidart/equipment-leasing",
+    "description": "Equipment Leasing module",
+    "authors": [
+        {"name": "EliteSaaS", "email": "info@example.com"}
+    ],
+    "extra": {
+        "laravel": {"providers": [], "aliases": {}}
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\EquipmentLeasing\\": "app/",
+            "Modules\\EquipmentLeasing\\Database\\Factories\\": "database/factories/",
+            "Modules\\EquipmentLeasing\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\EquipmentLeasing\\Tests\\": "tests/"
+        }
+    }
+}
