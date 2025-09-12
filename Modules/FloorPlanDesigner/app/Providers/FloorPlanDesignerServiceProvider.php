@@ -5,6 +5,11 @@ namespace Modules\FloorPlanDesigner\Providers;
 use Illuminate\Support\ServiceProvider;
 use Modules\FloorPlanDesigner\Models\Floorplan;
 use Modules\FloorPlanDesigner\Observers\FloorplanObserver;
+use Illuminate\Support\Facades\Gate;
+use Modules\FloorPlanDesigner\Models\Floorplan as FloorplanModel;
+use Modules\FloorPlanDesigner\Models\FloorplanZone as FloorplanZoneModel;
+use Modules\FloorPlanDesigner\Policies\FloorplanPolicy;
+use Modules\FloorPlanDesigner\Policies\FloorplanZonePolicy;
 
 class FloorPlanDesignerServiceProvider extends ServiceProvider
 {
@@ -18,5 +23,7 @@ class FloorPlanDesignerServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'floorplandesigner');
         Floorplan::observe(FloorplanObserver::class);
+        Gate::policy(FloorplanModel::class, FloorplanPolicy::class);
+        Gate::policy(FloorplanZoneModel::class, FloorplanZonePolicy::class);
     }
 }
