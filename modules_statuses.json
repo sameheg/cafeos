@@ -23,5 +23,6 @@
     "Energy": true,
     "EquipmentLeasing": true,
     "EquipmentMaintenance": true,
-    "FloorPlanDesigner": true
+    "FloorPlanDesigner": false,
+    "EquipmentMonitoring": true
 }
