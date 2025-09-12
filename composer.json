@@ -79,7 +79,10 @@
       "Modules\\EquipmentMonitoring\\": "Modules/EquipmentMonitoring/app/",
       "Modules\\EquipmentMonitoring\\Database\\Factories\\": "Modules/EquipmentMonitoring/database/factories/",
       "Modules\\EquipmentMonitoring\\Database\\Seeders\\": "Modules/EquipmentMonitoring/database/seeders/",
-      "Modules\\EventManagement\\": "Modules/EventManagement/app/"
+      "Modules\\EventManagement\\": "Modules/EventManagement/app/",
+      "Modules\\HotelPms\\": "Modules/HotelPms/app/",
+      "Modules\\HotelPms\\Database\\Factories\\": "Modules/HotelPms/database/factories/",
+      "Modules\\HotelPms\\Database\\Seeders\\": "Modules/HotelPms/database/seeders/"
     }
   },
   "autoload-dev": {
@@ -92,7 +95,8 @@
       "Modules\\EquipmentLeasing\\Tests\\": "Modules/EquipmentLeasing/tests/",
       "Modules\\EquipmentMaintenance\\Tests\\": "Modules/EquipmentMaintenance/tests/",
       "Modules\\EquipmentMonitoring\\Tests\\": "Modules/EquipmentMonitoring/tests/",
-      "Modules\\EventManagement\\Tests\\": "Modules/EventManagement/tests/"
+      "Modules\\EventManagement\\Tests\\": "Modules/EventManagement/tests/",
+      "Modules\\HotelPms\\Tests\\": "Modules/HotelPms/tests/"
     }
   },
   "scripts": {

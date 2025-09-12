@@ -26,5 +26,6 @@
   "FloorPlanDesigner": false,
   "EquipmentMonitoring": true,
   "EventManagement": true,
-  "ArMenu": true
+  "ArMenu": false,
+  "HotelPms": true
 }
