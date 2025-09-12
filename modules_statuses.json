@@ -8,5 +8,6 @@
     "HRJobs": true,
     "Procurement": true,
     "Membership": true,
-    "Marketplace": true
+    "Marketplace": true,
+    "Crm": true
 }
