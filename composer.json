@@ -52,6 +52,9 @@
       "Modules\\Reports\\": "Modules/Reports/app/",
       "Modules\\Reports\\Database\\Factories\\": "Modules/Reports/database/factories/",
       "Modules\\Reports\\Database\\Seeders\\": "Modules/Reports/database/seeders/"
+      "Modules\\Training\\": "Modules/Training/app/",
+      "Modules\\Training\\Database\\Factories\\": "Modules/Training/database/factories/",
+      "Modules\\Training\\Database\\Seeders\\": "Modules/Training/database/seeders/"
     }
   },
   "autoload-dev": {
