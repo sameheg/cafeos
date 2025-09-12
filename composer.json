@@ -42,7 +42,9 @@
       "Modules\\Procurement\\": "Modules/Procurement/app/",
       "Modules\\Membership\\": "Modules/Membership/app/",
       "Modules\\Marketplace\\": "Modules/Marketplace/app/",
-      "Modules\\Billing\\": "Modules/Billing/app/"
+      "Modules\\Billing\\": "Modules/Billing/app/",
+      "Modules\\Crm\\": "Modules/Crm/app/",
+      "Modules\\Franchise\\": "Modules/Franchise/app/"
     }
   },
   "autoload-dev": {
