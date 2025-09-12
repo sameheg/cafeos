@@ -1,0 +1,22 @@
+{
+    "name": "nwidart/jobs",
+    "description": "Jobs module for EliteSaaS",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Jobs\\": "app/",
+            "Modules\\Jobs\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Jobs\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Jobs\\Tests\\": "tests/"
+        }
+    }
+}

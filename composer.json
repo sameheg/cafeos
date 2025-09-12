@@ -39,10 +39,14 @@
       "Modules\\Qr\\": "Modules/Qr/app/",
       "Modules\\Inventory\\": "Modules/Inventory/app/",
       "Modules\\HRJobs\\": "Modules/HRJobs/app/",
+      "Modules\\Crm\\": "Modules/Crm/app/",
       "Modules\\Procurement\\": "Modules/Procurement/app/",
       "Modules\\Membership\\": "Modules/Membership/app/",
       "Modules\\Marketplace\\": "Modules/Marketplace/app/",
-      "Modules\\Billing\\": "Modules/Billing/app/"
+      "Modules\\Billing\\": "Modules/Billing/app/",
+      "Modules\\Jobs\\": "Modules/Jobs/app/",
+      "Modules\\Jobs\\Database\\Factories\\": "Modules/Jobs/database/factories/",
+      "Modules\\Jobs\\Database\\Seeders\\": "Modules/Jobs/database/seeders/"
     }
   },
   "autoload-dev": {
