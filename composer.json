@@ -39,7 +39,8 @@
       "Modules\\Qr\\": "Modules/Qr/app/",
       "Modules\\Inventory\\": "Modules/Inventory/app/",
       "Modules\\HRJobs\\": "Modules/HRJobs/app/",
-      "Modules\\Procurement\\": "Modules/Procurement/app/"
+      "Modules\\Procurement\\": "Modules/Procurement/app/",
+      "Modules\\Membership\\": "Modules/Membership/app/"
     }
   },
   "autoload-dev": {

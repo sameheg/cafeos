@@ -6,5 +6,6 @@
     "Kiosk": true,
     "Inventory": true,
     "HRJobs": true,
-    "Procurement": true
+    "Procurement": true,
+    "Membership": true
 }
