@@ -22,5 +22,6 @@
     "FoodSafety": true,
     "Energy": true,
     "EquipmentLeasing": true,
-    "EquipmentMaintenance": true
+    "EquipmentMaintenance": true,
+    "FloorPlanDesigner": true
 }
