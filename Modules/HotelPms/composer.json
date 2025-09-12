@@ -1,0 +1,9 @@
+{
+    "name": "modules/hotelpms",
+    "description": "Hotel PMS module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\HotelPms\\": "app/"
+        }
+    }
+}
