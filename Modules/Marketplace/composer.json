@@ -1,0 +1,21 @@
+{
+    "name": "nwidart/marketplace",
+    "description": "Marketplace module for EliteSaaS",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Marketplace\\": "app/",
+            "Modules\\Marketplace\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Marketplace\\Tests\\": "tests/"
+        }
+    }
+}

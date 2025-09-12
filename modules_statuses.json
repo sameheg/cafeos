@@ -7,5 +7,6 @@
     "Inventory": true,
     "HRJobs": true,
     "Procurement": true,
-    "Membership": true
+    "Membership": true,
+    "Marketplace": true
 }
