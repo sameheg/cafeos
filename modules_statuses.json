@@ -15,5 +15,6 @@
     "Franchise": true,
     "Reports": true,
     "Training": true,
-    "SuperAdmin": true
+    "SuperAdmin": true,
+    "Dashboard": true
 }
