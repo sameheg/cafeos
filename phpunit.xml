@@ -17,6 +17,9 @@
         <testsuite name="Membership">
             <directory>Modules/Membership/tests</directory>
         </testsuite>
+        <testsuite name="Marketplace">
+            <directory>Modules/Marketplace/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>

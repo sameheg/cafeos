@@ -40,7 +40,8 @@
       "Modules\\Inventory\\": "Modules/Inventory/app/",
       "Modules\\HRJobs\\": "Modules/HRJobs/app/",
       "Modules\\Procurement\\": "Modules/Procurement/app/",
-      "Modules\\Membership\\": "Modules/Membership/app/"
+      "Modules\\Membership\\": "Modules/Membership/app/",
+      "Modules\\Marketplace\\": "Modules/Marketplace/app/"
     }
   },
   "autoload-dev": {
