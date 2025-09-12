@@ -18,7 +18,8 @@
     "simplesoftwareio/simple-qrcode": "^4.2",
     "spatie/laravel-permission": "^6.21",
     "maatwebsite/excel": "^3.1",
-    "stripe/stripe-php": "^16.2"
+    "stripe/stripe-php": "^16.2",
+    "spatie/laravel-activitylog": "^4.8"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",
@@ -85,10 +86,13 @@
       "Modules\\HotelPms\\Database\\Seeders\\": "Modules/HotelPms/database/seeders/",
       "Modules\\Reservations\\": "Modules/Reservations/app/",
       "Modules\\Reservations\\Database\\Factories\\": "Modules/Reservations/database/factories/",
-      "Modules\\Reservations\\Database\\Seeders\\": "Modules/Reservations/database/seeders/"
-      ,"Modules\\Loyalty\\": "Modules/Loyalty/app/",
+      "Modules\\Reservations\\Database\\Seeders\\": "Modules/Reservations/database/seeders/",
+      "Modules\\Loyalty\\": "Modules/Loyalty/app/",
       "Modules\\Loyalty\\Database\\Factories\\": "Modules/Loyalty/database/factories/",
-      "Modules\\Loyalty\\Database\\Seeders\\": "Modules/Loyalty/database/seeders/"
+      "Modules\\Loyalty\\Database\\Seeders\\": "Modules/Loyalty/database/seeders/",
+      "Modules\\FloorPlanDesigner\\": "Modules/FloorPlanDesigner/app/",
+      "Modules\\FloorPlanDesigner\\Database\\Factories\\": "Modules/FloorPlanDesigner/database/factories/",
+      "Modules\\FloorPlanDesigner\\Database\\Seeders\\": "Modules/FloorPlanDesigner/database/seeders/"
     }
   },
   "autoload-dev": {
@@ -104,7 +108,8 @@
       "Modules\\EventManagement\\Tests\\": "Modules/EventManagement/tests/",
       "Modules\\HotelPms\\Tests\\": "Modules/HotelPms/tests/",
       "Modules\\Reservations\\Tests\\": "Modules/Reservations/tests/",
-      "Modules\\Loyalty\\Tests\\": "Modules/Loyalty/tests/"
+      "Modules\\Loyalty\\Tests\\": "Modules/Loyalty/tests/",
+      "Modules\\FloorPlanDesigner\\Tests\\": "Modules/FloorPlanDesigner/tests/"
     }
   },
   "scripts": {

@@ -2,9 +2,11 @@
 
 namespace Modules\SuperAdmin\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Validation\ValidationException;
+use Modules\Core\Models\Tenant;
 use Modules\SuperAdmin\Events\ModuleDisabled;
 
 class Flag extends Model
@@ -18,6 +20,35 @@ class Flag extends Model
     protected $casts = [
         'enabled' => 'boolean',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (Flag $flag) {
+            if (! $flag->enabled) {
+                return;
+            }
+
+            $dependencies = config('module-dependencies.'.$flag->module, []);
+
+            foreach ($dependencies as $dependency) {
+                $depFlag = self::query()
+                    ->where('module', $dependency)
+                    ->where('tenant_id', $flag->tenant_id)
+                    ->first();
+
+                if (! $depFlag || ! $depFlag->enabled) {
+                    throw ValidationException::withMessages([
+                        'module' => sprintf('%s requires %s', $flag->module, $dependency),
+                    ]);
+                }
+            }
+        });
+    }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
     public function suspend(): void
     {

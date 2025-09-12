@@ -2,18 +2,37 @@
 
 namespace Modules\SuperAdmin\Tests\Unit;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Validation\ValidationException;
 use Modules\SuperAdmin\Models\Flag;
-use Modules\SuperAdmin\Tests\TestCase;
+use Tests\TestCase;
 
 class FlagToggleTest extends TestCase
 {
+    use RefreshDatabase;
 
-    public function test_it_can_suspend_and_restore_flag(): void
+    public function test_cannot_enable_module_when_dependency_missing(): void
     {
-        $flag = Flag::create(['module' => 'pos', 'tenant_id' => null, 'enabled' => true]);
-        $flag->suspend();
-        $this->assertFalse($flag->fresh()->enabled);
-        $flag->restore();
-        $this->assertTrue($flag->fresh()->enabled);
+        config(['module-dependencies.Kds' => ['Pos']]);
+
+        $kds = Flag::create(['module' => 'Kds', 'tenant_id' => null, 'enabled' => false]);
+
+        $this->expectException(ValidationException::class);
+
+        $kds->update(['enabled' => true]);
+
+        $this->assertFalse($kds->fresh()->enabled);
+    }
+
+    public function test_enables_when_dependency_present(): void
+    {
+        config(['module-dependencies.Kds' => ['Pos']]);
+
+        Flag::create(['module' => 'Pos', 'tenant_id' => null, 'enabled' => true]);
+        $kds = Flag::create(['module' => 'Kds', 'tenant_id' => null, 'enabled' => false]);
+
+        $kds->update(['enabled' => true]);
+
+        $this->assertTrue($kds->fresh()->enabled);
     }
 }
