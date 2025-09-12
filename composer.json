@@ -47,6 +47,8 @@
       "Modules\\Jobs\\": "Modules/Jobs/app/",
       "Modules\\Jobs\\Database\\Factories\\": "Modules/Jobs/database/factories/",
       "Modules\\Jobs\\Database\\Seeders\\": "Modules/Jobs/database/seeders/"
+      "Modules\\Crm\\": "Modules/Crm/app/",
+      "Modules\\Franchise\\": "Modules/Franchise/app/"
     }
   },
   "autoload-dev": {
