@@ -16,5 +16,6 @@
     "Reports": true,
     "Training": true,
     "SuperAdmin": true,
-    "Dashboard": true
+    "Dashboard": true,
+    "Notifications": true
 }

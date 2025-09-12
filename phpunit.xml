@@ -26,6 +26,9 @@
         <testsuite name="Training">
             <directory>Modules/Training/tests</directory>
         </testsuite>
+        <testsuite name="Notifications">
+            <directory>Modules/Notifications/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
