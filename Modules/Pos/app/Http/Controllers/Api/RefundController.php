@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Modules\Pos\Models\PosOrder;
 use Modules\Pos\Models\PosRefund;
+use Modules\Pos\Services\InventoryService;
+use Modules\Pos\Models\PosAudit;
 
 class RefundController
 {
@@ -18,7 +20,22 @@ class RefundController
             'reason'=>$data['reason'] ?? null,
             'items'=>$data['items'] ?? [],
         ]);
-        // TODO: reverse inventory if needed
+        // reverse inventory
+        foreach(($data['items'] ?? []) as $it){
+            if(isset($it['id'])){
+                $item = $order->items()->find($it['id']);
+                if($item) InventoryService::reverseForItem($item);
+            }
+        }
+        // audit
+        PosAudit::create([
+            'tenant_id'=>$order->tenant_id,
+            'user_id'=>$r->user()->id ?? null,
+            'action'=>'refund.created',
+            'entity_type'=>'order',
+            'entity_id'=>$order->id,
+            'data'=>$rf->toArray()
+        ]);
         return response()->json(['refund'=>$rf]);
     }
 }
