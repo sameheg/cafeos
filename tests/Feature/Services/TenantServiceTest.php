@@ -15,6 +15,7 @@ use App\Models\PlanPrice;
 use App\Models\Subscription;
 use App\Services\PaymentProviders\PaymentProviderInterface;
 use App\Services\PaymentProviders\PaymentService;
+use App\Services\TenantContext;
 use App\Services\TenantPermissionService;
 use App\Services\TenantService;
 use App\Services\TenantSubscriptionService;
@@ -73,6 +74,7 @@ class TenantServiceTest extends FeatureTest
         $tenantService = new TenantService(
             $permissionService,
             new TenantSubscriptionService($paymentService),
+            new TenantContext,
         );
 
         Event::fake();
@@ -137,6 +139,7 @@ class TenantServiceTest extends FeatureTest
         $tenantService = new TenantService(
             $permissionService,
             new TenantSubscriptionService($paymentService),
+            new TenantContext,
         );
 
         Event::fake();
@@ -202,6 +205,7 @@ class TenantServiceTest extends FeatureTest
         $tenantService = new TenantService(
             $permissionService,
             new TenantSubscriptionService($paymentService),
+            new TenantContext,
         );
 
         Event::fake();
@@ -255,6 +259,7 @@ class TenantServiceTest extends FeatureTest
         $tenantService = new TenantService(
             $permissionService,
             new TenantSubscriptionService($paymentService),
+            new TenantContext,
         );
 
         Event::fake();
@@ -316,6 +321,7 @@ class TenantServiceTest extends FeatureTest
         $tenantService = new TenantService(
             $permissionService,
             new TenantSubscriptionService($paymentService),
+            new TenantContext,
         );
 
         Event::fake();
@@ -371,6 +377,7 @@ class TenantServiceTest extends FeatureTest
         $tenantService = new TenantService(
             $permissionService,
             new TenantSubscriptionService($paymentService),
+            new TenantContext,
         );
 
         Event::fake();
