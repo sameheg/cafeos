@@ -1,5 +1,5 @@
-document.addEventListener('alpine:init', () => {
-    Alpine.data('cashierShortcuts', () => ({
+function registerCashierShortcuts() {
+    window.Alpine.data('cashierShortcuts', () => ({
         register() {
             window.addEventListener('keydown', (event) => {
                 if (event.key === 'F2') {
@@ -12,4 +12,10 @@ document.addEventListener('alpine:init', () => {
             });
         },
     }));
-});
+}
+
+if (window.Alpine) {
+    registerCashierShortcuts();
+} else {
+    document.addEventListener('alpine:init', registerCashierShortcuts);
+}
