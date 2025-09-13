@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Pos;
 
 use App\Http\Controllers\Controller;
+use App\Services\ReservationService;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
+    public function __construct(private ReservationService $reservationService) {}
+
     /**
      * List reservations.
      */
@@ -20,7 +23,11 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: implement reservation logic
-        return response()->json(['status' => 'ok']);
+        $reservation = $this->reservationService->confirm($request->all());
+
+        return response()->json([
+            'status' => 'confirmed',
+            'reservation' => $reservation,
+        ]);
     }
 }

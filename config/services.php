@@ -105,4 +105,11 @@ return [
         'from' => env('TWILIO_FROM'),
     ],
 
+    'webhooks' => [
+        'order_created' => env('WEBHOOK_ORDER_CREATED'),
+        'payment_failed' => env('WEBHOOK_PAYMENT_FAILED'),
+        'device_alert' => env('WEBHOOK_DEVICE_ALERT'),
+        'reservation_confirmed' => env('WEBHOOK_RESERVATION_CONFIRMED'),
+    ],
+
 ];

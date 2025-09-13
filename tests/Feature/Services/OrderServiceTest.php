@@ -4,6 +4,7 @@ namespace Tests\Feature\Services;
 
 use App\Constants\OrderStatus;
 use App\Events\Order\Ordered;
+use App\Events\Order\OrderCreated;
 use App\Models\Currency;
 use App\Models\OneTimeProduct;
 use App\Models\Order;
@@ -291,6 +292,7 @@ class OrderServiceTest extends FeatureTest
         ]);
 
         Event::assertDispatched(Ordered::class);
+        Event::assertDispatched(OrderCreated::class);
 
         $this->assertInstanceOf(Order::class, $order);
         $this->assertEquals(OrderStatus::SUCCESS->value, $order->status); // Local orders are successful immediately

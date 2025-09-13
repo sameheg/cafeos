@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constants\TransactionStatus;
+use App\Events\Payment\PaymentFailed;
 use App\Models\Currency;
 use App\Models\Order;
 use App\Models\PaymentProvider;
@@ -87,6 +88,10 @@ class TransactionService
         }
 
         $transaction->update($data);
+
+        if ($status === TransactionStatus::FAILED) {
+            PaymentFailed::dispatch($transaction);
+        }
 
         return $transaction;
     }
