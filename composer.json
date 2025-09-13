@@ -91,7 +91,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\PosEnterprise\\PosEnterpriseServiceProvider"
+                "Modules\\PosEnterprise\\Providers\\PosEnterpriseServiceProvider"
             ],
             "dont-discover": [
                 "laravel/telescope"
