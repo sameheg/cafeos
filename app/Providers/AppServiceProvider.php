@@ -10,6 +10,11 @@ use App\Services\PaymentProviders\Stripe\StripeProvider;
 use App\Services\TenantContext;
 use App\Services\UserVerificationService;
 use App\Services\VerificationProviders\TwilioProvider;
+use App\Services\Audit\AuditTrailService;
+use App\Services\Audit\BlockchainAuditTrailService;
+use App\Services\Audit\LogAuditTrailService;
+use App\Services\Compliance\GdprComplianceService;
+use App\Services\Compliance\PciComplianceService;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Support\ServiceProvider;
@@ -48,6 +53,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->afterResolving(UserVerificationService::class, function (UserVerificationService $service) {
             $service->setVerificationProviders(...$this->app->tagged('verification-providers'));
         });
+
+        $this->app->singleton(AuditTrailService::class, function () {
+            if (config('audit.blockchain_enabled')) {
+                return new BlockchainAuditTrailService();
+            }
+
+            return new LogAuditTrailService();
+        });
+
+        $this->app->singleton(GdprComplianceService::class);
+        $this->app->singleton(PciComplianceService::class);
     }
 
     /**

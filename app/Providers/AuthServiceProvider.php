@@ -4,7 +4,11 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Role;
+use App\Models\Order;
+use App\Models\Payment;
 use App\Policies\RolePolicy;
+use App\Policies\OrderPolicy;
+use App\Policies\PaymentPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -18,6 +22,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Role::class => RolePolicy::class,
+        Order::class => OrderPolicy::class,
+        Payment::class => PaymentPolicy::class,
     ];
 
     /**
@@ -25,6 +31,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->registerPolicies();
+
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             return (new \App\Mail\User\VerifyEmail($url))
                 ->to($notifiable->email);
