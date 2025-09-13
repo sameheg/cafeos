@@ -11,6 +11,7 @@ use App\Models\Invitation;
 use App\Models\Subscription;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Services\TenantContext;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,13 @@ class TenantService
     public function __construct(
         private TenantPermissionService $tenantPermissionService,
         private TenantSubscriptionService $tenantSubscriptionService,
+        private TenantContext $tenantContext,
     ) {}
+
+    public function getCurrentTenant(): ?Tenant
+    {
+        return $this->tenantContext->tenant();
+    }
 
     public function acceptInvitation(Invitation $invitation, User $user): bool
     {
