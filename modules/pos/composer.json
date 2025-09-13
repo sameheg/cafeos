@@ -10,7 +10,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\PosEnterprise\\PosEnterpriseServiceProvider"
+                "Modules\\PosEnterprise\\Providers\\PosEnterpriseServiceProvider"
             ]
         }
     }
