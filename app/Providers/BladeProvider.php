@@ -63,5 +63,10 @@ class BladeProvider extends ServiceProvider
 
             return $orderService->hasUserOrdered($user, $productSlug, $tenant);
         });
+
+        Blade::if('role', function (string $role) {
+            $user = auth()->user();
+            return $user?->hasRole($role) ?? false;
+        });
     }
 }
