@@ -1,0 +1,11 @@
+.table-available {
+    @apply bg-green-500;
+}
+
+.table-occupied {
+    @apply bg-red-500;
+}
+
+.table-selected {
+    @apply bg-blue-500;
+}
