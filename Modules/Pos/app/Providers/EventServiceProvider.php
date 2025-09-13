@@ -14,6 +14,17 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [];
 
     /**
+     * Configure the proper event listeners for email verification.
+     */
+    protected function configureEmailVerification(): void {}
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     */
+    public function shouldDiscoverEvents(): bool
+    {
+        return true;
+    }
      * Indicates if events should be discovered.
      *
      * @var bool
