@@ -25,6 +25,18 @@ class EventServiceProvider extends ServiceProvider
     {
         return true;
     }
+
+    /**
+     * Get the listener directories that should be scanned.
+     *
+     * @return array<int, string>
+     */
+    public function discoverEventsWithin(): array
+    {
+        return [
+            module_path('Pos', 'app/Listeners'),
+        ];
+    }
      * Indicates if events should be discovered.
      *
      * @var bool

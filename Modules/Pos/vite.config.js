@@ -1,5 +1,11 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 import { readdirSync, statSync } from 'fs';
 import { join,relative,dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -15,6 +21,8 @@ export default defineConfig({
             publicDirectory: '../../public',
             buildDirectory: 'build-pos',
             input: [
+                resolve(__dirname, 'resources/assets/sass/app.scss'),
+                resolve(__dirname, 'resources/assets/js/app.js'),
                 __dirname + '/resources/assets/sass/app.scss',
                 __dirname + '/resources/assets/js/app.js'
             ],

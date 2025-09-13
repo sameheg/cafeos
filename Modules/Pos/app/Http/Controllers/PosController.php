@@ -20,12 +20,17 @@ class PosController extends Controller
      */
     public function create()
     {
+        abort(501);
         return view('pos::create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    public function store(Request $request)
+    {
+        abort(501);
+    }
     public function store(Request $request) {}
 
     /**
@@ -33,6 +38,7 @@ class PosController extends Controller
      */
     public function show($id)
     {
+        abort(501);
         return view('pos::show');
     }
 
@@ -41,16 +47,25 @@ class PosController extends Controller
      */
     public function edit($id)
     {
+        abort(501);
         return view('pos::edit');
     }
 
     /**
      * Update the specified resource in storage.
      */
+    public function update(Request $request, $id)
+    {
+        abort(501);
+    }
     public function update(Request $request, $id) {}
 
     /**
      * Remove the specified resource from storage.
      */
+    public function destroy($id)
+    {
+        abort(501);
+    }
     public function destroy($id) {}
 }
