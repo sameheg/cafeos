@@ -8,6 +8,7 @@ use App\Dto\CartDto;
 use App\Events\Order\Ordered;
 use App\Events\Order\OrderedOffline;
 use App\Events\Order\OrderRefunded;
+use App\Events\Order\OrderCreated;
 use App\Exceptions\TenantException;
 use App\Models\Currency;
 use App\Models\OneTimeProduct;
@@ -76,6 +77,8 @@ class OrderService
         if ($orderItems) {
             $order->items()->createMany($orderItems);
         }
+
+        OrderCreated::dispatch($order);
 
         if ($isLocal) {
             // if it's a local order, dispatch the Ordered event immediately
