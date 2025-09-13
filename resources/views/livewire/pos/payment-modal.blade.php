@@ -1,0 +1,3 @@
+<div>
+    <!-- Payment modal -->
+</div>
