@@ -19,6 +19,11 @@ class Tenant extends Model
         'is_name_auto_generated',
         'created_by',
         'domain',
+        'settings',
+    ];
+
+    protected $casts = [
+        'settings' => 'array',
     ];
 
     public function invitations(): HasMany

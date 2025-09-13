@@ -7,6 +7,7 @@ use App\Services\PaymentProviders\Offline\OfflineProvider;
 use App\Services\PaymentProviders\Paddle\PaddleProvider;
 use App\Services\PaymentProviders\PaymentService;
 use App\Services\PaymentProviders\Stripe\StripeProvider;
+use App\Services\TenantContext;
 use App\Services\UserVerificationService;
 use App\Services\VerificationProviders\TwilioProvider;
 use Filament\Support\Assets\Js;
@@ -36,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PaymentService::class, function () {
             return new PaymentService(...$this->app->tagged('payment-providers'));
         });
+
+        $this->app->singleton(TenantContext::class, TenantContext::class);
 
         // verification providers
         $this->app->tag([

@@ -123,12 +123,12 @@ Route::get('/payment-provider/paddle/payment-link', [
 Route::get('/subscription/{subscriptionUuid}/change-plan/{planSlug}/tenant/{tenantUuid}', [
     App\Http\Controllers\SubscriptionController::class,
     'changePlan',
-])->name('subscription.change-plan')->middleware('auth');
+])->name('subscription.change-plan')->middleware(['auth', 'tenant']);
 
 Route::post('/subscription/{subscriptionUuid}/change-plan/{planSlug}/tenant/{tenantUuid}', [
     App\Http\Controllers\SubscriptionController::class,
     'changePlan',
-])->name('subscription.change-plan.post')->middleware('auth');
+])->name('subscription.change-plan.post')->middleware(['auth', 'tenant']);
 
 Route::get('/subscription/change-plan-thank-you', [
     App\Http\Controllers\SubscriptionController::class,
