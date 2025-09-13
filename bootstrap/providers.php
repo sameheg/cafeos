@@ -10,4 +10,5 @@ return [
     App\Providers\HorizonServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
+    Modules\Pos\Providers\PosServiceProvider::class,
 ];
