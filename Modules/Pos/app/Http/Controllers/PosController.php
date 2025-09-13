@@ -21,6 +21,7 @@ class PosController extends Controller
     public function create()
     {
         abort(501);
+        return view('pos::create');
     }
 
     /**
@@ -30,6 +31,7 @@ class PosController extends Controller
     {
         abort(501);
     }
+    public function store(Request $request) {}
 
     /**
      * Show the specified resource.
@@ -37,6 +39,7 @@ class PosController extends Controller
     public function show($id)
     {
         abort(501);
+        return view('pos::show');
     }
 
     /**
@@ -45,6 +48,7 @@ class PosController extends Controller
     public function edit($id)
     {
         abort(501);
+        return view('pos::edit');
     }
 
     /**
@@ -54,6 +58,7 @@ class PosController extends Controller
     {
         abort(501);
     }
+    public function update(Request $request, $id) {}
 
     /**
      * Remove the specified resource from storage.
@@ -62,4 +67,5 @@ class PosController extends Controller
     {
         abort(501);
     }
+    public function destroy($id) {}
 }
