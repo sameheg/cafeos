@@ -1,16 +1,16 @@
 {
-    "name": "cafeos/pos-enterprise",
+    "name": "cafeos/pos",
     "description": "POS Enterprise module",
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Modules\\PosEnterprise\\": "pos-core/"
+            "Modules\\Pos\\": "pos-core/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\PosEnterprise\\Providers\\PosEnterpriseServiceProvider"
+                "Modules\\Pos\\Providers\\PosServiceProvider"
             ]
         }
     }
