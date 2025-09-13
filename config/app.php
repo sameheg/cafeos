@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
 
 return [
 
@@ -226,6 +227,10 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
+
+    'providers' => ServiceProvider::defaultProviders()->merge([
+        Modules\Pos\Providers\PosServiceProvider::class,
+    ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
