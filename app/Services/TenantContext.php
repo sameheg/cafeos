@@ -18,6 +18,9 @@ class TenantContext
             config('tenant.defaults', []),
             $tenant->settings ?? []
         );
+
+        $posOverrides = $tenant->settings['pos'] ?? [];
+        config(['pos' => array_replace_recursive(config('pos', []), $posOverrides)]);
     }
 
     public function tenant(): ?Tenant
