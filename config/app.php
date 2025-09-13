@@ -227,6 +227,10 @@ return [
     |
     */
 
+    'providers' => [
+        Modules\Pos\Providers\PosServiceProvider::class,
+    ],
+
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
