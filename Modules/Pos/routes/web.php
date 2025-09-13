@@ -12,6 +12,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('cashier');
 
     Route::get('pos/table-layouts/{layout}/edit', MapDesigner::class)
+        ->name('pos.table-layouts.edit')
+        ->middleware('can:update,layout');
+
+    Route::get('pos/table-layouts/{layout}', MapDesigner::class)
+        ->name('pos.table-layouts.view')
+        ->middleware('can:view,layout');
         ->name('pos.table-layouts.edit');
 
     Route::get('pos/table-layouts/{layout}', MapDesigner::class)
