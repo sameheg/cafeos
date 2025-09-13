@@ -1,11 +1,13 @@
 function registerCashierShortcuts() {
     window.Alpine.data('cashierShortcuts', () => ({
+        handler: null,
+
         register() {
+            this.handler = (event) => {
             window.addEventListener('keydown', (event) => {
                 if (event.repeat) {
                     return;
                 }
-
                 if (event.key === 'F2') {
                     event.preventDefault();
                     event.stopPropagation();
@@ -17,7 +19,15 @@ function registerCashierShortcuts() {
                     event.stopPropagation();
                     this.$dispatch('cashier-clear-cart');
                 }
-            });
+            };
+
+            window.addEventListener('keydown', this.handler);
+        },
+
+        destroy() {
+            if (this.handler) {
+                window.removeEventListener('keydown', this.handler);
+            }
         },
     }));
 }
