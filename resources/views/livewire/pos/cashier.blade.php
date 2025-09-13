@@ -1,3 +1,0 @@
-<div>
-    <!-- Cashier interface -->
-</div>
