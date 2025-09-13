@@ -18,4 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pos/table-layouts/{layout}', MapDesigner::class)
         ->name('pos.table-layouts.view')
         ->middleware('can:view,layout');
+        ->name('pos.table-layouts.edit');
+
+    Route::get('pos/table-layouts/{layout}', MapDesigner::class)
+        ->name('pos.table-layouts.view');
 });

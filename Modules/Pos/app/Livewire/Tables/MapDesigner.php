@@ -37,6 +37,22 @@ class MapDesigner extends Component
         ]);
 
         $this->layout->layout = $validated['layoutData'];
+
+class MapDesigner extends Component
+{
+    public TableLayout $layout;
+
+    public $layoutData = [];
+
+    public function mount(TableLayout $layout)
+    {
+        $this->layout = $layout;
+        $this->layoutData = $layout->layout ?? [];
+    }
+
+    public function save()
+    {
+        $this->layout->layout = $this->layoutData;
         $this->layout->save();
     }
 
